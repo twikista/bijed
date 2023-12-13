@@ -1,7 +1,7 @@
 import React from 'react'
 
 function Policy() {
-  return <div>Policy page</div>
+  return <main className='flex-1'>Policy page</main>
 }
 
 export default Policy

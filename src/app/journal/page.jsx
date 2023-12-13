@@ -1,7 +1,7 @@
 import React from 'react'
 
 function Journal() {
-  return <div>Journal page</div>
+  return <main className='flex-1'>Journal page</main>
 }
 
 export default Journal

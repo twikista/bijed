@@ -1,34 +1,29 @@
 'use client'
 
-import { usePathname } from 'next/navigation'
-import Link from 'next/link'
+import { menuItemsData } from '../static/menuitems_data'
+import MenuItem from './MenuItem'
+// import { useEffect, useState } from 'react'
 
 function Navbar() {
-  const routes = [
-    { path: '/', name: 'home' },
-    { path: '/about', name: 'about' },
-    { path: '/policy', name: 'policy' },
-    { path: '/journal', name: 'journal' },
-    { path: '/contact', name: 'contact' },
-  ]
-  const currentRoute = usePathname()
+  // const scrollCon = () => {
+  //   if (window.scrollY >= 164) {
+  //     setHang(true)
+  //   } else {
+  //     setHang(false)
+  //   }
+  //   console.log(hang)
+  // }
+
+  // useEffect(() => {
+  //   window.addEventListener('scroll', scrollCon)
+  //   return () => window.removeEventListener('scroll', scrollCon)
+  // }, [])
 
   return (
-    <nav className='w-full bg-[#993264] py-2 justify-center flex mt-1'>
-      <ul className='flex justify-between w-full max-w-md gap-4 text-xl font-semibold text-white'>
-        {routes.map((route) => (
-          <li
-            key={route.name}
-            className={
-              currentRoute === route.path
-                ? 'border-b-2 border-[#e4c97a] text-[#e4c97a] transition-all'
-                : null
-            }
-          >
-            <Link href={route.path} className='capitalize'>
-              {route.name}
-            </Link>
-          </li>
+    <nav className='bg-[#993264] justify-center flex'>
+      <ul className='relative flex justify-between w-full max-w-md gap-4 py-2 text-xl font-semibold text-white'>
+        {menuItemsData.map((menuItem) => (
+          <MenuItem key={menuItem.name} menuItem={menuItem} />
         ))}
       </ul>
     </nav>
@@ -36,3 +31,6 @@ function Navbar() {
 }
 
 export default Navbar
+
+// ? ' fixed w-full bg-[#993264] py-2 justify-center flex top-0'
+// ' w-full bg-[#993264] py-2 justify-center flex sticky top-0'

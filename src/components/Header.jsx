@@ -4,8 +4,8 @@ import Image from 'next/image'
 
 function Header() {
   return (
-    <header>
-      <div>
+    <header className='h-fit'>
+      <div className=''>
         <div className='flex items-center justify-center gap-5 pt-2 pb-1'>
           <Image
             src={unibenLogo}

@@ -1,3 +1,4 @@
+const { fontFamily } = require('tailwindcss/defaultTheme')
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
@@ -7,6 +8,14 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        nanum: ['var(--font-nanum-gothic)', fontFamily.sans],
+        fira: ['var(--font-fira-sans)', fontFamily.sans],
+      },
+      colors: {
+        primary: '#993264',
+        secondary: '#e4c97a',
+      },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':
