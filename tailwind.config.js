@@ -8,6 +8,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      screens: {
+        ms: '480px',
+      },
       fontFamily: {
         nanum: ['var(--font-nanum-gothic)', fontFamily.sans],
         fira: ['var(--font-fira-sans)', fontFamily.sans],
@@ -16,10 +19,20 @@ module.exports = {
         primary: '#993264',
         secondary: '#e4c97a',
       },
-      backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic':
-          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+      keyframes: {
+        slidedown: {
+          '0%': {
+            height: '0px',
+          },
+          '100%': {
+            height: 'fit-content',
+            display: 'none',
+            backgroundColor: 'red',
+          },
+        },
+      },
+      animation: {
+        dropdown: 'dropdown 2s  linear',
       },
     },
   },

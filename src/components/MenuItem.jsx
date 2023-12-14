@@ -1,3 +1,4 @@
+'use client'
 import { useState } from 'react'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
@@ -13,13 +14,13 @@ function MenuItem({ menuItem }) {
       key={menuItem.name}
       className={`${
         currentRoute === menuItem.url
-          ? 'border-b-2 border-secondary text-[#e4c97a] transition-all'
+          ? 'border-b-2 border-secondary text-secondary transition-all'
           : 'hover:text-secondary transition-colors'
       }`}
       onMouseEnter={() => setShowSubMenu(true)}
       onMouseLeave={() => setShowSubMenu(false)}
     >
-      {menuItem.submenu ? (
+      {menuItem.submenu && menuItem.url ? (
         <>
           <button
             type='button'
@@ -31,7 +32,7 @@ function MenuItem({ menuItem }) {
             <Link href={menuItem.url} className='capitalize'>
               {menuItem.name}
             </Link>
-            <DownArrow fill='currentColor' width='12px' height='12px' />
+            <DownArrow fill='currentColor' width='8px' height='8px' />
           </button>
           <SubMenu
             subMenuItems={menuItem.submenu}

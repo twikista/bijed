@@ -1,4 +1,4 @@
-'use client'
+// 'use client'
 
 import { menuItemsData } from '../static/menuitems_data'
 import MenuItem from './MenuItem'
@@ -20,7 +20,7 @@ function Navbar() {
   // }, [])
 
   return (
-    <nav className='bg-[#993264] justify-center flex'>
+    <nav className='bg-[#993264] justify-center hidden md:flex px-2'>
       <ul className='relative flex justify-between w-full max-w-md gap-4 py-2 text-xl font-semibold text-white'>
         {menuItemsData.map((menuItem) => (
           <MenuItem key={menuItem.name} menuItem={menuItem} />
