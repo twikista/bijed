@@ -12,8 +12,8 @@ module.exports = {
         ms: '480px',
       },
       fontFamily: {
-        nanum: ['var(--font-nanum-gothic)', fontFamily.sans],
-        fira: ['var(--font-fira-sans)', fontFamily.sans],
+        // nanum: ['var(--font-nanum-gothic)', fontFamily.sans],
+        saira: ['var(--font-saira)', fontFamily.sans],
       },
       colors: {
         primary: '#993264',
