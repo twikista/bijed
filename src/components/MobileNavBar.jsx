@@ -29,7 +29,7 @@ function MobileNavBar() {
       <div className='flex justify-end w-full px-2'>
         <button
           type='button'
-          className='px-1 py-[2px] font-semibold text-white uppercase border border-white rounded-[4px] text-sm hover:text-secondary hover:border-secondary'
+          className='px-1 py-[2px] font-semibold text-white uppercase border border-white rounded-[4px] text-sm'
           onClick={() => setShowMenu((prev) => !prev)}
         >
           {showMenu ? <HideMenuToggle /> : <ShowMenuToggle />}
@@ -37,7 +37,7 @@ function MobileNavBar() {
       </div>
       <ul
         className={`flex-col absolute top-[39px] bg-primary w-full text-white font-bold text-lg ${
-          showMenu ? 'h-fit flex py-[6px]' : 'h-0 hidden py-0'
+          showMenu ? 'h-fit flex' : 'h-0 hidden py-0'
         }`}
         ref={ref}
       >

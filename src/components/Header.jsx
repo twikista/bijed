@@ -5,7 +5,7 @@ import MobileNavBar from './MobileNavBar'
 
 function Header() {
   return (
-    <header className='h-fit'>
+    <header className='h-fit font-saira'>
       <div className=''>
         <div className='flex items-center justify-center gap-1 pt-2 pb-1 sm:gap-2 md:gap-[10px] lg:gap-5'>
           <div className='w-7 ms:w-10 md:w-14 lg:w-20 2xl:w-24 h-fit '>
@@ -19,7 +19,7 @@ function Header() {
 
           <div className=''>
             <h1 className='font-extrabold text-center uppercase text-primary text-xs ms:text-base sm:text-xl md:text-[26px] lg:text-[34px] xl:text-[44px]'>
-              benin international journal of entrepreneurship developemnt
+              benin international journal of entrepreneurship developement
               {/* &#40;BIJED&#41; */}
             </h1>
             <h3 className='text-[7px] ms:text-[9px] sm:text-xs md:text-sm lg:text-lg 2xl:text-xl font-semibold text-center text-[#cdad4e]'>

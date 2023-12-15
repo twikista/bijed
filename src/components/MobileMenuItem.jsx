@@ -21,44 +21,47 @@ function MobileMenuItem({ menuItem, showMenu, setShowMenu }) {
   return (
     <li
       key={menuItem.name}
-      className={`[&:not(:last-child)]:border-b border-b-white/[0.2] border-solid  py-1 ${
-        currentRoute === menuItem.url
-          ? ' text-secondary transition-all'
-          : 'hover:text-secondary transition-colors'
-      }`}
-      onClick={closeMenu}
+      className='[&:not(:last-child)]:border-b border-b-white/[0.2] border-solid w-full '
+      // onClick={closeMenu}
     >
       {menuItem.submenu && menuItem.url ? (
         <>
           <button
             type='button'
-            className='flex items-center gap-1 px-6 capitalize'
+            className='flex items-center justify-between w-full gap-1 px-6 py-1 capitalize'
             aria-haspopup='menu'
             aria-expanded={showSubMenu ? 'true' : 'false'}
+            onClick={toggleSubMenu}
           >
-            <Link
+            {/* <Link
               href={menuItem.url}
               className='capitalize'
               onClick={closeMenu}
-            >
-              {menuItem.name}
-            </Link>
-            <div onClick={toggleSubMenu} className=''>
+            > */}
+            <span>{menuItem.name}</span>
+            {/* </Link> */}
+            <span className='inline-block ml-1'>
               {showSubMenu ? (
-                <UpArrow width='10px' height='10px' />
+                <UpArrow width='14px' height='14px' />
               ) : (
-                <DownArrow fill='currentColor' width='10px' height='10px' />
+                <DownArrow fill='currentColor' width='14px' height='14px' />
               )}
-            </div>
+            </span>
           </button>
+
           <MobileSubMenu
             subMenuItems={menuItem.submenu}
             showSubMenu={showSubMenu}
             setShowSubMenu={setShowSubMenu}
+            closeMenu={closeMenu}
           />
         </>
       ) : (
-        <Link href={menuItem.url} className='px-6 capitalize'>
+        <Link
+          href={menuItem.url}
+          className='inline-block w-full px-6 py-1 capitalize'
+          onClick={closeMenu}
+        >
           {menuItem.name}
         </Link>
       )}
