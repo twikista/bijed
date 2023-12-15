@@ -21,7 +21,7 @@ export default function Home() {
     },
   ]
   return (
-    <main className='flex-1 w-full max-w-5xl px-4 pt-8 pb-24 mx-auto space-y-10 text-[13px] text-neutral-600 md:text-base'>
+    <main className='flex-1 w-full max-w-5xl px-4 pt-8 pb-12 md:pb-24 mx-auto space-y-10 text-[13px] text-neutral-600 md:text-base'>
       <section>
         <p className='text-justify' tabIndex={0}>
           Welcome to the official website of the Benin International Journal of

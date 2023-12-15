@@ -16,8 +16,7 @@ function Header() {
               height='auto'
             />
           </div>
-
-          <div className=''>
+          <div className='lg:space-y-2'>
             <h1 className='font-extrabold text-center uppercase text-primary text-xs ms:text-base sm:text-xl md:text-[26px] lg:text-[34px] xl:text-[44px]'>
               benin international journal of entrepreneurship developement
               {/* &#40;BIJED&#41; */}
