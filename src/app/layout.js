@@ -4,7 +4,7 @@
 //   Fira_Sans,
 //   Roboto,
 // } from 'next/font/google'
-import { roboto, saira } from '../font/font'
+import { roboto, saira, inter, cairo } from '../font/font'
 import './globals.css'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
@@ -30,8 +30,8 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang='en' className={`${roboto.className} ${saira.variable}`}>
-      <body className={'flex flex-col min-h-screen bg-slate-50'}>
+    <html lang='en' className={`${inter.className} ${saira.variable}`}>
+      <body className={'flex flex-col min-h-screen bg-slate-50 min-w-[420px]'}>
         <Header />
         {children}
         <Footer />

@@ -11,7 +11,7 @@ function MobileSubMenu({
   }
   return (
     <ul
-      className={`flex flex-col text-base font-semibold text-white bg-[#a3356a] ${
+      className={`flex flex-col text-base font-semibold text-white bg-[#c84182] ${
         showSubMenu ? 'block' : 'hidden'
       }`}
     >

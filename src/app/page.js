@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import { Book, CheckedCircle, Mouse, OpenAccess } from '@/components/Icons'
+import MainContainer from '@/components/MainContainer'
 
 export default function Home() {
   const journalObjectives = [
@@ -21,7 +22,7 @@ export default function Home() {
     },
   ]
   return (
-    <main className='flex-1 w-full max-w-5xl px-4 pt-8 pb-12 md:pb-24 mx-auto space-y-10 text-[13px] text-neutral-600 md:text-base'>
+    <MainContainer>
       <section>
         <p className='text-justify' tabIndex={0}>
           Welcome to the official website of the Benin International Journal of
@@ -36,18 +37,21 @@ export default function Home() {
           Technology, and related fields in the Management and Social Sciences.
         </p>
       </section>
-      <section>
+      <section className='space-y-3'>
         <h2 className='text-base font-bold md:text-xl font-saira text-primary'>
           Objectives of the Journal
         </h2>
         <p>
-          The objectives of the Benin Internation Journal of Entrepreneurship
+          The objectives of the Benin International Journal of Entrepreneurship
           Development includes:{' '}
         </p>
-        <ul className='pl-2 space-y-1 list-inside'>
+        <ul className='pl-2 space-y-5 list-inside'>
           {journalObjectives.map((objective) => (
-            <li key={objective.id} className='flex items-start gap-1'>
-              <CheckedCircle />
+            <li key={objective.id} className='flex items-start gap-2'>
+              <CheckedCircle
+                className='w-2 md:w-[10px] text-primary mt-[4px]'
+                fill='none'
+              />
               <span className='flex items-start flex-1'> {objective.text}</span>
             </li>
           ))}
@@ -86,8 +90,8 @@ export default function Home() {
       </section> */}
       <section className='grid grid-cols-1 grid-rows-3 gap-3 md:grid-cols-3 md:grid-rows-1'>
         <article>
-          <h3 className='flex items-center justify-center gap-1 py-2 text-xl font-bold text-white border rounded-t-lg bg-primary font-saira border-primary'>
-            <Mouse className='w-8 h-8 p-0' />
+          <h3 className='flex items-center justify-center gap-1 py-2 text-base font-bold text-white border rounded-t-lg md:text-xl bg-primary font-saira border-primary'>
+            <Mouse className='w-6 h-6 p-0 md:w-8 md:h-8' />
             <span>Submision Guide</span>
           </h3>
           <p className='px-2 py-2 border border-gray-300 rounded-b-lg'>
@@ -98,8 +102,8 @@ export default function Home() {
           </p>
         </article>
         <article>
-          <h3 className='flex items-center justify-center gap-1 py-2 text-xl font-bold text-white border rounded-t-lg bg-primary font-saira border-primary'>
-            <Book className='w-8 h-8 p-0' />
+          <h3 className='flex items-center justify-center gap-1 py-2 text-base font-bold text-white border rounded-t-lg md:text-xl bg-primary font-saira border-primary'>
+            <Book className='w-6 h-6 p-0 smd:w-8 md:h-8' />
             <span>publication Ethics</span>
           </h3>
           <p className='px-2 py-2 border border-gray-300 rounded-b-lg'>
@@ -110,8 +114,8 @@ export default function Home() {
           </p>
         </article>
         <article>
-          <h3 className='flex items-center justify-center gap-1 py-2 text-xl font-bold text-white border rounded-t-lg bg-primary font-saira border-primary'>
-            <OpenAccess className='w-8 h-8 text-white ' />
+          <h3 className='flex items-center justify-center gap-1 py-2 text-base font-bold text-white border rounded-t-lg md:text-xl bg-primary font-saira border-primary'>
+            <OpenAccess className='w-6 h-6 p-0 text-white md:w-8 md:h-8' />
             <span className=''>Open Access</span>
           </h3>
           <p className='px-2 py-2 border border-gray-300 rounded-b-lg'>
@@ -122,6 +126,6 @@ export default function Home() {
           </p>
         </article>
       </section>
-    </main>
+    </MainContainer>
   )
 }

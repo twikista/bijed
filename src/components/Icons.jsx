@@ -1,18 +1,12 @@
 export const CheckedCircle = (props) => (
-  <svg
-    viewBox='0 0 24 24'
-    fill='none'
-    xmlns='http://www.w3.org/2000/svg'
-    {...props}
-    className='w-3 md:w-4 text-primary mt-[4px]'
-  >
+  <svg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg' {...props}>
     <path
       d='M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z'
       stroke='currentColor'
       strokeWidth={3}
       strokeLinecap='round'
       strokeLinejoin='round'
-      //   fill='currentColor'
+      // fill='currentColor'
     />
   </svg>
 )
@@ -56,5 +50,33 @@ export const Mouse = (props) => (
       fill='currentColor'
       fillRule='evenodd'
     />
+  </svg>
+)
+
+export const CreativeCommonGeneral = (props) => (
+  <svg
+    width={64}
+    height={64}
+    viewBox='0 0 24 24'
+    xmlns='http://www.w3.org/2000/svg'
+    {...props}
+    fill='currentColor'
+  >
+    <path fill='none' d='M0 0h24v24H0z' />
+    <path d='m11.89 10.34-1.34.7a1.34 1.34 0 0 0-.52-.63 1.21 1.21 0 0 0-.58-.18c-.9 0-1.34.59-1.34 1.77a2.17 2.17 0 0 0 .34 1.29 1.13 1.13 0 0 0 1 .48 1.23 1.23 0 0 0 1.23-.86l1.23.63a2.95 2.95 0 0 1-2.62 1.57 2.93 2.93 0 0 1-2.17-.82A3.1 3.1 0 0 1 6.3 12a3.08 3.08 0 0 1 .83-2.26 2.85 2.85 0 0 1 2.1-.84 2.78 2.78 0 0 1 2.66 1.44m5.77 0-1.32.7a1.48 1.48 0 0 0-.53-.63 1.21 1.21 0 0 0-.6-.18c-.89 0-1.34.59-1.34 1.77a2.32 2.32 0 0 0 .34 1.29 1.15 1.15 0 0 0 1 .48 1.24 1.24 0 0 0 1.24-.86l1.25.63a3.14 3.14 0 0 1-1.11 1.15 2.9 2.9 0 0 1-1.52.42 2.91 2.91 0 0 1-2.17-.82 3.09 3.09 0 0 1-.81-2.29 3.08 3.08 0 0 1 .83-2.26A2.8 2.8 0 0 1 15 8.9a2.75 2.75 0 0 1 2.66 1.44M12 3.5A8.5 8.5 0 1 1 3.5 12 8.51 8.51 0 0 1 12 3.5M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2Z' />
+  </svg>
+)
+
+export const CreativeCommonBy = (props) => (
+  <svg
+    width={64}
+    height={64}
+    viewBox='0 0 24 24'
+    xmlns='http://www.w3.org/2000/svg'
+    {...props}
+    fill='currentColor'
+  >
+    <path fill='none' d='M0 0h24v24H0z' />
+    <path d='M12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2zm0 2a8 8 0 1 0 0 16 8 8 0 0 0 0-16zm2 6a1 1 0 0 1 1 1v4h-1.5v4h-3v-4H9v-4a1 1 0 0 1 1-1h4zm-2-5a2 2 0 1 1 0 4 2 2 0 0 1 0-4z' />
   </svg>
 )

@@ -1,10 +1,11 @@
 import { menuItemsData } from '@/static/menuitems_data'
 import Link from 'next/link'
+import { CreativeCommonBy, CreativeCommonGeneral } from './Icons'
 
 function Footer() {
   const currentYear = new Date().getFullYear()
   return (
-    <footer className='bg-[#993264] text-white  '>
+    <footer className='bg-[#993264] text-white text-[13px] sm:text-base'>
       <div className='w-full max-w-5xl px-4 py-8 mx-auto space-y-5'>
         <div className='grid justify-between grid-cols-2 gap-5 mx-auto md:grid-cols-4 font-saira'>
           {menuItemsData.map((menuItem) =>
@@ -39,14 +40,43 @@ function Footer() {
         </div>
         <div className='h-[1px] bg-secondary/50' />
         <div className='flex flex-col items-center'>
-          <div className='w-[320px] text-center'>
-            <div className=''>
+          <div className='text-center '>
+            <div className='flex items-center '>
               <span>&copy;{currentYear}</span>
               <span>&nbsp;</span>
               <span className='font-bold uppercase'>bijed</span>
+              <span>&nbsp;&#124;&nbsp;</span>
+              <span className='text-left'>
+                Licensed under a{' '}
+                <a
+                  href='https://creativecommons.org/licenses/by/4.0/'
+                  className='inline-block font-semibold underline'
+                >
+                  CC BY 4.0
+                </a>
+              </span>
+              <span className='flex ml-1 border border-white p-[2px] rounded-[4px]'>
+                <CreativeCommonGeneral className='w-5 h-5' />
+                <CreativeCommonBy className='w-5 h-5' />
+              </span>
             </div>
+            {/* <div className='flex'>
+              <span>
+                Content on this site is licensed under a{' '}
+                <a
+                  href='https://creativecommons.org/licenses/by/4.0/'
+                  className='underline'
+                >
+                  Creative Commons Attribution 4.0 International license
+                </a>
+              </span>
+              <span className='flex border border-white'>
+                <CreativeCommonGeneral className='w-5 h-5' />
+                <CreativeCommonBy className='w-5 h-5' />
+              </span>
+            </div> */}
             <div>
-              <span>Powered by e-Novative technologies</span>
+              <span className=''>Powered by e-Novative technologies</span>
             </div>
           </div>
         </div>
