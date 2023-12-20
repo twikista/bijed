@@ -86,7 +86,7 @@ function Terms() {
       </section>
       <section className=''>
         <h3 className='mb-2 text-base font-bold capitalize font-saira md:text-xl'>
-          3.0: Create Common Licence
+          3.0: Creative Common Licence
         </h3>
         <p>
           Articles published in Benin International journal of Entrepreneurship
@@ -97,8 +97,8 @@ function Terms() {
           >
             Creative Commons Attribution 4.0 International License,
           </a>{' '}
-          which permits use, which permits use, distribution and reproduction in
-          any medium, provided the original work is properly cited.
+          which permits use, distribution and reproduction in any medium,
+          provided the original work is properly cited.
         </p>
       </section>
     </MainContainer>
