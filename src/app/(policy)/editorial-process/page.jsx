@@ -2,16 +2,19 @@ import MainContainer from '@/components/MainContainer'
 import { CheckedCircle } from '@/components/Icons'
 
 export const metadata = {
-  title: 'BIJED | Editorial policy',
-  description: 'This page contains ',
+  title:
+    'Editorial Process - Benin International Journal for Entrepreneurship Development',
+  description:
+    'This page contains the editorial process for the Benin International Journal for Entrepreneurship Development.',
 }
 
-function EditorialPolicy() {
+function EditorialProcess() {
   return (
     <MainContainer>
       <h2 className='text-2xl font-bold underline uppercase font-saira'>
-        Editorial Policy
+        Editorial Process
       </h2>
+
       <section className='space-y-3'>
         <h3 className='text-base font-bold capitalize font-saira md:text-xl'>
           Article Submission
@@ -103,10 +106,9 @@ function EditorialPolicy() {
               fill='none'
             />
             <p className='flex-1'>
-              All submitted articles to BIJED shall be blind peer review by both
-              Internal and External Reviewers. Reviewers shall be selected based
-              on their qualifications, expertise and experiences on the area of
-              coverage of the paper to be reviewed.
+              All articles submitted to BIJED go through a double-blind peer
+              review process. The articles will be reviewed by both Internal and
+              External Reviewers.
             </p>
           </li>
           <li className='flex items-start gap-2'>
@@ -154,10 +156,10 @@ function EditorialPolicy() {
             />
             <p className='flex-1'>
               The final review is conducted by members of the Editorial Board,
-              headed by the Chief Editor. At the end of the final review, the
-              corresponding author will be notified of the Editorial Decision
-              and Status of the manuscript - Acceptance, Rejection or
-              Recommendation for further work.
+              headed by the Chief Editor. The final review will resuit in an
+              editorial decision which may be the acceptance or rejection of the
+              manuscript, or recommendation for further work. The corresponding
+              author will be notified of the Editorial Decision.
             </p>
           </li>
         </ul>
@@ -184,36 +186,7 @@ function EditorialPolicy() {
           </ol>
         </div>
       </section>
-      <section className='space-y-3'>
-        <h3 className='text-base font-bold capitalize font-saira md:text-xl'>
-          Correction of Articles
-        </h3>
-        <ul className='ml-2 space-y-5 md:ml-4'>
-          <li className='flex items-start gap-2'>
-            <CheckedCircle
-              className='w-2 md:w-[10px] text-neutral-700 mt-[4px]'
-              fill='none'
-            />
-            <p className='flex-1'>
-              Author(s) cannot make major corrections or changes to manuscripts
-              already accepted for publication. Hence, it is important for
-              authors to carefully complete their research work before
-              submitting to BIJED.
-            </p>
-          </li>
-          <li className='flex items-start gap-2'>
-            <CheckedCircle
-              className='w-2 md:w-[10px] text-neutral-700 mt-[4px]'
-              fill='none'
-            />
-            <p className='flex-1'>
-              Errors discovered after submission but before approval for
-              publication by the Author(s) should be communicated swiftly to the
-              Editor of the Journal before the end of the review process.
-            </p>
-          </li>
-        </ul>
-      </section>
+
       <section className='space-y-3'>
         <h3 className='text-base font-bold capitalize font-saira md:text-xl'>
           Article Publication
@@ -235,25 +208,8 @@ function EditorialPolicy() {
               fill='none'
             />
             <p>
-              The Benin International Journal for Entrepreneurship Developement
-              is published biannually in June and December.
-            </p>
-          </li>
-        </ul>
-      </section>
-      <section className='space-y-3'>
-        <h3 className='text-base font-bold capitalize font-saira md:text-xl'>
-          Article Publication
-        </h3>
-        <ul className='ml-2 space-y-5 md:ml-4'>
-          <li className='flex items-start gap-2'>
-            <CheckedCircle
-              className='w-2 md:w-[10px] text-neutral-700 mt-[4px]'
-              fill='none'
-            />
-            <p>
-              Only submitted articles approved by the editors, as guided by the
-              policies of the journal will be published.
+              Articles are published both in soft copies (online) and hard
+              copies.
             </p>
           </li>
           <li className='flex items-start gap-2'>
@@ -268,35 +224,11 @@ function EditorialPolicy() {
           </li>
         </ul>
       </section>
-      <section className='space-y-3'>
-        <h3 className='text-base font-bold capitalize font-saira md:text-xl'>
-          Confidentiality
-        </h3>
-        <p>
-          Manuscript submitted to BIJED will be treated as confidential
-          material, and will be disclosed only to individuals (including
-          editorial staff, corresponding authors, potential reviewers, actual
-          reviewers, and editors) who partake in the processing and preparation
-          of the manuscript for possible publication. However, in suspected
-          cases of misconduct, a manuscript may be revealed to members of the
-          BIJED ethics committee and institutions/organizations that may require
-          it for the resolution of the misconduct.
-        </p>
-      </section>
-      <section className='space-y-3'>
-        <h3 className='text-base font-bold capitalize font-saira md:text-xl'>
-          Misconduct
-        </h3>
-        <p>
-          Any action, behaviour or conduct (including the violation of any part
-          of BIJED editorial policy, journal policies, publication ethics, and
-          any applicable guidelines/policies specified by BIJED) will constitue
-          misconduct. All suspected cases of misconduct will be investigated and
-          appropriate actions taken where necessary.
-        </p>
-      </section>
+      <div className='py-1 pl-2 border-l-4 solid border-l-primary'>
+        <p className='font-bold'>Article review takes between 4 to 8 weeks</p>
+      </div>
     </MainContainer>
   )
 }
 
-export default EditorialPolicy
+export default EditorialProcess

@@ -4,7 +4,7 @@ export const menuItemsData = [
     name: 'about',
     url: '/about',
     submenu: [
-      // { name: 'Editor in Chief', url: 'editor-in-chief' },
+      { name: 'Journal', url: 'journal' },
       { name: 'Editorial Board', url: 'editorial-board' },
       { name: 'Peer Review', url: 'peer-review' },
       { name: 'Reviewers Guide', url: 'reviewers-guide' },
@@ -18,7 +18,7 @@ export const menuItemsData = [
       // { name: 'Copyright', url: 'copyright' },
       // { name: 'Plagiarism', url: 'plagiarism' },
       { name: 'Terms', url: 'terms' },
-      { name: 'Editorial Policy', url: 'editorial-policy' },
+      { name: 'Editorial Process', url: 'editorial-process' },
       { name: 'Publication Ethics', url: 'publication-ethics' },
     ],
   },
