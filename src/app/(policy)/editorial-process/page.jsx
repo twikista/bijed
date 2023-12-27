@@ -181,12 +181,15 @@ function EditorialProcess() {
               related to manuscript review should be sent to{' '}
               <span className='font-bold'>entrepreneurshipdept@uniben.edu</span>
               , copying the managing editor at{' '}
-              <span className='font-bold'>edwin.enofe@uniben.edu</span>. .
+              <span className='font-bold'>edwin.enofe@uniben.edu</span>.
+            </li>
+            <li className=''>
+              Article review takes between{' '}
+              <span className='font-bold'>4 to 8 weeks</span>
             </li>
           </ol>
         </div>
       </section>
-
       <section className='space-y-3'>
         <h3 className='text-base font-bold capitalize font-saira md:text-xl'>
           Article Publication
@@ -224,9 +227,9 @@ function EditorialProcess() {
           </li>
         </ul>
       </section>
-      <div className='py-1 pl-2 border-l-4 solid border-l-primary'>
+      {/* <div className='py-1 pl-2 border-l-4 solid border-l-primary'>
         <p className='font-bold'>Article review takes between 4 to 8 weeks</p>
-      </div>
+      </div> */}
     </MainContainer>
   )
 }

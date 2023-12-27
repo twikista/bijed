@@ -26,6 +26,17 @@ export const metadata = {
   title: 'BIJED - Benin International Journal of Entrepreneurship Development',
   description:
     'The Benin International Journal of Entrepreneurship Development (BIJED) is a publication of the Department of Entrepreneurship, Faculty of Management Sciences, University of Benin, Benin city, Nigeria.',
+  keyword: [
+    'Academic',
+    'journal',
+    'academic journal',
+    'International journal',
+    'entrepreneurship',
+    'development',
+    'university of benin',
+    'Benin International Journal of Entrepreneurship Development',
+    'BIJED',
+  ],
 }
 
 export default function RootLayout({ children }) {

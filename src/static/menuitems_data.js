@@ -4,10 +4,9 @@ export const menuItemsData = [
     name: 'about',
     url: '/about',
     submenu: [
-      { name: 'Journal', url: 'journal' },
+      { name: 'About us', url: 'about-us' },
       { name: 'Editorial Board', url: 'editorial-board' },
       { name: 'Peer Review', url: 'peer-review' },
-      { name: 'Reviewers Guide', url: 'reviewers-guide' },
     ],
   },
   {
@@ -16,10 +15,11 @@ export const menuItemsData = [
     submenu: [
       // { name: 'Open Access', url: 'open-access' },
       // { name: 'Copyright', url: 'copyright' },
-      // { name: 'Plagiarism', url: 'plagiarism' },
       { name: 'Terms', url: 'terms' },
-      { name: 'Editorial Process', url: 'editorial-process' },
       { name: 'Publication Ethics', url: 'publication-ethics' },
+      { name: 'Authors Guide', url: 'authors-guide' },
+      { name: 'Reviewers Guide', url: 'reviewers-guide' },
+      { name: 'Plagiarism Policy', url: 'plagiarism-policy' },
     ],
   },
   {
@@ -28,7 +28,7 @@ export const menuItemsData = [
     submenu: [
       { name: 'Current', url: 'current' },
       { name: 'Archive', url: 'archive' },
-      { name: 'Authors Guide', url: 'authors-guide' },
+      { name: 'Editorial Process', url: 'editorial-process' },
       { name: 'Submission Guide', url: 'submission-guide' },
       { name: 'Manuscript Format', url: 'manuscript-format' },
       { name: 'Publication Fee', url: 'publication-fee' },

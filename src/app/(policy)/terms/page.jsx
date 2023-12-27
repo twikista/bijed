@@ -18,7 +18,7 @@ function Terms() {
           1.0: copyright
         </h3>
         <ul className='ml-2 space-y-5 md:ml-4'>
-          <li className='flex items-start gap-2'>
+          {/* <li className='flex items-start gap-2'>
             <CheckedCircle
               className='w-2 md:w-[10px] text-neutral-700 mt-[4px]'
               fill='none'
@@ -26,18 +26,21 @@ function Terms() {
             <p className='flex-1'>
               Copyright for all open access articles published in BIJED is
               retained by the respective author&#40;s&#41;.
-              {/* Consequently, the authors retain all
-              publication and redistribution rights without restrictions. */}
+              Consequently, the authors retain all
+              publication and redistribution rights without restrictions.
             </p>
-          </li>
+          </li> */}
           <li className='flex items-start gap-2'>
             <CheckedCircle
               className='w-2 md:w-[10px] text-neutral-700 mt-[4px]'
               fill='none'
             />
             <p className='flex-1'>
-              Authors grant publishing and distribution rights to the publisher,
-              including the right to publish the article on BIJED’s website.
+              By submitting their articles to BIJED, authors grant copyright
+              (including the rights to publish and distribute such articles upon
+              approval) to the Publisher.
+              {/* grant publishing and distribution rights to the publisher,
+              including the right to publish the article on BIJED’s website. */}
             </p>
           </li>
           <li className='flex items-start gap-2'>
@@ -50,7 +53,7 @@ function Terms() {
               share the published articles under the terms of the{' '}
               <a
                 href='https://creativecommons.org/licenses/by/4.0/'
-                className='underline'
+                className='underline hover:text-blue-500'
               >
                 Creative Commons Attribution 4.0 International License.
               </a>
@@ -93,7 +96,7 @@ function Terms() {
           Development are licenced under a{' '}
           <a
             href='https://creativecommons.org/licenses/by/4.0/'
-            className='underline'
+            className='underline hover:text-blue-500'
           >
             Creative Commons Attribution 4.0 International License,
           </a>{' '}
