@@ -6,19 +6,19 @@ export default function Home() {
   const journalObjectives = [
     {
       id: 1,
-      text: 'To provide a platform for scholars to share research knowledge and skills in all in all areas of entrepreneurship, Innovation, Technology, and related fields in the Management and Social Sciences.',
+      text: 'provide a platform for scholars to share research knowledge and skills in all in all areas of entrepreneurship, Innovation, Technology, and related fields in the Management and Social Sciences.',
     },
     {
       id: 2,
-      text: 'To serve as knowledge bank to both academics and organizations (industries) in Entrepreneurship Education Development and Management.',
+      text: 'serve as knowledge bank to both academics and organizations (industries) in Entrepreneurship Education Development and Management.',
     },
     {
       id: 3,
-      text: 'To contribute to existing knowledge by critically analyzing contemporary issues, problems and challenges in Entrepreneurship from a multidisciplinary perspective with suggestions/recommendations for possible solutions and improvement.',
+      text: 'contribute to existing knowledge by critically analyzing contemporary issues, problems and challenges in Entrepreneurship from a multidisciplinary perspective with suggestions/recommendations for possible solutions and improvement.',
     },
     {
       id: 4,
-      text: 'To strongly enhance the contribution of knowledge for the existing entrepreneurial practice in Nigeria and globally, with a view to improving and ensuring optimal and excellent continuous practice in entrepreneurship development.',
+      text: 'strongly enhance the contribution of knowledge for the existing entrepreneurial practice in Nigeria and globally, with a view to improving and ensuring optimal and excellent continuous practice in entrepreneurship development.',
     },
   ]
   return (
@@ -28,22 +28,21 @@ export default function Home() {
           Welcome to the official website of the Benin International Journal of
           Entrepreneurship Development &#40;BIJED&#41;, a publication of the
           Department of Entrepreneurship, Faculty of management Sciences,
-          University of Benin, Benin city, Nigeria. BIJED seeks to expound the
+          University of Benin, Benin city, Nigeria. BIJED seeks to advance the
           frontiers of knowledge in the field of Entreneurship by publsihing
-          high quality and well researched articles, with significant
-          entrepreneurial applications in the academics sphere and in the wider
-          social, and economic environments. The Journal is Open Access and
-          covers researches in all areas of entrepreneurship, Innovation,
-          Technology, and related fields in the Management and Social Sciences.
+          high quality and well researched articles, that have significant
+          applications in the academics sphere and in the wider social, and
+          economic environments. The Journal operates the Open Access model. It
+          is published bi-annualy in June, and December every year.
         </p>
       </section>
       <section className='space-y-3'>
         <h2 className='text-base font-bold md:text-xl font-saira text-primary'>
-          Objectives of the Journal
+          Aim of the Journal
         </h2>
         <p>
-          The objectives of the Benin International Journal of Entrepreneurship
-          Development includes:{' '}
+          The Benin International Journal of Entrepreneurship Development aim
+          to:{' '}
         </p>
         <ul className='pl-2 space-y-5 list-inside'>
           {journalObjectives.map((objective) => (
@@ -56,6 +55,16 @@ export default function Home() {
             </li>
           ))}
         </ul>
+      </section>
+      <section className='space-y-3'>
+        <h2 className='text-base font-bold md:text-xl font-saira text-primary'>
+          Scope of the Journal
+        </h2>
+        <p>
+          The Benin International Journal of Entrepreneurship Development covers
+          researches in all areas of entrepreneurship, Innovation, Technology,
+          and related fields in the Management and Social Sciences.
+        </p>
       </section>
       {/* <section className='md:w-[85%]'>
         <h3 className='py-1 font-bold text-white rounded-t-lg bg-primary'>

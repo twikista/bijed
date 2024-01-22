@@ -7,7 +7,7 @@ function Footer() {
   return (
     <footer className='bg-[#993264] text-white text-[13px] sm:text-base'>
       <div className='w-full max-w-5xl px-4 py-8 mx-auto space-y-5'>
-        <div className='grid justify-between grid-cols-2 gap-5 mx-auto md:grid-cols-4 font-saira'>
+        <div className='grid justify-between grid-cols-2 gap-5 mx-auto md:grid-cols-3 font-saira'>
           {menuItemsData.map((menuItem) =>
             menuItem.submenu ? (
               <div key={menuItem.name}>
@@ -42,9 +42,9 @@ function Footer() {
         <div className='flex flex-col items-center'>
           <div className='text-center '>
             <div className='flex items-center '>
-              <span>&copy;{currentYear}</span>
+              <span className='uppercase'>&copy;bijed</span>
               <span>&nbsp;</span>
-              <span className='font-bold uppercase'>bijed</span>
+              <span>{currentYear}</span>
               <span>&nbsp;&#124;&nbsp;</span>
               <span className='text-left'>
                 Licensed under a{' '}

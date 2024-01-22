@@ -20,5 +20,6 @@ export const inter = Inter({
 
 export const cairo = Cairo({
   subsets: ['latin'],
+  variable: '--font-cairo',
   display: 'swap',
 })

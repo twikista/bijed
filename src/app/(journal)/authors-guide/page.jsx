@@ -1,5 +1,11 @@
 import MainContainer from '@/components/MainContainer'
-import { CheckedCircle } from '@/components/Icons'
+
+export const metadata = {
+  title:
+    'Authors guide - Benin International Journal for Entrepreneurship Development',
+  description:
+    'This page contains the authors for the Benin International Journal for Entrepreneurship Development.',
+}
 
 function AuthorsGuide() {
   return (
@@ -72,7 +78,7 @@ function AuthorsGuide() {
         </p>
       </section>
       <section className='space-y-3'>
-        <h3 className='text-base font-bold capitalize font-saira md:text-xl'>
+        <h3 className='text-base font-bold font-saira md:text-xl'>
           Editorial Process and Peer Review
         </h3>
         <p>
@@ -90,6 +96,12 @@ function AuthorsGuide() {
           originality of material, clarity of presentation, and relevance to the
           focus of the Journal
         </p>
+      </section>
+      <section className='space-y-3'>
+        <h3 className='text-base font-bold capitalize font-saira md:text-xl'>
+          Language
+        </h3>
+        <p>Paper submitted for publication should be written in English..</p>
       </section>
       <section className='space-y-3'>
         <h3 className='text-base font-bold capitalize font-saira md:text-xl'>
@@ -128,33 +140,34 @@ function AuthorsGuide() {
         <h3 className='text-base font-bold font-saira md:text-xl'>
           Publication Fees
         </h3>
-        <div>
-          <h4 className='text-base font-semibold md:text-lg font-saira'>
-            Nigerian Authors:
-          </h4>
-          <div className='ml-2 space-y-1 md:ml-4'>
-            <p>
-              Article submission fee{' '}
-              <em>&#40;mandatory &amp; non-reundable&#41;</em>: &#8358;5,000
-            </p>
-            <p>Article publication fee: &#8358;25,000 upon acceptance</p>
-            <p className='font-medium'>Total publication fee: &#8358;30,000</p>
+        <article>
+          <div>
+            <h4 className='text-base font-semibold md:text-lg font-saira'>
+              Nigerian Authors:
+            </h4>
+            <div className='ml-2 space-y-1 md:ml-4'>
+              <p>Article submission fee: &#8358;5,000&#42;</p>
+              <p>
+                Article publication fee: &#8358;20,000 &#40;upon acceptance&#41;
+              </p>
+              <p className='font-medium'>
+                Total publication fee: &#8358;25,000
+              </p>
+            </div>
           </div>
-        </div>
-        <div>
-          <h4 className='text-base font-semibold md:text-lg font-saira'>
-            International Authors:
-          </h4>
-          <div className='ml-2 space-y-1 md:ml-4'>
-            <p>
-              Article submission fee
-              <em>&#40;mandatory &amp; non-reundable&#41;</em>:&#32; &#36;10
-              upon submission
-            </p>
-            <p>Article publication fee: &#36;90 upon acceptance</p>
-            <p className='font-medium'>Total publication fee: &#36;100</p>
+          <div>
+            <h4 className='text-base font-semibold md:text-lg font-saira'>
+              International Authors:
+            </h4>
+            <div className='ml-2 space-y-1 md:ml-4'>
+              <p>Article submission fee:&#32; &#36;10&#42;</p>
+              <p>Article publication fee: &#36;90 &#40;upon acceptance&#41;</p>
+              <p className='font-medium'>Total publication fee: &#36;100</p>
+            </div>
           </div>
-        </div>
+          <br />
+          <p>&#42; Article submission fee is mandatory and non-refundable</p>
+        </article>
       </section>
     </MainContainer>
   )

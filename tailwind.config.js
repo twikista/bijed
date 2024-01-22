@@ -14,6 +14,7 @@ module.exports = {
       fontFamily: {
         // nanum: ['var(--font-nanum-gothic)', fontFamily.sans],
         saira: ['var(--font-saira)', fontFamily.sans],
+        cairo: ['var(--font-cairo)', fontFamily.sans],
       },
       colors: {
         primary: '#993264',

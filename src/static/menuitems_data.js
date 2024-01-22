@@ -1,14 +1,15 @@
 export const menuItemsData = [
   { name: 'Home', url: '/' },
-  {
-    name: 'about',
-    url: '/about',
-    submenu: [
-      { name: 'About us', url: 'about-us' },
-      { name: 'Editorial Board', url: 'editorial-board' },
-      { name: 'Peer Review', url: 'peer-review' },
-    ],
-  },
+  { name: 'Editorial Board', url: '/editorial-board' },
+  // {
+  //   name: 'about',
+  //   url: '/about',
+  //   submenu: [
+  //     { name: 'Aim and Scope', url: 'aim-scope' },
+  //     { name: 'Editorial Board', url: 'editorial-board' },
+  //     { name: 'Peer Review', url: 'peer-review' },
+  //   ],
+  // },
   {
     name: 'policy',
     url: '/policy',
@@ -20,6 +21,7 @@ export const menuItemsData = [
       { name: 'Authors Guide', url: 'authors-guide' },
       { name: 'Reviewers Guide', url: 'reviewers-guide' },
       { name: 'Plagiarism Policy', url: 'plagiarism-policy' },
+      { name: 'Peer Review', url: 'peer-review' },
     ],
   },
   {
