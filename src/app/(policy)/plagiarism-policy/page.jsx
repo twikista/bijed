@@ -1,0 +1,25 @@
+import MainContainer from '@/components/MainContainer'
+import { CheckedCircle } from '@/components/Icons'
+
+function PlagiarismPolicy() {
+  return (
+    <MainContainer>
+      <h2 className='text-2xl font-bold underline capitalize font-saira'>
+        Plagiarism policy page
+      </h2>
+      <p>
+        BIJED consider plagiarism and other forms of copyright infringements as
+        serious academic offenses. Hence, this journal is committed to ensuring
+        that articles approved for publication are free from copyright issues.
+      </p>
+      <p>
+        To ensure compliance with our plagiarism ploicy, all submitted
+        manuscripts will be subjected to plagiarism test to ascertain their
+        originality. Manuscripts with a Similarity Index of more than 15 percent
+        will be dropped.
+      </p>
+    </MainContainer>
+  )
+}
+
+export default PlagiarismPolicy
