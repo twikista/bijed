@@ -28,14 +28,14 @@ function Footer() {
             <h3 className='text-base font-bold capitalize md:text-lg'>
               Contact
             </h3>
-            <ul>
-              <li>
-                <span>Email:bejid@uniben.edu</span>
-              </li>
-              <li>
-                <span>Tel:+2349011990518</span>
-              </li>
-            </ul>
+            <div>
+              <p>Depatrment of Entreprenuership,</p>
+              <p>Faculty of Management Sciences,</p>
+              <p>University of Benin, </p>
+              <p>Benin City &#45; Nigeria.</p>
+              <p>Tel:+2349011990518</p>
+              <p>Email:bijed@uniben.edu</p>
+            </div>
           </div>
         </div>
         <div className='h-[1px] bg-secondary/50' />

@@ -1,4 +1,4 @@
-import Image from 'next/image'
+import Link from 'next/link'
 import { Book, CheckedCircle, Mouse, OpenAccess } from '@/components/Icons'
 import MainContainer from '@/components/MainContainer'
 
@@ -21,10 +21,12 @@ export default function Home() {
       text: 'strongly enhance the contribution of knowledge for the existing entrepreneurial practice in Nigeria and globally, with a view to improving and ensuring optimal and excellent continuous practice in entrepreneurship development.',
     },
   ]
+
+  const truncateText = (text, length) => `${text.substring(0, length)}...`
   return (
     <MainContainer>
       <section>
-        <p className='text-justify' tabIndex={0}>
+        <p className='text-justify'>
           Welcome to the official website of the Benin International Journal of
           Entrepreneurship Development &#40;BIJED&#41;, a publication of the
           Department of Entrepreneurship, Faculty of management Sciences,
@@ -97,41 +99,60 @@ export default function Home() {
           </li>
         </ul>
       </section> */}
-      <section className='grid grid-cols-1 grid-rows-3 gap-3 md:grid-cols-3 md:grid-rows-1'>
-        <article>
+      <section className='grid grid-cols-1 grid-rows-3 gap-3 md:grid-cols-3 md:'>
+        <article className='flex flex-col'>
           <h3 className='flex items-center justify-center gap-1 py-2 text-base font-bold text-white border rounded-t-lg md:text-xl bg-primary font-saira border-primary'>
             <Mouse className='w-6 h-6 p-0 md:w-8 md:h-8' />
             <span>Submision Guide</span>
           </h3>
-          <p className='px-2 py-2 border border-gray-300 rounded-b-lg'>
-            To strongly enhance the contribution of knowledge for the existing
-            entrepreneurial practice in Nigeria and globally, with a view to
-            improving and ensuring optimal and excellent continuous practice in
-            entrepreneurship development.
-          </p>
+          <div className='flex-1'>
+            <p className='p-[10px] border border-gray-300 rounded-b-lg'>
+              {truncateText(
+                'The Benin International Journal of Entrepreneurship Development (BIJED) shall welcome articles from various authors on issues relating to entrepreneurship education, development and management in academics, industry and government.',
+                196
+              )}
+              <Link
+                href='/submission-guide'
+                className='text-blue-600 hover:underline'
+              >
+                read more
+              </Link>
+            </p>
+          </div>
         </article>
-        <article>
+        <article className='flex flex-col border border-red-500'>
           <h3 className='flex items-center justify-center gap-1 py-2 text-base font-bold text-white border rounded-t-lg md:text-xl bg-primary font-saira border-primary'>
             <Book className='w-6 h-6 p-0 smd:w-8 md:h-8' />
             <span>publication Ethics</span>
           </h3>
-          <p className='px-2 py-2 border border-gray-300 rounded-b-lg'>
-            To strongly enhance the contribution of knowledge for the existing
-            entrepreneurial practice in Nigeria and globally, with a view to
-            improving and ensuring optimal and excellent continuous practice in
-            entrepreneurship development.
-          </p>
+          <div className='flex-1'>
+            <p className='p-[10px] border border-gray-300 rounded-b-lg'>
+              {truncateText(
+                'Benin International Journal for Entrepreneurship Development is committed to upholding and promoting best ethical practices in the publication of scholarly articles. To this end, BIJED follows the ethical practices and guidlines outlined by the',
+                196
+              )}
+              <Link
+                href='/publication-ethics'
+                className='text-blue-600 hover:underline'
+              >
+                read more
+              </Link>
+            </p>
+          </div>
         </article>
         <article>
           <h3 className='flex items-center justify-center gap-1 py-2 text-base font-bold text-white border rounded-t-lg md:text-xl bg-primary font-saira border-primary'>
             <OpenAccess className='w-6 h-6 p-0 text-white md:w-8 md:h-8' />
             <span className=''>Open Access</span>
           </h3>
-          <p className='px-2 py-2 border border-gray-300 rounded-b-lg'>
-            To strongly enhance the contribution of knowledge for the existing
-            entrepreneurial practice in Nigeria and globally, with a view to
-            improving and ensuring optimal and excellent continuous practice in
-            entrepreneurship development.
+          <p className='p-[10px] border border-gray-300 rounded-b-lg'>
+            {truncateText(
+              'All articles published in Benin International journal of Entrepreneurship Development are published under the Open Access Model, making them immediately available to read, download, and share for free after publication.',
+              196
+            )}
+            <Link href='/open-access' className='text-blue-600 hover:underline'>
+              read more
+            </Link>
           </p>
         </article>
       </section>

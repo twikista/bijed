@@ -4,30 +4,11 @@ import { CheckedCircle } from '@/components/Icons'
 function ReviewersGuide() {
   return (
     <MainContainer>
-      <h2 className='text-2xl font-bold underline capitalize font-saira'>
-        Reviewer Guidelines
-      </h2>
       <section className='space-y-3'>
-        <h3 className='text-base font-bold font-saira md:text-xl'>
-          Purpose of Peer Review
-        </h3>
-        <p className='flex-1'>
-          Peer Review provides a collaborative process which allows for an
-          objective evaluation of submitted manuscripts/articles. It provides
-          authors with feedback to better improve their work, allows the editor
-          to critically assess a paper&#39;s suitability for publication, and
-          help to ensure published research is accurate, trustworthy, and meets
-          the highest standards of research within a given field. Thus, Peer
-          Review is one of the most critical elements of scholarly publishing.
-        </p>
         <p>
-          BIJED places a high premiuim on an effective, unbiased, and
-          independent review process that ensures high quality research outputs.
-          Hence, BIJED uses a double-blind peer review option which ensures that
-          authors remain anonymous to the reviewers throughout the peer-review
-          process and vice versa. This guide outlines the steps and expectations
-          required for BIJED reviewers to carry out their work effectively and
-          efficiently as possible.
+          This guide outlines the steps and expectations required for BIJED
+          reviewers to carry out their work effectively and efficiently as
+          possible.
         </p>
       </section>
 

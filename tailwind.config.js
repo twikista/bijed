@@ -35,6 +35,12 @@ module.exports = {
       animation: {
         dropdown: 'dropdown 2s  linear',
       },
+      listStyleType: {
+        'lower-alpha': 'lower-alpha',
+        'upper-alpha': 'upper-alpha',
+        'upper-roman': 'upper-roman',
+        'lower-roman': 'lower-roman',
+      },
     },
   },
   plugins: [],

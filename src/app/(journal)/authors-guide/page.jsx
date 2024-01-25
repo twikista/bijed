@@ -148,10 +148,10 @@ function AuthorsGuide() {
             <div className='ml-2 space-y-1 md:ml-4'>
               <p>Article submission fee: &#8358;5,000&#42;</p>
               <p>
-                Article publication fee: &#8358;20,000 &#40;upon acceptance&#41;
+                Article publication fee: &#8358;25,000 &#40;upon acceptance&#41;
               </p>
               <p className='font-medium'>
-                Total publication fee: &#8358;25,000
+                Total publication fee: &#8358;30,000
               </p>
             </div>
           </div>
