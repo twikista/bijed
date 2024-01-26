@@ -1,27 +1,23 @@
-import { menuItemsData } from '@/static/menuitems_data'
+// import { menuItemsData } from '@/static/menuitems_data'
+import { footerItemsData } from '@/static/footeritems_data'
 import Link from 'next/link'
 import { CreativeCommonBy, CreativeCommonGeneral } from './Icons'
 
 function Footer() {
   const currentYear = new Date().getFullYear()
   return (
-    <footer className='bg-[#993264] text-white text-[13px] sm:text-base'>
-      <div className='w-full max-w-5xl px-4 py-8 mx-auto space-y-5'>
-        <div className='grid justify-between grid-cols-2 gap-5 mx-auto md:grid-cols-3 font-saira'>
-          {menuItemsData.map((menuItem) =>
+    <footer className='bg-[#993264] text-white text-sm sm:text-base md:px-10 px-5'>
+      <div className='w-full py-8 mx-auto space-y-5 max-w-7xl'>
+        <div className='grid justify-between grid-cols-2 gap-5 mx-auto md:grid-cols-4 font-saira'>
+          {footerItemsData.map((menuItem) =>
             menuItem.submenu ? (
-              <div key={menuItem.name}>
-                <h3 className='text-base font-bold capitalize md:text-lg'>
-                  {menuItem.name}
-                </h3>
-                <ul>
-                  {menuItem.submenu.map(({ name, url }) => (
-                    <li key={name} className='hover:text-secondary'>
-                      <Link href={`/${url}`}>{name}</Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              <ul key={menuItem.name}>
+                {menuItem.submenu.map(({ name, url }) => (
+                  <li key={name} className=' hover:text-secondary w-fit'>
+                    <Link href={`/${url}`}>{name}</Link>
+                  </li>
+                ))}
+              </ul>
             ) : null
           )}
           <div>
@@ -29,10 +25,6 @@ function Footer() {
               Contact
             </h3>
             <div>
-              <p>Depatrment of Entreprenuership,</p>
-              <p>Faculty of Management Sciences,</p>
-              <p>University of Benin, </p>
-              <p>Benin City &#45; Nigeria.</p>
               <p>Tel:+2349011990518</p>
               <p>Email:bijed@uniben.edu</p>
             </div>
@@ -60,21 +52,6 @@ function Footer() {
                 <CreativeCommonBy className='w-5 h-5' />
               </span>
             </div>
-            {/* <div className='flex'>
-              <span>
-                Content on this site is licensed under a{' '}
-                <a
-                  href='https://creativecommons.org/licenses/by/4.0/'
-                  className='underline'
-                >
-                  Creative Commons Attribution 4.0 International license
-                </a>
-              </span>
-              <span className='flex border border-white'>
-                <CreativeCommonGeneral className='w-5 h-5' />
-                <CreativeCommonBy className='w-5 h-5' />
-              </span>
-            </div> */}
             <div>
               <span className=''>Powered by e-Novative technologies</span>
             </div>
