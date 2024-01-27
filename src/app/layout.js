@@ -45,7 +45,7 @@ export default function RootLayout({ children }) {
       lang='en'
       className={`${inter.className} ${saira.variable} ${cairo.variable}`}
     >
-      <body className={'flex flex-col min-h-screen bg-slate-50 min-w-[380px]'}>
+      <body className={'flex flex-col min-h-screen bg-slate-50 min-w-[320px]'}>
         <Header />
         {children}
         <Footer />

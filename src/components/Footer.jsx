@@ -42,7 +42,7 @@ function Footer() {
                 Licensed under a{' '}
                 <a
                   href='https://creativecommons.org/licenses/by/4.0/'
-                  className='inline-block font-semibold underline'
+                  className='inline-block font-semibold underline hover:text-blue-300'
                 >
                   CC BY 4.0
                 </a>
@@ -52,8 +52,18 @@ function Footer() {
                 <CreativeCommonBy className='w-5 h-5' />
               </span>
             </div>
-            <div>
-              <span className=''>Powered by e-Novative technologies</span>
+            <div className='mt-2'>
+              {/* <span className=''>Powered by e-Novative technologies</span> */}
+              <span className=''>
+                Designed & maintained by{' '}
+                <a
+                  href='https://aaronanama.netlify.app/'
+                  target='_blank'
+                  className='font-semibold underline hover:text-blue-300'
+                >
+                  Aaron Anama
+                </a>
+              </span>
             </div>
           </div>
         </div>
