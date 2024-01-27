@@ -1,5 +1,12 @@
 import MainContainer from '@/components/MainContainer'
 
+export const metadata = {
+  title:
+    'Article Publication Charge - Benin International Journal for Entrepreneurship Development',
+  description:
+    'Theis page outlines the charges asscociated with publishing in the Benin International Journal of Entrepreneurship Development.',
+}
+
 function PublicationFee() {
   return (
     <MainContainer>

@@ -1,9 +1,16 @@
 import MainContainer from '@/components/MainContainer'
 
+export const metadata = {
+  title:
+    'Copyright - Benin International Journal for Entrepreneurship Development',
+  description:
+    'BIJED consier copyright infringements as serious academic offense. This page outlines the copyright policy that authors who wish to submit their manuscript for publication must adhere to.',
+}
+
 function Copyright() {
   return (
     <MainContainer>
-      <h2 className='text-2xl font-bold underline capitalize font-saira'>
+      <h2 className='text-2xl font-bold underline uppercase font-saira'>
         Copyright policy
       </h2>
       <div className='space-y-3'>

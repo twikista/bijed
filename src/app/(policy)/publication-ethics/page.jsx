@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import OpenInNewWindow from '@/components/Icons'
+import { OpenInNewWindow } from '@/components/Icons'
 import MainContainer from '@/components/MainContainer'
 import { CheckedCircle } from '@/components/Icons'
 

@@ -1,6 +1,13 @@
 import MainContainer from '@/components/MainContainer'
 import ContactForm from '@/components/contactform/ContactForm'
 
+export const metadata = {
+  title:
+    'Contact us - Benin International Journal for Entrepreneurship Development',
+  description:
+    'React out to us on through the address on this page. Department of Entrepreneurship, Faculty of Management of Sciences, University of Benin, Benin City',
+}
+
 function Contact() {
   return (
     <MainContainer>

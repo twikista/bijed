@@ -1,5 +1,12 @@
 import MainContainer from '@/components/MainContainer'
 
+export const metadata = {
+  title:
+    'Submission Guide - Benin International Journal for Entrepreneurship Development',
+  description:
+    'AThe Benin International Journal of Entrepreneurship Development (BIJED) shall welcome articles from various authors subject to the following guidelines:.',
+}
+
 function SubmissionGuide() {
   return (
     <MainContainer>

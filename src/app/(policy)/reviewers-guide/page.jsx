@@ -1,9 +1,19 @@
 import MainContainer from '@/components/MainContainer'
 import { CheckedCircle } from '@/components/Icons'
 
+export const metadata = {
+  title:
+    'Reviewers Guideline - Benin International Journal for Entrepreneurship Development',
+  description:
+    'This page outlines the steps and expectations required for reviewers of the Benin International Journal for Entrepreneurship Development to carry out their work effectively and efficiently as possible.',
+}
+
 function ReviewersGuide() {
   return (
     <MainContainer>
+      <h2 className='text-2xl font-bold underline uppercase font-saira'>
+        Reviewers Guideline
+      </h2>
       <section className='space-y-3'>
         <p>
           This guide outlines the steps and expectations required for BIJED

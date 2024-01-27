@@ -1,5 +1,11 @@
 import MainContainer from '@/components/MainContainer'
-import { CheckedCircle } from '@/components/Icons'
+
+export const metadata = {
+  title:
+    'Plagiarism Policy - Benin International Journal for Entrepreneurship Development',
+  description:
+    'BIJED consider plagiarism and other forms of copyright infringements as serious academic offenses. Hence, this journal is committed to ensuring that articles approved for publication are free from copyright issues.',
+}
 
 function PlagiarismPolicy() {
   return (
