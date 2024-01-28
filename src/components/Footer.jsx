@@ -25,15 +25,15 @@ function Footer() {
               Contact
             </h3>
             <div>
-              <p>Tel:+2349011990518</p>
+              <p>Tel:+2348037236527</p>
               <p>Email:bijed@uniben.edu</p>
             </div>
           </div>
         </div>
         <div className='h-[1px] bg-secondary/50' />
         <div className='flex flex-col items-center'>
-          <div className='text-center '>
-            <div className='flex items-center '>
+          <div className='text-[11px] text-center ms:text-sm sm:text-base'>
+            <div className='flex items-center text-'>
               <span className='uppercase'>&copy;bijed</span>
               <span>&nbsp;</span>
               <span>{currentYear}</span>
@@ -53,8 +53,8 @@ function Footer() {
               </span>
             </div>
             <div className='mt-2'>
-              {/* <span className=''>Powered by e-Novative technologies</span> */}
-              <span className=''>
+              <span className=''>Powered by e-Novative technologies</span>
+              {/* <span className=''>
                 Designed & maintained by{' '}
                 <a
                   href='https://aaronanama.netlify.app/'
@@ -63,7 +63,7 @@ function Footer() {
                 >
                   Aaron Anama
                 </a>
-              </span>
+              </span> */}
             </div>
           </div>
         </div>

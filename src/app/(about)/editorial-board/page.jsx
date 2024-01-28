@@ -3,26 +3,29 @@ import MainContainer from '@/components/MainContainer'
 function EditorialBoard() {
   return (
     <MainContainer>
-      <h2 className='text-2xl font-bold underline capitalize font-saira'>
+      <h2 className='text-2xl font-bold underline uppercase font-saira'>
         Editorial Board
       </h2>
-      <ul className='space-y-3'>
-        <li className='space-y-2'>
-          <h3 className='font-semibold'>Editor-In-Chief</h3>
-          <p>Prof. P.O. Eriki&nbsp;- University of Benin, Benin city</p>
+      <ul className='space-y-4'>
+        <li className=''>
+          <h3 className='text-lg font-semibold md:text-xl font-saira'>
+            Editor-in-Chief
+          </h3>
+          <p>Prof. I.O. Osawmonyi&nbsp;- University of Benin, Benin city</p>
         </li>
         <li>
-          <h3 className='font-semibold'>Managing Editor</h3>
+          <h3 className='text-lg font-semibold md:text-xl font-saira'>
+            Managing Editor
+          </h3>
           <p>Dr. O.S. Obeki&nbsp;- University of Benin, Benin city</p>
         </li>
         <li>
-          <h3 className='font-semibold'>Associate Editors</h3>
+          <h3 className='text-lg font-semibold md:text-xl font-saira'>
+            Associate Editors
+          </h3>
           <ul className='space-y-2'>
             <li>
               <p>Prof. Mike I. Obadan&nbsp;- University of Benin, Benin city</p>
-            </li>
-            <li>
-              <p>Prof. I.O. Osawmonyi&nbsp;- University of Benin, Benin city</p>
             </li>
             <li>
               <p>Prof. O.J. Ilaboya&nbsp;- University of Benin, Benin city</p>
@@ -94,11 +97,15 @@ function EditorialBoard() {
           </ul>
         </li>
         <li>
-          <h3 className='font-semibold'>Business Manager</h3>
+          <h3 className='text-lg font-semibold md:text-xl font-saira'>
+            Business Manager
+          </h3>
           <p>Mr. O. Okunbo</p>
         </li>
         <li>
-          <h3 className='font-semibold'>Secretary</h3>
+          <h3 className='text-lg font-semibold md:text-xl font-saira'>
+            Secretary
+          </h3>
           <p>Mr. M.F. Kahian</p>
         </li>
       </ul>

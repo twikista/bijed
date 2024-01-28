@@ -10,7 +10,7 @@ export const metadata = {
 function SubmissionGuide() {
   return (
     <MainContainer>
-      <h2 className='text-2xl font-bold underline capitalize font-saira'>
+      <h2 className='text-2xl font-bold underline uppercase font-saira'>
         Submission Guide
       </h2>
       <section className='space-y-3'>

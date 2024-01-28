@@ -3,7 +3,7 @@ import MainContainer from '@/components/MainContainer'
 function PeerReview() {
   return (
     <MainContainer>
-      <h2 className='text-2xl font-bold underline capitalize font-saira'>
+      <h2 className='text-2xl font-bold underline uppercase font-saira'>
         Peer Review
       </h2>
       <div className='space-y-3'>
@@ -11,7 +11,7 @@ function PeerReview() {
           Peer Review provides a collaborative process which allows for an
           objective evaluation of submitted manuscripts/articles. It provides
           authors with feedback to better improve their work, allows the editor
-          to critically assess a paper&339;s suitability for publication, and
+          to critically assess a paper&#39;s suitability for publication, and
           help to ensure published research is accurate, trustworthy, and meets
           the highest standards of research within a given field. Thus, Peer
           Review is one of the most critical elements of scholarly publishing.

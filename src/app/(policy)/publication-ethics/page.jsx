@@ -473,29 +473,6 @@ function PublicationEthics() {
           </li>
         </ul>
       </section>
-      <section className='space-y-10 '>
-        <Link
-          href='/authors-guide'
-          className='flex items-center text-base font-bold underline capitalize underline-offset-2 hover:text-blue-500 font-saira md:text-xl w-fit'
-        >
-          <span>Authors Guide</span>
-          <OpenInNewWindow className='inline-block w-4 md:w-5' />
-        </Link>
-        <Link
-          href='/reviewers-guide'
-          className='flex items-center text-base font-bold underline capitalize underline-offset-2 hover:text-blue-500 font-saira md:text-xl w-fit'
-        >
-          <span>Reviewers Guide</span>
-          <OpenInNewWindow className='inline-block w-4 md:w-5' />
-        </Link>
-        <Link
-          href='/for-editors'
-          className='flex items-center text-base font-bold underline capitalize underline-offset-2 hover:text-blue-500 font-saira md:text-xl w-fit'
-        >
-          <span>For Editors</span>
-          <OpenInNewWindow className='inline-block w-4 md:w-5' />
-        </Link>
-      </section>
     </MainContainer>
   )
 }

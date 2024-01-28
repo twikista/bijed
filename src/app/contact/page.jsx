@@ -11,7 +11,7 @@ export const metadata = {
 function Contact() {
   return (
     <MainContainer>
-      <h2 className='text-2xl font-bold underline capitalize font-saira'>
+      <h2 className='text-2xl font-bold underline uppercase font-saira'>
         Contact
       </h2>
       <div className='space-y-10'>
@@ -23,7 +23,7 @@ function Contact() {
             <p>University of Benin, </p>
             <p>Benin City &#45; Nigeria.</p>
             <p>
-              <span className='font-medium'>Tel:&nbsp;</span>+2349011990518
+              <span className='font-medium'>Tel:&nbsp;</span>+2348037236527
             </p>
             <p>
               {' '}

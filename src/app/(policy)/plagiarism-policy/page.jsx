@@ -10,7 +10,7 @@ export const metadata = {
 function PlagiarismPolicy() {
   return (
     <MainContainer>
-      <h2 className='text-2xl font-bold underline capitalize font-saira'>
+      <h2 className='text-2xl font-bold underline uppercase font-saira'>
         Plagiarism policy
       </h2>
       <div className='space-y-3'>
