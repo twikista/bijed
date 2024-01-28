@@ -16,9 +16,9 @@ function Archive() {
         Archive
       </h2>
       <section className='flex flex-col items-center space-y-8'>
-        <CogIcon className='w-16 h-16 md:w-20 md:h-20 text-neutral-400' />
+        <CogIcon className='w-16 h-16 md:w-20 md:h-20 text-neutral-400 animate-spin-slow' />
         <h3 className='text-base md:text-2xl xl:text-3xl text-neutral-400'>
-          This page is still under construction
+          This page is under construction
         </h3>
         <Link
           href={'/'}

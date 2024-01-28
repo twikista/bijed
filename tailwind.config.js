@@ -31,9 +31,18 @@ module.exports = {
             backgroundColor: 'red',
           },
         },
+        spin: {
+          from: {
+            transform: 'rotate(0deg)',
+          },
+          to: {
+            transform: 'rotate(360deg)',
+          },
+        },
       },
       animation: {
         dropdown: 'dropdown 2s  linear',
+        'spin-slow': 'spin 8s linear infinite',
       },
       listStyleType: {
         'lower-alpha': 'lower-alpha',

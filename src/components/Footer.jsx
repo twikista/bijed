@@ -53,7 +53,10 @@ function Footer() {
               </span>
             </div>
             <div className='mt-2'>
-              <span className=''>Powered by e-Novative technologies</span>
+              <span className=''>
+                Powered by:{' '}
+                <span className='font-semibold'>e-Novative Technologies</span>
+              </span>
               {/* <span className=''>
                 Designed & maintained by{' '}
                 <a
