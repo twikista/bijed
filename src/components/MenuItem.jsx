@@ -29,7 +29,7 @@ function MenuItem({ menuItem }) {
             aria-expanded={showSubMenu ? 'true' : 'false'}
             onClick={() => setShowSubMenu((current) => !current)}
           >
-            <Link href={menuItem.url} className='capitalize'>
+            <Link href={`${menuItem.url}`} className='capitalize'>
               {menuItem.name}
             </Link>
             <DownArrow fill='currentColor' width='8px' height='8px' />
@@ -41,7 +41,7 @@ function MenuItem({ menuItem }) {
           />
         </>
       ) : (
-        <Link href={menuItem.url} className='capitalize'>
+        <Link href={`${menuItem.url}`} className='capitalize'>
           {menuItem.name}
         </Link>
       )}

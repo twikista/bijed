@@ -15,7 +15,7 @@ function SubMenu({ subMenuItems, showSubMenu, setShowSubMenu }) {
           onClick={closeSubMenu}
         >
           <Link
-            href={menuItem.url}
+            href={`/${menuItem.url}`}
             className='capitalize hover:translate-x-1.5 transition-all ease-linear duration-400 inline-block'
           >
             {menuItem.name}

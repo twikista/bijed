@@ -15,8 +15,6 @@ function Navbar() {
     }
   }
 
-  console.log(hang)
-
   useEffect(() => {
     window.addEventListener('scroll', scrollCon)
     return () => window.removeEventListener('scroll', scrollCon)

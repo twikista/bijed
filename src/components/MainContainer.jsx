@@ -6,7 +6,7 @@ function MainContainer({ children }) {
       <section className='flex-1 space-y-6 border-gray-200 lg:border-r lg:pr-10'>
         {children}
       </section>
-      <Aside />
+      {/* <Aside /> */}
     </main>
   )
 }
