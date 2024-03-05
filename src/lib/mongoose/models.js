@@ -1,4 +1,5 @@
 import mongoose from 'mongoose'
+import { tree } from 'next/dist/build/templates/app-page'
 
 const articleSchema = new mongoose.Schema(
   {
@@ -35,7 +36,7 @@ const articleSchema = new mongoose.Schema(
     pdfUrl: { type: String, required: true, unique: true },
     keywords: [{ type: String, required: true }],
     slug: { type: String, required: true },
-    ref: { type: String, required: true },
+    ref: { type: String, required: true, unique: true },
     published: { type: Boolean, required: true, default: false },
   },
   { timestamps: true }
@@ -72,6 +73,17 @@ const announcementSchema = new mongoose.Schema(
   { timestamps: true }
 )
 
+const userSchema = new mongoose.Schema({
+  email: {
+    type: String,
+    required: true,
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+})
+
 //volume schema
 // const volumeSchema = mongoose.Schema({
 //   volumeNumber: { type: String, required: true },
@@ -91,3 +103,5 @@ export const Announcement =
   mongoose.model('Announcement', announcementSchema)
 // export const Volume =
 //   mongoose.models.Volume || mongoose.model('Volume', volumeSchema)
+
+export const User = mongoose.models.User || mongoose.model('User', userSchema)
