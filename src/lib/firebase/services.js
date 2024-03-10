@@ -1,3 +1,4 @@
+import { articleFileName } from '../util'
 import { storage } from './firebase-config'
 import {
   uploadBytes,
@@ -8,19 +9,10 @@ import {
 
 export const uploadPdfToStorage = async (formData) => {
   console.log(formData)
-  const fileName = `bijed-vol-${formData.volume}(${formData.issue})-pg${formData.startPage}-${formData.endPage}.pdf`
+  const fileName = articleFileName(formData)
   const articlesRef = ref(storage, `articles/${fileName}`)
   console.log(fileName)
-  // uploadBytes(articlesRef, file).then((data) => {
-  //   getDownloadURL(data.ref).then((url) => {
-  //     uploadedPdfUrl = url
-  //     console.log(url)
-  //     return url
-  //   })
-  // })
-  // console.log(uploadedPdfUrl)
-  // return uploadedPdfUrl
-  // const metadata = { contentType: 'application/pdf' }
+
   const data = await uploadBytes(articlesRef, formData.pdfFile, {
     contentDisposition: `attachment; filename=${fileName}`,
   })
