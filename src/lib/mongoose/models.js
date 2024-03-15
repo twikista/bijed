@@ -1,5 +1,4 @@
 import mongoose from 'mongoose'
-import { tree } from 'next/dist/build/templates/app-page'
 
 const articleSchema = new mongoose.Schema(
   {
@@ -73,16 +72,24 @@ const announcementSchema = new mongoose.Schema(
   { timestamps: true }
 )
 
-const userSchema = new mongoose.Schema({
-  email: {
-    type: String,
-    required: true,
+const userSchema = new mongoose.Schema(
+  {
+    firstName: { type: String, rquired: true },
+    lastName: { type: String },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    password: {
+      type: String,
+      required: true,
+    },
+    isAdmin: { type: Boolean, default: false },
+    isActivated: { type: Boolean, default: false },
   },
-  password: {
-    type: String,
-    required: true,
-  },
-})
+  { timestamps: true }
+)
 
 //volume schema
 // const volumeSchema = mongoose.Schema({
@@ -105,3 +112,5 @@ export const Announcement =
 //   mongoose.models.Volume || mongoose.model('Volume', volumeSchema)
 
 export const User = mongoose.models.User || mongoose.model('User', userSchema)
+
+///(^[a-z]+)(@uniben\.edu|@bijed\.com\.ng)|(^[a-z]+\.[a-z]+)@uniben\.edu$/gm

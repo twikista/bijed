@@ -1,7 +1,7 @@
 export const authConfig = {
   providers: [],
   pages: {
-    signIn: '/login',
+    signIn: '/auth/login',
   },
   callbacks: {
     async jwt({ token, user }) {
@@ -22,21 +22,31 @@ export const authConfig = {
       const isLoggedIn = !!auth?.user
       const loggedInUser = auth?.user
       const isOnDashboard = nextUrl.pathname.startsWith('/dashboard')
-      const isOnAdminPage = nextUrl.pathname === '/dashboard/admin'
+      const isOnAdminPage = nextUrl.pathname.startsWith('/dashboard/admin')
+      const isOnCreateUserPage = nextUrl.pathname === '/auth/signup'
 
-      // console.log(
-      //   'loggedIn: ',
-      //   isLoggedIn,
-      //   'isOnDashboard: ',
-      //   isOnDashboard,
-      //   'onAdminPage: ',
-      //   isOnAdminPage
-      // )
+      console.log(
+        'loggedIn: ',
+        isLoggedIn,
+        'isOnDashboard: ',
+        isOnDashboard,
+        'onAdminPage: ',
+        isOnAdminPage,
+        'oncreateuser:',
+        isOnCreateUserPage
+      )
       // console.log('login boolean: ', !!auth?.user)
       // console.log('admin: ', loggedInUser?.isAdmin)
       // console.log('non-admin: ', !loggedInUser.isAdmin)
 
       // console.log('admin route: ', nextUrl.pathname === '/dashboard/admin')
+      if (isOnCreateUserPage) {
+        if (isLoggedIn && loggedInUser.isAdmin) return true
+        if (isLoggedIn && !loggedInUser.isAdmin)
+          return Response.redirect(new URL('/dashboard', nextUrl))
+        return false
+      }
+
       if (isOnAdminPage) {
         if (isLoggedIn && loggedInUser.isAdmin) return true
         if (isLoggedIn && !loggedInUser.isAdmin)
@@ -50,6 +60,7 @@ export const authConfig = {
       } else if (isLoggedIn) {
         return Response.redirect(new URL('/dashboard', nextUrl))
       }
+
       return true
     },
   },

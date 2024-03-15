@@ -1,6 +1,6 @@
 'use server'
 
-import { hashPassword } from './util'
+import { hashPassword, signJWT, validatePassword, verifyJWT } from './util'
 
 import { revalidatePath } from 'next/cache'
 import { connectDB } from './mongoose/config'
@@ -9,6 +9,7 @@ import { uploadPdfToStorage, removePdfFromStorage } from './firebase/services'
 import { redirect } from 'next/navigation'
 import { signIn, signOut } from '../../auth'
 import { isRedirectError } from 'next/dist/client/components/redirect'
+import { compileActivationTemplate, sendEmail } from './emailServices'
 
 //create new issue
 export const addIssue = async (formData) => {
@@ -239,7 +240,7 @@ export async function signup(formData) {
       console.log(`${user.email} already exist`)
       return { error: 'user already exist' }
     }
-
+    console.log('formdata.paddword: ', formData.password)
     const hashedPassword = await hashPassword(formData.password)
 
     const userObjectWithHashedPassword = {
@@ -248,11 +249,82 @@ export async function signup(formData) {
     }
     const newUser = new User(userObjectWithHashedPassword)
     const savedUser = await newUser.save()
+    const parsedSavedUser = JSON.parse(JSON.stringify(savedUser))
+    const { password, ...savedUserWithoutPassword } = parsedSavedUser
     console.log(savedUser)
-    return { ok: true, data: JSON.parse(JSON.stringify(savedUser)) }
+
+    const encryptedUserId = signJWT({ id: savedUser._id })
+    const activationUrl = `${process.env.NEXT_URL}/auth/account-activation/${encryptedUserId}`
+    const body = compileActivationTemplate({
+      name: formData.firstName,
+      email: formData.email,
+      password: formData.password,
+      url: activationUrl,
+      link: `${process.env.NEXT_URL}/auth/login`,
+    })
+
+    await sendEmail({
+      to: formData.email,
+      subject: 'BIJED - Activate Your Account',
+      body,
+      // from: `BIJED Admin <${process.env.SMTP_EMAIL}>`,
+    })
+
+    return {
+      ok: true,
+      data: savedUserWithoutPassword,
+    }
   } catch (error) {
     console.log(error)
     return { ok: false, data: null }
+  }
+}
+
+export async function activateUser(id, formData) {
+  const data = Object.fromEntries(formData)
+  const verifiedToken = verifyJWT(id)
+  console.log('decoded Id: ', verifiedToken.id)
+  console.log('formData: ', data.defaultPassword)
+  console.log('id: ', id)
+  try {
+    connectDB()
+    const user = await User.findById(verifiedToken.id)
+
+    if (!user) {
+      console.log('Account does not exist')
+      return 'Account does not exist'
+    }
+
+    if (user.isActivated) {
+      console.log('Account already activated')
+      return 'Account already activated'
+    }
+    console.log('user password: ', user.password)
+
+    const isPasswordValid = await validatePassword(
+      data.defaultPassword,
+      user.password
+    )
+
+    if (!isPasswordValid) {
+      console.log('Invalid credentials')
+      return 'Invalid password'
+    }
+
+    const hashedPassword = await hashPassword(data.newPassword)
+    const updatedUser = await User.findByIdAndUpdate(
+      verifiedToken.id,
+      {
+        $set: { password: hashedPassword, isActivated: true },
+      },
+      { new: true }
+    )
+    console.log('updated:', updatedUser)
+
+    console.log('isValid: ', isPasswordValid)
+    console.log('iser', user)
+  } catch (error) {
+    console.log(error)
   }
 }
 
@@ -264,7 +336,7 @@ export async function authenticate(formData) {
     console.log(error.message)
 
     if (error.message.includes('CredentialsSignin')) {
-      return { error: 'Invalid username or password' }
+      return { error: 'Invalid credentials' }
     }
 
     // if (error.message.includes('CallbackRouteError')) {

@@ -62,6 +62,22 @@ export const fetchUnpublishedIssue = async ({ issueRef }) => {
 export const getUser = async (email) => {
   connectDB()
 
-  const user = await User.findOne({ email: email })
+  const user = await User.findOne({ email })
   return user
+}
+
+export const getUsers = async () => {
+  connectDB()
+
+  try {
+    const user = await User.find()
+    const parsedUsers = JSON.parse(JSON.stringify(user))
+    if (!!user) {
+      return { ok: true, users: parsedUsers }
+    } else {
+      return { ok: false, users: null }
+    }
+  } catch (error) {
+    console.log(error)
+  }
 }
