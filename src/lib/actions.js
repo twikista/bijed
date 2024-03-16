@@ -9,7 +9,11 @@ import { uploadPdfToStorage, removePdfFromStorage } from './firebase/services'
 import { redirect } from 'next/navigation'
 import { signIn, signOut } from '../../auth'
 import { isRedirectError } from 'next/dist/client/components/redirect'
-import { compileActivationTemplate, sendEmail } from './emailServices'
+import {
+  compileActivationTemplate,
+  compileResetPasswordEmailTemplate,
+  sendEmail,
+} from './emailServices'
 
 //create new issue
 export const addIssue = async (formData) => {
@@ -348,6 +352,76 @@ export async function authenticate(formData) {
     // if (isRedirectError(error)) {
     //   throw error
     // }
+  }
+}
+
+export async function forgetPassword(formData) {
+  const data = Object.fromEntries(formData)
+  const email = data.email
+  console.log(email)
+  try {
+    connectDB()
+    const user = await User.findOne({ email })
+    if (!user) {
+      console.log('user does not exist')
+      return { error: 'user does not exist' }
+    }
+
+    const encryptedUserId = signJWT({ id: user._id }, { expiresIn: '900000ms' })
+    const resetPasswordUrl = `${process.env.NEXT_URL}/auth/password-reset/${encryptedUserId}`
+    const body = compileResetPasswordEmailTemplate({
+      name: user.firstName,
+      url: resetPasswordUrl,
+      link: `${process.env.NEXT_URL}/auth/login`,
+    })
+
+    const isEmailSent = await sendEmail({
+      to: user.email,
+      subject: 'BIJED - Reset your Password',
+      body,
+    })
+    console.log(isEmailSent)
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export async function resetPassword(idToken, formData) {
+  // console.log(formData)
+  try {
+    const newpassword = formData.get('password')
+    const { id, expired } = verifyJWT(idToken)
+    console.log('id is: ', id, 'token has expired: ', expired)
+    if (!id) {
+      console.log('token does not exist')
+      return { error: 'user does not exist' }
+    }
+    // const userId = verfiedToken.id
+
+    connectDB()
+    const user = await User.findById(id)
+
+    if (!user) {
+      console.log('user does not exist')
+      return { error: 'user does not exist' }
+    }
+
+    const hashedPassword = await hashPassword(newpassword)
+    const updatedUser = await User.findByIdAndUpdate(
+      id,
+      { $set: { password: hashedPassword } },
+      { new: true }
+    )
+    if (updatedUser) {
+      const { password, ...updatedUserWithoutPassword } = updatedUser
+      console.log(updatedUserWithoutPassword)
+      return {
+        ok: true,
+        data: JSON.parse(JSON.stringify(updatedUserWithoutPassword)),
+      }
+    }
+  } catch (error) {
+    console.log(error)
   }
 }
 

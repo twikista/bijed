@@ -1,4 +1,4 @@
-import bcrypt, { hash } from 'bcryptjs'
+import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 
 export const formatDate = (date) => {
@@ -38,9 +38,13 @@ export const verifyJWT = (token) => {
   try {
     const secretKey = process.env.JWT_SECRET_KEY
     const verifiedToken = jwt.verify(token, secretKey)
-    return verifiedToken
+    // console.log('verified token:', verifiedToken)
+    return { ...verifiedToken, expired: false }
   } catch (error) {
     console.log(error)
-    return null
+    if (error.name === 'TokenExpiredError') {
+      return { expired: true }
+    }
+    throw error
   }
 }

@@ -1,6 +1,7 @@
 import nodemailer from 'nodemailer'
 import * as Handlebars from '../../node_modules/handlebars/dist/cjs/handlebars'
 import { activationTemplate } from './emailTemplates/activationEmail'
+import { resetPasswordEmailTemplate } from './emailTemplates/resetPasswordEmail'
 
 export async function sendEmail({ to, subject, body }) {
   const { SMTP_EMAIL, SMTP_GMAIL_PASSWORD } = process.env
@@ -38,5 +39,11 @@ export function compileActivationTemplate({
 }) {
   const template = Handlebars.compile(activationTemplate)
   const htmlBody = template({ name, email, password, url, link })
+  return htmlBody
+}
+
+export function compileResetPasswordEmailTemplate({ name, url, link }) {
+  const template = Handlebars.compile(resetPasswordEmailTemplate)
+  const htmlBody = template({ name, url, link })
   return htmlBody
 }

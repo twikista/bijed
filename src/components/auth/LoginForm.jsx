@@ -35,7 +35,7 @@ function LoginForm() {
         <input type='submit' value='submit' />
       </form>
       <div>
-        <Link href='/'>forgot password</Link>
+        <Link href='/auth/forgot-password'>forgot password?</Link>
       </div>
     </>
   )
