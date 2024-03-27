@@ -14,6 +14,7 @@ import {
   compileResetPasswordEmailTemplate,
   sendEmail,
 } from './emailServices'
+import { signinFormSchema } from './schema'
 
 //create new issue
 export const addIssue = async (formData) => {
@@ -333,14 +334,33 @@ export async function activateUser(id, formData) {
 }
 
 export async function authenticate(formData) {
+  console.log('from server', formData)
+  // const formData = Object.fromEntries(data)
+  const parsedData = signinFormSchema.safeParse(formData)
+  // If validation errors, map them into an object
+
+  console.log('parsed data', parsedData?.error?.issues[0])
   try {
-    await signIn('credentials', formData)
+    if (parsedData.success) {
+      await signIn('credentials', parsedData.data)
+    }
+
+    const serverErrors = Object.fromEntries(
+      parsedData.error?.issues?.map((issue) => [
+        issue.path[0],
+        issue.message,
+      ]) || []
+    )
+    console.log(serverErrors)
+    return { ok: false, errors: serverErrors, errorType: 'validationError' }
+
     // console.log('auth: ', isAuthenticated)
   } catch (error) {
-    console.log(error.message)
-
-    if (error.message.includes('CredentialsSignin')) {
-      return { error: 'Invalid credentials' }
+    console.log('error', error.type)
+    console.error(error)
+    console.log('wiki wiki')
+    if (error && error?.type?.includes('CredentialsSignin')) {
+      return { ok: false, error: 'Invalid credentials', errorType: 'authError' }
     }
 
     // if (error.message.includes('CallbackRouteError')) {
