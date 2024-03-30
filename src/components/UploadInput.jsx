@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { uploadPdf } from '@/lib/firebase/uploadPdf'
+import { uploadPdfToStorage } from '@/lib/firebase/services'
 
 import Input from './Input'
 import KeywordInput from './KeywordsInput'
@@ -37,7 +37,7 @@ function UploadInput() {
     // console.log(formData)
     // if (!formData.pdfFile) return
     const fileName = `bijed-vol-${formData.volume}(${formData.issue})-pg${formData.startPage}-${formData.endPage}.pdf`
-    const url = await uploadPdf(formData.pdfFile, fileName)
+    const url = await uploadPdfToStorage(formData.pdfFile, fileName)
     // console.log(url)
     // for (let key in formData) {
     //   // if (key === 'pdfFile') console.log('yes')

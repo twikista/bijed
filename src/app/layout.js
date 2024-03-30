@@ -1,5 +1,12 @@
 // import { saira, lato, cairo, barlow, inter } from './font/font'
-import { Saira_Condensed, Inter, Lato, Cairo, Barlow } from 'next/font/google'
+import {
+  Saira_Condensed,
+  Inter,
+  Lato,
+  Cairo,
+  Barlow,
+  IBM_Plex_Sans,
+} from 'next/font/google'
 import './globals.css'
 // import Header from '@/components/Header'
 // import Footer from '@/components/Footer'
@@ -8,6 +15,13 @@ export const saira = Saira_Condensed({
   subsets: ['latin'],
   weight: ['400', '500', '600', '700', '800', '900'],
   variable: '--font-saira',
+  display: 'swap',
+})
+
+export const ibmPlex = IBM_Plex_Sans({
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700'],
+  variable: '--font-plex',
   display: 'swap',
 })
 
@@ -61,9 +75,9 @@ export default function RootLayout({ children }) {
   return (
     <html
       lang='en'
-      className={`${inter.className} ${saira.variable} ${cairo.variable} antialiased`}
+      className={`${ibmPlex.className} ${saira.variable} ${cairo.variable} antialiased`}
     >
-      <body className={'flex flex-col min-h-screen bg-slate-50 min-w-[320px]'}>
+      <body className={'flex flex-col h-full bg-slate-50 min-w-[320px]'}>
         {/* <Header /> */}
         {children}
         {/* <Footer /> */}

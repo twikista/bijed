@@ -18,14 +18,20 @@ const fetchAnnouncements = async () => {
 
 async function AnnouncementItems({ isPublicRoute }) {
   const announcements = await fetchAnnouncements()
+  const url = (string) => {
+    const join = string.replace(/ /g, '-')
+    console.log(join)
+    return join
+  }
 
   return (
     <div>
       {announcements.map((announcement) => (
         <article key={announcement._id}>
-          <Link href={`/dashboard/announcements/${announcement.title}`}>
+          <Link href={`/dashboard/announcements/${url(announcement.title)}`}>
             {announcement.title}
           </Link>
+          {/* <p>{url(announcement.title)}</p> */}
           {isPublicRoute && (
             <ActionButtons
               id={String(announcement._id)}

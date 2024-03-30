@@ -4,7 +4,6 @@ import { useState } from 'react'
 
 function KeywordInput({ formData, setFormData }) {
   const [inputValue, setInputValue] = useState('')
-
   const removeTag = (index) =>
     setFormData({
       ...formData,
@@ -16,16 +15,13 @@ function KeywordInput({ formData, setFormData }) {
 
   const onKeyDownHendler = (e) => {
     const trimmedInputvalue = inputValue.trim()
-    console.log(trimmedInputvalue)
     if (
       e.key === ',' &&
       trimmedInputvalue.length &&
       !formData.keywords.includes(trimmedInputvalue)
     ) {
-      console.log(e.key === ',')
       e.preventDefault()
       setFormData((prevState) => {
-        console.log(prevState)
         return {
           ...prevState,
           keywords: [...formData.keywords, inputValue.trim()],

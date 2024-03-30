@@ -1,16 +1,11 @@
 'use client'
 
-function ActionButtons({ id, action }) {
+function ActionButtons({ id, action, children }) {
   return (
     <section>
-      <button
-        type='button'
-        onClick={() => action(id)}
-        className='border border-red-500'
-      >
-        remove
+      <button type='button' onClick={() => action(id)} className='bg-blue-500'>
+        {children}
       </button>
-      <button type='button'>edit</button>
     </section>
   )
 }

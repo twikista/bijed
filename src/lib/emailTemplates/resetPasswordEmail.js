@@ -120,7 +120,7 @@ table, td { color: #000000; } #u_body a { color: #0000ee; text-decoration: under
   <tr>
     <td style="padding-right: 0px;padding-left: 0px;" align="center">
       
-      <img align="center" border="0" src="uniben_logo.png" alt="uniben logo" title="image" style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;clear: both;display: inline-block !important;border: none;height: auto;float: none;width: 16%;max-width: 92.8px;" width="92.8" class="v-src-width v-src-max-width"/>
+      <img align="center" border="0" src="/uniben_logo.png" alt="uniben logo" title="image" style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;clear: both;display: inline-block !important;border: none;height: auto;float: none;width: 16%;max-width: 92.8px;" width="92.8" class="v-src-width v-src-max-width"/>
       
     </td>
   </tr>
@@ -239,7 +239,7 @@ table, td { color: #000000; } #u_body a { color: #0000ee; text-decoration: under
   <tr>
     <td style="padding-right: 0px;padding-left: 0px;" align="center">
       
-      <img align="center" border="0" src="image-2.png" alt="password reset image" title="image" style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;clear: both;display: inline-block !important;border: none;height: auto;float: none;width: 90%;max-width: 540px;" width="540" class="v-src-width v-src-max-width"/>
+      <img align="center" border="0" src="/image-2.png" alt="password reset image" title="image" style="outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;clear: both;display: inline-block !important;border: none;height: auto;float: none;width: 90%;max-width: 540px;" width="540" class="v-src-width v-src-max-width"/>
       
     </td>
   </tr>

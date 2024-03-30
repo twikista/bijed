@@ -13,7 +13,7 @@ import CreateButton from '@/components/Dashboard/createButton'
 //   return announcements
 // }
 
-async function AnnouncementPage() {
+async function AnnouncementsPage() {
   // const announcements = await fetchAnnouncements()
 
   // console.log(announcements.content)
@@ -48,4 +48,4 @@ async function AnnouncementPage() {
   )
 }
 
-export default AnnouncementPage
+export default AnnouncementsPage

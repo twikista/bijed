@@ -23,7 +23,10 @@ const getPublishedIssues = async () => {
   // return res.json()
   try {
     connectDB()
-    const publishedIssues = await Issue.find({ published: true })
+    const publishedIssues = await Issue.find({ published: true }).sort({
+      volume: 1,
+      issueNumber: 1,
+    })
     return publishedIssues
   } catch (error) {
     console.log(error)

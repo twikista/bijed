@@ -3,7 +3,6 @@ import CredentialsProvider from 'next-auth/providers/credentials'
 import { getUser } from '@/lib/data'
 import { validatePassword } from './src/lib/util'
 import { authConfig } from './auth.config'
-import { trusted } from 'mongoose'
 
 export const { auth, signIn, signOut } = NextAuth({
   ...authConfig,
@@ -46,7 +45,7 @@ export const { auth, signIn, signOut } = NextAuth({
           console.log('pre pre', userWithoutPassword)
           return userWithoutPassword
         } catch (error) {
-          console.log('authorize error')
+          // console.log(error)
           return null
         }
       },

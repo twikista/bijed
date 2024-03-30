@@ -51,33 +51,6 @@ export const createArticle = async (formData) => {
   }
 }
 
-export const publishIssue = async (issueRef) => {
-  console.log('i ran here')
-  const date = new Date()
-  try {
-    connectDB()
-    const issuePublished = await Issue.findOneAndUpdate(
-      { ref: issueRef },
-      { $set: { published: true, publishDate: date } }
-    )
-
-    if (!issuePublished.length) {
-      throw new Error('Error publishing Journal issue')
-    }
-
-    const isIssueArticlesPublished = await Article.updateMany(
-      { ref: issueRef },
-      { $set: { published: true, publishDate: date } }
-    )
-    console.log(isIssueArticlesPublished.acknowledged)
-    if (!isIssueArticlesPublished.acknowledged) {
-      throw new Error('Error publishing Journal Issue')
-    }
-  } catch (error) {
-    console.log(error)
-  }
-}
-
 export const createAnnouncement = async (formData) => {
   formData.slug = formData.title.replace(/ /g, '-')
   try {

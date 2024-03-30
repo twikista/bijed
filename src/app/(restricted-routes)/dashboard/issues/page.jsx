@@ -14,21 +14,33 @@ async function Issues() {
       <article>
         {issues.map((issue) => (
           <div key={issue._id} className='flex justify-between'>
-            <h2>
+            <div>
+              <h2>
+                <Link
+                  href={`/dashboard/issues/${issue.ref}`}
+                >{`BIJED ${issue.issueTitle}`}</Link>
+              </h2>
+              <div>
+                <span className='text-gray-400'>{`published: ${
+                  new Date(issue.publishDate).toISOString().split('T')[0]
+                }`}</span>
+                <span className='text-gray-400'>
+                  {issue.published ? 'published' : 'pending'}
+                </span>
+              </div>
+            </div>
+            <div>
               <Link
-                href={`/dashboard/issues/${issue.ref}`}
-              >{`BIJED ${issue.issueTitle}`}</Link>
-            </h2>
-            <span className='text-gray-400'>{`published: ${
-              new Date(issue.publishDate).toISOString().split('T')[0]
-            }`}</span>
-            <Link href={`/dashboard/issues/${issue.ref}/edit`} className='flex'>
-              <PencilIcon className='w-5' />
-            </Link>
-            <DeleteButton action={deleteIssue} id={JSON.stringify(issue._id)} />
-            {/* <Button type='button' clickHandler ={deleteIssue} i>
-              <TrashIcon />
-            </Button> */}
+                href={`/dashboard/issues/${issue.ref}/edit`}
+                className='flex'
+              >
+                <PencilIcon className='w-5' />
+              </Link>
+              <DeleteButton
+                action={deleteIssue}
+                id={JSON.stringify(issue._id)}
+              />
+            </div>
           </div>
         ))}
       </article>

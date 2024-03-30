@@ -1,5 +1,4 @@
 import mongoose from 'mongoose'
-import { revalidatePath } from 'next/cache'
 
 const connection = {}
 export const connectDB = async () => {
