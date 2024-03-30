@@ -48,3 +48,31 @@ export const verifyJWT = (token) => {
     throw error
   }
 }
+
+export const handleServerSideValidationError = (parsedData) => {
+  const validationError = Object.fromEntries(
+    parsedData.error?.issues?.map((issue) => [issue.path[0], issue.message]) ||
+      []
+  )
+  return validationError
+}
+
+export const handleValidationErrorFromServer = (
+  response,
+  formFields,
+  setError
+) => {
+  const fieldWithError = Object.keys(formFields).find(
+    (field) => response?.error[field]
+  )
+  console.log(response.error[fieldWithError])
+  if (fieldWithError) {
+    console.log('errors', response.error)
+    // Use the ValidFieldNames type to ensure the correct field names
+    const errors = Object.keys(response.error)
+    console.log('array:', errors)
+    errors.forEach((error) =>
+      setError(error, { type: 'server', message: response.error[error] })
+    )
+  }
+}

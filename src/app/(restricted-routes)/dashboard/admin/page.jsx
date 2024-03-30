@@ -6,7 +6,7 @@ async function AdminPage() {
 
   return (
     <div>
-      <Link href='/auth/signup'>create user</Link>
+      <Link href='/auth/new-user'>create user</Link>
       {response.ok && (
         <>
           {response.users.map((user) => (

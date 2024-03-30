@@ -10,12 +10,12 @@ export async function sendEmail({ to, subject, body }) {
     service: 'gmail',
     auth: { user: SMTP_EMAIL, pass: SMTP_GMAIL_PASSWORD },
   })
-  try {
-    const testEmailService = await transport.verify()
-    console.log(testEmailService)
-  } catch (error) {
-    console.log(error)
-  }
+  // try {
+  //   const testEmailService = await transport.verify()
+  //   console.log(testEmailService)
+  // } catch (error) {
+  //   console.log(error)
+  // }
 
   try {
     const sendMailresult = await transport.sendMail({
@@ -24,9 +24,11 @@ export async function sendEmail({ to, subject, body }) {
       subject,
       html: body,
     })
-    console.log(sendMailresult)
+    console.log('sendMailresult:', sendMailresult)
+    if (sendMailresult?.accepted?.length > 0) return { successful: true }
   } catch (error) {
     console.log(error)
+    return { successful: false }
   }
 }
 

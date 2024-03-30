@@ -1,9 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-// import { useFormState } from 'react-dom'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { authenticate } from '@/lib/actions'
 import Link from 'next/link'
@@ -13,7 +11,6 @@ import PasswordInput from '../PasswordInput'
 import { signinFormSchema as schema } from '@/lib/schema'
 
 function SignInForm() {
-  // const { state, formAction } = useFormState(authenticate, { message: '' })
   const {
     register,
     handleSubmit,
@@ -25,16 +22,8 @@ function SignInForm() {
   })
 
   const [authError, setAuthError] = useState(null)
-  // const formRef = useRef(null)
 
   const handler = async (data) => {
-    // e.preventDefault()
-    console.log(data)
-    const formData = new FormData()
-    formData.append('email', data.email)
-    formData.append('password', data.password)
-    console.log(formData)
-    // const formData = { email, password }
     const response = await authenticate(data)
     console.log('response', response)
     if (response && response?.errorType === 'validationError') {
@@ -54,35 +43,26 @@ function SignInForm() {
         errors.forEach((error) =>
           setError(error, { type: 'server', message: response.errors[error] })
         )
-        // setError(fieldErrorMapping[fieldWithError], {
-        //   type: 'server',
-        //   message: response.errors[fieldWithError],
-        // })
       }
     } else if (response?.errorType === 'authError') {
       console.log('auth error')
       setAuthError(response.error)
     }
-
-    // console.log(user.data)
   }
   return (
     <>
       {authError && <span>{authError}</span>}
-      <form
-        noValidate
-        // ref={formRef}
-        // action={formAction}
-        onSubmit={handleSubmit(handler)}
-      >
+      <form noValidate onSubmit={handleSubmit(handler)}>
         <TextInput
           label='email'
+          name='email'
           placeholder='Enter email'
           register={register}
           error={errors.email}
         />
         <PasswordInput
           label='password'
+          name='password'
           register={register}
           error={errors.password}
         />

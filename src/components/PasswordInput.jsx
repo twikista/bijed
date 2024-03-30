@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline'
 
-function PasswordInput({ label, register, error }) {
+function PasswordInput({ label, name, register, error }) {
   console.log('from password:', error)
   const [isPassowrdVisible, setIsPasswordVisible] = useState(false)
   const togglePasswordVisibility = () =>
@@ -11,14 +11,14 @@ function PasswordInput({ label, register, error }) {
   return (
     <div className='flex flex-col'>
       <div>
-        <label htmlFor={label} className=''>
+        <label htmlFor={name} className=''>
           {label}
         </label>
         <div className='flex gap-2'>
           <input
             type={isPassowrdVisible ? 'text' : 'password'}
-            {...register(label)}
-            id={label}
+            {...register(name)}
+            id={name}
           />
           {isPassowrdVisible ? (
             <EyeSlashIcon onClick={togglePasswordVisibility} className='w-6' />

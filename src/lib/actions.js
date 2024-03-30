@@ -1,7 +1,13 @@
 'use server'
 
-import { hashPassword, signJWT, validatePassword, verifyJWT } from './util'
-
+import {
+  handleServerSideValidationError,
+  hashPassword,
+  signJWT,
+  validatePassword,
+  verifyJWT,
+} from './util'
+import uniqid from 'uniqid'
 import { revalidatePath } from 'next/cache'
 import { connectDB } from './mongoose/config'
 import { Article, Issue, User } from './mongoose/models'
@@ -14,7 +20,13 @@ import {
   compileResetPasswordEmailTemplate,
   sendEmail,
 } from './emailServices'
-import { signinFormSchema } from './schema'
+import {
+  signinFormSchema,
+  newUserSchema,
+  activateAccountSchema,
+  forgetPasswordSchema,
+  passwordSchema,
+} from './schema'
 
 //create new issue
 export const addIssue = async (formData) => {
@@ -237,19 +249,34 @@ export async function createArticle(formData, url, params) {
 }
 
 export async function signup(formData) {
+  const parsedData = newUserSchema.safeParse(formData)
+  if (!parsedData.success) {
+    const validationError = Object.fromEntries(
+      parsedData.error?.issues?.map((issue) => [
+        issue.path[0],
+        issue.message,
+      ]) || []
+    )
+    return { error: validationError, errorType: 'validationError' }
+  }
+
   try {
     connectDB()
-
-    const user = await User.findOne({ email: formData.email })
+    const modifiedFormData = {
+      ...parsedData.data,
+      isAdmin: false,
+      password: uniqid.time(),
+    }
+    const user = await User.findOne({ email: modifiedFormData.email })
     if (user) {
       console.log(`${user.email} already exist`)
-      return { error: 'user already exist' }
+      return { ok: false, error: 'User already exist', errorType: 'other' }
     }
-    console.log('formdata.paddword: ', formData.password)
-    const hashedPassword = await hashPassword(formData.password)
+    console.log('formdata.paddword: ', modifiedFormData.password)
+    const hashedPassword = await hashPassword(modifiedFormData.password)
 
     const userObjectWithHashedPassword = {
-      ...formData,
+      ...modifiedFormData,
       password: hashedPassword,
     }
     const newUser = new User(userObjectWithHashedPassword)
@@ -261,35 +288,46 @@ export async function signup(formData) {
     const encryptedUserId = signJWT({ id: savedUser._id })
     const activationUrl = `${process.env.NEXT_URL}/auth/account-activation/${encryptedUserId}`
     const body = compileActivationTemplate({
-      name: formData.firstName,
-      email: formData.email,
-      password: formData.password,
+      name: modifiedFormData.firstName,
+      email: modifiedFormData.email,
+      password: modifiedFormData.password,
       url: activationUrl,
       link: `${process.env.NEXT_URL}/auth/login`,
     })
 
-    await sendEmail({
-      to: formData.email,
+    const sendEmailResult = await sendEmail({
+      to: modifiedFormData.email,
       subject: 'BIJED - Activate Your Account',
       body,
       // from: `BIJED Admin <${process.env.SMTP_EMAIL}>`,
     })
+    // console.log('sent', sent)
 
-    return {
-      ok: true,
-      data: savedUserWithoutPassword,
+    if (sendEmailResult.successful) {
+      return { ok: true }
+    } else {
+      return {
+        ok: false,
+        error: 'Something went wrong. Please ensure email is valid',
+        errorType: 'other',
+      }
     }
   } catch (error) {
     console.log(error)
-    return { ok: false, data: null }
+    return { ok: false, error: 'Something went wrong', errorType: 'other' }
   }
 }
 
 export async function activateUser(id, formData) {
-  const data = Object.fromEntries(formData)
+  const parsedData = activateAccountSchema.safeParse(formData)
+  if (!parsedData.success) {
+    const validationError = handleServerSideValidationError(parsedData)
+    return { ok: false, error: validationError, errorType: 'validationError' }
+  }
+  // const data = Object.fromEntries(formData)
   const verifiedToken = verifyJWT(id)
   console.log('decoded Id: ', verifiedToken.id)
-  console.log('formData: ', data.defaultPassword)
+  console.log('formData: ', formData.defaultPassword)
   console.log('id: ', id)
   try {
     connectDB()
@@ -297,26 +335,30 @@ export async function activateUser(id, formData) {
 
     if (!user) {
       console.log('Account does not exist')
-      return 'Account does not exist'
+      return { ok: false, error: 'Account does not exist', errorType: 'other' }
     }
 
     if (user.isActivated) {
       console.log('Account already activated')
-      return 'Account already activated'
+      return {
+        ok: false,
+        error: 'Account already activated',
+        errorType: 'other',
+      }
     }
     console.log('user password: ', user.password)
 
     const isPasswordValid = await validatePassword(
-      data.defaultPassword,
+      formData.defaultPassword,
       user.password
     )
 
     if (!isPasswordValid) {
       console.log('Invalid credentials')
-      return 'Invalid password'
+      return { ok: false, error: 'Invalid password', errorType: 'other' }
     }
 
-    const hashedPassword = await hashPassword(data.newPassword)
+    const hashedPassword = await hashPassword(formData.newPassword)
     const updatedUser = await User.findByIdAndUpdate(
       verifiedToken.id,
       {
@@ -328,8 +370,10 @@ export async function activateUser(id, formData) {
 
     console.log('isValid: ', isPasswordValid)
     console.log('iser', user)
+    if (updatedUser) return { ok: true }
   } catch (error) {
     console.log(error)
+    return { ok: true, error: 'Something went wrong!', errorType: 'other' }
   }
 }
 
@@ -345,46 +389,37 @@ export async function authenticate(formData) {
       await signIn('credentials', parsedData.data)
     }
 
-    const serverErrors = Object.fromEntries(
+    const validationError = Object.fromEntries(
       parsedData.error?.issues?.map((issue) => [
         issue.path[0],
         issue.message,
       ]) || []
     )
-    console.log(serverErrors)
-    return { ok: false, errors: serverErrors, errorType: 'validationError' }
-
-    // console.log('auth: ', isAuthenticated)
+    return { ok: false, errors: validationError, errorType: 'validationError' }
   } catch (error) {
-    console.log('error', error.type)
-    console.error(error)
-    console.log('wiki wiki')
     if (error && error?.type?.includes('CredentialsSignin')) {
       return { ok: false, error: 'Invalid credentials', errorType: 'authError' }
     }
 
-    // if (error.message.includes('CallbackRouteError')) {
-    //   return cause?.error?.toString()
-    // }
-
     throw error
-
-    // if (isRedirectError(error)) {
-    //   throw error
-    // }
   }
 }
 
 export async function forgetPassword(formData) {
-  const data = Object.fromEntries(formData)
-  const email = data.email
-  console.log(email)
+  // const data = Object.fromEntries(formData)
+  // const email = formData.email
+  const parsedData = forgetPasswordSchema.safeParse(formData)
+  if (!parsedData.success) {
+    const validationError = handleServerSideValidationError(parsedData)
+    return { ok: false, error: validationError, errorType: 'validationError' }
+  }
+  // console.log(email)
   try {
     connectDB()
-    const user = await User.findOne({ email })
+    const user = await User.findOne({ email: formData.email })
     if (!user) {
       console.log('user does not exist')
-      return { error: 'user does not exist' }
+      return { ok: false, error: 'user does not exist', errorType: 'other' }
     }
 
     const encryptedUserId = signJWT({ id: user._id }, { expiresIn: '900000ms' })
@@ -395,26 +430,40 @@ export async function forgetPassword(formData) {
       link: `${process.env.NEXT_URL}/auth/login`,
     })
 
-    const isEmailSent = await sendEmail({
+    const sendEmailResult = await sendEmail({
       to: user.email,
       subject: 'BIJED - Reset your Password',
       body,
     })
-    console.log(isEmailSent)
+    if (sendEmailResult.successful) {
+      return { ok: true }
+    } else {
+      return {
+        ok: false,
+        error: 'Something went wrong. Please ensure email is valid',
+        errorType: 'other',
+      }
+    }
   } catch (error) {
     console.log(error)
+    return { ok: false, error: 'Something went wrong', errorType: 'other' }
   }
 }
 
-export async function resetPassword(idToken, formData) {
+export async function resetPassword(authToken, formData) {
+  const parsedData = passwordSchema.safeParse(formData)
+  if (!parsedData.success) {
+    const validationError = handleServerSideValidationError(parsedData)
+    return { ok: false, error: validationError, errorType: 'validationError' }
+  }
   // console.log(formData)
   try {
-    const newpassword = formData.get('password')
-    const { id, expired } = verifyJWT(idToken)
+    const newpassword = formData.password
+    const { id, expired } = verifyJWT(authToken)
     console.log('id is: ', id, 'token has expired: ', expired)
     if (!id) {
       console.log('token does not exist')
-      return { error: 'user does not exist' }
+      return { ok: false, error: 'user does not exist', errorType: 'other' }
     }
     // const userId = verfiedToken.id
 
@@ -423,7 +472,7 @@ export async function resetPassword(idToken, formData) {
 
     if (!user) {
       console.log('user does not exist')
-      return { error: 'user does not exist' }
+      return { ok: false, error: 'user does not exist', errorType: 'other' }
     }
 
     const hashedPassword = await hashPassword(newpassword)
@@ -442,6 +491,11 @@ export async function resetPassword(idToken, formData) {
     }
   } catch (error) {
     console.log(error)
+    return {
+      ok: false,
+      error: 'Something went wrong. please try again',
+      errorType: 'other',
+    }
   }
 }
 
