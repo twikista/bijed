@@ -383,7 +383,7 @@ export async function authenticate(formData) {
   const parsedData = signinFormSchema.safeParse(formData)
   // If validation errors, map them into an object
 
-  console.log('parsed data', parsedData?.error?.issues[0])
+  console.log('parsed data', parsedData)
   try {
     if (parsedData.success) {
       await signIn('credentials', parsedData.data)

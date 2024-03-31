@@ -24,6 +24,7 @@ function SignInForm() {
   const [authError, setAuthError] = useState(null)
 
   const handler = async (data) => {
+    console.log(data)
     const response = await authenticate(data)
     console.log('response', response)
     if (response && response?.errorType === 'validationError') {

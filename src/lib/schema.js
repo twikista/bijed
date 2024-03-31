@@ -51,4 +51,51 @@ export const passwordSchema = z.object({
   // .includes('uniben.edu', { message: 'Email must be valid UNIBEN email' }),
 })
 
+export const articleAuthorSchema = z.object({
+  name: z.string().min(1, { message: 'name is required' }),
+  affliation: z.string().min(1, { message: "author's affliation is required" }),
+  orchidId: z
+    .string()
+    .min(1, { message: 'Orchid Id is required' })
+    .refine((val) => /^(\d{4}-){3}\d{4}$/.test(val), {
+      message: 'Enter a valid Orchid Id',
+    }),
+})
+
+export const articleFormSchema = z.object({
+  title: z.string().min(1, { message: 'Title is required' }),
+  authors: z.array(articleAuthorSchema),
+  volume: z.number().min(1, { message: 'volume is required' }),
+  issue: z.number().min(1, { message: 'volume is required' }),
+  startPage: z.number().min(1, { message: 'srart page number is required' }),
+  endPage: z.number().min(1, { message: 'srart page number is required' }),
+  abstract: z.string().min(1, { message: 'Abstract is required' }),
+  keywords: z
+    .array(
+      z.object({
+        keyword: z.string().min(1, { message: 'keyword must be provided' }),
+      })
+    )
+    .nonempty({ message: 'keyword must be provided' }),
+  pdfFile: z
+    .custom()
+    .refine((files) => Array.from(files ?? []).length !== 0, {
+      message: 'Article PDF is required',
+    })
+    .refine(
+      (files) =>
+        Array.from(files ?? []).every(
+          (file) => ((file.size / 1024) * 1024).toFixed(2) <= 2
+        ),
+      { message: 'maximum file size 1 2MB' }
+    )
+    .refine(
+      (files) =>
+        Array.from(files ?? []).every(
+          (file) => file.type === 'application/pdf'
+        ),
+      { message: 'File type must be PDF' }
+    ),
+})
+
 ///(^[a-z]+)(@uniben\.edu|@bijed\.com\.ng)|(^[a-z]+\.[a-z]+)@uniben\.edu$/gm

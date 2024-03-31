@@ -63,7 +63,7 @@ async function IssuePage({ params }) {
           <div>
             <CreateButton
               label='New Article'
-              href={`/dashboard/issues/${issue.ref}/add`}
+              href={`/dashboard/issues/${issue.ref}/new-article`}
             />
             {/* <PublishIssueButton issueRef={issueRef}/> */}
           </div>

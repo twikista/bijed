@@ -12,7 +12,7 @@ export const { auth, signIn, signOut } = NextAuth({
         try {
           console.log(credentials)
           console.log('ran')
-          // connectDB()
+          connectDB()
           //use getuser function
           const user = await getUser(credentials.email)
 

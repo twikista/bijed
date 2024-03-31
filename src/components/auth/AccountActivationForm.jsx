@@ -7,6 +7,7 @@ import { activateUser } from '@/lib/actions'
 import { activateAccountSchema } from '@/lib/schema'
 
 import PasswordInput from '../PasswordInput'
+import { handleValidationErrorFromServer } from '@/lib/util'
 
 function AccountActivationForm({ id }) {
   const router = useRouter()
@@ -31,24 +32,13 @@ function AccountActivationForm({ id }) {
 
     if (response && !response?.ok) {
       if (response?.errorType === 'validationError') {
-        const fieldErrorMapping = {
+        const formfields = {
           firstName: 'firstName',
           lastName: 'lastName',
           email: 'email',
         }
-        const fieldWithError = Object.keys(fieldErrorMapping).find(
-          (field) => response?.error[field]
-        )
-        console.log(response.error[fieldWithError])
-        if (fieldWithError) {
-          console.log('errors', response.error)
-          // Use the ValidFieldNames type to ensure the correct field names
-          const errors = Object.keys(response.error)
-          console.log('array:', errors)
-          errors.forEach((error) =>
-            setError(error, { type: 'server', message: response.error[error] })
-          )
-        }
+
+        handleValidationErrorFromServer(response, formfields, setError)
       }
     }
 

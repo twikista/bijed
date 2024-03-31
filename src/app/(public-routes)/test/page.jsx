@@ -16,7 +16,7 @@ function BasicForm() {
 
   const appendHanlder = () => {
     append({ name: '' })
-    console.log(getValues('base'))
+    console.log('val:', getValues('base'))
     setValues(getValues('base').filter((i) => i.name !== ''))
   }
 

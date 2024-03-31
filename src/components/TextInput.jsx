@@ -1,6 +1,14 @@
 'use client'
 
-function TextInput({ label, placeholder, name, register, error }) {
+function TextInput({
+  label,
+  placeholder,
+  name,
+  register,
+  error,
+  readOnly,
+  valueAsNumber,
+}) {
   console.log('from email field:', error)
   return (
     <div className='flex flex-col'>
@@ -9,9 +17,12 @@ function TextInput({ label, placeholder, name, register, error }) {
       </label>
       <input
         type='text'
-        {...register(name)}
+        {...register(name, {
+          valueAsNumber: valueAsNumber ? valueAsNumber : false,
+        })}
         id={name}
         placeholder={placeholder}
+        readOnly={readOnly ? readOnly : null}
       />
       {error && <span>{error?.message}</span>}
     </div>
