@@ -5,6 +5,7 @@ import parse from 'html-react-parser'
 import { formatDate } from '@/lib/util'
 import AnnouncementItems from '@/components/AnnouncementItems'
 import CreateButton from '@/components/Dashboard/createButton'
+import DashboardContainer from '@/components/Dashboard/DashboardContainer'
 
 // const fetchAnnouncements = async () => {
 //   connectDB()
@@ -38,13 +39,15 @@ async function AnnouncementsPage() {
     //     </article>
     //   ))}
     // </div>
-    <div className='flex flex-col'>
-      <CreateButton
-        href='/dashboard/announcements/add-announcement'
-        label='new announcement'
-      />
-      <AnnouncementItems isPublicRoute={true} />
-    </div>
+    <DashboardContainer>
+      <div className='flex flex-col'>
+        <CreateButton
+          href='/dashboard/announcements/new'
+          label='new announcement'
+        />
+        <AnnouncementItems isPrivateRoute={true} />
+      </div>
+    </DashboardContainer>
   )
 }
 

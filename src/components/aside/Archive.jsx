@@ -22,14 +22,14 @@ async function Archive() {
         Archive
       </h3>
       <div className='space-y-[5px]'>
-        {archive.length ? (
+        {archive && archive?.length ? (
           archive.map((issue) => (
             <article key={issue._id}>
               <Link
-                href={`/archive/${issue.ref}`}
+                href={`/archive/${issue?.ref}`}
                 className='font-medium text-blue-500 underline'
               >
-                {issue.issueTitle}
+                {issue?.issueTitle}
               </Link>
             </article>
           ))
