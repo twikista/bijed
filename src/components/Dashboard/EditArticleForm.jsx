@@ -20,10 +20,10 @@ import { articleFileName, handleValidationErrorFromServer } from '@/lib/util'
 import FileInputToggler from './issues/FileInputToggler'
 import TextInput from '../TextInput'
 import ArticleAuthorsInput from './ArticleAuthorsInput'
-import { articleFormSchema, newArticleFormSchema } from '@/lib/schema'
+import { articleFormSchema, editArticleFormSchema } from '@/lib/schema'
 import ToggleFileInputField from './ToggleFileInputField'
 
-function NewArticleForm({ initialValue, params }) {
+function EditArticleForm({ initialValue, params }) {
   console.log(`params:${params.published}`)
   console.log('initialValue', initialValue)
   const {
@@ -37,7 +37,7 @@ function NewArticleForm({ initialValue, params }) {
     formState: { errors, isSubmitting },
   } = useForm({
     defaultValues: initialValue,
-    resolver: zodResolver(newArticleFormSchema),
+    resolver: zodResolver(editArticleFormSchema),
   })
 
   console.log(errors)
@@ -47,28 +47,35 @@ function NewArticleForm({ initialValue, params }) {
 
   //submit handler
   const handler = async (data) => {
-    console.log('ddata', data)
-    console.log('i ran from new article form')
-    // upload article pdf to firebase
-    const url = await uploadPdfToStorage(data)
-    console.log(url)
+    //Article edit
+    console.log('running')
+    let url = null
+    //upload article pdf to firebase if pdf is changed by user
+    if (data.pdfFile !== null) {
+      const response = await removePdfFromStorage(initialValue.pdfUrl)
+      console.log('firebase response-', response)
+      url = await uploadPdfToStorage(data)
+      console.log('url from editform-', url)
+    }
     //upload formData to server to process and persisit in DB
     const { pdfFile, ...dataWithNoPdfFile } = data
-    console.log('dataWithNoPdfFile', dataWithNoPdfFile)
-    const response = await createArticle(
+    const response = await updateArticle(
+      JSON.parse(JSON.stringify(initialValue)),
       JSON.parse(JSON.stringify(dataWithNoPdfFile)),
-      url,
-      params
+      url
     )
-
     //receive response from server and redirect to appropriate route
     if (response.ok) {
       reset()
+      console.log(`params:${params}`)
       // params.issue === undefined
       //   ? router.push(`/dashboard/articles`)
       //   : router.push(`/dashboard/issues/${params.issue}`)
       router.push(`/dashboard/issues/${params.issue}`)
+      setHideFileInput(true)
     } else {
+      console.log(response)
+      console.log('i failed woefully')
       if (response?.errorType === 'validationError') {
         const formfields = {
           title: ' title',
@@ -165,23 +172,57 @@ function NewArticleForm({ initialValue, params }) {
           initialValue={initialValue.keywords}
         />
         <div>
-          <input
-            type='file'
-            {...register('pdfFile')}
-            accept='application/pdf'
-            // className={clsx({
-            //   hidden: params.article !== undefined && hideFileInput,
-            // })}
-          />
+          {params.article !== undefined && hideFileInput && (
+            <div>
+              <span className='text-gray-400'>
+                Article pdf:&nbsp;
+                <Link
+                  className='underline underline-offset-2 hover:text-blue-500'
+                  href={getValues('pdfUrl')}
+                  target='_blank'
+                >
+                  {articleFileName(getValues())}
+                </Link>
+              </span>
+              &nbsp; &#124; &nbsp;
+              <ToggleFileInputField
+                params={params}
+                hideFileInput={hideFileInput}
+                setHideFileInput={setHideFileInput}
+                setValue={setValue}
+              />
+            </div>
+          )}
+          {!hideFileInput && (
+            <input
+              type='file'
+              {...register('pdfFile')}
+              accept='application/pdf'
+              name='pdfFile'
+              // className={clsx({
+              //   hidden: params.article !== undefined && hideFileInput,
+              // })}
+            />
+          )}
+          {params.article !== undefined && !hideFileInput && (
+            <ToggleFileInputField
+              params={params}
+              hideFileInput={hideFileInput}
+              setHideFileInput={setHideFileInput}
+              setValue={setValue}
+            />
+          )}
           {errors && <div>{errors?.pdfFile?.message}</div>}
         </div>
 
         <br />
-        <button type='submit'>{isSubmitting ? 'loading...' : 'submit'}</button>
+        <button type='submit'>
+          {isSubmitting ? 'updating Artice...' : 'Submit'}
+        </button>
         <Link href={`/dashboard/issues/${params.issue}`}>cancel</Link>
       </form>
     </div>
   )
 }
 
-export default NewArticleForm
+export default EditArticleForm

@@ -5,14 +5,13 @@ import dynamic from 'next/dynamic'
 
 import 'react-quill/dist/quill.snow.css'
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false })
-function TestEditor({ onChange, onBlur, value }) {
+function RichTextEditor({ formData, setFormData, fieldName }) {
   return (
     <div className=' h-[343px]'>
       <ReactQuill
         theme='snow'
-        value={value}
-        onChange={onChange}
-        onBlur={onBlur}
+        value={formData.content}
+        onChange={(value) => setFormData({ ...formData, [fieldName]: value })}
         className='h-[300px] w-[500px]'
         modules={{
           toolbar: [
@@ -46,4 +45,4 @@ function TestEditor({ onChange, onBlur, value }) {
   )
 }
 
-export default TestEditor
+export default RichTextEditor

@@ -8,6 +8,8 @@ function TextInput({
   error,
   readOnly,
   valueAsNumber,
+  valueAsDate,
+  type,
 }) {
   console.log('from email field:', error)
   return (
@@ -16,9 +18,10 @@ function TextInput({
         {label}
       </label>
       <input
-        type='text'
+        type={type || 'text'}
         {...register(name, {
           valueAsNumber: valueAsNumber ? valueAsNumber : false,
+          valueAsDate: valueAsDate ? valueAsDate : false,
         })}
         id={name}
         placeholder={placeholder}
