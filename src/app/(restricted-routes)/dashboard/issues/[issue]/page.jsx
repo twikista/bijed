@@ -4,7 +4,7 @@ import {
   PublishIssueButton,
 } from '@/components/Dashboard/Buttons'
 import CreateButton from '@/components/Dashboard/createButton'
-import MainContainer from '@/components/MainContainer'
+import DashboardContainer from '@/components/Dashboard/DashboardContainer'
 import { deleteArticle } from '@/lib/actions'
 import { connectDB } from '@/lib/mongoose/config'
 import { Article, Issue } from '@/lib/mongoose/models'
@@ -44,7 +44,7 @@ async function IssuePage({ params }) {
   if (!articlesInIssue.length) {
     console.log(params)
     return (
-      <MainContainer>
+      <DashboardContainer>
         <section>
           <div>
             <h2 className='text-2xl font-bold capitalize font-cairo'>
@@ -70,12 +70,12 @@ async function IssuePage({ params }) {
         </section>
 
         <p>There are currently no aticles in this issue</p>
-      </MainContainer>
+      </DashboardContainer>
     )
   }
 
   return (
-    <MainContainer>
+    <DashboardContainer>
       <section>
         <div>
           {/*move to a seperate client component and context to supply issue details*/}
@@ -155,7 +155,7 @@ async function IssuePage({ params }) {
         </table>
       </div>
 
-      <section className='space-y-5'>
+      {/* <section className='space-y-5'>
         <h3 className='text-xl font-bold border-b-2 border-neutral-300'>
           Articles
           <span className='text-[#cdad4e]'>{` (${articlesInIssue.length})`}</span>
@@ -183,8 +183,8 @@ async function IssuePage({ params }) {
             </div>
           ))}
         </div>
-      </section>
-    </MainContainer>
+      </section> */}
+    </DashboardContainer>
   )
 }
 

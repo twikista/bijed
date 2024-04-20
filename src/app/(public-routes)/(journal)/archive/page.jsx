@@ -77,7 +77,7 @@ async function Archive() {
             <div className='flex-1'>
               <h2 className='text-sm font-bold transition-colors sm:text-lg text-primary hover:text-blue-600'>
                 <Link href={`/archive/${issue.ref}`}>
-                  {`BIJED ${issue.issueYear} ${
+                  {`BIJED ${new Date(issue.issueYear).getFullYear()} ${
                     issue.issueNumber === 1 ? 'First' : 'Second'
                   } Issue`}
                 </Link>

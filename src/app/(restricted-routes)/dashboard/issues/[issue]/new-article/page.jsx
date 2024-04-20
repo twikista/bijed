@@ -1,6 +1,7 @@
 // import UploadInput from '@/components/UploadInput'
 import DashboardContainer from '@/components/Dashboard/DashboardContainer'
 import ArticleForm from '@/components/Dashboard/ArticleForm'
+import NewArticleForm from '@/components/Dashboard/NewArticleForm'
 import { getIssue } from '@/lib/data'
 
 const initialState = {
@@ -8,23 +9,23 @@ const initialState = {
   authors: [{ name: '', affliation: '', orchidId: '' }],
   volume: '',
   issue: '',
-  startPage: '',
-  endPage: '',
+  startPage: null,
+  endPage: null,
   abstract: '',
-  keywords: [],
-  pdfFile: null,
+  keywords: [{ keyword: '' }],
+  pdfFile: '',
 }
 
 async function AddArticle({ params }) {
   const articleIssue = await getIssue(params.issue)
-  const volume = articleIssue.volume
-  const issue = articleIssue.issueNumber
+  const volume = articleIssue?.volume
+  const issue = articleIssue?.issueNumber
   return (
     <DashboardContainer>
       {/* <UploadInput /> */}
-      <ArticleForm
+      <NewArticleForm
         initialValue={{ ...initialState, volume, issue }}
-        params={{ ...params, published: articleIssue.published }}
+        params={{ ...params, published: articleIssue?.published }}
       />
     </DashboardContainer>
   )
