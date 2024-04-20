@@ -47,7 +47,7 @@ const issueSchema = new mongoose.Schema(
     issueTitle: { type: String, required: true },
     issueNumber: { type: Number, required: true, trim: true, enum: [1, 2] },
     issueYear: {
-      type: Number,
+      type: Date,
       required: true,
     },
     volume: { type: Number, required: true },
@@ -101,16 +101,16 @@ const userSchema = new mongoose.Schema(
 //Models
 
 export const Article =
-  mongoose.models.Article || mongoose.model('Article', articleSchema)
+  mongoose.models?.Article || mongoose.model('Article', articleSchema)
 export const Issue =
-  mongoose.models.Issue || mongoose.model('Issue', issueSchema)
+  mongoose.models?.Issue || mongoose.model('Issue', issueSchema)
 
 export const Announcement =
-  mongoose.models.Announcement ||
+  mongoose.models?.Announcement ||
   mongoose.model('Announcement', announcementSchema)
 // export const Volume =
 //   mongoose.models.Volume || mongoose.model('Volume', volumeSchema)
 
-export const User = mongoose.models.User || mongoose.model('User', userSchema)
+export const User = mongoose.models?.User || mongoose.model('User', userSchema)
 
 ///(^[a-z]+)(@uniben\.edu|@bijed\.com\.ng)|(^[a-z]+\.[a-z]+)@uniben\.edu$/gm

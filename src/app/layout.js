@@ -16,6 +16,7 @@ export const saira = Saira_Condensed({
   weight: ['400', '500', '600', '700', '800', '900'],
   variable: '--font-saira',
   display: 'swap',
+  adjustFontFallback: false,
 })
 
 export const ibmPlex = IBM_Plex_Sans({
@@ -23,6 +24,7 @@ export const ibmPlex = IBM_Plex_Sans({
   weight: ['300', '400', '500', '600', '700'],
   variable: '--font-plex',
   display: 'swap',
+  adjustFontFallback: false,
 })
 
 // export const barlow = Barlow({
@@ -32,21 +34,24 @@ export const ibmPlex = IBM_Plex_Sans({
 //   display: 'swap',
 // })
 
-export const inter = Inter({
-  subsets: ['latin'],
-  display: 'swap',
-})
+// export const inter = Inter({
+//   subsets: ['latin'],
+//   display: 'swap',
+//   adjustFontFallback: false,
+// })
 
-export const lato = Lato({
-  subsets: ['latin'],
-  weight: ['100', '300', '400', '700', '900'],
-  display: 'swap',
-})
+// export const lato = Lato({
+//   subsets: ['latin'],
+//   weight: ['100', '300', '400', '700', '900'],
+//   display: 'swap',
+//   adjustFontFallback: false,
+// })
 
 export const cairo = Cairo({
   subsets: ['latin'],
   variable: '--font-cairo',
   display: 'swap',
+  adjustFontFallback: false,
 })
 
 export const metadata = {
@@ -73,11 +78,10 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html
-      lang='en'
-      className={`${ibmPlex.className} ${saira.variable} ${cairo.variable} antialiased`}
-    >
-      <body className={'flex flex-col h-full bg-slate-50 min-w-[320px]'}>
+    <html lang='en' className={``}>
+      <body
+        className={`${ibmPlex.className} ${saira.variable} ${cairo.variable} antialiased flex flex-col h-full bg-slate-50 min-w-[320px]`}
+      >
         {/* <Header /> */}
         {children}
         {/* <Footer /> */}

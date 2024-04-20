@@ -3,6 +3,7 @@
 import {
   handleServerSideValidationError,
   hashPassword,
+  replaceSpaceInTitleWithHyphen,
   signJWT,
   validatePassword,
   verifyJWT,
@@ -10,7 +11,7 @@ import {
 import uniqid from 'uniqid'
 import { revalidatePath } from 'next/cache'
 import { connectDB } from './mongoose/config'
-import { Article, Issue, User } from './mongoose/models'
+import { Announcement, Article, Issue, User } from './mongoose/models'
 import { uploadPdfToStorage, removePdfFromStorage } from './firebase/services'
 import { redirect } from 'next/navigation'
 import { signIn, signOut } from '../../auth'
@@ -26,18 +27,31 @@ import {
   activateAccountSchema,
   forgetPasswordSchema,
   passwordSchema,
+  articleFormSchema,
+  issueFormSchema,
+  editArticleFormSchema,
+  newArticleFormSchema,
+  articleSchemaForServer,
+  announcementSchema,
 } from './schema'
 
 //create new issue
 export const addIssue = async (formData) => {
-  const { issueNumber, volume } = formData
-  console.log(issueNumber, volume)
+  const parsedData = issueFormSchema.safeParse(formData)
+  if (!parsedData.success) {
+    const validationError = handleServerSideValidationError(parsedData)
+    return { ok: false, error: validationError, errorType: 'validationError' }
+  }
+  const { issueNumber, issueYear, volume } = parsedData.data
+  console.log(issueNumber, issueYear, volume)
   const issueData = {
     issueNumber,
     volume,
-    issueYear: new Date().getFullYear(),
+    issueYear,
     ref: `volume-${volume}-issue-${issueNumber}`,
-    issueTitle: `Vol. ${volume} No. ${issueNumber} (${new Date().getFullYear()})`,
+    issueTitle: `Vol. ${volume} No. ${issueNumber} (${new Date(
+      issueYear
+    ).getFullYear()})`,
     published: false,
     publishDate: new Date(),
   }
@@ -46,13 +60,17 @@ export const addIssue = async (formData) => {
     connectDB()
     const newIssue = new Issue(issueData)
     const savedIssue = await newIssue.save()
+    if (savedIssue._id !== null) {
+      revalidatePath('/archive')
+      revalidatePath('/dashboard/issues')
+      return { ok: true }
+    }
     console.log(issueData)
     console.log(savedIssue)
   } catch (error) {
     console.log(error)
+    return { ok: false, error: 'Something went wrong', errorType: 'other' }
   }
-  revalidatePath('/archive')
-  revalidatePath('/dashboard/issues')
 }
 
 //publish issue
@@ -105,16 +123,23 @@ export async function deleteIssue(id) {
 }
 
 export async function updateIssue(id, initialValue, formData) {
-  const { issueNumber, volume } = formData
-  console.log(issueNumber, volume)
+  console.log('formdata-', formData)
+  const parsedData = issueFormSchema.safeParse(formData)
+  if (!parsedData.success) {
+    const validationError = handleServerSideValidationError(parsedData)
+    return { ok: false, error: validationError, errorType: 'validationError' }
+  }
+  const { issueNumber, issueYear, volume } = parsedData.data
+  console.log('issueNumber-', issueNumber, ' volume-', volume)
   const issueData = {
     ...initialValue,
-    issueNumber,
-    volume,
+    ...formData,
     ref: `volume-${volume}-issue-${issueNumber}`,
-    issueTitle: `Vol. ${volume} No. ${issueNumber} (${new Date().getFullYear()})`,
+    issueTitle: `Vol. ${volume} No. ${issueNumber} (${new Date(
+      issueYear
+    ).getFullYear()})`,
   }
-  console.log(issueData)
+  console.log('issueData-', issueData)
   console.log('got called')
 
   try {
@@ -123,15 +148,15 @@ export async function updateIssue(id, initialValue, formData) {
       new: true,
     })
     console.log(updatedIssue)
-    if (updatedIssue._id !== undefined) {
-      revalidatePath('/dashboard/issues')
-      revalidatePath('/archive')
-      return true
-    } else {
-      return false
-    }
+    if (updatedIssue._id === undefined)
+      return { ok: false, error: 'Something went wrong', errorType: 'other' }
+
+    revalidatePath('/dashboard/issues')
+    revalidatePath('/archive')
+    return { ok: true }
   } catch (error) {
     console.log(error)
+    return { ok: false, error: 'Something went wrong', errorType: 'other' }
   }
 }
 
@@ -158,6 +183,7 @@ export async function deleteArticle(id) {
     return { ok: false }
   } catch (error) {
     console.log(error)
+    return { ok: false, error: 'Something went wrong', errorType: 'other' }
   } finally {
     console.log(`ref:${ref}`)
     console.log(`ref:${ref}`)
@@ -166,12 +192,24 @@ export async function deleteArticle(id) {
 }
 
 export async function updateArticle(initialValue, formData, url) {
+  console.log('URL-', formData)
+  //validate form dtata from frontend
+  const parsedData = articleSchemaForServer.safeParse(formData)
+  if (!parsedData.success) {
+    const validationError = handleServerSideValidationError(parsedData)
+    return { ok: false, error: validationError, errorType: 'validationError' }
+  }
   //update article fields to reflect changes by user
+  const { data } = parsedData
+  console.log('edit data-', data)
   const articleData = {
     ...initialValue,
-    slug: `${formData.startPage}-${formData.endPage}`,
-    ref: `volume-${formData.volume}-issue-${formData.issue}`,
-    keywords: formData.keywords,
+    ...data,
+    slug: `${data.startPage}-${data.endPage}`,
+    ref: `volume-${data.volume}-issue-${data.issue}`,
+    keywords: data.keywords
+      .filter((i) => i.keyword !== '')
+      .map((i) => i.keyword),
     pdfUrl: url !== null ? url : initialValue.pdfUrl,
   }
 
@@ -186,27 +224,37 @@ export async function updateArticle(initialValue, formData, url) {
       }
     )
 
-    //revalidate all routes to reflect updated data
-    if (updatedArticle._id !== undefined) {
-      revalidatePath(`/archive/${updatedArticle.ref}`)
-      revalidatePath(`/dashboard/issues/${updatedArticle.ref}`)
-      // revalidatePath('dashboard/articles')
-      return { ok: true }
-    } else {
-      return { ok: false }
+    if (updatedArticle._id === undefined) {
+      return { ok: false, error: 'Something went wrong', errorType: 'other' }
     }
+    //revalidate all routes to reflect updated data
+    revalidatePath(`/archive/${updatedArticle.ref}`)
+    revalidatePath(`/dashboard/issues/${updatedArticle.ref}`)
+    // revalidatePath('dashboard/articles')
+    return { ok: true }
   } catch (error) {
     console.log(error)
+    return { ok: false, error: 'Something went wrong', errorType: 'other' }
   }
 }
 
 export async function createArticle(formData, url, params) {
-  const { pdfFile, ...articleData } = formData
+  //validate form dtata from frontend
+  const parsedData = articleSchemaForServer.safeParse(formData)
+  if (!parsedData.success) {
+    const validationError = handleServerSideValidationError(parsedData)
+    return { ok: false, error: validationError, errorType: 'validationError' }
+  }
+
+  const { pdfFile, ...articleData } = parsedData.data
 
   //add computed fields to article object
+  articleData.keywords = articleData.keywords
+    .filter((i) => i.keyword !== '')
+    .map((i) => i.keyword)
   articleData.pdfUrl = url
-  articleData.slug = `${formData.startPage}-${formData.endPage}`
-  articleData.ref = `volume-${formData.volume}-issue-${formData.issue}`
+  articleData.slug = `${articleData.startPage}-${articleData.endPage}`
+  articleData.ref = `volume-${articleData.volume}-issue-${articleData.issue}`
   articleData.published = params.published ? true : false
   articleData.publishDate = new Date()
 
@@ -216,16 +264,12 @@ export async function createArticle(formData, url, params) {
     const newArticle = new Article(articleData)
     const savedArticle = await newArticle.save()
     console.log(savedArticle)
+    //return if article wasn't created due to error
+    if (savedArticle._id === undefined) {
+      return { ok: false, error: 'Something went wrong', errorType: 'other' }
+    }
 
-    //get issue
-    // const articleIssue = await Issue.updateOne({
-    //   volume: `${savedArticle.volume}`,
-    //   issueNumber: `${savedArticle.issue}`,
-    // },{$push:{articles:savedArticle._id}} )
-
-    //add article to issue
-    // articleIssue.articles = articleIssue.articles.concat(savedArticle._id)
-    // await articleIssue.save()
+    //update issues with newly created article
     await Issue.updateOne(
       {
         volume: `${savedArticle.volume}`,
@@ -234,17 +278,13 @@ export async function createArticle(formData, url, params) {
       { $push: { articles: savedArticle._id } }
     )
 
-    if (savedArticle._id !== undefined) {
-      //revalidate affected routes to reflect changes
-      revalidatePath(`/archive/${savedArticle.ref}`)
-      revalidatePath(`/dashboard/issues/${savedArticle.ref}`)
-      // revalidatePath('dashboard/articles')
-      return { ok: true }
-    } else {
-      return { ok: false }
-    }
+    //revalidate routes affected by artice creation to reflect changes
+    revalidatePath(`/archive/${savedArticle.ref}`)
+    revalidatePath(`/dashboard/issues/${savedArticle.ref}`)
+    // send success response back to client
+    return { ok: true }
   } catch (error) {
-    console.log(error)
+    return { ok: false, error: 'Something went wrong', errorType: 'other' }
   }
 }
 
@@ -382,13 +422,8 @@ export async function authenticate(formData) {
   // const formData = Object.fromEntries(data)
   const parsedData = signinFormSchema.safeParse(formData)
   // If validation errors, map them into an object
-
-  console.log('parsed data', parsedData)
-  try {
-    if (parsedData.success) {
-      await signIn('credentials', parsedData.data)
-    }
-
+  if (!parsedData.success) {
+    console.log('parsed data', parsedData)
     const validationError = Object.fromEntries(
       parsedData.error?.issues?.map((issue) => [
         issue.path[0],
@@ -396,6 +431,12 @@ export async function authenticate(formData) {
       ]) || []
     )
     return { ok: false, errors: validationError, errorType: 'validationError' }
+  }
+
+  try {
+    if (parsedData.success) {
+      await signIn('credentials', parsedData.data)
+    }
   } catch (error) {
     if (error && error?.type?.includes('CredentialsSignin')) {
       return { ok: false, error: 'Invalid credentials', errorType: 'authError' }
@@ -502,4 +543,92 @@ export async function resetPassword(authToken, formData) {
 export async function logOut() {
   console.log('called from logOut')
   await signOut()
+}
+
+export const createAnnouncement = async (formData) => {
+  const parsedData = announcementSchema.safeParse(formData)
+  if (!parsedData.success) {
+    const validationError = handleServerSideValidationError(parsedData)
+    return { ok: false, error: validationError, errorType: 'validationError' }
+  }
+
+  const { data } = parsedData
+  console.log('data', data)
+  data.slug = replaceSpaceInTitleWithHyphen(data.title)
+  try {
+    connectDB()
+    const newAnnouncement = new Announcement(data)
+    const savedAnnouncement = await newAnnouncement.save()
+    console.log(savedAnnouncement)
+
+    if (savedAnnouncement) {
+      revalidatePath('/dashbard/announcements')
+      return { ok: true }
+    } else {
+      return { ok: false, error: 'something went wrong', errorType: 'other' }
+    }
+  } catch (error) {
+    console.log(error)
+    return { ok: false, error: 'something went wrong', errorType: 'other' }
+  }
+}
+
+export const updateAnnouncement = async (initialState, formData) => {
+  console.log('announcemnt formDat-', formData)
+  const parsedData = announcementSchema.safeParse(formData)
+  if (!parsedData.success) {
+    const validationError = handleServerSideValidationError(parsedData)
+    return { ok: false, error: validationError, errorType: 'validationError' }
+  }
+
+  const data = { ...initialState, ...parsedData.data }
+  console.log('data', data)
+  data.slug = data.title.replace(/ /g, '-')
+  console.log('edited-Announcent-', data)
+  try {
+    connectDB()
+    const announcementEixst = await Announcement.findById(initialState._id)
+    if (!announcementEixst._id)
+      return { ok: false, error: 'Announcement not found!', errorType: 'other' }
+
+    // const newAnnouncement = new Announcement(data)
+    const updatedAnnouncement = await Announcement.findByIdAndUpdate(
+      initialState._id,
+      data,
+      { new: true }
+    )
+    console.log(updatedAnnouncement)
+
+    if (updatedAnnouncement._id) {
+      revalidatePath('/dashbard/announcements')
+      return { ok: true }
+    } else {
+      return { ok: false, error: 'something went wrong', errorType: 'other' }
+    }
+  } catch (error) {
+    console.log(error)
+    return { ok: false, error: 'something went wrong', errorType: 'other' }
+  }
+}
+
+export const deleteAnnouncement = async (id) => {
+  let successful = null
+  try {
+    connectDB()
+    const deletedAnnouncement = await Announcement.findByIdAndDelete(id)
+    if (deletedAnnouncement) {
+      revalidatePath('/dashboard/announcements')
+      successful = true
+      return { ok: true }
+    } else {
+      successful = false
+      return { ok: false, error: 'something went wrong' }
+    }
+  } catch (error) {
+    console.log(error)
+    successful = false
+    return { ok: false, error: 'something went wrong' }
+  } finally {
+    if (successful) redirect('/dashboard/announcements')
+  }
 }

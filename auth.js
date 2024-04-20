@@ -11,10 +11,12 @@ export const { auth, signIn, signOut } = NextAuth({
       async authorize(credentials) {
         try {
           console.log(credentials)
-          console.log('ran')
-          connectDB()
+          console.log('i ran')
+          console.log(process.env.NEXT_PUBLIC_MONGO_URI)
+          // connectDB()
           //use getuser function
           const user = await getUser(credentials.email)
+          console.log('user from server:', user)
 
           const parsedUser = JSON.parse(JSON.stringify(user))
           console.log('from authorize function')
@@ -45,7 +47,7 @@ export const { auth, signIn, signOut } = NextAuth({
           console.log('pre pre', userWithoutPassword)
           return userWithoutPassword
         } catch (error) {
-          // console.log(error)
+          console.log(error)
           return null
         }
       },

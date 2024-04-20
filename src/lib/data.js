@@ -9,6 +9,12 @@ export const fetchAnnouncement = async (slug) => {
   return announcement
 }
 
+export const getAnnouncements = async () => {
+  connectDB()
+  const announcements = await Announcement.find().sort({ createdAt: 1 })
+  return announcements
+}
+
 export const getIssues = async () => {
   // nostore()
   try {
@@ -60,6 +66,7 @@ export const fetchUnpublishedIssue = async ({ issueRef }) => {
 }
 
 export const getUser = async (email) => {
+  console.log('i ran')
   connectDB()
 
   const user = await User.findOne({ email })

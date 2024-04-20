@@ -12,17 +12,20 @@ export const barlow = Barlow({
   weight: ['400', '500', '600', '700', '800', '900'],
   variable: '--font-saira',
   display: 'swap',
+  adjustFontFallback: false,
 })
 
 export const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
+  adjustFontFallback: false,
 })
 
 export const lato = Lato({
   subsets: ['latin'],
   weight: ['100', '300', '400', '700', '900'],
   display: 'swap',
+  adjustFontFallback: false,
 })
 
 export const cairo = Cairo({
