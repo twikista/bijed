@@ -34,18 +34,20 @@ export const ibmPlex = IBM_Plex_Sans({
 //   display: 'swap',
 // })
 
-// export const inter = Inter({
-//   subsets: ['latin'],
-//   display: 'swap',
-//   adjustFontFallback: false,
-// })
+export const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter',
+  display: 'swap',
+  adjustFontFallback: false,
+})
 
-// export const lato = Lato({
-//   subsets: ['latin'],
-//   weight: ['100', '300', '400', '700', '900'],
-//   display: 'swap',
-//   adjustFontFallback: false,
-// })
+export const lato = Lato({
+  subsets: ['latin'],
+  weight: ['100', '300', '400', '700', '900'],
+  variable: '--font-lato',
+  display: 'swap',
+  adjustFontFallback: false,
+})
 
 export const cairo = Cairo({
   subsets: ['latin'],
