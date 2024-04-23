@@ -1,4 +1,4 @@
-// import { saira, lato, cairo, barlow, inter } from './font/font'
+import { saira, lato, cairo, barlow, inter, ibmPlex } from './font/font'
 import {
   Saira_Condensed,
   Inter,
@@ -11,21 +11,21 @@ import './globals.css'
 // import Header from '@/components/Header'
 // import Footer from '@/components/Footer'
 
-export const saira = Saira_Condensed({
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700', '800', '900'],
-  variable: '--font-saira',
-  display: 'swap',
-  adjustFontFallback: false,
-})
+// export const saira = Saira_Condensed({
+//   subsets: ['latin'],
+//   weight: ['400', '500', '600', '700', '800', '900'],
+//   variable: '--font-saira',
+//   display: 'swap',
+//   adjustFontFallback: false,
+// })
 
-export const ibmPlex = IBM_Plex_Sans({
-  subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700'],
-  variable: '--font-plex',
-  display: 'swap',
-  adjustFontFallback: false,
-})
+// export const ibmPlex = IBM_Plex_Sans({
+//   subsets: ['latin'],
+//   weight: ['300', '400', '500', '600', '700'],
+//   variable: '--font-plex',
+//   display: 'swap',
+//   adjustFontFallback: false,
+// })
 
 // export const barlow = Barlow({
 //   subsets: ['latin'],
@@ -34,27 +34,27 @@ export const ibmPlex = IBM_Plex_Sans({
 //   display: 'swap',
 // })
 
-export const inter = Inter({
-  subsets: ['latin'],
-  variable: '--font-inter',
-  display: 'swap',
-  adjustFontFallback: false,
-})
+// export const inter = Inter({
+//   subsets: ['latin'],
+//   variable: '--font-inter',
+//   display: 'swap',
+//   adjustFontFallback: false,
+// })
 
-export const lato = Lato({
-  subsets: ['latin'],
-  weight: ['100', '300', '400', '700', '900'],
-  variable: '--font-lato',
-  display: 'swap',
-  adjustFontFallback: false,
-})
+// export const lato = Lato({
+//   subsets: ['latin'],
+//   weight: ['100', '300', '400', '700', '900'],
+//   variable: '--font-lato',
+//   display: 'swap',
+//   adjustFontFallback: false,
+// })
 
-export const cairo = Cairo({
-  subsets: ['latin'],
-  variable: '--font-cairo',
-  display: 'swap',
-  adjustFontFallback: false,
-})
+// export const cairo = Cairo({
+//   subsets: ['latin'],
+//   variable: '--font-cairo',
+//   display: 'swap',
+//   adjustFontFallback: false,
+// })
 
 export const metadata = {
   title: 'BIJED - Benin International Journal of Entrepreneurship Development',

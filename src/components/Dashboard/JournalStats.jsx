@@ -18,27 +18,26 @@ const getMaxVolume = async () => {
   }
 }
 async function JournalStats() {
-  const { numberOfVolume, numberOfIssues, numberOfArticles } =
-    await getMaxVolume()
+  const data = await getMaxVolume()
   return (
     <section className='flex justify-around gap-10 font-lato'>
       <JournalStatCard
         title='Published volumes'
-        value={numberOfVolume}
+        value={data?.numberOfVolume}
         Icon={VolumeIcon}
         bg='bg-[#e5d4ff]'
       />
       <JournalStatCard
         title='Published issues'
-        value={numberOfIssues}
+        value={data?.numberOfIssues}
         Icon={IssuesIcon}
         bg='bg-green-100'
       />
       <JournalStatCard
         title='Published articles'
-        value={numberOfArticles}
+        value={data?.numberOfArticles}
         Icon={ArticlesIcon}
-        bg='bg-[#fff0c6]'
+        bg='bg-[#ffff33]/30'
       />
     </section>
   )

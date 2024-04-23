@@ -417,3 +417,181 @@ export const ArticlesIcon = (props) => (
     </g>
   </svg>
 )
+
+export const LinkIcon = (props) => (
+  <svg
+    width='64px'
+    height='64px'
+    viewBox='0 0 24 24'
+    xmlns='http://www.w3.org/2000/svg'
+    fill='#000000'
+    {...props}
+  >
+    <g id='SVGRepo_bgCarrier' strokeWidth={0} />
+    <g
+      id='SVGRepo_tracerCarrier'
+      strokeLinecap='round'
+      strokeLinejoin='round'
+    />
+    <g id='SVGRepo_iconCarrier'>
+      <g>
+        <path fill='none' d='M0 0h24v24H0z' />
+        <path d='M18.364 15.536L16.95 14.12l1.414-1.414a5 5 0 1 0-7.071-7.071L9.879 7.05 8.464 5.636 9.88 4.222a7 7 0 0 1 9.9 9.9l-1.415 1.414zm-2.828 2.828l-1.415 1.414a7 7 0 0 1-9.9-9.9l1.415-1.414L7.05 9.88l-1.414 1.414a5 5 0 1 0 7.071 7.071l1.414-1.414 1.415 1.414zm-.708-10.607l1.415 1.415-7.071 7.07-1.415-1.414 7.071-7.07z' />
+      </g>
+    </g>
+  </svg>
+)
+
+export const TimePastIcon = (props) => (
+  <svg
+    width={64}
+    height={64}
+    viewBox='0 0 24 24'
+    xmlns='http://www.w3.org/2000/svg'
+    {...props}
+  >
+    <path d='M12 6a1 1 0 0 0-1 1v5a1 1 0 0 0 .293.707l3 3a1 1 0 0 0 1.414-1.414L13 11.586V7a1 1 0 0 0-1-1Zm11.812 4.132A12 12 0 0 0 3.578 3.415V1a1 1 0 0 0-2 0v4a2 2 0 0 0 2 2h4a1 1 0 0 0 0-2H4.827a9.99 9.99 0 1 1-2.835 7.878A.982.982 0 0 0 1 12a1.007 1.007 0 0 0-1 1.1 12 12 0 1 0 23.808-2.969Z' />
+  </svg>
+)
+
+export const ArrowRight = (props) => (
+  <svg
+    width={64}
+    height={64}
+    viewBox='0 -2 32 32'
+    xmlns='http://www.w3.org/2000/svg'
+    {...props}
+  >
+    <path
+      d='M28 0H8a4 4 0 0 0-4 4v4h2V4a2 2 0 0 1 2-2h20a2 2 0 0 1 2 2v20a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2v-4H4v4a4 4 0 0 0 4 4h20a4 4 0 0 0 4-4V4a4 4 0 0 0-4-4ZM17.343 20.243a1 1 0 0 0 1.415 1.414l6.899-6.899A.992.992 0 0 0 25.94 14a.988.988 0 0 0-.283-.757l-6.899-6.899a1 1 0 1 0-1.415 1.414L22.586 13H1a1 1 0 1 0 0 2h21.586l-5.243 5.243Z'
+      fill='#000'
+      fillRule='evenodd'
+    />
+  </svg>
+)
+
+export const AddToIssueIcon = (props) => (
+  <svg
+    height={64}
+    width={64}
+    xmlns='http://www.w3.org/2000/svg'
+    viewBox='0 0 60 60'
+    xmlSpace='preserve'
+    {...props}
+  >
+    <path d='M46 34c-7.168 0-13 5.832-13 13s5.832 13 13 13 13-5.832 13-13-5.832-13-13-13zm0 24c-6.065 0-11-4.935-11-11s4.935-11 11-11 11 4.935 11 11-4.935 11-11 11z' />
+    <path d='M52 46h-5v-5a1 1 0 1 0-2 0v5h-5a1 1 0 1 0 0 2h5v5a1 1 0 1 0 2 0v-5h5a1 1 0 1 0 0-2zM55 2.832A2.836 2.836 0 0 0 52.168 0H3.833A2.836 2.836 0 0 0 1 2.832V29h54V2.832zM37 14.495A3.508 3.508 0 0 1 33.496 18H22.505A3.509 3.509 0 0 1 19 14.495V13a1 1 0 1 1 2 0v1.495c0 .83.675 1.505 1.505 1.505h10.991c.829 0 1.504-.675 1.504-1.505V13a1 1 0 1 1 2 0v1.495z' />
+    <path d='M30 47h-7.495A3.509 3.509 0 0 1 19 43.495V42a1 1 0 1 1 2 0v1.495c0 .83.675 1.505 1.505 1.505h7.634c.989-7.88 7.717-14 15.861-14H1v26.168A2.836 2.836 0 0 0 3.833 60h32.876C32.655 57.094 30 52.356 30 47z' />
+  </svg>
+)
+
+export const AddUserIcon = (props) => (
+  <svg
+    width='64px'
+    height='64px'
+    viewBox='0 0 24 24'
+    fill='none'
+    stroke='currentColor'
+    xmlns='http://www.w3.org/2000/svg'
+    {...props}
+  >
+    <g id='SVGRepo_bgCarrier' strokeWidth={0} />
+    <g
+      id='SVGRepo_tracerCarrier'
+      strokeLinecap='round'
+      strokeLinejoin='round'
+    />
+    <g id='SVGRepo_iconCarrier'>
+      <g id='Iconly/Curved/Add User'>
+        <g id='Add User'>
+          <path
+            id='Stroke 1'
+            fillRule='evenodd'
+            clipRule='evenodd'
+            d='M9.92234 21.8083C6.10834 21.8083 2.85034 21.2313 2.85034 18.9213C2.85034 16.6113 6.08734 14.5103 9.92234 14.5103C13.7363 14.5103 16.9943 16.5913 16.9943 18.9003C16.9943 21.2093 13.7573 21.8083 9.92234 21.8083Z'
+            stroke='currentColor'
+            strokeWidth={1.5}
+            strokeLinecap='round'
+            strokeLinejoin='round'
+          />
+          <path
+            id='Stroke 3'
+            fillRule='evenodd'
+            clipRule='evenodd'
+            d='M9.92231 11.2159C12.4253 11.2159 14.4553 9.1859 14.4553 6.6829C14.4553 4.1789 12.4253 2.1499 9.92231 2.1499C7.41931 2.1499 5.38931 4.1789 5.38931 6.6829C5.38031 9.1769 7.39631 11.2069 9.89031 11.2159H9.92231Z'
+            stroke='currentColor'
+            strokeWidth={1.5}
+            strokeLinecap='round'
+            strokeLinejoin='round'
+          />
+          <path
+            id='Stroke 5'
+            d='M19.1313 8.12891V12.1389'
+            stroke='currentColor'
+            strokeWidth={1.5}
+            strokeLinecap='round'
+            strokeLinejoin='round'
+          />
+          <path
+            id='Stroke 7'
+            d='M21.1776 10.1338H17.0876'
+            stroke='currentColor'
+            strokeWidth={1.5}
+            strokeLinecap='round'
+            strokeLinejoin='round'
+          />
+        </g>
+      </g>
+    </g>
+  </svg>
+)
+
+export const GlobeIcon = (props) => (
+  <svg
+    width={64}
+    height={64}
+    xmlns='http://www.w3.org/2000/svg'
+    strokeWidth={3}
+    stroke='#000'
+    fill='none'
+    {...props}
+  >
+    <circle cx={32} cy={32} r={24.86} />
+    <path d='M32 6.84a34.09 34.09 0 0 1 11.66 25.47c0 16.19-7.28 21-11.66 24.24M32 6.84a34.09 34.09 0 0 0-11.69 25.47c0 16.19 7.28 21 11.66 24.24M10.37 19.75h43.38M32 6.84v49.71M11.05 45.33h41.93M7.14 32.31l49.72-.62' />
+  </svg>
+)
+
+export const HomePageIcon = (props) => (
+  <svg
+    height={64}
+    width={64}
+    fill='currentColor'
+    xmlns='http://www.w3.org/2000/svg'
+    viewBox='0 0 254.182 254.182'
+    xmlSpace='preserve'
+    {...props}
+  >
+    <path d='M211.655 137.102a7.5 7.5 0 0 0-7.5 7.5v77.064h-41.373v-77.064a7.5 7.5 0 0 0-7.5-7.5H98.903a7.5 7.5 0 0 0-7.5 7.5v77.064H50.026v-77.064a7.5 7.5 0 0 0-7.5-7.5 7.5 7.5 0 0 0-7.5 7.5v84.564a7.5 7.5 0 0 0 7.5 7.5h169.129a7.5 7.5 0 0 0 7.5-7.5v-84.564a7.5 7.5 0 0 0-7.5-7.5zm-105.252 84.564v-69.564h41.379v69.564h-41.379z' />
+    <path d='M251.985 139.298 132.389 19.712a7.501 7.501 0 0 0-10.607 0L2.197 139.298a7.5 7.5 0 0 0 10.607 10.606L127.086 35.622l114.293 114.283a7.477 7.477 0 0 0 5.303 2.196 7.5 7.5 0 0 0 5.303-12.803z' />
+  </svg>
+)
+
+export const AddIssuesIcon = (props) => (
+  <svg
+    width={64}
+    height={64}
+    viewBox='0 0 24 24'
+    fill='none'
+    xmlns='http://www.w3.org/2000/svg'
+    {...props}
+  >
+    <g fill='currentColor'>
+      <path d='M12 18.25a1 1 0 0 1-1-1V16H9.75a1 1 0 1 1 0-2H11v-1.25a1 1 0 1 1 2 0V14h1.25a1 1 0 1 1 0 2H13v1.25a1 1 0 0 1-1 1Z' />
+      <path
+        fillRule='evenodd'
+        clipRule='evenodd'
+        d='M7 5V4a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v1a2 2 0 0 1 2 2v1c0 .057-.002.113-.007.168A3.001 3.001 0 0 1 21 11v8a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3v-8c0-1.309.838-2.422 2.007-2.832A2.027 2.027 0 0 1 5 8V7a2 2 0 0 1 2-2Zm2-1h6v1H9V4Zm8 3v1H7V7h10ZM6 10h12a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-8a1 1 0 0 1 1-1Z'
+      />
+    </g>
+  </svg>
+)
