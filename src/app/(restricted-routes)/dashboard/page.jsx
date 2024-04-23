@@ -1,31 +1,23 @@
 import { auth } from '../../../../auth'
-import { sendEmail } from '@/lib/emailServices'
 
 import DashboardContainer from '@/components/Dashboard/DashboardContainer'
 import JournalStats from '@/components/Dashboard/JournalStats'
-import {
-  AddIssuesIcon,
-  AddToIssueIcon,
-  AddUserIcon,
-  ArrowRight,
-  GlobeIcon,
-  HomePageIcon,
-  LinkIcon,
-  TimePastIcon,
-} from '@/components/Icons'
-import Link from 'next/link'
-import { GlobeAltIcon, DocumentPlusIcon } from '@heroicons/react/24/outline'
-import QuickLinkItem from '@/components/Dashboard/QuickLnkItem'
+import { TimePastIcon } from '@/components/Icons'
 import QuickLinks from '@/components/Dashboard/QuickLinks'
+import { getIssues } from '@/lib/data'
+import { Issue } from '@/lib/mongoose/models'
 // import Link from 'next/link'
 
+const getLatestIssue = async () => {
+  const latestIssue = await Issue.find().sort({ publishDate: -1 }).limit(1)
+  console.log(latestIssue)
+  return latestIssue[0]
+}
 async function Dashboard() {
-  // await sendEmail({
-  //   to: 'aaron.anama@uniben.edu',
-  //   subject: 'email activation',
-  //   body: 'Hello World',
-  // })
   const { user } = await auth()
+  const lastIssue = await getLatestIssue()
+
+  const formatedDate = (date) => new Intl.DateTimeFormat('en-GB').format(date)
 
   // console.log('auth in dashboard home: ', user)
   return (
@@ -36,21 +28,27 @@ async function Dashboard() {
         </div>
         <section className='flex justify-between gap-5 p-10 bg-gray-50 rounded-xl'>
           <div className='flex-1 p-2 bg-gray-200 rounded-lg '>
-            {/* <div className='bg-gray-50'> */}
-            {/* <div className=''> */}
-            <div className='flex items-center gap-1 py-3'>
-              <TimePastIcon className='w-6 h-6 fill-gray-500' />
-              <h4 className='text-xl '>Last Published</h4>
+            <div className='flex items-center gap-1 py-3 font-medium'>
+              <TimePastIcon className='w-5 h-5 fill-gray-500' />
+              <h4 className='text-xl '>Last Published Issue</h4>
             </div>
-            {/* <div className='h-[1px] w-full bg-gray-300' /> */}
-            {/* </div> */}
-
-            <div className='space-y-4 bg-gray-50'>
-              <p className='py-2'>Year:2024</p>
-              <p>Volume:4</p>
-              <p>Issue Number:2</p>
-              <p>Number of Articles:8</p>
-              <p>Publish Date:12/4/2024</p>
+            <div className='px-4 py-5 space-y-2 rounded-md bg-gray-50'>
+              <p className='flex items-center gap-1 py-2'>
+                <span>Volume:</span>
+                <span>{lastIssue?.volume}</span>
+              </p>
+              <p className='flex items-center gap-1 py-2'>
+                <span>Issue Number:</span>
+                <span>{lastIssue?.issueNumber}</span>
+              </p>
+              <p className='flex items-center gap-1 py-2'>
+                <span>Number of Articles:</span>
+                <span>{lastIssue?.articles.length}</span>
+              </p>
+              <p className='flex items-center gap-1 py-2'>
+                <span>Publish Date:</span>
+                <span>{formatedDate(lastIssue?.publishDate)}</span>
+              </p>
             </div>
             {/* </div> */}
           </div>

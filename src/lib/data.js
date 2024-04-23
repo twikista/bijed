@@ -19,7 +19,7 @@ export const getIssues = async () => {
   // nostore()
   try {
     connectDB()
-    const issues = await Issue.find().sort({ volume: 1, issueNumber: 1 })
+    const issues = await Issue.find().sort({ volume: -1, issueNumber: -1 })
     console.log(issues)
     return issues
   } catch (error) {
