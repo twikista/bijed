@@ -1,9 +1,11 @@
 'use client'
+import { Tooltip } from 'react-tooltip'
 import { publishIssue } from '@/lib/actions'
 
 import {
   DocumentArrowUpIcon,
   PencilIcon,
+  PencilSquareIcon,
   RectangleStackIcon,
   TrashIcon,
 } from '@heroicons/react/24/outline'
@@ -22,8 +24,15 @@ export function EditButton({ href, variant = 'primary' }) {
     )
   } else {
     return (
-      <Link href={href} className='text-primary borser'>
-        <PencilIcon className='w-4 ' />
+      <Link
+        href={href}
+        data-tooltip-id='edit'
+        data-tooltip-content='Edit'
+        data-tooltip-place='top'
+        className='flex justify-center text-[#800080] hover:text-blue-600'
+      >
+        <PencilSquareIcon className='w-6 ' />
+        <Tooltip id='edit' />
       </Link>
     )
   }
@@ -46,9 +55,13 @@ export function DeleteButton({ action, id, variant = 'primary' }) {
       <button
         type='button'
         onClick={() => action(id)}
-        className='inline-block text-[#ff6347] hover:text-white hover:bg-[#ff6347] p-[2px] rounded-[3px] border border-[#ff6347]'
+        className='text-[#800080] hover:text-red-600'
+        data-tooltip-id='delete'
+        data-tooltip-content='Delete!'
+        data-tooltip-place='top'
       >
-        <TrashIcon className='w-5' />
+        <TrashIcon className='w-6' />
+        <Tooltip id='delete' />
       </button>
     )
   }
