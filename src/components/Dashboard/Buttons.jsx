@@ -16,10 +16,10 @@ export function EditButton({ href, variant = 'primary' }) {
     return (
       <Link
         href={href}
-        className=' rounded-[8px] text-gray-50 flex bg-[#008dcb] w-28 font-medium items-center justify-center gap-2 px-2 capitalize py-0'
+        className=' rounded-[8px] text-gray-50 flex bg-[#008dcb] hover:bg-blue-600 w-28 font-medium items-center justify-center gap-2 px-2 capitalize py-2 shadow-md'
       >
         {variant === 'primary' && <span className=''>Edit</span>}
-        <PencilIcon className='w-4 ' />
+        <PencilSquareIcon className='w-5 ' />
       </Link>
     )
   } else {
@@ -44,7 +44,7 @@ export function DeleteButton({ action, id, variant = 'primary' }) {
       <button
         type='button'
         onClick={() => action(id)}
-        className='inline-flex bg-[#ff6347] text-white w-28 items-center rounded-[8px] justify-center font-medium px-4'
+        className='shadow-md inline-flex bg-[#ff6347] hover:bg-red-500 text-white w-28 items-center rounded-lg justify-center font-medium px-4 py-2'
       >
         {variant === 'primary' && <span className='capitalize'>delete</span>}
         <TrashIcon className='w-5' />

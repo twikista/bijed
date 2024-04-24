@@ -133,7 +133,7 @@ export async function updateIssue(id, initialValue, formData) {
   console.log('issueNumber-', issueNumber, ' volume-', volume)
   const issueData = {
     ...initialValue,
-    ...formData,
+    ...parsedData.data,
     ref: `volume-${volume}-issue-${issueNumber}`,
     issueTitle: `Vol. ${volume} No. ${issueNumber} (${new Date(
       issueYear
@@ -150,6 +150,7 @@ export async function updateIssue(id, initialValue, formData) {
     console.log(updatedIssue)
     if (updatedIssue._id === undefined)
       return { ok: false, error: 'Something went wrong', errorType: 'other' }
+    //update all articles associated wtih an issue
 
     revalidatePath('/dashboard/issues')
     revalidatePath('/archive')

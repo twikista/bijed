@@ -20,11 +20,11 @@ async function Article({ params }) {
     <DashboardContainer>
       <DashboardWrapper>
         <div>
-          <div className='flex justify-between'>
-            <h2 className='mb-3 text-base font-bold sm:text-2xl'>
+          <div className='flex items-center justify-between'>
+            <h2 className='mb-1 text-base font-bold sm:text-2xl'>
               {article.title}
             </h2>
-            <div className='flex gap-3'>
+            <div className='flex gap-6 mb-3'>
               <EditButton
                 href={`/dashboard/issues/${params.issue}/${params.article}/edit`}
                 label='edit'
@@ -36,16 +36,14 @@ async function Article({ params }) {
               />
             </div>
           </div>
-
           <section className='flex flex-col py-2 space-y-3 border-t border-b sm:space-y-0 sm:flex-row border-neutral-300'>
             <div className='flex-1'>
-              <h5 className='font-semibold'>Author(s):</h5>
               <div className='space-y-[5px]'>
                 {article.authors.map(({ name, affliation, orchidId, _id }) => (
                   <div key={_id} className=''>
                     <div className='flex items-center space-x-1'>
                       <p className='font-semibold'>{name}</p>
-                      {orchidId && (
+                      {/* {orchidId && (
                         <a href='https://orcid.org/' target='_blank'>
                           <Image
                             src={orcidid}
@@ -54,8 +52,8 @@ async function Article({ params }) {
                             height={16}
                           />
                         </a>
-                      )}
-                      {orchidId && (
+                      )} */}
+                      {/* {orchidId && (
                         <a href='https://orcid.org/' target='_blank'>
                           <Image
                             src={googleScholar}
@@ -64,24 +62,30 @@ async function Article({ params }) {
                             height={16}
                           />
                         </a>
-                      )}
+                      )} */}
                     </div>
-                    <p className='text-neutral-400'>{affliation}</p>
+                    <p className='text-sm text-neutral-500'>{affliation}</p>
                   </div>
                 ))}
               </div>
             </div>
             <div className='flex flex-col w-[250px]'>
-              <h5 className='font-semibold'>Article Info:</h5>
               <div className='space-y-[5px] text-neutral-500'>
                 <div>
-                  <h5 className='font-semibold text-neutral-400'>Published</h5>
-                  <p>{new Date(article.publishDate).toLocaleDateString()}</p>
+                  <h5 className='font-medium text-neutral-500'>Published</h5>
+                  <p className='text-sm text-gray-500'>
+                    {new Intl.DateTimeFormat('en-GB').format(
+                      article.publishDate
+                    )}
+                  </p>
                 </div>
                 <div>
-                  <h5 className='font-semibold text-neutral-400'>Issue</h5>
+                  <h5 className='font-medium text-neutral-500'>Issue</h5>
                   <p>
-                    <Link href={`/archive/${article.ref}`}>
+                    <Link
+                      href={`/archive/${article.ref}`}
+                      className='text-sm text-gray-500'
+                    >
                       {`Vol. ${article.volume} No. ${article.issue} (${new Date(
                         article.publishDate
                       ).getFullYear()}) pp. ${article.slug}`}
@@ -110,7 +114,7 @@ async function Article({ params }) {
                 download={articleFileName(article)}
                 target='_blank'
                 rel='noreferrer'
-                className='block font-bold text-primary px-3 py-2 border border-primary sm:w-[160px] rounded-md hover:bg-primary hover:text-white transition-colors  text-center'
+                className='block font-bold text-[#800080] px-3 py-2 border border-[#800080] sm:w-[160px] rounded-md hover:bg-[#800080] hover:text-white transition-colors  text-center'
               >
                 {/* <Image src={pdf} alt='download pdf icon' width={25} /> */}
                 DOWNLOAD PDF
@@ -134,7 +138,7 @@ async function Article({ params }) {
                 <a
                   href='https://creativecommons.org/licenses/by/4.0/'
                   target='_blank'
-                  className='text-blue-500 underline hover:text-blue-400'
+                  className='text-blue-500 underline hover:text-blue-600'
                 >
                   Creative Commons Attribution 4.0 International License.
                 </a>
