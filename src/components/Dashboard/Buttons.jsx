@@ -38,7 +38,13 @@ export function EditButton({ href, variant = 'primary' }) {
   }
 }
 
-export function DeleteButton({ action, id, variant = 'primary' }) {
+export function DeleteButton({
+  action,
+  id,
+  variant = 'primary',
+  label = 'Delete',
+  icon = true,
+}) {
   if (variant === 'primary') {
     return (
       <button
@@ -46,8 +52,8 @@ export function DeleteButton({ action, id, variant = 'primary' }) {
         onClick={() => action(id)}
         className='shadow-md inline-flex bg-[#ff6347] hover:bg-red-500 text-white w-28 items-center rounded-lg justify-center font-medium px-4 py-2'
       >
-        {variant === 'primary' && <span className='capitalize'>delete</span>}
-        <TrashIcon className='w-5' />
+        {variant === 'primary' && <span className='capitalize'>{label}</span>}
+        {icon && <TrashIcon className='w-5' />}
       </button>
     )
   } else {
