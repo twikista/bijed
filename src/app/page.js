@@ -3,6 +3,7 @@ import { Book, CheckedCircle, Mouse, OpenAccess } from '@/components/Icons'
 import MainContainer from '@/components/MainContainer'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
+import Breadcrumb from '@/components/Dashboard/Breadcrumb'
 
 export default function Home() {
   const journalObjectives = [
