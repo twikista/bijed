@@ -4,7 +4,7 @@ import Link from 'next/link'
 
 function Login() {
   return (
-    <div>
+    <div className='flex flex-col items-center justify-center h-screen px-3 bg-white'>
       {/* <LoginForm /> */}
       <SignInForm />
     </div>

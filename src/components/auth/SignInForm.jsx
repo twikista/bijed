@@ -9,6 +9,8 @@ import Link from 'next/link'
 import TextInput from '../TextInput'
 import PasswordInput from '../PasswordInput'
 import { signinFormSchema as schema } from '@/lib/schema'
+import DisplayServerValidationError from '../Dashboard/DisplayServerValidationErrors'
+import { toast } from 'react-toastify'
 
 function SignInForm() {
   const {
@@ -27,6 +29,7 @@ function SignInForm() {
     console.log(data)
     const response = await authenticate(data)
     console.log('response', response)
+
     if (response && response?.errorType === 'validationError') {
       const fieldErrorMapping = {
         email: 'email',
@@ -51,29 +54,49 @@ function SignInForm() {
     }
   }
   return (
-    <>
-      {authError && <span>{authError}</span>}
-      <form noValidate onSubmit={handleSubmit(handler)}>
+    <div className='shadow-[0px_1px_4px_rgba(0,0,0,0.16)] rounded-xl  p-6 w-full max-w-[400px] space-y-3] bg-gray-100'>
+      <form
+        noValidate
+        onSubmit={handleSubmit(handler)}
+        className='w-full space-y-5'
+      >
+        <h2 className='text-[#800080] font-medium text-3xl'>SIGN IN</h2>
+        {authError && (
+          <DisplayServerValidationError
+            error={authError}
+            setError={setAuthError}
+          />
+        )}
         <TextInput
-          label='email'
+          label='E-mail'
           name='email'
-          placeholder='Enter email'
+          placeholder='Enter e-mail address'
           register={register}
           error={errors.email}
         />
         <PasswordInput
-          label='password'
+          label='Password'
           name='password'
           register={register}
           error={errors.password}
         />
 
-        <input type='submit' value='submit' />
+        <input
+          type='submit'
+          value='Sign in'
+          className='bg-[#901090] w-full text-center text-white rounded-md py-2 cursor-pointer hover:bg-[#800080]'
+        />
       </form>
-      <div>
-        <Link href='/auth/forgot-password'>forgot password?</Link>
+      <div className='flex gap-2 mt-6'>
+        <p className='text-gray-500'> Forgot password</p>
+        <Link
+          href='/auth/forgot-password'
+          className='hover:underline text-[#901090] hover:text-[#800080]'
+        >
+          Reset password
+        </Link>
       </div>
-    </>
+    </div>
   )
 }
 

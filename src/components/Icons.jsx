@@ -595,3 +595,19 @@ export const AddIssuesIcon = (props) => (
     </g>
   </svg>
 )
+
+export const EyeIcon = (props) => (
+  <svg
+    width={64}
+    height={64}
+    viewBox='0 0 24 24'
+    fill='none'
+    xmlns='http://www.w3.org/2000/svg'
+    {...props}
+  >
+    <g stroke='currentColor' strokeWidth={2}>
+      <path d='M20.188 10.934a1.66 1.66 0 0 1 0 2.132C18.768 14.79 15.636 18 12 18c-3.636 0-6.768-3.21-8.188-4.934a1.66 1.66 0 0 1 0-2.132C5.232 9.21 8.364 6 12 6c3.636 0 6.768 3.21 8.188 4.934Z' />
+      <path d='M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z' />
+    </g>
+  </svg>
+)

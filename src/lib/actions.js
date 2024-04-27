@@ -436,7 +436,8 @@ export async function authenticate(formData) {
 
   try {
     if (parsedData.success) {
-      await signIn('credentials', parsedData.data)
+      const bla = await signIn('credentials', parsedData.data)
+      console.log('auth bla:', bla)
     }
   } catch (error) {
     if (error && error?.type?.includes('CredentialsSignin')) {
