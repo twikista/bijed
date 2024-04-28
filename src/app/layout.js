@@ -1,4 +1,4 @@
-import { saira, cairo, barlow, ibmPlex } from './font/font'
+// import { saira, cairo, barlow, ibmPlex } from './font/font'
 import {
   Saira_Condensed,
   Inter,
@@ -13,28 +13,28 @@ import { ToastContainer } from 'react-toastify'
 // import Header from '@/components/Header'
 // import Footer from '@/components/Footer'
 
-// export const saira = Saira_Condensed({
-//   subsets: ['latin'],
-//   weight: ['400', '500', '600', '700', '800', '900'],
-//   variable: '--font-saira',
-//   display: 'swap',
-//   adjustFontFallback: false,
-// })
+export const saira = Saira_Condensed({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700', '800', '900'],
+  variable: '--font-saira',
+  display: 'swap',
+  adjustFontFallback: false,
+})
 
-// export const ibmPlex = IBM_Plex_Sans({
-//   subsets: ['latin'],
-//   weight: ['300', '400', '500', '600', '700'],
-//   variable: '--font-plex',
-//   display: 'swap',
-//   adjustFontFallback: false,
-// })
+export const ibmPlex = IBM_Plex_Sans({
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700'],
+  variable: '--font-plex',
+  display: 'swap',
+  adjustFontFallback: false,
+})
 
-// export const barlow = Barlow({
-//   subsets: ['latin'],
-//   weight: ['400', '500', '600', '700', '800', '900'],
-//   variable: '--font-saira',
-//   display: 'swap',
-// })
+export const barlow = Barlow({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700', '800', '900'],
+  variable: '--font-saira',
+  display: 'swap',
+})
 
 // export const inter = Inter({
 //   subsets: ['latin'],
@@ -51,12 +51,12 @@ import { ToastContainer } from 'react-toastify'
 //   adjustFontFallback: false,
 // })
 
-// export const cairo = Cairo({
-//   subsets: ['latin'],
-//   variable: '--font-cairo',
-//   display: 'swap',
-//   adjustFontFallback: false,
-// })
+export const cairo = Cairo({
+  subsets: ['latin'],
+  variable: '--font-cairo',
+  display: 'swap',
+  adjustFontFallback: false,
+})
 
 export const metadata = {
   title: 'BIJED - Benin International Journal of Entrepreneurship Development',

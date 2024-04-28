@@ -46,7 +46,7 @@ function TextInput({
         )}
       </div>
 
-      {error && <span className='text-red-500'>{error?.message}</span>}
+      {error && <span className='text-red-500 '>{error?.message}</span>}
     </div>
   )
 }

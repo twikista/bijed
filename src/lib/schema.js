@@ -38,8 +38,8 @@ export const forgetPasswordSchema = z.object({
   email: z
     .string()
     .trim()
-    .min(1, { message: 'Email is  requird' })
-    .email({ message: 'Invalid email' }),
+    .min(1, { message: 'E-mail is  requird' })
+    .email({ message: 'Enter a valid e-mail' }),
   // .includes('uniben.edu', { message: 'Email must be valid UNIBEN email' }),
 })
 
