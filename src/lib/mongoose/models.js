@@ -37,6 +37,8 @@ const articleSchema = new mongoose.Schema(
     slug: { type: String, required: true },
     ref: { type: String, required: true, unique: true },
     published: { type: Boolean, required: true, default: false },
+    // addedBy:{ type: String, required: true},
+    // approvedBy:{ type: String, required: true},
   },
   { timestamps: true }
 )
@@ -55,6 +57,8 @@ const issueSchema = new mongoose.Schema(
     ref: { type: String, required: true },
     published: { type: Boolean, required: true, default: false },
     publishDate: { type: Date },
+    // addedBy:{ type: String, required: true},
+    // approvedBy:{ type: String, required: true},
 
     // image: { type: String, default: null },
   },
@@ -85,6 +89,10 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    // role: {
+    //   type: String,enum:['business manager', 'managing editor', 'admin'],
+    //   required: true,
+    // },
     isAdmin: { type: Boolean, default: false },
     isActivated: { type: Boolean, default: false },
   },

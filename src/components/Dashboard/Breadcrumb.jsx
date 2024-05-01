@@ -40,7 +40,7 @@ function Breadcrumb({
   }
 
   return (
-    <div className='pt-2'>
+    <nav className='pt-2'>
       <ul className='flex items-center capitalize'>
         {renderHome()}
 
@@ -80,7 +80,7 @@ function Breadcrumb({
           }
         })}
       </ul>
-    </div>
+    </nav>
   )
 }
 

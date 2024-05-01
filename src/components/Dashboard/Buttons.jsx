@@ -87,3 +87,12 @@ export function PublishIssueButton({ issueRef }) {
     </div>
   )
 }
+
+export const CancelButton = ({ text, href, style }) => (
+  <Link
+    href={href}
+    className={`${style} py-3 flex-1 flex items-center justify-center text-white rounded-md`}
+  >
+    {text}
+  </Link>
+)

@@ -7,9 +7,11 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { addIssue, updateIssue } from '@/lib/actions'
 
 import TextInput from '@/components/TextInput'
-import CancelButton from './cancel-button'
+import { CancelButton } from '../Buttons'
 import YearSelectInput from '../YearSelectInput'
 import { issueFormSchema } from '@/lib/schema'
+import SubmitButton from '@/components/SubmitButton'
+import FormWrapper from '../FormWrapper'
 
 function IssueForm({ initialFormState, initialValue }) {
   console.log('initialFState-', initialFormState)
@@ -21,7 +23,7 @@ function IssueForm({ initialFormState, initialValue }) {
     register,
     handleSubmit,
     reset,
-    formState: { errors, isSubmitting },
+    formState: { errors, isSubmitting, isSubmitted },
   } = useForm({
     defaultValues: initialFormState,
     resolver: zodResolver(issueFormSchema),
@@ -54,13 +56,22 @@ function IssueForm({ initialFormState, initialValue }) {
     }
   }
   return (
-    <form onSubmit={handleSubmit(handler)}>
+    <FormWrapper
+      formHeading={
+        initialValue.issueNumber === '' ? 'Add New Issue' : 'Update Issue'
+      }
+    >
       {errorFromServer && (
         <div>
           <span>{errorFromServer}</span>
         </div>
       )}
-      <section>
+      <form
+        onSubmit={handleSubmit(handler)}
+        className='px-5 pt-8 pb-5 space-y-5 border-b border-gray-300 border-x rounded-b-md'
+      >
+        {/* <div className='px-3'> */}
+
         <TextInput
           type='number'
           label='Issue Number'
@@ -106,10 +117,26 @@ function IssueForm({ initialFormState, initialValue }) {
           error={errors?.issueYear}
           valueAsDate={true}
         />
-        <input type='submit' value={isSubmitting ? 'Submitting' : 'submit'} />
-        <CancelButton href='/dashboard/issues' />
-      </section>
-    </form>
+        {/* <input type='submit' value={isSubmitting ? 'Submitting' : 'submit'} /> */}
+        <div className='flex items-center gap-2 pt-1'>
+          <SubmitButton
+            textColor='white'
+            bgColor='901090'
+            hoverBgColor='800080'
+            mainText='Submit'
+            altText='processing'
+            formSubmitState={isSubmitting}
+          />
+          <CancelButton
+            href='/dashboard/issues'
+            style='bg-red-400 hover:bg-red-500'
+            text='Cancel'
+          />
+        </div>
+
+        {/* </div> */}
+      </form>
+    </FormWrapper>
   )
 }
 

@@ -11,12 +11,14 @@ import PasswordInput from '../PasswordInput'
 import { signinFormSchema as schema } from '@/lib/schema'
 import DisplayServerValidationError from '../Dashboard/DisplayServerValidationErrors'
 import { toast } from 'react-toastify'
+import Spinner from '../Spinner'
+import SubmitButton from '../SubmitButton'
 
 function SignInForm() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting, isSubmitted },
     setError,
   } = useForm({
     defaultValues: { email: '', password: '' },
@@ -81,11 +83,25 @@ function SignInForm() {
           error={errors.password}
         />
 
-        <input
+        {/* <input
           type='submit'
           value='Sign in'
           className='bg-[#901090] w-full text-center text-white rounded-md py-2 cursor-pointer hover:bg-[#800080]'
+        /> */}
+        <SubmitButton
+          textColor='white'
+          bgColor='901090'
+          hoverBgColor='800080'
+          mainText='Sign in'
+          altText='processing'
+          formSubmitState={isSubmitting || isSubmitted}
         />
+        {/* <button
+          type='submit'
+          className='bg-[#901090] w-full flex items-center text-center text-white rounded-md py-2 cursor-pointer hover:bg-[#800080] justify-center'
+        >
+          {isSubmitting ? <Spinner text='Processing...' /> : 'Sign in'}
+        </button> */}
       </form>
       <div className='flex gap-2 mt-6'>
         <p className='text-gray-500'> Forgot password</p>

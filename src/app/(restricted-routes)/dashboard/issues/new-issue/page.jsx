@@ -1,4 +1,5 @@
 import DashboardContainer from '@/components/Dashboard/DashboardContainer'
+import DashboardWrapper from '@/components/Dashboard/DashboardWrapper'
 import IssueForm from '@/components/Dashboard/issues/issue-form'
 import { Issue } from '@/lib/mongoose/models'
 // import { addIssue } from '@/app/api/actions/actions'
@@ -16,14 +17,9 @@ async function CreateIssue({ params: { ref } }) {
   console.log('initialFormState-', initialFormState)
   return (
     <DashboardContainer>
-      {/* <form action={addIssue}>
-        <input type='text' placeholder='issue number' name='issueNumber' />
-        <input type='text' placeholder='volume' name='volume' />
-        <input type='date' name='date' />
-        <input type='submit' value='submit' />
-      </form> */}
-
-      <IssueForm initialFormSate={initialFormState} />
+      <DashboardWrapper>
+        <IssueForm initialFormSate={initialFormState} />
+      </DashboardWrapper>
     </DashboardContainer>
   )
 }

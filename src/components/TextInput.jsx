@@ -28,7 +28,12 @@ function TextInput({
       >
         <input
           className={clsx(
-            `w-full text-gray-600 pl-3 inline-block py-2  outline-none appearance-none`
+            `w-full text-gray-600 pl-3 inline-block py-2  outline-none appearance-none`,
+            {
+              ['[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none']:
+                type === 'number',
+              ['pr-2']: type === 'date',
+            }
           )}
           type={type || 'text'}
           {...register(name, {
