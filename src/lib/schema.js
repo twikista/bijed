@@ -22,6 +22,7 @@ export const newUserSchema = z.object({
     .trim()
     .min(1, { message: 'Email is  requird' })
     .email({ message: 'Invalid email' }),
+  role: z.string().min(1, { message: 'please select user role' }),
   // .includes('uniben.edu', { message: 'Email must be valid UNIBEN email' }),
 })
 

@@ -22,6 +22,9 @@ import TextInput from '../TextInput'
 import ArticleAuthorsInput from './ArticleAuthorsInput'
 import { articleFormSchema, editArticleFormSchema } from '@/lib/schema'
 import ToggleFileInputField from './ToggleFileInputField'
+import FormWrapper from './FormWrapper'
+import SubmitButton from '../SubmitButton'
+import { CancelButton } from './Buttons'
 
 function EditArticleForm({ initialValue, params }) {
   console.log(`params:${params.published}`)
@@ -97,15 +100,18 @@ function EditArticleForm({ initialValue, params }) {
   }
 
   return (
-    <div>
+    <FormWrapper formHeading='Edit Article'>
       {errorFromServer && (
         <div>
           <span>{errorFromServer}</span>
         </div>
       )}
-      <form onSubmit={handleSubmit(handler)}>
+      <form
+        onSubmit={handleSubmit(handler)}
+        className='px-5 pt-8 pb-5 space-y-5 rounded-b-md'
+      >
         <TextInput
-          label='title'
+          label='Article Title'
           name='title'
           placeholder='Enter Article title'
           register={register}
@@ -117,7 +123,7 @@ function EditArticleForm({ initialValue, params }) {
           error={errors?.authors}
         />
         <TextInput
-          label='volume'
+          label='Article volume'
           name='volume'
           placeholder='Enter Article Volume'
           register={register}
@@ -126,7 +132,7 @@ function EditArticleForm({ initialValue, params }) {
           valueAsNumber={true}
         />
         <TextInput
-          label='issue'
+          label='Article issue'
           name='issue'
           placeholder='Enter Article issue'
           register={register}
@@ -136,7 +142,7 @@ function EditArticleForm({ initialValue, params }) {
         />
 
         <TextInput
-          label='start page'
+          label='Article start page'
           name='startPage'
           placeholder='Enter article start page'
           register={register}
@@ -144,14 +150,14 @@ function EditArticleForm({ initialValue, params }) {
           valueAsNumber={true}
         />
         <TextInput
-          label='end page'
+          label='Article end page'
           name='endPage'
           placeholder='Enter article end page'
           register={register}
           error={errors?.endPage}
           valueAsNumber={true}
         />
-        <div>
+        {/* <div>
           <label htmlFor='abstract' className=''>
             Abstract
           </label>
@@ -162,7 +168,40 @@ function EditArticleForm({ initialValue, params }) {
             {...register('abstract')}
           />
           {errors && <span>{errors?.abstract?.message}</span>}
+        </div> */}
+        {/* beginning of abstract text input */}
+        <div className='flex flex-col'>
+          <label htmlFor='name' className='inline-block mb-1'>
+            Abstract
+          </label>
+          <div
+            className={clsx(
+              `flex border border-gray-300 rounded-md focus-within:border-2 overflow-hidden bg-white h-[300px]`,
+              { ['border-red-400']: errors?.abstract }
+            )}
+          >
+            <textarea
+              className={clsx(
+                `w-full text-gray-600 pl-3 inline-block py-2  outline-none appearance-none resize-none max-h-full`
+              )}
+              name='abstract'
+              placeholder='Enter article abstract'
+              id='abstract'
+              {...register('abstract')}
+            />
+            {/* {errors?.abstract && (
+              <ExclamationCircleIcon
+                className={clsx('w-5 mr-3', {
+                  ['text-red-400']: errors?.abstract,
+                })}
+              />
+            )} */}
+          </div>
+          {errors && (
+            <span className='text-red-500 '>{errors?.abstract?.message}</span>
+          )}
         </div>
+        {/* end of abstrct text input */}
 
         <KeywordInput
           control={control}
@@ -214,14 +253,29 @@ function EditArticleForm({ initialValue, params }) {
           )}
           {errors && <div>{errors?.pdfFile?.message}</div>}
         </div>
+        <div className='flex items-center gap-2 pt-1'>
+          <SubmitButton
+            textColor='white'
+            bgColor='901090'
+            hoverBgColor='800080'
+            mainText='Update Article'
+            altText='Updating...'
+            formSubmitState={isSubmitting}
+          />
+          <CancelButton
+            href={`/dashboard/issues/${params?.issue}`}
+            style='bg-red-400 hover:bg-red-500'
+            text='Cancel'
+          />
+        </div>
 
-        <br />
+        {/* <br />
         <button type='submit'>
           {isSubmitting ? 'updating Artice...' : 'Submit'}
         </button>
-        <Link href={`/dashboard/issues/${params.issue}`}>cancel</Link>
+        <Link href={`/dashboard/issues/${params.issue}`}>cancel</Link> */}
       </form>
-    </div>
+    </FormWrapper>
   )
 }
 

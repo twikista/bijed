@@ -1,3 +1,5 @@
+import DashboardContainer from '@/components/Dashboard/DashboardContainer'
+import DashboardWrapper from '@/components/Dashboard/DashboardWrapper'
 import NewAnnouncementForm from '@/components/Dashboard/NewAnnouncementForm'
 
 function NewAnnouncement() {
@@ -10,9 +12,11 @@ function NewAnnouncement() {
   }
 
   return (
-    <section>
-      <NewAnnouncementForm initialState={initialState} />
-    </section>
+    <DashboardContainer>
+      <DashboardWrapper>
+        <NewAnnouncementForm initialState={initialState} />
+      </DashboardWrapper>
+    </DashboardContainer>
   )
 }
 

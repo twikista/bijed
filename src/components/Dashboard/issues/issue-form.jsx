@@ -12,6 +12,7 @@ import YearSelectInput from '../YearSelectInput'
 import { issueFormSchema } from '@/lib/schema'
 import SubmitButton from '@/components/SubmitButton'
 import FormWrapper from '../FormWrapper'
+import Form from '../Form'
 
 function IssueForm({ initialFormState, initialValue }) {
   console.log('initialFState-', initialFormState)
@@ -58,7 +59,7 @@ function IssueForm({ initialFormState, initialValue }) {
   return (
     <FormWrapper
       formHeading={
-        initialValue.issueNumber === '' ? 'Add New Issue' : 'Update Issue'
+        !initialFormState?.issueNumber ? 'Add New Issue' : 'Update Issue'
       }
     >
       {errorFromServer && (
@@ -66,10 +67,7 @@ function IssueForm({ initialFormState, initialValue }) {
           <span>{errorFromServer}</span>
         </div>
       )}
-      <form
-        onSubmit={handleSubmit(handler)}
-        className='px-5 pt-8 pb-5 space-y-5 border-b border-gray-300 border-x rounded-b-md'
-      >
+      <Form handleSubmit={handleSubmit} handler={handler}>
         {/* <div className='px-3'> */}
 
         <TextInput
@@ -135,7 +133,7 @@ function IssueForm({ initialFormState, initialValue }) {
         </div>
 
         {/* </div> */}
-      </form>
+      </Form>
     </FormWrapper>
   )
 }

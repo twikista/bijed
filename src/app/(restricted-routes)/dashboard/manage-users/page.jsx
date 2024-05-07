@@ -13,7 +13,10 @@ async function AdminPage() {
       <DashboardWrapper>
         <div>
           <div className='flex items-center justify-end'>
-            <CreateButton href='/auth/new-user' label='create user' />
+            <CreateButton
+              href='/dashboard/manage-users/new-user'
+              label='create user'
+            />
           </div>
           {/* <Link href='/auth/new-user'>create user</Link> */}
 

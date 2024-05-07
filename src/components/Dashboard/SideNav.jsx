@@ -24,7 +24,7 @@ async function SideNav() {
   const session = await auth()
   console.log('from side nav: ', session?.user)
   return (
-    <aside className='flex flex-col h-screen overflow-y-hidden border-r text-white border-gray-300 border-solid w-60 bg-[#ac3dba] shadow-[0px_1px_4px_rgba(0 0 0 0.16)] sticky top-0 bottom-0 left-0'>
+    <aside className='flex flex-col h-screen overflow-y-hidden border-r text-white border-gray-300 border-solid w-60 bg-[#ac3dba] shadow-[0px_1px_4px_rgba(0 0 0 0.16)] sticky top-0 bottom-0 left-0 font-barlow'>
       <div className='flex flex-col items-center'>
         <div className='flex flex-1 gap-2 pt-5 pb-3 text-white'>
           <ComputerDesktopIcon className='w-8' />

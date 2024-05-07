@@ -94,7 +94,7 @@ function SignInForm() {
           hoverBgColor='800080'
           mainText='Sign in'
           altText='processing'
-          formSubmitState={isSubmitting || isSubmitted}
+          formSubmitState={isSubmitting}
         />
         {/* <button
           type='submit'

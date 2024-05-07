@@ -89,10 +89,11 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    // role: {
-    //   type: String,enum:['business manager', 'managing editor', 'admin'],
-    //   required: true,
-    // },
+    role: {
+      type: String,
+      enum: ['business manager', 'managing editor', 'admin'],
+      required: true,
+    },
     isAdmin: { type: Boolean, default: false },
     isActivated: { type: Boolean, default: false },
   },

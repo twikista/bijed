@@ -7,14 +7,14 @@ import 'react-quill/dist/quill.snow.css'
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false })
 function RichTextEditor({ onChange, onBlur, value, error }) {
   return (
-    <div className=' h-[343px]'>
+    <div className='h-[320px]'>
       <lable>Announcement content</lable>
       <ReactQuill
         theme='snow'
         value={value}
         onChange={onChange}
         onBlur={onBlur}
-        className='h-[300px] w-[500px]'
+        className='h-[270px]'
         modules={{
           toolbar: [
             [{ header: [1, 2, 3, false] }],

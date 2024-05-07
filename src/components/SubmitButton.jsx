@@ -17,7 +17,7 @@ function SubmitButton({
       )}
     >
       {formSubmitState ? (
-        <Spinner text={altText} />
+        <Spinner text={altText} textColor={textColor} />
       ) : (
         <span className={`text-${textColor}`}>{mainText}</span>
       )}

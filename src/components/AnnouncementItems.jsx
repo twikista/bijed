@@ -22,7 +22,7 @@ const fetchAnnouncements = async () => {
 async function AnnouncementItems({ isPrivateRoute }) {
   const announcements = await fetchAnnouncements()
   return (
-    <div>
+    <section>
       {announcements.map((announcement) => (
         //check if due data has expired
         <article key={announcement._id}>
@@ -48,7 +48,7 @@ async function AnnouncementItems({ isPrivateRoute }) {
           )}
         </article>
       ))}
-    </div>
+    </section>
   )
 }
 

@@ -1,3 +1,5 @@
+import DashboardContainer from '@/components/Dashboard/DashboardContainer'
+import DashboardWrapper from '@/components/Dashboard/DashboardWrapper'
 import EditAnnouncementForm from '@/components/Dashboard/EditAnnouncementForm'
 import { Announcement } from '@/lib/mongoose/models'
 
@@ -16,9 +18,11 @@ async function EditAnnouncement({ params }) {
   )
 
   return (
-    <section>
-      <EditAnnouncementForm initialState={parsedAnnouncement} />
-    </section>
+    <DashboardContainer>
+      <DashboardWrapper>
+        <EditAnnouncementForm initialState={parsedAnnouncement} />
+      </DashboardWrapper>
+    </DashboardContainer>
   )
 }
 

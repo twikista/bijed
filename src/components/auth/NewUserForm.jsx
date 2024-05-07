@@ -4,12 +4,29 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
+import clsx from 'clsx'
 import { signup } from '@/lib/actions'
 import { newUserSchema } from '@/lib/schema'
 
 import TextInput from '../TextInput'
+import FormWrapper from '../Dashboard/FormWrapper'
+import SubmitButton from '../SubmitButton'
+import { CancelButton } from '../Dashboard/Buttons'
+import { ExclamationCircleIcon } from '@heroicons/react/24/outline'
+import Form from '../Dashboard/Form'
 
 function NewUserForm() {
+  const initialVlaue = {
+    firstName: '',
+    lastName: '',
+    email: '',
+    role: '',
+  }
+  const userRoles = [
+    { option: 'Business Manager', value: 'Business Manager' },
+    { option: 'Managing Editor', value: 'Managing Editor' },
+    { option: 'Admin', value: 'Admin' },
+  ]
   const [errorFromServer, setErrorFromServer] = useState(null)
   const router = useRouter()
   const {
@@ -19,7 +36,7 @@ function NewUserForm() {
     reset,
     formState: { errors, isSubmitting },
   } = useForm({
-    defaultValues: { firstName: '', lastName: '', email: '' },
+    defaultValues: initialVlaue,
     resolver: zodResolver(newUserSchema),
   })
 
@@ -37,6 +54,7 @@ function NewUserForm() {
           firstName: 'firstName',
           lastName: 'lastName',
           email: 'email',
+          role: '',
         }
         const fieldWithError = Object.keys(fieldErrorMapping).find(
           (field) => response?.error[field]
@@ -59,15 +77,15 @@ function NewUserForm() {
     }
   }
   return (
-    <>
+    <FormWrapper formHeading='Add New User'>
       {errorFromServer && (
         <div>
           <span>{errorFromServer}</span>
         </div>
       )}
-      <form onSubmit={handleSubmit(handler)} noValidate>
+      <Form handleSubmit={handleSubmit} handler={handler}>
         <TextInput
-          label='first name'
+          label='First name'
           name='firstName'
           placeholder='Enter first Name'
           register={register}
@@ -75,25 +93,72 @@ function NewUserForm() {
         />
 
         <TextInput
-          label='last name'
+          label='Last name'
           name='lastName'
           placeholder='Enter last name'
           register={register}
           error={errors.lastName}
         />
         <TextInput
-          label='email'
+          label='E-mail'
           name='email'
           placeholder='Enter email'
           register={register}
           error={errors.email}
         />
-        <input
-          type='submit'
-          value={isSubmitting ? 'submitting...' : 'submit'}
-        />
-      </form>
-    </>
+        <div className='flex flex-col'>
+          <label htmlFor='user-role' className='inline-block mb-2 '>
+            Role
+          </label>
+          <div
+            className={clsx(
+              `flex border border-gray-300 rounded-md focus-within:border-2 overflow-hidden bg-white cursor-pointer`,
+              { ['border-red-400']: errors.role }
+            )}
+          >
+            <select
+              id='user-role'
+              name='role'
+              {...register('role')}
+              className='w-full py-2 pl-3 bg-transparent outline-none appearance-none cursor-pointer'
+              defaultValue=''
+            >
+              <option value='' disabled className=''>
+                select user role
+              </option>
+              {userRoles.map((role) => (
+                <option key={role.value} value={role.value} className=''>
+                  {role.option}
+                </option>
+              ))}
+            </select>
+            {errors?.role && (
+              <ExclamationCircleIcon
+                className={clsx('w-5 mr-3', { ['text-red-400']: errors?.role })}
+              />
+            )}
+          </div>
+          {errors.role && (
+            <span className='text-red-500 '>{errors?.role?.message}</span>
+          )}
+        </div>
+        <div className='flex items-center gap-2 pt-1'>
+          <SubmitButton
+            textColor='white'
+            bgColor='901090'
+            hoverBgColor='800080'
+            mainText='Add User'
+            altText='Adding user...'
+            formSubmitState={isSubmitting}
+          />
+          <CancelButton
+            href='/dashboard/manager-user`'
+            style='bg-red-400 hover:bg-red-500'
+            text='Cancel'
+          />
+        </div>
+      </Form>
+    </FormWrapper>
   )
 }
 

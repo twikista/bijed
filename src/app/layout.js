@@ -1,8 +1,8 @@
 // import { saira, cairo, barlow, ibmPlex } from './font/font'
 import {
   Saira_Condensed,
-  Inter,
-  Lato,
+  // Inter,
+  // Lato,
   Cairo,
   Barlow,
   IBM_Plex_Sans,
@@ -32,8 +32,9 @@ export const ibmPlex = IBM_Plex_Sans({
 export const barlow = Barlow({
   subsets: ['latin'],
   weight: ['400', '500', '600', '700', '800', '900'],
-  variable: '--font-saira',
+  variable: '--font-barlow',
   display: 'swap',
+  adjustFontFallback: false,
 })
 
 // export const inter = Inter({
@@ -84,7 +85,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang='en' className={``}>
       <body
-        className={`${ibmPlex.className} ${saira.variable} ${cairo.variable} antialiased flex flex-col h-full bg-slate-50 min-w-[320px]`}
+        className={`${ibmPlex.className} ${saira.variable} ${cairo.variable} ${barlow.variable}  antialiased flex flex-col h-full bg-slate-50 min-w-[320px]`}
       >
         {/* <Header /> */}
         {children}

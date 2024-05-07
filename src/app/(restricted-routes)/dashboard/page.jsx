@@ -28,7 +28,7 @@ async function Dashboard() {
         </div>
         <section className='flex justify-between gap-5 p-10 bg-gray-50 rounded-xl'>
           <div className='flex-1 p-2 bg-gray-200 rounded-lg '>
-            <div className='flex items-center gap-1 py-3 font-medium'>
+            <div className='flex items-center gap-1 px-1 py-3 font-medium'>
               <TimePastIcon className='w-5 h-5 fill-gray-500' />
               <h4 className='text-xl '>Last Published Issue</h4>
             </div>

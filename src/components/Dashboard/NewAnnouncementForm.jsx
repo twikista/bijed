@@ -9,6 +9,9 @@ import { createAnnouncement } from '@/lib/actions'
 import { announcementSchema } from '@/lib/schema'
 import TextInput from '../TextInput'
 import { useState } from 'react'
+import FormWrapper from './FormWrapper'
+import { CancelButton } from './Buttons'
+import SubmitButton from '../SubmitButton'
 
 function NewAnnouncementForm({ initialState }) {
   const router = useRouter()
@@ -45,22 +48,25 @@ function NewAnnouncementForm({ initialState }) {
     }
   }
   return (
-    <section>
+    <FormWrapper formHeading='Add Announcement'>
       {errorFromServer && (
         <div>
           <span>{errorFromServer}</span>
         </div>
       )}
-      <form onSubmit={handleSubmit(handler)}>
+      <form
+        onSubmit={handleSubmit(handler)}
+        className='px-5 pt-8 pb-5 space-y-5 rounded-b-md'
+      >
         <TextInput
-          label='title'
+          label='Title'
           name='title'
           placeholder='Enter announcement title'
           register={register}
           error={errors?.title}
         />
         <TextInput
-          label='description'
+          label='Description'
           name='description'
           placeholder='Enter announcement description'
           register={register}
@@ -83,14 +89,29 @@ function NewAnnouncementForm({ initialState }) {
             <RichTextEditor onChange={onChange} onBlur={onBlur} value={value} />
           )}
         />
-        <Button type='submit' label={isSubmitting ? 'Submitting' : 'Submit'} />
+        {/* <Button type='submit' label={isSubmitting ? 'Submitting' : 'Submit'} />
         <Button
           type='button'
           label='cancel'
           onClick={() => router.push('/dashboard/announcements')}
-        />
+        /> */}
+        <div className='flex items-center gap-2 pt-5'>
+          <SubmitButton
+            textColor='white'
+            bgColor='901090'
+            hoverBgColor='800080'
+            mainText='Add Announcement'
+            altText='Saving Anouncement'
+            formSubmitState={isSubmitting}
+          />
+          <CancelButton
+            href={`/dashboard/announcements`}
+            style='bg-red-400 hover:bg-red-500'
+            text='Cancel'
+          />
+        </div>
       </form>
-    </section>
+    </FormWrapper>
   )
 }
 

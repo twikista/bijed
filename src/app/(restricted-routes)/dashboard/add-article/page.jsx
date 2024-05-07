@@ -1,6 +1,7 @@
 // import UploadInput from '@/components/UploadInput'
 import DashboardContainer from '@/components/Dashboard/DashboardContainer'
 import ArticleForm from '@/components/Dashboard/ArticleForm'
+import DashboardWrapper from '@/components/Dashboard/DashboardWrapper'
 
 const initialState = {
   title: '',
@@ -17,8 +18,9 @@ const initialState = {
 function AddArticle() {
   return (
     <DashboardContainer>
-      {/* <UploadInput /> */}
-      <ArticleForm initialValue={initialState} />
+      <DashboardWrapper>
+        <ArticleForm initialValue={initialState} />
+      </DashboardWrapper>
     </DashboardContainer>
   )
 }
