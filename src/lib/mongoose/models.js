@@ -11,7 +11,7 @@ const articleSchema = new mongoose.Schema(
       {
         name: { type: String, required: true },
         affliation: { type: String, required: true },
-        orchidId: String,
+        // orchidId: String,
         //   email: {
         //     type: String,
         //     required: true,
@@ -100,6 +100,30 @@ const userSchema = new mongoose.Schema(
   { timestamps: true }
 )
 
+const jobQueueSchema = new mongoose.Schema(
+  {
+    jobRef: { type: String, required: true },
+    jobTicketId: { type: String, required: true },
+    slug: { type: String, required: true },
+    jobTitle: {
+      type: String,
+      default: 'request to approve job',
+      required: true,
+    },
+    pages: { type: Number, required: true },
+    numberOfArticles: { type: Number, required: true },
+    initiatedBy: { type: String, required: true },
+    approvedBy: { type: String, required: true, default: 'N/A' },
+    status: {
+      type: String,
+      required: true,
+      enum: ['pending', 'modify', 'approved'],
+    },
+    dateApproved: { type: Date },
+  },
+  { timestamps: true }
+)
+
 //volume schema
 // const volumeSchema = mongoose.Schema({
 //   volumeNumber: { type: String, required: true },
@@ -121,5 +145,8 @@ export const Announcement =
 //   mongoose.models.Volume || mongoose.model('Volume', volumeSchema)
 
 export const User = mongoose.models?.User || mongoose.model('User', userSchema)
+
+export const JobQueue =
+  mongoose.models?.JobQueue || mongoose.model('JobQueue', jobQueueSchema)
 
 ///(^[a-z]+)(@uniben\.edu|@bijed\.com\.ng)|(^[a-z]+\.[a-z]+)@uniben\.edu$/gm
