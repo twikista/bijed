@@ -8,6 +8,7 @@ import SideNavItems from './SideNavItems'
 import LogoutButton from './LogoutButton'
 import {
   AdjustmentsHorizontalIcon,
+  ChevronDownIcon,
   CommandLineIcon,
   ComputerDesktopIcon,
 } from '@heroicons/react/24/outline'

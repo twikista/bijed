@@ -17,8 +17,8 @@ import { Cog6ToothIcon as CogIconOutline } from '@heroicons/react/24/outline'
 import { Cog6ToothIcon as CogIconFill } from '@heroicons/react/24/solid'
 import { Square3Stack3DIcon as Square3Stack3DIconOutline } from '@heroicons/react/24/outline'
 import { Square3Stack3DIcon as Square3Stack3DIconFill } from '@heroicons/react/24/solid'
-import { QuestionMarkCircleIcon as QuestionMarkCircleIconOutline } from '@heroicons/react/24/outline'
-import { QuestionMarkCircleIcon as QuestionMarkCircleIconFill } from '@heroicons/react/24/solid'
+import { ArrowPathRoundedSquareIcon as ArrowPathIconOutline } from '@heroicons/react/24/outline'
+import { ArrowPathRoundedSquareIcon as ArrowPathIconFill } from '@heroicons/react/24/solid'
 import { DocumentTextIcon as DocumentTextIconOutline } from '@heroicons/react/24/outline'
 import { DocumentTextIcon as DocumentTextIconFill } from '@heroicons/react/24/solid'
 import { WindowIcon as WindowIconOutline } from '@heroicons/react/24/outline'
@@ -36,6 +36,11 @@ const sideNavItems = [
     url: '/dashboard/issues',
     outlineIcon: Square3Stack3DIconOutline,
     fillIcon: Square3Stack3DIconFill,
+    subMenu: [
+      { name: 'New Issue', url: '/dashboard/issues/new-issue' },
+      { name: 'Published', url: '/dashboard/issues/published' },
+      { name: 'Unpublished', url: '/dashboard/issues/unpublished' },
+    ],
   },
   {
     text: 'News',
@@ -50,23 +55,31 @@ const sideNavItems = [
     fillIcon: DocumentTextIconFill,
   },
   {
-    text: 'Help',
-    url: '/dashboard/help',
-    outlineIcon: QuestionMarkCircleIconOutline,
-    fillIcon: QuestionMarkCircleIconFill,
+    text: 'Job Queue',
+    url: '/dashboard/job-queue',
+    outlineIcon: ArrowPathIconOutline,
+    fillIcon: ArrowPathIconFill,
+    subMenu: [
+      { name: 'pending', url: '/dashboard/job-queue/pending-jobs' },
+      { name: 'approved', url: '/dashboard/job-queue/approved-jobs' },
+    ],
   },
 ]
 function SideNavItems({ session }) {
   return (
     <ul className='space-y-4'>
-      {sideNavItems.map((i) => (
+      {sideNavItems.map((navItem) => (
         <SideNavItem
-          key={i.url}
-          type='link'
-          linkText={i.text}
-          link={i.url}
-          OutlineIcon={i.outlineIcon}
-          FillIcon={i.fillIcon}
+          key={navItem.url}
+          // type='link'
+          subMenu={navItem.subMenu}
+          linkText={navItem.text}
+          link={navItem.url}
+          navItem={navItem}
+          OutlineIcon={navItem.outlineIcon}
+          FillIcon={navItem.fillIcon}
+          hasSubMenu={!!navItem.subMenu}
+          user={session?.user}
         />
       ))}
       {/* <SideNavItem
@@ -111,7 +124,7 @@ function SideNavItems({ session }) {
         <>
           <SideNavItem
             type='link'
-            linkText='Manage user'
+            linkText='Manage users'
             link='/dashboard/manage-users'
             OutlineIcon={UsersIconOutline}
             FillIcon={UsersIconFill}

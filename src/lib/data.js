@@ -15,12 +15,15 @@ export const getAnnouncements = async () => {
   return announcements
 }
 
-export const getIssues = async () => {
+export const getIssues = async (status) => {
   // nostore()
   try {
     connectDB()
-    const issues = await Issue.find().sort({ volume: -1, issueNumber: -1 })
-    console.log(issues)
+    const issues = await Issue.find({ published: status }).sort({
+      volume: -1,
+      issueNumber: -1,
+    })
+    console.log('issues:', issues)
     return issues
   } catch (error) {
     console.log(error)

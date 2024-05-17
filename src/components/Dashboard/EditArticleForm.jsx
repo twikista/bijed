@@ -25,6 +25,7 @@ import ToggleFileInputField from './ToggleFileInputField'
 import FormWrapper from './FormWrapper'
 import SubmitButton from '../SubmitButton'
 import { CancelButton } from './Buttons'
+import Form from './Form'
 
 function EditArticleForm({ initialValue, params }) {
   console.log(`params:${params.published}`)
@@ -74,7 +75,7 @@ function EditArticleForm({ initialValue, params }) {
       // params.issue === undefined
       //   ? router.push(`/dashboard/articles`)
       //   : router.push(`/dashboard/issues/${params.issue}`)
-      router.push(`/dashboard/issues/${params.issue}`)
+      router.push(`/dashboard/issues/unpublished/${params.issue}`)
       setHideFileInput(true)
     } else {
       console.log(response)
@@ -106,8 +107,10 @@ function EditArticleForm({ initialValue, params }) {
           <span>{errorFromServer}</span>
         </div>
       )}
-      <form
-        onSubmit={handleSubmit(handler)}
+      <Form
+        handler={handler}
+        handleSubmit={handleSubmit}
+        // onSubmit={handleSubmit(handler)}
         className='px-5 pt-8 pb-5 space-y-5 rounded-b-md'
       >
         <TextInput
@@ -263,7 +266,7 @@ function EditArticleForm({ initialValue, params }) {
             formSubmitState={isSubmitting}
           />
           <CancelButton
-            href={`/dashboard/issues/${params?.issue}`}
+            href={`/dashboard/issues/unpublished/${params?.issue}`}
             style='bg-red-400 hover:bg-red-500'
             text='Cancel'
           />
@@ -274,7 +277,7 @@ function EditArticleForm({ initialValue, params }) {
           {isSubmitting ? 'updating Artice...' : 'Submit'}
         </button>
         <Link href={`/dashboard/issues/${params.issue}`}>cancel</Link> */}
-      </form>
+      </Form>
     </FormWrapper>
   )
 }

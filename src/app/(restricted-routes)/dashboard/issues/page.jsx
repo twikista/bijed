@@ -11,7 +11,7 @@ import { EditButton } from '@/components/Dashboard/Buttons'
 import DashboardWrapper from '@/components/Dashboard/DashboardWrapper'
 
 async function Issues() {
-  const issues = await getIssues()
+  const issues = await getIssues([true, false])
   // console.log('issues bla', issues)
   return (
     <DashboardContainer>
@@ -49,8 +49,8 @@ async function Issues() {
                         published
                       </span>
                     ) : (
-                      <span className='px-3 py-1 space-x-1 bg-gray-200 rounded-2xl w-fit'>
-                        pending
+                      <span className='flex items-center px-3 py-1 space-x-1 font-medium text-gray-500 bg-gray-200 rounded-lg w-fit'>
+                        unpublished
                       </span>
                     )}
                   </td>

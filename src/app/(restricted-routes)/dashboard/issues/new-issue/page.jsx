@@ -5,20 +5,18 @@ import { Issue } from '@/lib/mongoose/models'
 // import { addIssue } from '@/app/api/actions/actions'
 // import {useState} from 'react'
 
-async function CreateIssue({ params: { ref } }) {
-  const issue = await Issue.findOne({ ref })
+async function CreateIssue() {
+  // const issue = await Issue.findOne({ ref })
   //   const [formData, setFormData] = useState(initialState)
-  console.log('issue id-', issue?._id === undefined)
-  const initialFormState =
-    issue?._id === undefined
-      ? { issueNumber: '', volume: '', issueYear: '2023' }
-      : JSON.parse(JSON.stringify(issue))
+  // console.log('params:', ref)
+  // console.log('issue id-', issue?._id === undefined)
+  const initialFormState = { issueNumber: '', volume: '', issueYear: '2023' }
 
   console.log('initialFormState-', initialFormState)
   return (
     <DashboardContainer>
       <DashboardWrapper>
-        <IssueForm initialFormSate={initialFormState} />
+        <IssueForm initialFormState={initialFormState} />
       </DashboardWrapper>
     </DashboardContainer>
   )

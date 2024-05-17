@@ -55,12 +55,12 @@ export const passwordSchema = z.object({
 const articleAuthorSchema = z.object({
   name: z.string().min(1, { message: 'name is required' }),
   affliation: z.string().min(1, { message: "author's affliation is required" }),
-  orchidId: z
-    .string()
-    .min(1, { message: 'Orchid Id is required' })
-    .refine((val) => /^([0-9a-zA-Z]{4}-){3}\d{4}$/.test(val), {
-      message: 'Enter a valid Orchid Id',
-    }),
+  // orchidId: z
+  //   .string()
+  //   .min(1, { message: 'Orchid Id is required' })
+  //   .refine((val) => /^([0-9a-zA-Z]{4}-){3}\d{4}$/.test(val), {
+  //     message: 'Enter a valid Orchid Id',
+  //   }),
 })
 
 const fileSizeInMb = (sizeInBytes) => sizeInBytes / 1024 ** 2
@@ -197,6 +197,19 @@ export const issueFormSchema = z.object({
   volume: z.number({
     required_error: 'issue field is required',
     invalid_type_error: 'Issue must be a number',
+  }),
+})
+
+export const newJobFormSchema = z.object({
+  jobRef: z.string().trim().min(1, { message: 'Job reference is required' }),
+  jobTitle: z.string().trim().min(1, { message: 'Job title is required' }),
+  pages: z.number({
+    required_error: 'pages field is required',
+    invalid_type_error: 'pages must be a number',
+  }),
+  numberOfArticles: z.number({
+    required_error: 'Number of Articles in is required',
+    invalid_type_error: 'field must be a number',
   }),
 })
 

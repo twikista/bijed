@@ -11,7 +11,7 @@ import {
 import uniqid from 'uniqid'
 import { revalidatePath } from 'next/cache'
 import { connectDB } from './mongoose/config'
-import { Announcement, Article, Issue, User } from './mongoose/models'
+import { Announcement, Article, Issue, JobQueue, User } from './mongoose/models'
 import { uploadPdfToStorage, removePdfFromStorage } from './firebase/services'
 import { redirect } from 'next/navigation'
 import { signIn, signOut } from '../../auth'
@@ -58,9 +58,10 @@ export const addIssue = async (formData) => {
 
   try {
     connectDB()
+    console.log('new issue object:', issueData)
     const newIssue = new Issue(issueData)
     const savedIssue = await newIssue.save()
-    if (savedIssue._id !== null) {
+    if (savedIssue?._id !== null) {
       revalidatePath('/archive')
       revalidatePath('/dashboard/issues')
       return { ok: true }
@@ -74,32 +75,56 @@ export const addIssue = async (formData) => {
 }
 
 //publish issue
-export const publishIssue = async (issueRef) => {
+export const publishIssue = async (issueRef, jobTicketId, user) => {
+  console.log('user--------------', user)
   console.log(issueRef)
   console.log('i ran here')
   const date = new Date()
   try {
     connectDB()
-    const publishedIssue = await Issue.findOneAndUpdate(
-      { ref: issueRef },
-      { $set: { published: true, publishDate: date } },
-      { new: true }
-    )
-    console.log(publishIssue)
-    if (publishedIssue.length) {
-      throw new Error('Error publishing Journal issue')
-    }
+    const session = await JobQueue.startSession()
+    await session.withTransaction(async () => {
+      const job = await JobQueue.findOneAndUpdate(
+        { jobTicketId: jobTicketId },
+        {
+          $set: {
+            status: 'approved',
+            approvedBy: `${user.firstName} ${user.lastName}`,
+            dateApproved: date,
+          },
+        },
+        { new: true }
+      ).session(session)
+      const publishedIssue = await Issue.findOneAndUpdate(
+        { ref: issueRef },
+        { $set: { published: true, publishDate: date } },
+        { new: true }
+      ).session(session)
+      const publishedArticles = await Article.updateMany(
+        { ref: issueRef },
+        { $set: { published: true, publishDate: date } }
+      ).session(session)
+    })
 
-    const publishedArticles = await Article.updateMany(
-      { ref: issueRef },
-      { $set: { published: true, publishDate: date } }
-    )
-    console.log(publishedArticles.acknowledged)
-    if (!publishedArticles.acknowledged) {
-      throw new Error('Error publishing Journal Issue')
-    }
-    revalidatePath(`/dashboard/issues/${issueRef}`)
+    // if (!job.length) {
+    //   throw new Error('Error publishing Journal issue')
+    // }
+
+    // console.log(publishIssue)
+    // if (publishedIssue.length) {
+    //   throw new Error('Error publishing Journal issue')
+    // }
+
+    // console.log(publishedArticles.acknowledged)
+    // if (!publishedArticles.acknowledged) {
+    //   throw new Error('Error publishing Journal Issue')
+    // }
+    await session.endSession()
+    revalidatePath(`/dashboard/issues/unpublished${issueRef}`)
+    revalidatePath(`/dashboard/issues/published${issueRef}`)
     revalidatePath(`/dashboard/archive/${issueRef}`)
+    revalidatePath(`/dashboard/job-queue/pending-jobs`)
+    revalidatePath(`/dashboard/job-queue/approved-jobs`)
     return { ok: true }
   } catch (error) {
     console.log(error)

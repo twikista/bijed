@@ -35,13 +35,13 @@ function IssueForm({ initialFormState, initialValue }) {
     console.log(data)
     console.log(data.issueYear)
     const response =
-      initialValue.issueNumber === ''
+      initialFormState?.issueNumber === ''
         ? await addIssue(data)
-        : await updateIssue(initialValue._id, initialValue, data)
+        : await updateIssue(initialValue?._id, initialValue, data)
 
     if (response.ok) {
+      router.push('/dashboard/issues/unpublished')
       reset()
-      router.push('/dashboard/issues')
     } else {
       if (response?.errorType === 'validationError') {
         const formfields = {

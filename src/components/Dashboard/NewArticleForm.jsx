@@ -72,7 +72,7 @@ function NewArticleForm({ initialValue, params }) {
       // params.issue === undefined
       //   ? router.push(`/dashboard/articles`)
       //   : router.push(`/dashboard/issues/${params.issue}`)
-      router.push(`/dashboard/issues/${params.issue}`)
+      router.push(`/dashboard/issues/unpublished/${params.issue}`)
     } else {
       if (response?.errorType === 'validationError') {
         const formfields = {
@@ -231,7 +231,7 @@ function NewArticleForm({ initialValue, params }) {
             formSubmitState={isSubmitting}
           />
           <CancelButton
-            href={`/dashboard/issues/${params?.issue}`}
+            href={`/dashboard/issues/unpublished/${params?.issue}`}
             style='bg-red-400 hover:bg-red-500'
             text='Cancel'
           />

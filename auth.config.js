@@ -11,6 +11,7 @@ export const authConfig = {
         token.firstName = user.firstName
         token.lastName = user.lastName
         token.isAdmin = user.isAdmin
+        token.role = user.role
       }
       return token
     },
@@ -19,6 +20,7 @@ export const authConfig = {
         session.user.firstName = token.firstName
         session.user.lastName = token.lastName
         session.user.isAdmin = token.isAdmin
+        session.user.role = token.role
       }
       console.log(session)
       return session

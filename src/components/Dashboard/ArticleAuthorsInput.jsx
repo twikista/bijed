@@ -58,7 +58,7 @@ function ArticleAuthorsInput({ control, register, error }) {
                       type='text'
                       {...register(`authors.${index}.name`)}
                       id='name'
-                      placeholder="Enter Author's name"
+                      placeholder="Enter Author's name (Surname First)"
                     />
                     {error && (
                       <ExclamationCircleIcon
