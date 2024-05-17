@@ -52,7 +52,7 @@ async function Dashboard() {
             </div>
             {/* </div> */}
           </div>
-          <QuickLinks />
+          <QuickLinks userRole={user?.role} />
         </section>
       </div>
     </DashboardContainer>

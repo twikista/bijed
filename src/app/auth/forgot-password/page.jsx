@@ -2,7 +2,7 @@ import ForgetPasswordForm from '@/components/auth/ForgotPasswordForm'
 
 function ForgetPassword() {
   return (
-    <div className='flex flex-col items-center justify-center h-screen px-3 bg-white '>
+    <div className='flex items-center justify-center w-full bg-white border'>
       {/* <Image
         src={forgotPassword}
         alt='forgot password image'

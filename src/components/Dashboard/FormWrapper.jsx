@@ -2,7 +2,7 @@ import React from 'react'
 
 function FormWrapper({ children, formHeading, maxWidth = 'max-w-[620px]' }) {
   return (
-    <div className='flex justify-center'>
+    <div className='flex justify-center w-full'>
       <section
         className={`w-full ${maxWidth} mx-auto mt-5 overflow-hidden rounded-md`}
       >

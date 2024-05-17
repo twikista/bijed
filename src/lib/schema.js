@@ -16,7 +16,7 @@ export const signinFormSchema = z.object({
 
 export const newUserSchema = z.object({
   firstName: z.string().trim().min(1, { message: 'First name is required' }),
-  lastName: z.string().trim().min(6, { message: 'Last name is required' }),
+  lastName: z.string().trim().min(1, { message: 'Last name is required' }),
   email: z
     .string()
     .trim()

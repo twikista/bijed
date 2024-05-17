@@ -4,7 +4,7 @@ import Link from 'next/link'
 
 function Login() {
   return (
-    <div className='flex flex-col items-center justify-center h-screen px-3 bg-white'>
+    <div className='flex items-center justify-center w-full border'>
       {/* <LoginForm /> */}
       <SignInForm />
     </div>

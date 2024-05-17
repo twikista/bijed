@@ -117,7 +117,7 @@ function SideNavItems({ session }) {
       <li>
         <Link href='/dashboard/profile'>Profile</Link>
       </li> */}
-      {session?.user?.isAdmin && (
+      {session?.user?.role === 'admin' && (
         // <li>
         //   <Link href='/dashboard/admin'>Admin</Link>
         // </li>

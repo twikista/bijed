@@ -8,6 +8,9 @@ import { activateAccountSchema } from '@/lib/schema'
 
 import PasswordInput from '../PasswordInput'
 import { handleValidationErrorFromServer } from '@/lib/util'
+import FormWrapper from '../Dashboard/FormWrapper'
+import Form from '../Dashboard/Form'
+import SubmitButton from '../SubmitButton'
 
 function AccountActivationForm({ id }) {
   const router = useRouter()
@@ -47,31 +50,39 @@ function AccountActivationForm({ id }) {
     }
   }
   return (
-    <div>
+    <FormWrapper formHeading='Account Activation'>
       {errorFromServer && (
         <div>
           <span>{errorFromServer}</span>
         </div>
       )}
-      <h1>Complete Account Activation</h1>
-      <form onSubmit={handleSubmit(handler)}>
+      <Form handleSubmit={handleSubmit} handler={handler}>
         <PasswordInput
-          label='password'
+          label='Curent Password'
           name='defaultPassword'
           register={register}
           error={errors.defaultPassword}
         />
         <PasswordInput
+          label='New Password'
           name='newPassword'
           register={register}
           error={errors.newPassword}
         />
-        <input
+        <SubmitButton
+          textColor='white'
+          bgColor='901090'
+          hoverBgColor='800080'
+          mainText='Activate Account'
+          altText='Activating Account...'
+          formSubmitState={isSubmitting}
+        />
+        {/* <input
           type='submit'
           value={isSubmitting ? 'submitting...' : 'submit'}
-        />
-      </form>
-    </div>
+        /> */}
+      </Form>
+    </FormWrapper>
   )
 }
 

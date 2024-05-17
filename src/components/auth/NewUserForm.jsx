@@ -23,9 +23,9 @@ function NewUserForm() {
     role: '',
   }
   const userRoles = [
-    { option: 'Business Manager', value: 'Business Manager' },
-    { option: 'Managing Editor', value: 'Managing Editor' },
-    { option: 'Admin', value: 'Admin' },
+    { option: 'business manager', value: 'business manager' },
+    { option: 'managing Editor', value: 'managing editor' },
+    { option: 'Admin', value: 'admin' },
   ]
   const [errorFromServer, setErrorFromServer] = useState(null)
   const router = useRouter()
@@ -45,7 +45,7 @@ function NewUserForm() {
 
     if (response && response?.ok) {
       reset()
-      router.push('/dashboard/admin/users')
+      router.push('/dashboard/manage-user')
     }
 
     if (response && !response?.ok) {

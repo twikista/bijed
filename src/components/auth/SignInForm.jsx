@@ -13,6 +13,8 @@ import DisplayServerValidationError from '../Dashboard/DisplayServerValidationEr
 import { toast } from 'react-toastify'
 import Spinner from '../Spinner'
 import SubmitButton from '../SubmitButton'
+import FormWrapper from '../Dashboard/FormWrapper'
+import Form from '../Dashboard/Form'
 
 function SignInForm() {
   const {
@@ -56,12 +58,8 @@ function SignInForm() {
     }
   }
   return (
-    <div className='shadow-[0px_1px_4px_rgba(0,0,0,0.16)] rounded-xl  p-6 w-full max-w-[400px] space-y-3] bg-gray-100'>
-      <form
-        noValidate
-        onSubmit={handleSubmit(handler)}
-        className='w-full space-y-5'
-      >
+    <FormWrapper maxWidth='max-w-[480px]'>
+      <Form handleSubmit={handleSubmit} handler={handler}>
         <h2 className='text-[#800080] font-medium text-3xl'>SIGN IN</h2>
         {authError && (
           <DisplayServerValidationError
@@ -102,17 +100,17 @@ function SignInForm() {
         >
           {isSubmitting ? <Spinner text='Processing...' /> : 'Sign in'}
         </button> */}
-      </form>
-      <div className='flex gap-2 mt-6'>
-        <p className='text-gray-500'> Forgot password</p>
-        <Link
-          href='/auth/forgot-password'
-          className='hover:underline text-[#901090] hover:text-[#800080]'
-        >
-          Reset password
-        </Link>
-      </div>
-    </div>
+        <div className='flex gap-2 mt-6'>
+          <p className='text-gray-500'> Forgot password</p>
+          <Link
+            href='/auth/forgot-password'
+            className='hover:underline text-[#901090] hover:text-[#800080]'
+          >
+            Reset password
+          </Link>
+        </div>
+      </Form>
+    </FormWrapper>
   )
 }
 
