@@ -12,7 +12,7 @@ function MenuItem({ menuItem }) {
   return (
     <li
       key={menuItem.name}
-      className={`${
+      className={`flex items-center${
         currentRoute === menuItem.url
           ? 'border-b-2 border-secondary text-secondary transition-all'
           : 'hover:text-secondary transition-colors'
@@ -29,10 +29,13 @@ function MenuItem({ menuItem }) {
             aria-expanded={showSubMenu ? 'true' : 'false'}
             onClick={() => setShowSubMenu((current) => !current)}
           >
-            <Link href={`${menuItem.url}`} className='capitalize'>
+            <Link
+              href={`${menuItem.url}`}
+              className='flex items-center text-base capitalize'
+            >
               {menuItem.name}
             </Link>
-            <DownArrow fill='currentColor' width='8px' height='8px' />
+            <DownArrow fill='currentColor' width='10px' height='10px' />
           </button>
           <SubMenu
             subMenuItems={menuItem.submenu}
@@ -41,7 +44,7 @@ function MenuItem({ menuItem }) {
           />
         </>
       ) : (
-        <Link href={`${menuItem.url}`} className='capitalize'>
+        <Link href={`${menuItem.url}`} className='text-base capitalize'>
           {menuItem.name}
         </Link>
       )}

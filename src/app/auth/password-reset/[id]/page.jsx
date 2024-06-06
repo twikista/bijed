@@ -33,14 +33,14 @@ function page({ params }) {
               request a new reset link
             </p> */}
             <p className='w-full mx-auto text-center text-gray-600'>
-              Click{' '}
+              {'Click '}
               <Link
                 href='/auth/forgot-password'
                 className='text-blue-500 hover:underline'
               >
                 here
-              </Link>{' '}
-              to request a new password reset link
+              </Link>
+              {' to request a new password reset link'}
             </p>
           </div>
         </div>

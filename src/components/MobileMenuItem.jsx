@@ -42,9 +42,9 @@ function MobileMenuItem({ menuItem, showMenu, setShowMenu }) {
             {/* </Link> */}
             <span className='inline-block ml-1'>
               {showSubMenu ? (
-                <UpArrow width='14px' height='14px' />
+                <UpArrow width='10px' height='10px' />
               ) : (
-                <DownArrow fill='currentColor' width='14px' height='14px' />
+                <DownArrow fill='currentColor' width='10px' height='10px' />
               )}
             </span>
           </button>

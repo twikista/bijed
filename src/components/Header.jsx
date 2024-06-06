@@ -2,12 +2,13 @@ import Navbar from './Navbar'
 import unibenLogo from '../../public/uniben_logo.png'
 import Image from 'next/image'
 import Link from 'next/link'
-import MobileNavBar from './MobileNavBar'
+import MobileNavBar from './MobileNavBar1'
+import { IdeasIcon } from './Icons'
 
 function Header() {
   return (
-    <header className='h-fit font-saira'>
-      <div className='px-2 pt-2'>
+    <header className='bg-[#800080] h-fit'>
+      {/* <div className='px-2 pt-2'>
         <div className='flex flex-col items-center justify-center gap-1 pt-2 pb-1 sm:gap-2 md:flex-row md:gap-[10px] lg:gap-5'>
           <div className='w-8 ms:w-10 md:w-14 lg:w-20 2xl:w-24 h-fit '>
             <Link href='/'>
@@ -22,18 +23,75 @@ function Header() {
           <div className='lg:space-y-2'>
             <h1 className='font-extrabold text-center uppercase text-primary text-lg sm:text-2xl md:text-[26px] lg:text-[34px] xl:text-[44px]'>
               benin international journal of entrepreneurship developement
-              {/* &#40;BIJED&#41; */}
             </h1>
             <h3 className='text-base leading-relaxed lg:text-lg 2xl:text-xl font-bold text-center text-[#cdad4e]'>
-              {/* A publication of the Department of Entrepreneurship, Faculty of
-              management Sciences, University of Benin, Benin city */}
               (ISSN:1890-2345)
             </h3>
           </div>
         </div>
+      </div> */}
+      <div className='flex flex-col lg:flex-row items-center px-1 lg:px-10 h-[120px] sm:h-[120px] md:h-[90px] lg:h-[90px] text-white justify-center gap-0'>
+        <div className='flex flex-col items-center py-3 md:flex-row'>
+          <Link href='/'>
+            <Image
+              src={unibenLogo}
+              alt='logo of univrsity of benin'
+              width={60}
+              height='auto'
+              className='hidden mr-3 rounded-full lg:block'
+            />
+            <Image
+              src={unibenLogo}
+              alt='logo of univrsity of benin'
+              width={50}
+              height='auto'
+              className='hidden rounded-full sm:block md:mr-3 lg:hidden'
+            />
+            <Image
+              src={unibenLogo}
+              alt='logo of univrsity of benin'
+              width={40}
+              height='auto'
+              className='block rounded-full sm:hidden'
+            />
+          </Link>
+
+          <div className='flex flex-col'>
+            {/* <IdeasIcon className='w-5 h-5 text-white lg:w-8 md:h-8' /> */}
+
+            <div className='flex items-center text-sm font-bold text-white md:text-xl sm:text-xl lg:text-3xl font-saira'>
+              <h1 className='hidden sm:flex'>BIJED</h1>
+              <span className='sm:h-4 md:h-5 lg:h-6 w-[1px] bg-white lg:inline-block mx-1 hidden sm:block' />
+              <span className=''>
+                Benin International Journal of Entrepreneurship Development
+              </span>
+            </div>
+            <div className='flex '>
+              <span className='mb-1 text-xs text-white lg:mb-0 lg:text-sm lg:font-medium'>{`ISSN:1890-2345`}</span>
+            </div>
+          </div>
+
+          {/* <Image
+            src={unibenLogo}
+            alt='logo of univrsity of benin'
+            width={40}
+            height={40}
+            className='ml-3 rounded-full'
+          /> */}
+        </div>
+        {/* <Link
+          href={`${process.env.AUTH}/login`}
+          className='px-4 py-[2px] text-lg border border-white rounded-lg font-barlow'
+        >
+          Login
+        </Link> */}
+        {/* <span className='mb-1 text-xs text-white lg:mb-0 lg:text-base lg:font-medium'>{`ISSN:1890-2345`}</span> */}
       </div>
-      <Navbar />
-      <MobileNavBar />
+      <div className='bg-white/30 md:h-[1px] mx-auto' />
+      <div className='px-5'>
+        <Navbar />
+        <MobileNavBar />
+      </div>
     </header>
   )
 }

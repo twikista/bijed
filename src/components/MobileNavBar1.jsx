@@ -4,7 +4,6 @@ import { useState, useEffect, useRef } from 'react'
 import { menuItemsData } from '@/static/menuitems_data'
 import { ShowMenuToggle, HideMenuToggle } from './MobileMenuToggleIcons'
 import MobileMenuItem from './MobileMenuItem'
-import Link from 'next/link'
 
 function MobileNavBar() {
   const [showMenu, setShowMenu] = useState(false)
@@ -19,14 +18,8 @@ function MobileNavBar() {
     }
   }
 
-  const toggleHandler = () => {
-    setShowMenu((prev) => !prev)
-  }
-
   useEffect(() => {
     const handler = (event) => {
-      console.log('target-', event.target)
-      console.log('ref-', ref.current)
       if (showMenu && ref.current && !ref.current.contains(event.target)) {
         setShowMenu(false)
       }
@@ -47,7 +40,7 @@ function MobileNavBar() {
 
   return (
     <nav
-      className={`flex  md:hidden bg-[#800080] pb-1 ${
+      className={`flex  md:hidden bg-primary ${
         hang ? 'fixed top-0 right-0 left-0' : 'relative'
       }`}
     >
@@ -55,15 +48,14 @@ function MobileNavBar() {
         <div className='flex justify-end w-full px-2'>
           <button
             type='button'
-            className='px-1 py-[2px] font-semibold text-gray-200 uppercase border border-white/60 rounded-[2px] text-sm'
-            onClick={toggleHandler}
+            className='px-1 py-[2px] font-semibold text-white uppercase border border-white rounded-[4px] text-sm'
+            onClick={() => setShowMenu((prev) => !prev)}
           >
             {showMenu ? <HideMenuToggle /> : <ShowMenuToggle />}
-            {/* {showMenu ? <span>hide menu</span> : <span>show menu</span>} */}
           </button>
         </div>
         <ul
-          className={`flex-col absolute top-[39px] bg-[#800080] w-full text-white font-medium font-sairaNormal text-sm ${
+          className={`flex-col absolute top-[39px] bg-primary w-full text-white font-bold text-lg ${
             showMenu ? 'h-fit flex' : 'h-0 hidden py-0'
           }`}
           ref={ref}
@@ -76,13 +68,6 @@ function MobileNavBar() {
               setShowMenu={setShowMenu}
             />
           ))}
-          <Link
-            href='/auth/login'
-            className='inline-block w-full px-6 py-1 capitalize'
-            onClick={() => setShowMenu(!showMenu)}
-          >
-            login
-          </Link>
         </ul>
       </div>
     </nav>

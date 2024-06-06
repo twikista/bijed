@@ -1,7 +1,8 @@
 // import { saira, cairo, barlow, ibmPlex } from './font/font'
 import {
   Saira_Condensed,
-  // Inter,
+  IBM_Plex_Sans_Condensed,
+  Inter,
   // Lato,
   Cairo,
   Barlow,
@@ -25,6 +26,14 @@ export const ibmPlex = IBM_Plex_Sans({
   subsets: ['latin'],
   weight: ['300', '400', '500', '600', '700'],
   variable: '--font-plex',
+  display: 'swap',
+  adjustFontFallback: false,
+})
+
+export const ibmPlexCondensed = IBM_Plex_Sans_Condensed({
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700'],
+  variable: '--font-ibmPlexCondensed',
   display: 'swap',
   adjustFontFallback: false,
 })

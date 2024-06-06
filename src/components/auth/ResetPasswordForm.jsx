@@ -56,11 +56,7 @@ function ResetPasswordForm({ authToken }) {
         <h2 className='text-2xl font-medium text-center text-gray-600 font-cairo'>
           Set a New Password
         </h2>
-        {/* {emailSent && (
-        <div>
-          <span>{emailSent}</span>
-        </div>
-      )} */}
+
         <p className='w-full max-w-[300px] mx-auto text-center text-gray-600'>
           Enter your new password below
         </p>

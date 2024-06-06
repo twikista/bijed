@@ -6,7 +6,7 @@ async function Announcement() {
   if (announcements.length === 0) {
     return (
       <>
-        <h3 className='text-xl font-semibold capitalize font-saira text-[#993264]'>
+        <h3 className='text-xl font-semibold capitalize font-saira text-primary'>
           Announcements
         </h3>
         <p className='text-gray-400'>No announcements</p>
@@ -15,7 +15,7 @@ async function Announcement() {
   }
   return (
     <div>
-      <h3 className='text-xl font-semibold capitalize font-saira text-[#993264]'>
+      <h3 className='text-xl font-semibold capitalize font-saira text-primary'>
         Announcements
       </h3>
       <div>

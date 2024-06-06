@@ -18,7 +18,7 @@ async function Archive() {
   const archive = await getArchive()
   return (
     <div className='space-y-2'>
-      <h3 className='text-xl font-semibold capitalize font-saira text-[#993264]'>
+      <h3 className='text-xl font-semibold capitalize font-saira text-primary'>
         Archive
       </h3>
       <div className='space-y-[5px]'>
