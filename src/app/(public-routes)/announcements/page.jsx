@@ -27,7 +27,7 @@ async function AnnouncementPage() {
     <MainContainer>
       {announcements.map((announcement) => (
         <article
-          className='py-2 border border-gray-300 boder-solid'
+          className='px-3 py-2 border border-gray-300 rounded-md boder-solid'
           key={announcement.id}
         >
           <Link
@@ -36,9 +36,11 @@ async function AnnouncementPage() {
           >
             {announcement.title}
           </Link>
-          <div className='flex gap-1 text-gray-500'>
-            <CalendarDaysIcon className='w-5' />
-            <span>{formatDate(announcement.createdAt)}</span>
+          <div className='flex gap-1 text-gray-400'>
+            <CalendarDaysIcon className='w-4' />
+            <span className='text-sm'>
+              {formatDate(announcement.createdAt)}
+            </span>
           </div>
 
           {/* <section className='space-y-5 text-justify'>

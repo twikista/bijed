@@ -111,7 +111,7 @@ export default function Home() {
         <section className='grid grid-cols-1 grid-rows-3 gap-3 md:grid-cols-3 md:grid-rows-1'>
           <article className='flex flex-col items-stretch'>
             <h3 className='flex items-center justify-center gap-1 py-2 text-base font-bold text-white border rounded-t-lg md:text-xl bg-primary font-saira border-primary'>
-              <Mouse className='w-6 h-6 p-0 md:w-8 md:h-8' />
+              <Mouse className='w-5 h-5 p-0 md:w-6 md:h-6' />
               <span>Submision Guide</span>
             </h3>
             <div className='p-[10px] border border-gray-300 rounded-b-lg flex-1'>
@@ -131,7 +131,7 @@ export default function Home() {
           </article>
           <article className='flex flex-col items-stretch'>
             <h3 className='flex items-center justify-center gap-1 py-2 text-base font-bold text-white border rounded-t-lg md:text-xl bg-primary font-saira border-primary'>
-              <Book className='w-6 h-6 p-0 smd:w-8 md:h-8' />
+              <Book className='w-5 h-5 p-0 smd:w-6 md:h-6' />
               <span>publication Ethics</span>
             </h3>
             <div className='p-[10px] border border-gray-300 rounded-b-lg flex-1'>
@@ -151,7 +151,7 @@ export default function Home() {
           </article>
           <article className='flex flex-col items-stretch'>
             <h3 className='flex items-center justify-center gap-1 py-2 text-base font-bold text-white border rounded-t-lg md:text-xl bg-primary font-saira border-primary'>
-              <OpenAccess className='w-6 h-6 p-0 text-white md:w-8 md:h-8' />
+              <OpenAccess className='w-5 h-4 p-0 text-white md:w-6 md:h-5' />
               <span className=''>Open Access</span>
             </h3>
             <div className='p-[10px] border border-gray-300 rounded-b-lg flex-1'>
