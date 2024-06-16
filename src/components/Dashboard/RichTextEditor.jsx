@@ -5,10 +5,10 @@ import dynamic from 'next/dynamic'
 
 import 'react-quill/dist/quill.snow.css'
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false })
-function RichTextEditor({ onChange, onBlur, value, error }) {
+function RichTextEditor({ onChange, onBlur, value, error, label }) {
   return (
     <div className='h-[320px]'>
-      <lable>Announcement content</lable>
+      <label>{label ? label : null}</label>
       <ReactQuill
         theme='snow'
         value={value}
@@ -23,6 +23,7 @@ function RichTextEditor({ onChange, onBlur, value, error }) {
             ['link'],
             [{ align: [] }],
             [{ color: [] }],
+            // [{ font: [] }],
             // ['code-block'],
             // ['clean'],
           ],

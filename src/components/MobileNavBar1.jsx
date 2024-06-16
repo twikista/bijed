@@ -5,8 +5,8 @@ import { menuItemsData } from '@/static/menuitems_data'
 import { ShowMenuToggle, HideMenuToggle } from './MobileMenuToggleIcons'
 import MobileMenuItem from './MobileMenuItem'
 
-function MobileNavBar() {
-  const [showMenu, setShowMenu] = useState(false)
+function MobileNavBar({ showMenu, setShowMenu }) {
+  // const [showMenu, setShowMenu] = useState(false)
   const [hang, setHang] = useState(false)
   const ref = useRef()
 
@@ -44,8 +44,8 @@ function MobileNavBar() {
         hang ? 'fixed top-0 right-0 left-0' : 'relative'
       }`}
     >
-      <div className='relative w-full py-1'>
-        <div className='flex justify-end w-full px-2'>
+      {/* <div className='relative w-full py-1'> */}
+      {/* <div className='flex justify-end w-full px-2'>
           <button
             type='button'
             className='px-1 py-[2px] font-semibold text-white uppercase border border-white rounded-[4px] text-sm'
@@ -53,23 +53,23 @@ function MobileNavBar() {
           >
             {showMenu ? <HideMenuToggle /> : <ShowMenuToggle />}
           </button>
-        </div>
-        <ul
-          className={`flex-col absolute top-[39px] bg-primary w-full text-white font-bold text-lg ${
-            showMenu ? 'h-fit flex' : 'h-0 hidden py-0'
-          }`}
-          ref={ref}
-        >
-          {menuItemsData.map((menuItem) => (
-            <MobileMenuItem
-              key={menuItem.name}
-              menuItem={menuItem}
-              showMenu={showMenu}
-              setShowMenu={setShowMenu}
-            />
-          ))}
-        </ul>
-      </div>
+        </div> */}
+      <ul
+        className={`flex-col absolute top-[1px] bg-primary w-full text-white font-medium font-barlow text-sm ${
+          showMenu ? 'h-fit flex' : 'h-0 hidden py-0'
+        }`}
+        ref={ref}
+      >
+        {menuItemsData.map((menuItem) => (
+          <MobileMenuItem
+            key={menuItem.name}
+            menuItem={menuItem}
+            showMenu={showMenu}
+            setShowMenu={setShowMenu}
+          />
+        ))}
+      </ul>
+      {/* </div> */}
     </nav>
   )
 }

@@ -50,7 +50,7 @@ const sideNavItems = [
   },
   {
     text: 'Editors',
-    url: '/dashboard/editors',
+    url: '/dashboard/editorial-board',
     outlineIcon: DocumentTextIconOutline,
     fillIcon: DocumentTextIconFill,
   },

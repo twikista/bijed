@@ -1,12 +1,10 @@
 // import { saira, cairo, barlow, ibmPlex } from './font/font'
 import {
   Saira_Condensed,
-  IBM_Plex_Sans_Condensed,
-  Inter,
-  // Lato,
   Cairo,
   Barlow,
   IBM_Plex_Sans,
+  IBM_Plex_Sans_Condensed,
 } from 'next/font/google'
 import './globals.css'
 import 'react-toastify/dist/ReactToastify.css'
@@ -18,54 +16,39 @@ export const saira = Saira_Condensed({
   subsets: ['latin'],
   weight: ['400', '500', '600', '700', '800', '900'],
   variable: '--font-saira',
-  display: 'swap',
-  adjustFontFallback: false,
+  // display: 'swap',
+  // adjustFontFallback: false,
 })
 
 export const ibmPlex = IBM_Plex_Sans({
   subsets: ['latin'],
   weight: ['300', '400', '500', '600', '700'],
   variable: '--font-plex',
-  display: 'swap',
-  adjustFontFallback: false,
+  // display: 'swap',
+  // adjustFontFallback: false,
 })
 
-export const ibmPlexCondensed = IBM_Plex_Sans_Condensed({
+export const ibmPlexCon = IBM_Plex_Sans_Condensed({
   subsets: ['latin'],
   weight: ['300', '400', '500', '600', '700'],
-  variable: '--font-ibmPlexCondensed',
-  display: 'swap',
-  adjustFontFallback: false,
+  variable: '--font-plexCon',
+  // display: 'swap',
+  // adjustFontFallback: false,
 })
 
 export const barlow = Barlow({
   subsets: ['latin'],
   weight: ['400', '500', '600', '700', '800', '900'],
   variable: '--font-barlow',
-  display: 'swap',
-  adjustFontFallback: false,
+  // display: 'swap',
+  // adjustFontFallback: false,
 })
-
-// export const inter = Inter({
-//   subsets: ['latin'],
-//   variable: '--font-inter',
-//   display: 'swap',
-//   adjustFontFallback: false,
-// })
-
-// export const lato = Lato({
-//   subsets: ['latin'],
-//   weight: ['100', '300', '400', '700', '900'],
-//   variable: '--font-lato',
-//   display: 'swap',
-//   adjustFontFallback: false,
-// })
 
 export const cairo = Cairo({
   subsets: ['latin'],
   variable: '--font-cairo',
-  display: 'swap',
-  adjustFontFallback: false,
+  // display: 'swap',
+  // adjustFontFallback: false,
 })
 
 export const metadata = {
@@ -94,7 +77,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang='en' className={``}>
       <body
-        className={`${ibmPlex.className} ${saira.variable} ${cairo.variable} ${barlow.variable}  antialiased flex flex-col h-full bg-slate-50 min-w-[320px]`}
+        className={`${ibmPlex.className} ${saira.variable} ${cairo.variable} ${barlow.variable}  antialiased flex flex-col min-h-full bg-slate-50 min-w-[320px]`}
       >
         {/* <Header /> */}
         {children}

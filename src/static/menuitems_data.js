@@ -5,7 +5,7 @@ export const menuItemsData = [
     name: 'about',
     url: '/about',
     submenu: [
-      { name: 'Editorial Board', url: 'editorial-board' },
+      { name: 'Editorial Team', url: 'editorial-team' },
       { name: 'Peer Review', url: 'peer-review' },
       // { name: 'Open Access', url: 'open-access' },
     ],

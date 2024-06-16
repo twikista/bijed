@@ -10,7 +10,7 @@ function page({ params }) {
 
   if (isTokenExpired) {
     return (
-      <div className='flex items-center justify-center h-screen bg-white'>
+      <div className='flex items-center justify-center h-full mb-[120px] mt-20'>
         <div className=' w-full max-w-[400px] h-full justify-center flex flex-col text-gray-500'>
           <Image
             src={tokenExpiredIcon}
@@ -20,7 +20,7 @@ function page({ params }) {
             priority
           />
           <div className='mt-3 mb-8 space-y-5'>
-            <h2 className='text-2xl font-medium text-center text-gray-600 font-cairo'>
+            <h2 className='text-2xl font-medium text-center text-gray-600'>
               Reset link expired!
             </h2>
             {/* {emailSent && (
@@ -48,7 +48,7 @@ function page({ params }) {
     )
   }
   return (
-    <div className='flex flex-col items-center justify-center h-screen px-3 bg-white '>
+    <div className='flex flex-col items-center justify-center px-3 mb-[120px] mt-20'>
       <ResetPasswordForm authToken={idToken} />
     </div>
   )

@@ -76,6 +76,14 @@ const announcementSchema = new mongoose.Schema(
   { timestamps: true }
 )
 
+const editorialBoardSchema = new mongoose.Schema(
+  {
+    content: { type: String, required: true, trim: true },
+    // slug: { type: String, required: true },
+  },
+  { timestamps: true }
+)
+
 const userSchema = new mongoose.Schema(
   {
     firstName: { type: String, rquired: true },
@@ -141,8 +149,10 @@ export const Issue =
 export const Announcement =
   mongoose.models?.Announcement ||
   mongoose.model('Announcement', announcementSchema)
-// export const Volume =
-//   mongoose.models.Volume || mongoose.model('Volume', volumeSchema)
+
+export const EditorialBoard =
+  mongoose.models?.EditorialBoard ||
+  mongoose.model('EditorialBoard', editorialBoardSchema)
 
 export const User = mongoose.models?.User || mongoose.model('User', userSchema)
 

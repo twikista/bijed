@@ -213,4 +213,10 @@ export const newJobFormSchema = z.object({
   }),
 })
 
+export const editorialBoardSchema = z.object({
+  content: z
+    .string()
+    .min(200, { message: 'Content must have minimum of 30 characters' }),
+})
+
 ///(^[a-z]+)(@uniben\.edu|@bijed\.com\.ng)|(^[a-z]+\.[a-z]+)@uniben\.edu$/gm

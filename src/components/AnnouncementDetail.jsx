@@ -8,6 +8,7 @@ import { DeleteButton } from '@/components/Dashboard/Buttons'
 import { deleteAnnouncement } from '@/lib/actions'
 import MainContainer from './MainContainer'
 import DashboardContainer from './Dashboard/DashboardContainer'
+import { CalendarDaysIcon } from '@heroicons/react/24/solid'
 // import { Announcement } from '@/lib/mongoose/models'
 
 async function AnnouncementDetail({ params, isProtectedRoute }) {
@@ -18,8 +19,19 @@ async function AnnouncementDetail({ params, isProtectedRoute }) {
   return (
     <div className='space-y-2'>
       <article key={announcement?.slug}>
-        <h1>{announcement?.title}</h1>
-        <span>{formatDate(announcement?.createdAt)}</span>
+        {/* <h2 className='mb-1 text-base font-bold sm:text-2xl'>
+              {announcement?.title}
+            </h2>
+            <span>{formatDate(announcement?.createdAt)}</span> */}
+        <div className='mb-5'>
+          <h2 className='mb-1 text-base font-bold sm:text-2xl'>
+            {announcement?.title}
+          </h2>
+          <div className='flex gap-1 text-gray-400'>
+            <CalendarDaysIcon className='w-5' />
+            <span>{formatDate(announcement?.createdAt)}</span>
+          </div>
+        </div>
         <section className='space-y-5 text-justify'>
           {parse(
             DOMPurify.sanitize(announcement?.content, {
@@ -27,12 +39,6 @@ async function AnnouncementDetail({ params, isProtectedRoute }) {
             })
           )}
         </section>
-        {isProtectedRoute && (
-          <DeleteButton
-            action={deleteAnnouncement}
-            id={JSON.parse(JSON.stringify(announcement?._id))}
-          />
-        )}
       </article>
     </div>
   )

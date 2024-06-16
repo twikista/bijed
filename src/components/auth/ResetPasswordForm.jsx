@@ -10,6 +10,8 @@ import { passwordSchema } from '@/lib/schema'
 import Spinner from '../Spinner'
 import passwordResetIcon from '@/../public/password_reset.svg'
 import Image from 'next/image'
+import FormWrapper from '../Dashboard/FormWrapper'
+import Form from '../Dashboard/Form'
 
 function ResetPasswordForm({ authToken }) {
   const [errorFromServer, setErrorFromServer] = useState(null)
@@ -44,7 +46,7 @@ function ResetPasswordForm({ authToken }) {
     }
   }
   return (
-    <div className=' w-full max-w-[320px] h-full justify-center flex flex-col text-gray-500'>
+    <div className=' w-full max-w-[320px] h-full justify-center flex flex-col'>
       <Image
         src={passwordResetIcon}
         alt='forgot password image'
@@ -53,10 +55,14 @@ function ResetPasswordForm({ authToken }) {
         priority
       />
       <div className='mt-3 mb-8 space-y-5'>
-        <h2 className='text-2xl font-medium text-center text-gray-600 font-cairo'>
+        <h2 className='text-2xl font-medium text-center text-gray-600 '>
           Set a New Password
         </h2>
-
+        {/* {emailSent && (
+        <div>
+          <span>{emailSent}</span>
+        </div>
+      )} */}
         <p className='w-full max-w-[300px] mx-auto text-center text-gray-600'>
           Enter your new password below
         </p>

@@ -1,7 +1,13 @@
 import { unstable_noStore as nostore } from 'next/cache'
 
 import { connectDB } from './mongoose/config'
-import { Article, Announcement, Issue, User } from './mongoose/models'
+import {
+  Article,
+  Announcement,
+  Issue,
+  User,
+  EditorialBoard,
+} from './mongoose/models'
 
 export const fetchAnnouncement = async (slug) => {
   connectDB()
@@ -87,6 +93,16 @@ export const getUsers = async () => {
     } else {
       return { ok: false, users: null }
     }
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const getEditorialBoard = async () => {
+  connectDB()
+  try {
+    const editorialBoard = await EditorialBoard.find()
+    return editorialBoard
   } catch (error) {
     console.log(error)
   }

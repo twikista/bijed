@@ -8,7 +8,7 @@ function Footer() {
   return (
     <footer className='px-5 text-sm text-white bg-primary sm:text-base md:px-10'>
       <div className='w-full py-8 mx-auto space-y-5 max-w-7xl'>
-        <div className='grid justify-between grid-cols-2 gap-5 mx-auto md:grid-cols-4 font-saira'>
+        <div className='grid justify-between grid-cols-2 gap-5 mx-auto md:grid-cols-4 font-barlow'>
           {footerItemsData.map((menuItem) =>
             menuItem.submenu ? (
               <ul key={menuItem.name}>
@@ -53,10 +53,7 @@ function Footer() {
               </span>
             </div>
             <div className='mt-2'>
-              <span className=''>
-                Powered by:{' '}
-                <span className='font-semibold'>e-Novative Technologies</span>
-              </span>
+              <span className=''>Powered by e-Novative Technologies</span>
               {/* <span className=''>
                 Designed & maintained by{' '}
                 <a

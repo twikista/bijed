@@ -28,7 +28,7 @@ function TextInput({
       >
         <input
           className={clsx(
-            `w-full text-gray-600 pl-3 inline-block py-2  outline-none appearance-none`,
+            `w-full text-gray-600 pl-3 inline-block py-2  outline-none appearance-none bg-transparent`,
             {
               ['[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none']:
                 type === 'number',
@@ -51,7 +51,11 @@ function TextInput({
         )}
       </div>
 
-      {error && <span className='text-red-500 '>{error?.message}</span>}
+      {error && (
+        <span className='text-sm text-red-500 lg:text-base'>
+          {error?.message}
+        </span>
+      )}
     </div>
   )
 }

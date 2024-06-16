@@ -16,13 +16,13 @@ export default function DashboardLayout({ children }) {
     //   </header>
     //   {children}
     // </main>
-    <>
+    <div className='flex flex-col min-h-screen'>
       <Header />
       {/* <MainContainer>{children}</MainContainer> */}
-      <div className='flex items-center justify-center w-full h-full px-3 md:my-10'>
+      <div className='flex items-center justify-center flex-grow w-full h-full px-3 md:my-10'>
         {children}
       </div>
       <Footer />
-    </>
+    </div>
   )
 }

@@ -5,7 +5,7 @@ function Form({ handleSubmit, handler, children, props }) {
     <form
       onSubmit={handleSubmit(handler)}
       noValidate
-      className={clsx(`pt-5 pb-8 space-y-5 bg-gray-200 px-7 rounded-b-md`, {
+      className={clsx(`space-y-5 rounded-b-md`, {
         ...props,
       })}
     >

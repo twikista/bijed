@@ -26,17 +26,17 @@ function PasswordInput({ label, name, register, error }) {
             { ['border-red-400']: error }
           )}
         >
-          <div className='flex w-full gap-2 ml-3 text-gray-500'>
+          <div className='flex w-full gap-2 text-gray-500'>
             <input
               className={clsx(
-                `w-full  py-2 outline-none appearance-none text-gray-600`
+                `w-full  py-2 outline-none appearance-none text-gray-600 pl-3 bg-transparent`
               )}
               type={passwordIsVisible ? 'text' : 'password'}
               {...register(name)}
               id={name}
               placeholder='Enter password'
             />
-            <div className='flex items-center gap-1 text-gray-400'>
+            <div className='flex items-center gap-1 text-gray-400 bg-transparent'>
               {passwordIsVisible ? (
                 <EyeSlashIcon
                   onClick={togglePasswordVisibility}
@@ -61,7 +61,11 @@ function PasswordInput({ label, name, register, error }) {
           </div>
         </div>
       </div>
-      {error && <span className='text-red-500'>{error?.message}</span>}
+      {error && (
+        <span className='text-sm text-red-500 lg:text-base'>
+          {error?.message}
+        </span>
+      )}
     </div>
   )
 }

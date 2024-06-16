@@ -58,7 +58,7 @@ function SignInForm() {
     }
   }
   return (
-    <FormWrapper maxWidth='max-w-[480px]'>
+    <FormWrapper maxWidth='max-w-[480px] ' bgColor='bg-gray-200'>
       <Form handleSubmit={handleSubmit} handler={handler}>
         <h2 className='text-[#800080] font-medium text-3xl'>SIGN IN</h2>
         {authError && (
@@ -100,16 +100,16 @@ function SignInForm() {
         >
           {isSubmitting ? <Spinner text='Processing...' /> : 'Sign in'}
         </button> */}
-        <div className='flex gap-2 mt-6'>
-          <p className='text-gray-500'> Forgot password</p>
-          <Link
-            href='/auth/forgot-password'
-            className='hover:underline text-[#901090] hover:text-[#800080]'
-          >
-            Reset password
-          </Link>
-        </div>
       </Form>
+      <div className='flex gap-2 mt-2'>
+        <p className='text-gray-500'> Forgot password?</p>
+        <Link
+          href='/auth/forgot-password'
+          className='hover:underline text-[#901090] hover:text-[#800080]'
+        >
+          Reset password
+        </Link>
+      </div>
     </FormWrapper>
   )
 }

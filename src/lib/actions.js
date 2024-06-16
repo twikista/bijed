@@ -11,7 +11,14 @@ import {
 import uniqid from 'uniqid'
 import { revalidatePath } from 'next/cache'
 import { connectDB } from './mongoose/config'
-import { Announcement, Article, Issue, JobQueue, User } from './mongoose/models'
+import {
+  Announcement,
+  Article,
+  EditorialBoard,
+  Issue,
+  JobQueue,
+  User,
+} from './mongoose/models'
 import { uploadPdfToStorage, removePdfFromStorage } from './firebase/services'
 import { redirect } from 'next/navigation'
 import { signIn, signOut } from '../../auth'
@@ -33,6 +40,7 @@ import {
   newArticleFormSchema,
   articleSchemaForServer,
   announcementSchema,
+  editorialBoardSchema,
 } from './schema'
 
 //create new issue
@@ -657,5 +665,50 @@ export const deleteAnnouncement = async (id) => {
     return { ok: false, error: 'something went wrong' }
   } finally {
     if (successful) redirect('/dashboard/announcements')
+  }
+}
+
+export const updateEditorialBoard = async (initialState, formData) => {
+  console.log('editorialBoard formData-', formData)
+  const parsedData = editorialBoardSchema.safeParse(formData)
+  if (!parsedData.success) {
+    const validationError = handleServerSideValidationError(parsedData)
+    return { ok: false, error: validationError, errorType: 'validationError' }
+  }
+
+  const data = { ...initialState, ...parsedData.data }
+  console.log('data', data)
+  // const x = data.content.replace(/<h3>/g, '<h3 className="flex">')
+  console.log('edited-Announcent-', x)
+  try {
+    connectDB()
+    const existingEditorialBoard = await EditorialBoard.findById(
+      initialState._id
+    )
+    if (!existingEditorialBoard._id)
+      return {
+        ok: false,
+        error: 'Editorial Board not found!',
+        errorType: 'other',
+      }
+
+    // const newAnnouncement = new Announcement(data)
+    const updatedEditorialBoard = await EditorialBoard.findByIdAndUpdate(
+      initialState._id,
+      data,
+      { new: true }
+    )
+    console.log(updatedEditorialBoard)
+
+    if (updatedEditorialBoard._id) {
+      revalidatePath('/dashbard/editorial-board')
+      revalidatePath('/editorial-board')
+      return { ok: true }
+    } else {
+      return { ok: false, error: 'something went wrong', errorType: 'other' }
+    }
+  } catch (error) {
+    console.log(error)
+    return { ok: false, error: 'something went wrong', errorType: 'other' }
   }
 }

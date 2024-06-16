@@ -10,7 +10,7 @@ import { handleValidationErrorFromServer } from '@/lib/util'
 import { forgetPasswordSchema } from '@/lib/schema'
 import Spinner from '../Spinner'
 import Image from 'next/image'
-import emailSentIcon from '../../../public/email_sent.png'
+import emailSentIcon from '../../../public/email_sent.svg'
 import forgotPassword from '@/../public/forgot_password.png'
 
 function ForgetPasswordForm() {
@@ -62,14 +62,14 @@ function ForgetPasswordForm() {
 
   return (
     <div className=' w-full max-w-[320px] h-full justify-center flex flex-col'>
-      <Image
+      {/* <Image
         src={forgotPassword}
         alt='forgot password image'
         width={300}
         priority
-      />
+      /> */}
       <div className='mb-10 space-y-3'>
-        <h2 className='text-2xl font-medium text-center text-gray-600 font-cairo'>
+        <h2 className='text-2xl font-medium text-center text-gray-600'>
           Forgot your Password?
         </h2>
         {/* {emailSent && (

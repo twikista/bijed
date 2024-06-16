@@ -12,12 +12,9 @@ module.exports = {
         ms: '480px',
       },
       fontFamily: {
-        // nanum: ['var(--font-nanum-gothic)', fontFamily.sans],
         saira: ['var(--font-saira)', fontFamily.sans],
         cairo: ['var(--font-cairo)', fontFamily.sans],
-        ibmPlexCondensed: ['var(--font-ibmPlexCondensed)', fontFamily.sans],
-        // lato: ['var(--font-lato)', fontFamily.sans],
-        // inter: ['var(--font-inter)', fontFamily.sans],
+
         barlow: ['var(--font-barlow)', fontFamily.sans],
       },
       colors: {

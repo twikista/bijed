@@ -4,10 +4,9 @@ import Link from 'next/link'
 
 function Login() {
   return (
-    // <div className='flex items-center justify-center w-full'>
-
-    <SignInForm />
-    // </div>
+    <div className='flex items-center justify-center w-full mb-14 mt-14'>
+      <SignInForm />
+    </div>
   )
 }
 
