@@ -6,9 +6,11 @@ import { TimePastIcon } from '@/components/Icons'
 import QuickLinks from '@/components/Dashboard/QuickLinks'
 import { getIssues } from '@/lib/data'
 import { Issue } from '@/lib/mongoose/models'
+import { connectDB } from '@/lib/mongoose/config'
 // import Link from 'next/link'
 
 const getLatestIssue = async () => {
+  connectDB()
   const latestIssue = await Issue.find().sort({ publishDate: -1 }).limit(1)
   console.log(latestIssue)
   return latestIssue[0]

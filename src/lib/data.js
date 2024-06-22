@@ -9,9 +9,15 @@ import {
   EditorialBoard,
 } from './mongoose/models'
 
-export const fetchAnnouncement = async (slug) => {
+export const fetchAnnouncement = async (fetchBy, item) => {
+  console.log('slugish----', item)
   connectDB()
-  const announcement = await Announcement.findOne({ slug: slug })
+  if (fetchBy === 'slug') {
+    const announcement = await Announcement.findOne({ slug: item })
+    return announcement
+  }
+  const announcement = await Announcement.findOne({ ref: item })
+  console.log('announe------', announcement)
   return announcement
 }
 

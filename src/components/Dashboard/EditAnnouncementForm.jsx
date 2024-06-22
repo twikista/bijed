@@ -31,9 +31,11 @@ function EditAnnouncementForm({ initialState }) {
   // console.log(formData)
   const handler = async (data) => {
     const response = await updateAnnouncement(initialState, data)
+    console.log('full response', response)
     if (response.ok) {
       reset()
-      router.push('/dashboard/announcements')
+      console.log('bla---------------', response)
+      router.push(`/dashboard/announcements/${response?.slug}`)
     } else {
       if (response?.errorType === 'validationError') {
         const formfields = {
@@ -100,7 +102,7 @@ function EditAnnouncementForm({ initialState }) {
             formSubmitState={isSubmitting}
           />
           <CancelButton
-            href={`/dashboard/announcements`}
+            href={`/dashboard/announcements/${initialState.slug}`}
             style='bg-red-400 hover:bg-red-500'
             text='Cancel'
           />

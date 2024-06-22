@@ -14,16 +14,25 @@ import SubmitButton from '@/components/SubmitButton'
 import React from 'react'
 import FormWrapper from './FormWrapper'
 import Form from './Form'
-import { addJob } from '@/lib/actions/jobActions'
+import {
+  addJob,
+  addNewItemToAuthorizationQueue,
+} from '@/lib/actions/jobActions'
 import { handleValidationErrorFromServer } from '@/lib/util'
 
-function NewJobForm() {
+function NewJobForm({ resourceData }) {
   const [errorFromServer, setErrorFromServer] = useState('')
   const router = useRouter()
-  const searchParam = useSearchParams()
-  const jobRef = searchParam.get('jobRef')
-  console.log('jobRef:', jobRef)
+  // const searchParam = useSearchParams()
+  // let params = {}
+  // for (let [key, value] of searchParam.entries()) {
+  //   console.log(key, value)
+  //   params[key] = value
+  // }
+  // console.log('res:', params)
+  // console.log('ref:', ref)
   // const [formData, setformData] = useState(initialValue)
+  console.log('data----', resourceData)
   const {
     control,
     register,
@@ -33,10 +42,11 @@ function NewJobForm() {
     formState: { errors, isSubmitting, isSubmitted },
   } = useForm({
     defaultValues: {
-      jobRef: jobRef,
-      jobTitle: `Request to publish issue: ${jobRef}`,
-      pages: '',
-      numberOfArticles: '',
+      // jobRef: jobRef,
+      // jobTitle: `Request to publish issue: ${jobRef}`,
+      // pages: '',
+      // numberOfArticles: '',
+      jobDescription: '',
     },
     resolver: zodResolver(newJobFormSchema),
   })
@@ -61,18 +71,18 @@ function NewJobForm() {
   const handler = async (data) => {
     console.log('from new job!!!')
     console.log('job-data: ', data)
-    const response = await addJob(data)
+    const response = await addNewItemToAuthorizationQueue(data, resourceData)
     console.log(response)
     if (response.ok) {
       reset()
-      router.push('/dashboard/job-queue')
+      router.push('/dashboard/authorization-queue')
     } else {
       if (response?.errorType === 'validationError') {
         const formfields = {
-          jobRef: 'jobRef',
-          jobTitle: 'jobTitle',
-          pages: 'pages',
-          numberOfArticles: 'numberOfArticles',
+          // jobRef: 'jobRef',
+          jobDescription: 'jobDescription',
+          // pages: 'pages',
+          // numberOfArticles: 'numberOfArticles',
         }
         handleValidationErrorFromServer(response, formfields, setError)
       }
@@ -82,14 +92,14 @@ function NewJobForm() {
     }
   }
   return (
-    <FormWrapper formHeading='Add New Job'>
+    <FormWrapper formHeading='Authorization Request'>
       {errorFromServer && (
         <div>
           <span>{errorFromServer}</span>
         </div>
       )}
       <Form handleSubmit={handleSubmit} handler={handler}>
-        <TextInput
+        {/* <TextInput
           label='Job Reference'
           name='jobRef'
           //   placeholder='Enter Article issue'
@@ -97,43 +107,50 @@ function NewJobForm() {
           error={errors?.jobRefissue}
           readOnly={true}
           //   valueAsNumber={true}
-        />
+        /> */}
         <TextInput
-          label='Job Title'
-          name='jobTitle'
-          //   placeholder='Enter Article issue'
+          label='Request Description'
+          name='jobDescription'
+          placeholder='Enter request description'
           register={register}
-          error={errors?.jobRefissue}
+          error={errors?.jobDescription}
           //   readOnly={true}
           //   valueAsNumber={true}
         />
-        <TextInput
+        {/* <TextInput
           label='Number of Pages'
           name='pages'
           //   placeholder='Enter Article issue'
           register={register}
           error={errors?.pages}
           valueAsNumber={true}
-        />
-        <TextInput
+        /> */}
+        {/* <TextInput
           label='Number of Articles'
           name='numberOfArticles'
           //   placeholder='Enter Article issue'
           register={register}
           error={errors?.numberOfArticles}
           valueAsNumber={true}
-        />
+        /> */}
         <div className='flex items-center gap-2 pt-1'>
           <SubmitButton
             textColor='white'
             bgColor='901090'
             hoverBgColor='800080'
-            mainText='Add Job'
-            altText='Adding job...'
+            mainText='Submit Request'
+            altText='processing...'
             formSubmitState={isSubmitting}
           />
           <CancelButton
-            href={`/dashboard/issues/${jobRef}`}
+            // href={
+            //   params.resource === 'announcement'
+            //     ? `/dashboard/announcements/${params.ref}`
+            //     : params.resource === 'editorialTeam'
+            //     ? `/dashboard/editorial-board/${params.ref}`
+            //     : `/dashboard/issues/${params.ref}`
+            // }
+            href={`/dashboard/${resourceData.resource}/${resourceData.slug}`}
             style='bg-red-400 hover:bg-red-500'
             text='Cancel'
           />

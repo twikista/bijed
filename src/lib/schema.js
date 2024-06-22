@@ -201,16 +201,21 @@ export const issueFormSchema = z.object({
 })
 
 export const newJobFormSchema = z.object({
-  jobRef: z.string().trim().min(1, { message: 'Job reference is required' }),
-  jobTitle: z.string().trim().min(1, { message: 'Job title is required' }),
-  pages: z.number({
-    required_error: 'pages field is required',
-    invalid_type_error: 'pages must be a number',
-  }),
-  numberOfArticles: z.number({
-    required_error: 'Number of Articles in is required',
-    invalid_type_error: 'field must be a number',
-  }),
+  // jobRef: z.string().trim().min(1, { message: 'Job reference is required' }),
+  // jobTitle: z.string().trim().min(1, { message: 'Job title is required' }),
+  // pages: z.number({
+  //   required_error: 'pages field is required',
+  //   invalid_type_error: 'pages must be a number',
+  // }),
+  // numberOfArticles: z.number({
+  //   required_error: 'Number of Articles in is required',
+  //   invalid_type_error: 'field must be a number',
+  // }),
+  jobDescription: z
+    .string()
+    .trim()
+    .min(1, { message: 'Job description is required' })
+    .max(100, { message: 'Exceeded maximum character length for description' }),
 })
 
 export const editorialBoardSchema = z.object({

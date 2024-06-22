@@ -61,6 +61,7 @@ function IssueForm({ initialFormState, initialValue }) {
       formHeading={
         !initialFormState?.issueNumber ? 'Add New Issue' : 'Update Issue'
       }
+      border='border border-gray-300'
     >
       {errorFromServer && (
         <div>

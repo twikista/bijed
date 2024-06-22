@@ -10,7 +10,7 @@ function Spinner({
   textColor = 'white',
 }) {
   return (
-    <div className='flex items-center gap-2'>
+    <div className='flex items-center gap-2 bg-transparent'>
       <i
         className={`border-[3px] inline-block border-white/40 w-4 h-4 border-t-[3px] border-t-white rounded-full animate-spin`}
       />

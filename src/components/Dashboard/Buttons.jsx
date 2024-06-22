@@ -146,3 +146,133 @@ export const CancelButton = ({ text, href, style }) => (
     {text}
   </Link>
 )
+
+export const LinkButton = ({ text, href, style }) => (
+  <Link
+    href={href}
+    className={`${style} py-3 flex-1 flex items-center justify-center text-white rounded-md`}
+  >
+    {text}
+  </Link>
+)
+
+export function PublishButton({
+  resourceRef,
+  slug,
+  user,
+  action,
+  notificationMessage,
+  label,
+}) {
+  const router = useRouter()
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [published, setPublished] = useState(false)
+  const handler = async () => {
+    setIsSubmitting(true)
+    const response = await action(resourceRef, user)
+    if (response.ok) {
+      setPublished(true)
+      router.push(`/dashboard/announcements/${slug}`)
+      toast.success(notificationMessage.success)
+      // setIsSubmitting(false)
+    } else {
+      toast.success(notificationMessage.error)
+    }
+  }
+  return (
+    <button
+      type='button'
+      className={clsx(
+        `max-w-[380px] flex w-full justify-center items-center py-3 text-center bg-[#008dcb]  hover:bg-blue-500  text-white  rounded-lg font-medium`,
+        {
+          ['hidden']: published === true,
+          //   ['flex']: published === false,
+        }
+      )}
+      onClick={handler}
+    >
+      {isSubmitting ? (
+        <Spinner text={`${label.alt}`} textColor='white' />
+      ) : (
+        <span className='w-fit'>{label.main}</span>
+      )}
+      {/* <PublishIcon className='w-6 h-6' /> */}
+    </button>
+  )
+}
+
+export const RejectPublishButton = ({
+  label,
+  resourceRef,
+  action,
+  notificationMessage,
+}) => {
+  const router = useRouter()
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const handler = async () => {
+    setIsSubmitting(true)
+    const response = await action(resourceRef)
+    if (response.ok) {
+      router.push(`/dashboard/announcements`)
+      toast.success(notificationMessage.success)
+      // setIsSubmitting(false)
+    } else {
+      toast.error(notificationMessage.error)
+    }
+  }
+  return (
+    <button
+      type='button'
+      className='bg-[#ff6347] hover:bg-red-500 max-w-[380px] flex w-full justify-center items-center py-3 text-center text-white  rounded-lg font-medium'
+      onClick={handler}
+    >
+      {isSubmitting ? (
+        <Spinner text={`${label.alt}`} textColor='white' />
+      ) : (
+        <span className='w-fit'>{label.main}</span>
+      )}
+    </button>
+  )
+}
+
+export function SendForAuthorizationButton({
+  resourceRef,
+  slug,
+  action,
+  notificationMessage,
+  label,
+}) {
+  const router = useRouter()
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  // const [published, setPublished] = useState(false)
+  const handler = async () => {
+    setIsSubmitting(true)
+    const response = await action(resourceRef)
+    if (response.ok) {
+      // setPublished(true)
+      // console.log('I ran from here')
+      router.push(`/dashboard/announcements/${slug}`)
+      toast.success(notificationMessage.success)
+
+      // setIsSubmitting(false)
+    } else {
+      toast.error(notificationMessage.error)
+    }
+  }
+  return (
+    <button
+      type='button'
+      className={clsx(
+        `max-w-[380px] flex w-full justify-center items-center py-3 text-center bg-[#008dcb]  hover:bg-blue-500  text-white  rounded-lg font-medium`
+      )}
+      onClick={handler}
+    >
+      {isSubmitting ? (
+        <Spinner text={`${label.alt}`} textColor='white' />
+      ) : (
+        <span className='w-fit'>{label.main}</span>
+      )}
+      {/* <PublishIcon className='w-6 h-6' /> */}
+    </button>
+  )
+}

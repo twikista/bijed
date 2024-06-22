@@ -21,7 +21,7 @@ import Link from 'next/link'
 const fetchAnnouncements = async () => {
   // noStore()
   connectDB()
-  const announcements = await Announcement.find()
+  const announcements = await Announcement.find({})
   // console.log(announcements)
   return announcements
 }
@@ -30,7 +30,7 @@ async function AnnouncementsPage() {
   // const announcements = await fetchAnnouncements()
   const announcements = await fetchAnnouncements()
 
-  // console.log(announcements.content)
+  // console.log(announcements)
 
   // const clean = DOMPurify.sanitize(announcements[0].content, {
   //   FORBID_ATTR: ['style', 'class'],
@@ -67,7 +67,7 @@ async function AnnouncementsPage() {
                 <th className='px-4 pt-4 pb-1 table-fixed'>Announcements</th>
                 <th className='px-4 pt-4 pb-1 font-medium w-14'>Date Added</th>
                 <th className='px-4 pt-4 pb-1 font-medium'>Status</th>
-                <th className='sr-only'></th>
+                {/* <th className='sr-only'></th> */}
                 <th className='sr-only'></th>
               </tr>
             </thead>
@@ -79,7 +79,9 @@ async function AnnouncementsPage() {
                       href={`/dashboard/announcements/${announcement.slug}`}
                       className='text-center text-[#800080] hover:text-blue-600 font-medium hover:underline ml-2'
                     >
-                      {announcement.title}
+                      {announcement.mode === 'final'
+                        ? announcement.title
+                        : `${announcement.title}(edited)`}
                     </Link>
                   </td>
                   <td className='px-4 py-4 text-center border border-solid'>
@@ -94,7 +96,7 @@ async function AnnouncementsPage() {
                       active
                     </span>
                   </td>
-                  <td className='px-4 py-4 text-center'>
+                  {/* <td className='px-4 py-4 text-center'>
                     <EditButton
                       label='Edit'
                       href={`/dashboard/announcements/${replaceSpaceInTitleWithHyphen(
@@ -102,7 +104,7 @@ async function AnnouncementsPage() {
                       )}/edit`}
                       variant='secondary'
                     />
-                  </td>
+                  </td> */}
                   <td className='px-4 py-4 text-center'>
                     <DeleteButton
                       id={String(announcement?._id)}

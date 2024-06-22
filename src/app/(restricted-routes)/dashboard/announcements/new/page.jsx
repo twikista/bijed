@@ -6,7 +6,6 @@ function NewAnnouncement() {
   const initialState = {
     title: '',
     description: '',
-    publishDate: '',
     content: '',
     dueDate: '',
   }

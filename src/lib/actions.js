@@ -42,6 +42,8 @@ import {
   announcementSchema,
   editorialBoardSchema,
 } from './schema'
+import { addAnnouncementToJobQueue } from './actions/jobActions'
+import { auth } from '../../auth'
 
 //create new issue
 export const addIssue = async (formData) => {
@@ -581,6 +583,7 @@ export async function logOut() {
 }
 
 export const createAnnouncement = async (formData) => {
+  const currentSession = await auth()
   const parsedData = announcementSchema.safeParse(formData)
   if (!parsedData.success) {
     const validationError = handleServerSideValidationError(parsedData)
@@ -590,15 +593,19 @@ export const createAnnouncement = async (formData) => {
   const { data } = parsedData
   console.log('data', data)
   data.slug = replaceSpaceInTitleWithHyphen(data.title)
+  data.status = 'draft'
+  data.ref = uniqid.time('ANN-')
+  data.initiatedBy = `${currentSession?.user?.firstName} ${currentSession?.user?.lastName}`
   try {
     connectDB()
     const newAnnouncement = new Announcement(data)
     const savedAnnouncement = await newAnnouncement.save()
     console.log(savedAnnouncement)
 
-    if (savedAnnouncement) {
+    if (savedAnnouncement?._id !== undefined) {
       revalidatePath('/dashbard/announcements')
-      return { ok: true }
+      // await addAnnouncementToJobQueue(savedAnnouncement)
+      return { ok: true, announcementSlug: savedAnnouncement.slug }
     } else {
       return { ok: false, error: 'something went wrong', errorType: 'other' }
     }
@@ -609,6 +616,7 @@ export const createAnnouncement = async (formData) => {
 }
 
 export const updateAnnouncement = async (initialState, formData) => {
+  let x
   console.log('announcemnt formDat-', formData)
   const parsedData = announcementSchema.safeParse(formData)
   if (!parsedData.success) {
@@ -632,11 +640,14 @@ export const updateAnnouncement = async (initialState, formData) => {
       data,
       { new: true }
     )
-    console.log(updatedAnnouncement)
+    console.log('updatedAnnouncement-----', updatedAnnouncement?.slug)
+    x = updateAnnouncement
 
-    if (updatedAnnouncement._id) {
-      revalidatePath('/dashbard/announcements')
-      return { ok: true }
+    if (updatedAnnouncement?._id !== undefined) {
+      revalidatePath('/dashboard/announcements')
+      // revalidatePath(`/dashbard/announcements/${updateAnnouncement?.slug}`)
+      console.log('xxxxxxxxxxxxxxxxxx-', updatedAnnouncement)
+      return { ok: true, slug: updatedAnnouncement?.slug }
     } else {
       return { ok: false, error: 'something went wrong', errorType: 'other' }
     }
@@ -665,6 +676,101 @@ export const deleteAnnouncement = async (id) => {
     return { ok: false, error: 'something went wrong' }
   } finally {
     if (successful) redirect('/dashboard/announcements')
+  }
+}
+
+//publish announcement
+export const publishAnnouncement = async (ref, user) => {
+  console.log('user--------------', user)
+  // console.log(issueRef)
+  console.log('i ran here')
+  const date = new Date()
+  try {
+    connectDB()
+    const publishedAnnouncement = await Announcement.findOneAndUpdate(
+      { ref: ref, status: 'review' },
+      {
+        $set: {
+          status: 'published',
+          approvedBy: `${user.firstName} ${user.lastName}`,
+          dateApproved: date,
+        },
+      },
+      { new: true }
+    )
+
+    // if (!job.length) {
+    //   throw new Error('Error publishing Journal issue')
+    // }
+
+    // console.log(publishIssue)
+    // if (publishedIssue.length) {
+    //   throw new Error('Error publishing Journal issue')
+    // }
+
+    // console.log(publishedArticles.acknowledged)
+    // if (!publishedArticles.acknowledged) {
+    //   throw new Error('Error publishing Journal Issue')
+    // }
+    if (publishedAnnouncement._id) {
+      revalidatePath(`/dashboard/announcements/${publishedAnnouncement.slug}`)
+      // revalidatePath(`/dashboard/issues/published${issueRef}`)
+      // revalidatePath(`/dashboard/archive/${issueRef}`)
+      // revalidatePath(`/dashboard/job-queue/pending-jobs`)
+      // revalidatePath(`/dashboard/job-queue/approved-jobs`)
+      return { ok: true, slug: publishedAnnouncement?.slug }
+    } else {
+      return { ok: false, error: 'something went wrong', errorType: 'other' }
+    }
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const rejectRequestToPublishAnnouncement = async (ref) => {
+  // console.log('user--------------', user)
+  // console.log(issueRef)
+  console.log('i ran here')
+  // const date = new Date()
+  try {
+    connectDB()
+    const publishedAnnouncement = await Announcement.findOneAndUpdate(
+      { ref: ref, status: 'review' },
+      {
+        $set: {
+          status: 'draft',
+          // approvedBy: `${user.firstName} ${user.lastName}`,
+          // dateApproved: date,
+        },
+      },
+      { new: true }
+    )
+
+    // if (!job.length) {
+    //   throw new Error('Error publishing Journal issue')
+    // }
+
+    // console.log(publishIssue)
+    // if (publishedIssue.length) {
+    //   throw new Error('Error publishing Journal issue')
+    // }
+
+    // console.log(publishedArticles.acknowledged)
+    // if (!publishedArticles.acknowledged) {
+    //   throw new Error('Error publishing Journal Issue')
+    // }
+    if (publishedAnnouncement._id) {
+      revalidatePath(`/dashboard/announcements/${publishedAnnouncement.slug}`)
+      // revalidatePath(`/dashboard/issues/published${issueRef}`)
+      // revalidatePath(`/dashboard/archive/${issueRef}`)
+      // revalidatePath(`/dashboard/job-queue/pending-jobs`)
+      // revalidatePath(`/dashboard/job-queue/approved-jobs`)
+      return { ok: true, slug: publishedAnnouncement?.slug }
+    } else {
+      return { ok: false, error: 'something went wrong', errorType: 'other' }
+    }
+  } catch (error) {
+    console.log(error)
   }
 }
 

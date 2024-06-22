@@ -33,12 +33,14 @@ function NewAnnouncementForm({ initialState }) {
     console.log('response-', response)
     if (response.ok) {
       reset()
-      router.push('/dashboard/announcements')
+      router.push(`/dashboard/announcements/${response?.announcementSlug}`)
     } else {
       if (response?.errorType === 'validationError') {
         const formfields = {
-          volume: 'volume',
-          issueNumber: 'issueNumber',
+          title: 'title',
+          description: 'description',
+          content: 'content',
+          dueDate: 'dueDate',
         }
         handleValidationErrorFromServer(response, formfields, setError)
       }
@@ -48,7 +50,7 @@ function NewAnnouncementForm({ initialState }) {
     }
   }
   return (
-    <FormWrapper formHeading='Add Announcement'>
+    <FormWrapper formHeading='Add Announcement' border='border-gray-300 border'>
       {errorFromServer && (
         <div>
           <span>{errorFromServer}</span>

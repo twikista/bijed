@@ -55,13 +55,13 @@ const sideNavItems = [
     fillIcon: DocumentTextIconFill,
   },
   {
-    text: 'Job Queue',
-    url: '/dashboard/job-queue',
+    text: 'Auth Queue',
+    url: '/dashboard/authorization-queue',
     outlineIcon: ArrowPathIconOutline,
     fillIcon: ArrowPathIconFill,
     subMenu: [
-      { name: 'pending', url: '/dashboard/job-queue/pending-jobs' },
-      { name: 'approved', url: '/dashboard/job-queue/approved-jobs' },
+      { name: 'pending', url: '/dashboard/authorization-queue/pending-jobs' },
+      { name: 'approved', url: '/dashboard/authorization-queue/approved-jobs' },
     ],
   },
 ]

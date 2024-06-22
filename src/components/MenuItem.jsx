@@ -9,6 +9,9 @@ import DownArrow from './DownArrow'
 function MenuItem({ menuItem }) {
   const [showSubMenu, setShowSubMenu] = useState(false)
   const currentRoute = usePathname()
+  const handler = () => {
+    setShowSubMenu(!showSubMenu)
+  }
   return (
     <li
       key={menuItem.name}
@@ -27,14 +30,14 @@ function MenuItem({ menuItem }) {
             className='flex items-center gap-1 capitalize'
             aria-haspopup='menu'
             aria-expanded={showSubMenu ? 'true' : 'false'}
-            onClick={() => setShowSubMenu((current) => !current)}
+            onClick={handler}
           >
-            <Link
+            {/* <Link
               href={`${menuItem.url}`}
               className='flex items-center text-base capitalize'
-            >
-              {menuItem.name}
-            </Link>
+            > */}
+            {menuItem.name}
+            {/* </Link> */}
             <DownArrow fill='currentColor' width='10px' height='10px' />
           </button>
           <SubMenu

@@ -9,7 +9,8 @@ import uniqid from 'uniqid'
 const getPendingJobsInQueues = async () => {
   connectDB()
   const pendingJobsInQueue = await JobQueue.find({
-    status: ['pending', 'modify'],
+    // status: ['draft', 'review'],
+    status: 'pending',
   })
   return pendingJobsInQueue
 }
@@ -41,7 +42,7 @@ async function PendingJobQueue() {
           <table className='min-w-full overflow-x-scroll'>
             <thead className='rounded-lg'>
               <tr className=''>
-                <th className='px-4 py-6 pb-1 font-medium w-fit'>Job ID</th>
+                <th className='px-4 py-6 pb-1 font-medium w-fit'>Ticket Id</th>
                 <th className='px-4 pt-4 pb-1 table-fixed'>Job Title</th>
                 <th className='px-4 pt-4 pb-1 font-medium w-14'>Status</th>
                 <th className='px-4 pt-4 pb-1 font-medium'>Initiated By</th>
@@ -50,20 +51,20 @@ async function PendingJobQueue() {
             </thead>
             <tbody className='text-center bg-white divide-y-2 rounded-sm'>
               {jobsInQueue.map((jobInQueue) => (
-                <tr className='py-5 ' key={jobInQueue._id}>
-                  <td className='px-4 py-4 capitalize border border-solid'>
+                <tr className='py-5 text-sm' key={jobInQueue._id}>
+                  <td className='px-4 py-4 border border-solid'>
                     {jobInQueue.jobTicketId}
                   </td>
-                  <td className='px-4 py-4 border border-solid'>
+                  <td className='px-4 py-4 text-center border border-solid'>
                     <Link
-                      className='text-center text-[#800080] hover:text-blue-600 font-medium text-base'
-                      href={`/dashboard/job-queue/pending-jobs/${jobInQueue.slug}`}
-                    >{`${jobInQueue.jobTitle}`}</Link>
+                      className='text-center text-[#800080] hover:text-blue-600 font-medium'
+                      href={`/dashboard/authorization-queue/pending-jobs/${jobInQueue.jobTicketId}?ref=${jobInQueue.jobRef}`}
+                    >{`${jobInQueue.jobDescription}`}</Link>
                   </td>
-                  <td className='px-4 py-4 text-center capitalize border border-solid'>
+                  <td className='px-4 py-4 text-center border border-solid'>
                     <span
                       className={clsx(
-                        `flex items-center px-3 py-1 space-x-1 capitalize font-medium rounded-lg w-fit`,
+                        `flex items-center px-3 py-1 space-x-1 font-medium rounded-lg w-fit`,
                         {
                           [' text-white bg-green-500']:
                             jobInQueue.status === 'approved',

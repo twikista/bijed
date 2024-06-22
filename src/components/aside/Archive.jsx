@@ -5,9 +5,9 @@ import Link from 'next/link'
 const getArchive = async () => {
   try {
     connectDB()
-    const archive = await Issue.find()
+    const archive = await Issue.find({ published: true })
       .sort({ volume: -1, issueNumber: -1 })
-      .limit(5)
+      .limit(4)
     return archive
   } catch (error) {
     console.log(error)

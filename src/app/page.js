@@ -44,7 +44,7 @@ export default function Home() {
           </p>
         </section>
         <section className='space-y-3'>
-          <h2 className='text-base font-bold md:text-xl font-saira text-primary'>
+          <h2 className='text-base font-bold text-gray-600 md:text-xl font-saira'>
             Aim of the Journal
           </h2>
           <p>
@@ -55,7 +55,7 @@ export default function Home() {
             {journalObjectives.map((objective) => (
               <li key={objective.id} className='flex items-start gap-2'>
                 <CheckedCircle
-                  className='w-2 md:w-[10px] text-primary mt-[4px]'
+                  className='w-2 md:w-[10px] text-gray-600 mt-[10px]'
                   fill='none'
                 />
                 <span className='flex items-start flex-1'>
@@ -67,7 +67,7 @@ export default function Home() {
           </ul>
         </section>
         <section className='space-y-3'>
-          <h2 className='text-base font-bold md:text-xl font-saira text-primary'>
+          <h2 className='text-base font-bold text-gray-600 md:text-xl font-saira'>
             Scope of the Journal
           </h2>
           <p>

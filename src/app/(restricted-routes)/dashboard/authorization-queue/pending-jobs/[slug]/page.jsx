@@ -1,48 +1,57 @@
 import DashboardContainer from '@/components/Dashboard/DashboardContainer'
 import DashboardWrapper from '@/components/Dashboard/DashboardWrapper'
-import { getIssue } from '@/lib/data'
+import { fetchAnnouncement, getIssue } from '@/lib/data'
 import { Issue, JobQueue, Article } from '@/lib/mongoose/models'
 import { auth } from '../../../../../../../auth'
 import { connectDB } from '@/lib/mongoose/config'
 import Link from 'next/link'
 import SubmitButton from '@/components/SubmitButton'
 import { PublishIssueButton } from '@/components/Dashboard/Buttons'
+import clsx from 'clsx'
 
 const getJobInQueue = async (jobRef) => {
   connectDB()
-  const jobInQueue = await JobQueue.findOne({ jobRef: jobRef })
+  const jobInQueue = await JobQueue.findOne({ jobTicketId: jobRef })
   console.log(jobInQueue)
   return jobInQueue
 }
 
-const getIssueWithpopulatedArticles = async (jobRef) => {
-  connectDB()
-  const issueWithPopulatedArticles = await Issue.find({
-    ref: jobRef,
-  })
-    .populate('articles')
-    .lean()
-  console.log('iwa---------------', issueWithPopulatedArticles[0]?.articles)
-  return issueWithPopulatedArticles
-}
+// const getIssueWithpopulatedArticles = async (jobRef) => {
+//   connectDB()
+//   const issueWithPopulatedArticles = await Issue.find({
+//     ref: jobRef,
+//   })
+//     .populate('articles')
+//     .lean()
+//   console.log('iwa---------------', issueWithPopulatedArticles[0]?.articles)
+//   return issueWithPopulatedArticles
+// }
 
-async function page({ params }) {
-  const jobRefFromParams = params.slug.slice(4)
-  console.log('derived ref-----', jobRefFromParams)
+async function page({ params: { slug }, searchParams: { ref } }) {
+  // const jobRefFromParams = params.slug
+  console.log('params-----', ref)
   const data = await Promise.all([
-    getJobInQueue(jobRefFromParams),
+    getJobInQueue(slug),
     // getIssue(params.slug),
-    getIssueWithpopulatedArticles(jobRefFromParams),
+    // getIssueWithpopulatedArticles(jobRefFromParams),
+    fetchAnnouncement('ref', ref),
   ])
-  const [jobInQueue, [issue]] = data
-  console.log('JIQ-----', issue)
+  // const jobInQueue = await getJobInQueue(slug)
+  const [jobInQueue, announcement] = data
+  console.log('data', data)
+  console.log('JIQ-----', jobInQueue)
   const session = await auth()
+  const managingEditorAccess = ''
   return (
     <DashboardContainer>
       <DashboardWrapper>
-        <span className='inline-block px-2 mt-2 text-base font-medium bg-gray-300 rounded-3xl'>{`Job ID: ${jobInQueue.jobTicketId}`}</span>
+        <span
+          className={clsx(
+            `inline-block px-2 mt-2 text-base font-medium capitalize bg-gray-300 rounded-3xl`
+          )}
+        >{`Job Status: ${jobInQueue?.status}`}</span>
         <div className='flex justify-between border-b border-b-gray-300 border-spacing-2'>
-          <h2 className='text-2xl font-medium '>{`${jobInQueue.jobTitle}`}</h2>
+          <h2 className='text-2xl font-medium '>{`${jobInQueue?.jobDescription}`}</h2>
         </div>
 
         <div className='pt-5 mx-auto md:max-w-3xl'>
@@ -63,26 +72,26 @@ async function page({ params }) {
               <tbody className='text-center bg-white divide-y-[1px] rounded-sm'>
                 <tr className=''>
                   <th className='px-4 font-medium text-left border-r w-60'>
-                    Issue to Publish
-                  </th>
-                  <td className='py-3 pl-5 text-left capitalize'>{`${
-                    jobInQueue.jobRef
-                  } (${new Date(issue.issueYear).getFullYear()})`}</td>
-                </tr>
-                <tr className=''>
-                  <th className='px-4 font-medium text-left border-r w-60'>
-                    Number of Articles in issue
+                    Job Ticket ID
                   </th>
                   <td className='py-3 pl-5 text-left capitalize'>
-                    {jobInQueue.numberOfArticles}
+                    {jobInQueue?.jobTicketId}
                   </td>
                 </tr>
                 <tr className=''>
                   <th className='px-4 font-medium text-left border-r w-60'>
-                    Number of Pages in Issue
+                    Target Resource
                   </th>
                   <td className='py-3 pl-5 text-left capitalize'>
-                    {jobInQueue.pages}
+                    {jobInQueue?.resource}
+                  </td>
+                </tr>
+                <tr className=''>
+                  <th className='px-4 font-medium text-left border-r w-60'>
+                    Resource Description
+                  </th>
+                  <td className='py-3 pl-5 text-left capitalize'>
+                    {jobInQueue?.resourceDescription}
                   </td>
                 </tr>
                 <tr className=''>
@@ -90,9 +99,9 @@ async function page({ params }) {
                     Job Initiated By
                   </th>
                   <td className='py-3 pl-5 text-left capitalize'>
-                    {`${jobInQueue.initiatedBy} ${new Intl.DateTimeFormat(
+                    {`${jobInQueue.initiatedBy} (${new Intl.DateTimeFormat(
                       'en-GB'
-                    ).format(jobInQueue.createdAt)}`}
+                    ).format(jobInQueue.createdAt)})`}
                   </td>
                 </tr>
                 {jobInQueue.status === 'approved' && (
@@ -113,10 +122,11 @@ async function page({ params }) {
                     className='col-span-2 py-3 pl-5 text-left capitalize'
                   >
                     <Link
-                      href={`/dashboard/issues/unpublished/${issue.ref}/`}
+                      href={jobInQueue.linkToResource}
+                      target='_blank'
                       className='block font-medium text-center underline text-blue-600 hover:text-[#800080]'
                     >
-                      View Articles in Issue
+                      View resource
                     </Link>
                   </td>
                 </tr>
@@ -187,8 +197,7 @@ async function page({ params }) {
             >
               View Issue
             </Link> */}
-            {issue.published !== true &&
-              jobInQueue.status === 'pending' &&
+            {jobInQueue.status === 'review' &&
               session?.user?.role === 'managing editor' && (
                 // <button className='max-w-[380px] w-full inline-block mx-auto py-2 text-center hover:bg-[#800080] text-white bg-[#ac3dba] rounded-lg font-medium'>
                 //   Approve Issue and Publish

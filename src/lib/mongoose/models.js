@@ -55,6 +55,7 @@ const issueSchema = new mongoose.Schema(
     volume: { type: Number, required: true },
     articles: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Article' }], //likely remove
     ref: { type: String, required: true },
+    slug: { type: String, required: true },
     published: { type: Boolean, required: true, default: false },
     publishDate: { type: Date },
     // addedBy:{ type: String, required: true},
@@ -71,7 +72,22 @@ const announcementSchema = new mongoose.Schema(
     description: { type: String, required: true, trim: true, maxLength: 100 },
     dueDate: { type: Date, required: true },
     content: { type: String, required: true, trim: true },
+    ref: { type: String, required: true },
     slug: { type: String, required: true },
+    status: {
+      type: String,
+      required: true,
+      default: 'draft',
+      enum: ['draft', 'review', 'published'],
+    },
+    // mode: {
+    //   type: String,
+    //   required: true,
+    //   default: 'draft',
+    //   enum: ['final', 'draft'],
+    // },
+    initiatedBy: { type: String, required: true },
+    approvedBy: { type: String, required: true, default: 'N/A' },
   },
   { timestamps: true }
 )
@@ -79,7 +95,14 @@ const announcementSchema = new mongoose.Schema(
 const editorialBoardSchema = new mongoose.Schema(
   {
     content: { type: String, required: true, trim: true },
-    // slug: { type: String, required: true },
+    slug: { type: String, required: true, default: 'BIJED-editorial-board' },
+    ref: { type: String, required: true },
+    mode: {
+      type: String,
+      required: true,
+      default: 'final',
+      enum: ['final', 'draft'],
+    },
   },
   { timestamps: true }
 )
@@ -110,23 +133,26 @@ const userSchema = new mongoose.Schema(
 
 const jobQueueSchema = new mongoose.Schema(
   {
+    resource: { type: String, required: true },
+    resourceDescription: { type: String, required: true },
     jobRef: { type: String, required: true },
     jobTicketId: { type: String, required: true },
     slug: { type: String, required: true },
-    jobTitle: {
+    jobDescription: {
       type: String,
-      default: 'request to approve job',
       required: true,
     },
-    pages: { type: Number, required: true },
-    numberOfArticles: { type: Number, required: true },
+    // pages: { type: Number, required: true },
+    // numberOfArticles: { type: Number, required: true },
     initiatedBy: { type: String, required: true },
     approvedBy: { type: String, required: true, default: 'N/A' },
     status: {
       type: String,
       required: true,
-      enum: ['pending', 'modify', 'approved'],
+      enum: ['pending', 'approved'],
+      // enum: ['pending', 'modify', 'approved'],
     },
+    linkToResource: { type: String, required: true },
     dateApproved: { type: Date },
   },
   { timestamps: true }

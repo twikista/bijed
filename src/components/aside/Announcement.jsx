@@ -18,10 +18,13 @@ async function Announcement() {
       <h3 className='text-xl font-semibold capitalize font-saira text-primary'>
         Announcements
       </h3>
-      <div>
+      <div className='space-y-3'>
         {announcements.map((announcement) => (
           <article key={announcement.slug}>
-            <Link href={`/announcements/${announcement.slug}`}>
+            <Link
+              href={`/announcements/${announcement.slug}`}
+              className=' hover:text-blue-600 hover:underline'
+            >
               {announcement.title}
             </Link>
           </article>
