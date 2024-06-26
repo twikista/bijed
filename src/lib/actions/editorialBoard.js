@@ -24,7 +24,7 @@ export const updateEditorialBoard = async (initialState, formData) => {
   console.log('data', data)
 
   connectDB()
-  const draft = await EditorialBoard.findOne({ mode: draft })
+  const draft = await EditorialBoard.findOne({ mode: 'draft' })
   // const x = data.content.replace(/<h3>/g, '<h3 className="flex">')
   if (initialState.mode === 'final' && !draft?._id) {
     console.log('edited-Announcent-', data)
@@ -74,6 +74,7 @@ export const updateEditorialBoard = async (initialState, formData) => {
   }
 }
 
+//send draft editorial board for authorization
 export const submitEditorialBoardForPublishing = async (ref) => {
   try {
     connectDB()
@@ -92,6 +93,29 @@ export const submitEditorialBoardForPublishing = async (ref) => {
         `/dashboard/editorial-board/${submittedEditorialBoard?.slug}`
       )
       return { ok: true, slug: submittedEditorialBoard?.slug }
+    } else {
+      return { ok: false, error: 'something went wrong', errorType: 'other' }
+    }
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+//cancel authorization request
+export const discardEditorialBoardDraft = async (ref) => {
+  try {
+    connectDB()
+    const deletedEditorialBoard = await EditorialBoard.findOneAndDelete({
+      ref: ref,
+      status: 'draft',
+      mode: 'draft',
+    })
+
+    if (deletedEditorialBoard._id) {
+      revalidatePath(
+        `/dashboard/editorial-board?mode=${deletedEditorialBoard?.mode}`
+      )
+      return { ok: true, slug: deletedEditorialBoard?.mode }
     } else {
       return { ok: false, error: 'something went wrong', errorType: 'other' }
     }

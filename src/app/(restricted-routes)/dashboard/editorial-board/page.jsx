@@ -16,6 +16,7 @@ import {
 import ResourceFilter from '@/components/Dashboard/ResourceFilter'
 import { auth } from '../../../../../auth'
 import {
+  discardEditorialBoardDraft,
   publishEditorialBoard,
   rejectRequestToPublishEditorialBoard,
   submitEditorialBoardForPublishing,
@@ -26,11 +27,13 @@ async function EditorialBoard({ searchParams }) {
   console.log('mode-------------', mode)
   const data = await Promise.all([
     fetchEditorialBoard(mode),
-    fetchAllEditorialBoardData,
+    fetchAllEditorialBoardData(),
   ])
+
+  console.log('data=======', data)
+  const [[editorialBoardData], editorialBoardArray] = data
   // const fetchedEditorialBoardData = await fetchEditorialBoard(mode)
   // const [editorialBoardData] = fetchedEditorialBoardData
-  console.log('data=======', data)
 
   const editorialBoardDataWithStyles = editorialBoardData?.content.replace(
     /<h3>/g,
@@ -51,7 +54,7 @@ async function EditorialBoard({ searchParams }) {
       <DashboardContainer>
         <DashboardWrapper>
           <div>
-            <ResourceFilter m={mode} />
+            <ResourceFilter mode={mode} />
           </div>
           <section className='flex flex-col'>
             {/* <h3 className='text-2xl font-medium '>Pending Jobs</h3> */}
@@ -70,32 +73,20 @@ async function EditorialBoard({ searchParams }) {
   return (
     <DashboardContainer>
       <DashboardWrapper>
-        <div>
-          <ResourceFilter m={mode} />
-        </div>
-        {(businessManagerPrivilege ||
-          (session?.user?.role === 'business manager' &&
-            editorialBoardData?.status === 'published' &&
-            editorialBoardArray.length === 1)) && (
-          <div className='flex justify-end gap-6 mt-8 mb-3'>
-            {/* <LinkButton
-              style='rounded-[8px] flex bg-[#008dcb] hover:bg-blue-600'
-              href={`/dashboard/editorial-board/update?mode=${mode}`}
-              text='edit'
-            /> */}
-            {/* <DeleteButton
-            variant='primary'
-            id={String(announcement?._id)}
-            action={deleteAnnouncement}
-          /> */}
+        <div className='flex flex-row-reverse items-center justify-between pb-3 border-b-2 border-200'>
+          <ResourceFilter mode={mode} />
+          {(businessManagerPrivilege ||
+            (session?.user?.role === 'business manager' &&
+              editorialBoardData?.status === 'published' &&
+              editorialBoardArray.length === 1)) && (
             <EditButton
               href={`/dashboard/editorial-board/update?mode=${mode}`}
               label='Edit Editorial Board'
             />
-          </div>
-        )}
+          )}
+        </div>
 
-        <section className='text-justify'>
+        <section className='pb-6 text-justify'>
           {parse(
             DOMPurify.sanitize(editorialBoardDataWithStyles, {
               ADD_ATTR: ['className'],
@@ -103,7 +94,17 @@ async function EditorialBoard({ searchParams }) {
           )}
         </section>
         {businessManagerPrivilege && (
-          <div className='flex justify-center gap-6 pt-4 pb-6'>
+          <div className='flex justify-center gap-6 pt-8 pb-6 border-t-2 border-gray-200'>
+            <RejectPublishButton
+              resource='editorial-board'
+              resourceRef={editorialBoardData?.ref}
+              label={{ main: 'Discard Draft', alt: 'Removing Draft...' }}
+              action={discardEditorialBoardDraft}
+              notificationMessage={{
+                success: 'Discard successfully',
+                error: 'Something went wrong',
+              }}
+            />
             <SendForAuthorizationButton
               resource='editorial-board'
               resourceRef={editorialBoardData?.ref}
@@ -121,7 +122,17 @@ async function EditorialBoard({ searchParams }) {
           </div>
         )}
         {managingEditorPrivilege && (
-          <div className='flex justify-center gap-6 mt-8 mb-5 items'>
+          <div className='flex justify-center gap-6 pt-8 pb-6 border-t-2 border-gray-200'>
+            <RejectPublishButton
+              resource='editorial-board'
+              resourceRef={editorialBoardData?.ref}
+              label={{ main: 'Reject Publish Request', alt: 'Processing' }}
+              action={rejectRequestToPublishEditorialBoard}
+              notificationMessage={{
+                success: 'Publish request rejected successfully',
+                error: 'Something went wrong',
+              }}
+            />
             <PublishButton
               data={JSON.stringify(editorialBoardData)}
               resource='editorial-board'
@@ -136,16 +147,6 @@ async function EditorialBoard({ searchParams }) {
               label={{
                 main: 'Publish Editorial board',
                 alt: 'Publishing editorial board',
-              }}
-            />
-            <RejectPublishButton
-              resource='editorial-board'
-              resourceRef={editorialBoardData?.ref}
-              label={{ main: 'Reject Publish Request', alt: 'Processing' }}
-              action={rejectRequestToPublishEditorialBoard}
-              notificationMessage={{
-                success: 'Publish request rejected successfully',
-                error: 'Something went wrong',
               }}
             />
           </div>

@@ -4,13 +4,13 @@ import { useState } from 'react'
 import { useSearchParams, useRouter, usePathname } from 'next/navigation'
 import clsx from 'clsx'
 
-function ResourceFilter({ m }) {
+function ResourceFilter({ mode }) {
   // const [mode, setMode] = useState('')
   const searchParams = useSearchParams()
   const pathName = usePathname()
   const { replace } = useRouter()
 
-  console.log('params===', m)
+  console.log('params===', mode)
   const handler = (term) => {
     const params = new URLSearchParams(searchParams)
     params.set('mode', term)
@@ -19,13 +19,13 @@ function ResourceFilter({ m }) {
   }
 
   return (
-    <div className='flex justify-around mt-10 overflow-hidden border border-gray-300 rounded-md w-96 '>
+    <div className='flex justify-around overflow-hidden border border-gray-300 rounded-md w-96 '>
       <button
         onClick={() => {
           handler('final')
         }}
         className={clsx('flex-1 inline-block py-2', {
-          [`bg-gray-300`]: m === undefined || m === 'final',
+          [`bg-gray-300`]: mode === undefined || mode === 'final',
         })}
       >
         published
@@ -35,7 +35,7 @@ function ResourceFilter({ m }) {
           handler('draft')
         }}
         className={clsx('flex-1 inline-block py-2', {
-          [`bg-gray-300`]: m === 'draft',
+          [`bg-gray-300`]: mode === 'draft',
         })}
       >
         Draft
