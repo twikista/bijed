@@ -119,6 +119,7 @@ async function AnnouncementPage({ params }) {
                 /> */}
                 {/* <PublishIssueButton /> */}
                 <PublishButton
+                  resource='announcements'
                   resourceRef={announcement.ref}
                   slug={announcement.slug}
                   user={session.user}
@@ -133,6 +134,7 @@ async function AnnouncementPage({ params }) {
                   }}
                 />
                 <RejectPublishButton
+                  resource='announcements'
                   resourceRef={announcement.ref}
                   label={{ main: 'Reject Publish Request', alt: 'Processing' }}
                   action={rejectRequestToPublishAnnouncement}

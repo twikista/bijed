@@ -4,11 +4,16 @@ import EditAnnouncementForm from '@/components/Dashboard/EditAnnouncementForm'
 import EditEditorialBoardForm from '@/components/Dashboard/EditEditorialBoardForm'
 import { Announcement, EditorialBoard } from '@/lib/mongoose/models'
 
-async function EditEditorialBoard() {
-  const editorialBoardArray = await EditorialBoard.find({})
-  const editorialBoard = editorialBoardArray[0]
+async function EditEditorialBoard({ params, searchParams }) {
+  const editorialBoard = await EditorialBoard.find({
+    // slug: params?.slug,
+    mode: searchParams?.mode,
+  })
+  // const editorialBoard = editorialBoardArray[0]
   console.log('editorial board-', editorialBoard)
-  const parsedEditorialTeam = JSON.parse(JSON.stringify(editorialBoard))
+  console.log('params-----', params)
+  console.log('search params-------', searchParams)
+  const parsedEditorialBoard = JSON.parse(JSON.stringify(editorialBoard[0]))
   // parsedAnnouncement.dueDate = new Date(parsedAnnouncement.dueDate)
   //   .toISOString()
   //   .substring(0, 10)
@@ -22,7 +27,7 @@ async function EditEditorialBoard() {
   return (
     <DashboardContainer>
       <DashboardWrapper>
-        <EditEditorialBoardForm initialState={parsedEditorialTeam} />
+        <EditEditorialBoardForm initialState={parsedEditorialBoard} />
       </DashboardWrapper>
     </DashboardContainer>
   )

@@ -5,7 +5,8 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/navigation'
 import Button from '@/components/Button'
 import RichTextEditor from '@/components/Dashboard/RichTextEditor'
-import { updateAnnouncement, updateEditorialBoard } from '@/lib/actions'
+import { updateAnnouncement } from '@/lib/actions'
+import { updateEditorialBoard } from '@/lib/actions/editorialBoard'
 import { announcementSchema, editorialBoardSchema } from '@/lib/schema'
 import TextInput from '../TextInput'
 import { useState } from 'react'
@@ -13,11 +14,16 @@ import FormWrapper from './FormWrapper'
 import SubmitButton from '../SubmitButton'
 import { CancelButton } from './Buttons'
 import Form from './Form'
+import { toast } from 'react-toastify'
+import { useSearchParams } from 'next/navigation'
 
 function EditEditorialBoardForm({ initialState }) {
   console.log('edit-state:- ', initialState)
   const router = useRouter()
   const [errorFromServer, setErrorFromServer] = useState('')
+  const searchParams = useSearchParams().get('mode')
+  // const params = new URLSearchParams
+  console.log('searchParams=====', searchParams)
 
   const {
     register,
@@ -26,7 +32,7 @@ function EditEditorialBoardForm({ initialState }) {
     reset,
     formState: { errors, isSubmitting },
   } = useForm({
-    defaultValues: initialState,
+    defaultValues: { content: initialState.content },
     resolver: zodResolver(editorialBoardSchema),
   })
   // console.log(formData)
@@ -35,8 +41,10 @@ function EditEditorialBoardForm({ initialState }) {
     const response = await updateEditorialBoard(initialState, data)
     if (response.ok) {
       reset()
-      router.push('/dashboard/editorial-board')
+      router.push(`/dashboard/editorial-board/?mode=draft`)
+      toast.success('Editorial board updated successfully')
     } else {
+      toast.error('Editorial board updated failed!')
       if (response?.errorType === 'validationError') {
         const formfields = {
           content: 'content',
@@ -99,7 +107,7 @@ function EditEditorialBoardForm({ initialState }) {
             formSubmitState={isSubmitting}
           />
           <CancelButton
-            href={`/dashboard/editorial-board`}
+            href={`/dashboard/editorial-board?mode=${searchParams}`}
             style='bg-red-400 hover:bg-red-500'
             text='Cancel'
           />

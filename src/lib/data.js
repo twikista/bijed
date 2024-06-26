@@ -104,7 +104,18 @@ export const getUsers = async () => {
   }
 }
 
-export const getEditorialBoard = async () => {
+export const fetchEditorialBoard = async (mode) => {
+  const currrentMode = mode === undefined || mode == 'final' ? 'final' : mode
+  connectDB()
+  try {
+    const editorialBoard = await EditorialBoard.find({ mode: currrentMode })
+    return editorialBoard
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const fetchAllEditorialBoardData = async () => {
   connectDB()
   try {
     const editorialBoard = await EditorialBoard.find()

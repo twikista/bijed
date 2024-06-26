@@ -12,7 +12,7 @@ function FormWrapper({
       <section
         className={`w-full ${maxWidth} mx-auto my-5 overflow-hidden rounded-md ${bgColor} ${border} pt-5 pb-8 px-7 `}
       >
-        <h2 className=' text-[#800080] py-10 px-5 pt-6 text-center text-3xl  font-medium'>
+        <h2 className=' text-[#800080] py-5 px-5 pt-2 text-center text-3xl  font-medium'>
           {formHeading}
         </h2>
         <React.Fragment>{children}</React.Fragment>

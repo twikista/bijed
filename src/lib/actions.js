@@ -785,7 +785,7 @@ export const updateEditorialBoard = async (initialState, formData) => {
   const data = { ...initialState, ...parsedData.data }
   console.log('data', data)
   // const x = data.content.replace(/<h3>/g, '<h3 className="flex">')
-  console.log('edited-Announcent-', x)
+  // console.log('edited-Announcent-', x)
   try {
     connectDB()
     const existingEditorialBoard = await EditorialBoard.findById(

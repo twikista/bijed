@@ -7,6 +7,7 @@ import QuickLinks from '@/components/Dashboard/QuickLinks'
 import { getIssues } from '@/lib/data'
 import { Issue } from '@/lib/mongoose/models'
 import { connectDB } from '@/lib/mongoose/config'
+import uniqid from 'uniqid'
 // import Link from 'next/link'
 
 const getLatestIssue = async () => {
@@ -18,6 +19,7 @@ const getLatestIssue = async () => {
 async function Dashboard() {
   const { user } = await auth()
   const lastIssue = await getLatestIssue()
+  console.log('UNIQ ID', uniqid.time())
 
   const formatedDate = (date) => new Intl.DateTimeFormat('en-GB').format(date)
 

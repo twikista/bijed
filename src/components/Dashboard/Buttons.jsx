@@ -12,28 +12,33 @@ import {
 import Link from 'next/link'
 import { PublishIcon } from '../Icons'
 import clsx from 'clsx'
-import { useRouter } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { useState } from 'react'
 import Spinner from '../Spinner'
 import { toast } from 'react-toastify'
 
-export function EditButton({ href, variant = 'primary', disabled = false }) {
+export function EditButton({
+  href,
+  variant = 'primary',
+  disabled = false,
+  label = 'Edit',
+}) {
   const router = useRouter()
   console.log('readOnly-', disabled)
   if (variant === 'primary') {
     return (
       <button
         disabled={disabled}
-        href={href}
+        // href={href}
         onClick={() => router.push(href)}
         className={clsx(
-          `rounded-[8px] text-gray-50 flex bg-[#008dcb] hover:bg-blue-600 w-28 font-medium items-center justify-center gap-2 px-2 capitalize py-2 shadow-md ${
+          `rounded-[8px] text-gray-50 flex bg-[#008dcb] hover:bg-blue-600 w-fit font-medium items-center justify-center gap-2 px-4 capitalize py-2 shadow-md ${
             disabled && 'pointer-events-none'
           }`,
           { [' text-gray-500 bg-gray-200']: disabled === true }
         )}
       >
-        {variant === 'primary' && <span className=''>Edit</span>}
+        {variant === 'primary' && <span className=''>{label}</span>}
         <PencilSquareIcon className='w-5 ' />
       </button>
     )
@@ -157,7 +162,9 @@ export const LinkButton = ({ text, href, style }) => (
 )
 
 export function PublishButton({
+  data,
   resourceRef,
+  resource,
   slug,
   user,
   action,
@@ -165,18 +172,22 @@ export function PublishButton({
   label,
 }) {
   const router = useRouter()
+  const pathname = usePathname()
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [published, setPublished] = useState(false)
+  console.log('pathname--xxxxx----xxxx--', pathname)
   const handler = async () => {
     setIsSubmitting(true)
-    const response = await action(resourceRef, user)
-    if (response.ok) {
+    const response = await action(resourceRef, user, data)
+    if (response?.ok) {
       setPublished(true)
-      router.push(`/dashboard/announcements/${slug}`)
+      router.push(`/dashboard/${resource}`)
       toast.success(notificationMessage.success)
       // setIsSubmitting(false)
     } else {
-      toast.success(notificationMessage.error)
+      setPublished(false)
+      setIsSubmitting(false)
+      toast.error(notificationMessage.error)
     }
   }
   return (
@@ -203,6 +214,7 @@ export function PublishButton({
 
 export const RejectPublishButton = ({
   label,
+  resource,
   resourceRef,
   action,
   notificationMessage,
@@ -213,7 +225,7 @@ export const RejectPublishButton = ({
     setIsSubmitting(true)
     const response = await action(resourceRef)
     if (response.ok) {
-      router.push(`/dashboard/announcements`)
+      router.push(`/dashboard/${resource}`)
       toast.success(notificationMessage.success)
       // setIsSubmitting(false)
     } else {
@@ -236,6 +248,7 @@ export const RejectPublishButton = ({
 }
 
 export function SendForAuthorizationButton({
+  resource,
   resourceRef,
   slug,
   action,
@@ -251,7 +264,7 @@ export function SendForAuthorizationButton({
     if (response.ok) {
       // setPublished(true)
       // console.log('I ran from here')
-      router.push(`/dashboard/announcements/${slug}`)
+      router.push(`/dashboard/${resource}?mode=${slug}`)
       toast.success(notificationMessage.success)
 
       // setIsSubmitting(false)
