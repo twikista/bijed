@@ -87,6 +87,12 @@ async function EditorialBoard({ searchParams }) {
         </div>
 
         <section className='pb-6 text-justify'>
+          <div className='mb-5'>
+            <span className='inline-block px-2 text-base font-medium bg-gray-300 rounded-3xl'>{`status: ${
+              editorialBoardData?.status === 'published' ? 'published' : 'Draft'
+            }`}</span>
+          </div>
+
           {parse(
             DOMPurify.sanitize(editorialBoardDataWithStyles, {
               ADD_ATTR: ['className'],
@@ -106,6 +112,7 @@ async function EditorialBoard({ searchParams }) {
               }}
             />
             <SendForAuthorizationButton
+              redirectUrl={`/dashboard/editorial-board?mode=${mode}`}
               resource='editorial-board'
               resourceRef={editorialBoardData?.ref}
               slug={mode}

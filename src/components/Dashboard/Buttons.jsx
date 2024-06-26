@@ -32,7 +32,7 @@ export function EditButton({
         // href={href}
         onClick={() => router.push(href)}
         className={clsx(
-          `rounded-[8px] text-gray-50 flex bg-[#008dcb] hover:bg-blue-600 w-fit font-medium items-center justify-center gap-2 px-4 capitalize py-2 shadow-md ${
+          `rounded-[8px] text-gray-50 flex bg-[#008dcb] hover:bg-blue-600 min-w-[220px] font-medium items-center justify-center gap-2 px-4 capitalize py-2 shadow-md ${
             disabled && 'pointer-events-none'
           }`,
           { [' text-gray-500 bg-gray-200']: disabled === true }
@@ -80,7 +80,7 @@ export function DeleteButton({
         disabled={disabled}
         onClick={() => action(id)}
         className={clsx(
-          `shadow-md inline-flex bg-[#ff6347] hover:bg-red-500 text-white w-28 items-center rounded-lg justify-center font-medium px-4 py-2  ${
+          `shadow-md inline-flex bg-[#ff6347] hover:bg-red-500 text-white w-28 items-center rounded-lg justify-center font-medium px-4 py-2 min-w-[220px] ${
             disabled && 'pointer-events-none'
           } `,
           { [' text-gray-500 bg-gray-200']: disabled === true }
@@ -248,6 +248,7 @@ export const RejectPublishButton = ({
 }
 
 export function SendForAuthorizationButton({
+  redirectUrl,
   resource,
   resourceRef,
   slug,
@@ -264,11 +265,12 @@ export function SendForAuthorizationButton({
     if (response.ok) {
       // setPublished(true)
       // console.log('I ran from here')
-      router.push(`/dashboard/${resource}?mode=${slug}`)
+      // router.push(redirectUrl)
       toast.success(notificationMessage.success)
 
       // setIsSubmitting(false)
     } else {
+      setIsSubmitting(false)
       toast.error(notificationMessage.error)
     }
   }

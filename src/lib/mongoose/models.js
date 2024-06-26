@@ -80,12 +80,13 @@ const announcementSchema = new mongoose.Schema(
       default: 'draft',
       enum: ['draft', 'review', 'published'],
     },
-    // mode: {
-    //   type: String,
-    //   required: true,
-    //   default: 'draft',
-    //   enum: ['final', 'draft'],
-    // },
+
+    mode: {
+      type: String,
+      required: true,
+      default: 'draft',
+      enum: ['draft', 'final'],
+    },
     initiatedBy: { type: String, required: true },
     approvedBy: { type: String, required: true, default: 'N/A' },
   },

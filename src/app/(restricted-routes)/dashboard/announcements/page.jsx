@@ -10,6 +10,8 @@ import DashboardWrapper from '@/components/Dashboard/DashboardWrapper'
 import { DeleteButton, EditButton } from '@/components/Dashboard/Buttons'
 import { deleteAnnouncement } from '@/lib/actions'
 import Link from 'next/link'
+import ResourceFilter from '@/components/Dashboard/ResourceFilter'
+import { auth } from '../../../../../auth'
 
 // const fetchAnnouncements = async () => {
 //   connectDB()
@@ -26,15 +28,53 @@ const fetchAnnouncements = async () => {
   return announcements
 }
 
-async function AnnouncementsPage() {
+const filterAnnouncements = async (mode) => {
+  const currrentMode = mode === undefined || mode == 'final' ? 'final' : mode
+  // noStore()
+  connectDB()
+  const announcements = await Announcement.find({ mode: currrentMode })
+  // console.log(announcements)
+  return announcements
+}
+
+async function AnnouncementsPage({ searchParams }) {
+  const session = await auth()
   // const announcements = await fetchAnnouncements()
-  const announcements = await fetchAnnouncements()
+  const mode = searchParams?.mode
+  const data = await Promise.all([
+    filterAnnouncements(mode),
+    fetchAnnouncements(),
+  ])
+  const [filteredAnnouncements, announcements] = data
+  // const announcements = await fetchAnnouncements()
 
   // console.log(announcements)
 
   // const clean = DOMPurify.sanitize(announcements[0].content, {
   //   FORBID_ATTR: ['style', 'class'],
   // })
+
+  if (!filterAnnouncements.length) {
+    return (
+      <DashboardContainer>
+        <DashboardWrapper>
+          <div>
+            <ResourceFilter mode={mode} />
+          </div>
+          <section className='flex flex-col'>
+            {/* <h3 className='text-2xl font-medium '>Pending Jobs</h3> */}
+            <div className='flex items-center justify-center flex-1 my-24'>
+              <p className='text-2xl font-medium text-gray-400'>
+                {session?.user?.role === 'managing editor'
+                  ? 'Oops! No pending draft Announcements for authorization'
+                  : 'Oops! No pending draft Announcements '}
+              </p>
+            </div>
+          </section>
+        </DashboardWrapper>
+      </DashboardContainer>
+    )
+  }
 
   return (
     // <div>
@@ -54,7 +94,8 @@ async function AnnouncementsPage() {
     // </div>
     <DashboardContainer>
       <DashboardWrapper>
-        <div className='flex justify-end'>
+        <div className='flex flex-row-reverse items-center justify-between pb-3 border-b-2 border-200'>
+          <ResourceFilter mode={mode} />
           <CreateButton
             href='/dashboard/announcements/new'
             label='new announcement'
@@ -68,20 +109,18 @@ async function AnnouncementsPage() {
                 <th className='px-4 pt-4 pb-1 font-medium w-14'>Date Added</th>
                 <th className='px-4 pt-4 pb-1 font-medium'>Status</th>
                 {/* <th className='sr-only'></th> */}
-                <th className='sr-only'></th>
+                {/* <th className='sr-only'></th> */}
               </tr>
             </thead>
             <tbody className='text-center bg-white divide-y-2 rounded-sm'>
-              {announcements.map((announcement) => (
+              {filteredAnnouncements.map((announcement) => (
                 <tr className='py-5 text-sm' key={announcement._id}>
                   <td className='px-4 py-4 text-left border border-solid'>
                     <Link
                       href={`/dashboard/announcements/${announcement.slug}`}
                       className='text-center text-[#800080] hover:text-blue-600 font-medium hover:underline ml-2'
                     >
-                      {announcement.mode === 'final'
-                        ? announcement.title
-                        : `${announcement.title}(edited)`}
+                      {announcement.title}
                     </Link>
                   </td>
                   <td className='px-4 py-4 text-center border border-solid'>
@@ -93,7 +132,9 @@ async function AnnouncementsPage() {
                   </td>
                   <td className='px-4 py-4 text-center border border-solid'>
                     <span className='flex items-center justify-center px-3 py-1 space-x-1 font-medium capitalize rounded-lg'>
-                      active
+                      {announcement.status === 'published'
+                        ? 'Published'
+                        : 'Draft'}
                     </span>
                   </td>
                   {/* <td className='px-4 py-4 text-center'>
@@ -105,13 +146,13 @@ async function AnnouncementsPage() {
                       variant='secondary'
                     />
                   </td> */}
-                  <td className='px-4 py-4 text-center'>
+                  {/* <td className='px-4 py-4 text-center'>
                     <DeleteButton
                       id={String(announcement?._id)}
                       action={deleteAnnouncement}
                       variant='secondary'
                     />
-                  </td>
+                  </td> */}
                 </tr>
               ))}
             </tbody>

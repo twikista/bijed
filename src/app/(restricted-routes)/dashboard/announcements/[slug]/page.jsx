@@ -50,15 +50,16 @@ async function AnnouncementPage({ params }) {
             </h2>
             <span>{formatDate(announcement?.createdAt)}</span> */}
             {businessManagerPrivilege && (
-              <div className='flex justify-end gap-6 mt-8 mb-3'>
+              <div className='flex justify-end gap-6 pt-8 pb-3 mb-5 border-b-2 border-gray-200'>
                 <EditButton
                   href={`/dashboard/announcements/${params.slug}/edit`}
-                  label='edit'
+                  label='edit announcement'
                 />
                 <DeleteButton
                   variant='primary'
                   id={String(announcement?._id)}
                   action={deleteAnnouncement}
+                  label='delete Announcement'
                 />
               </div>
             )}
@@ -72,7 +73,7 @@ async function AnnouncementPage({ params }) {
               </div>
               <span className='inline-block px-2 mt-2 text-base font-medium bg-gray-300 rounded-3xl'>{`status: ${announcement?.status}`}</span>
             </div>
-            <section className='space-y-5 text-justify'>
+            <section className='pb-10 space-y-5 text-justify'>
               {parse(
                 DOMPurify.sanitize(announcement?.content, {
                   FORBID_ATTR: ['style', 'class'],
@@ -80,12 +81,13 @@ async function AnnouncementPage({ params }) {
               )}
             </section>
             {businessManagerPrivilege && (
-              <div className='flex justify-center gap-6 mt-4 mb-10'>
+              <div className='flex justify-center gap-6 pt-8 pb-6 border-t-2 border-gray-200'>
                 {/* <button
                   href={`/dashboard/authorization-queue/new-request?item=${announcement?.slug}&type=announcements`}
                   style='bg-[#008dcb] max-w-[500px] hover:bg-blue-600 shadow-md'
                 >Submit for Authorization</button> */}
                 <SendForAuthorizationButton
+                  redirectUrl={`/dashboard/announcements/${params.slug}`}
                   resourceRef={announcement?.ref}
                   slug={announcement?.slug}
                   action={submitAnnouncementForPublishing}
@@ -102,7 +104,7 @@ async function AnnouncementPage({ params }) {
               </div>
             )}
             {managingEditorPrivilege && (
-              <div className='flex justify-center gap-6 mt-8 mb-5 items'>
+              <div className='flex justify-center gap-6 pt-8 pb-6 border-t-2 border-gray-200'>
                 {/* <EditButton
                 href={`/dashboard/announcements/${params.slug}/edit`}
                 label='edit'
