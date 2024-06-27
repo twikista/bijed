@@ -58,8 +58,21 @@ const issueSchema = new mongoose.Schema(
     slug: { type: String, required: true },
     published: { type: Boolean, required: true, default: false },
     publishDate: { type: Date },
-    // addedBy:{ type: String, required: true},
-    // approvedBy:{ type: String, required: true},
+    status: {
+      type: String,
+      required: true,
+      default: 'draft',
+      enum: ['draft', 'review', 'published'],
+    },
+
+    mode: {
+      type: String,
+      required: true,
+      default: 'draft',
+      enum: ['draft', 'final'],
+    },
+    initiatedBy: { type: String, required: true, trim: true },
+    approvedBy: { type: String, required: true, trim: true, default: 'N/A' },
 
     // image: { type: String, default: null },
   },

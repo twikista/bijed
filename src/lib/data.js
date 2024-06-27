@@ -27,11 +27,12 @@ export const getAnnouncements = async () => {
   return announcements
 }
 
-export const getIssues = async (status) => {
+export const getIssues = async (mode) => {
+  const currrentMode = mode === undefined || mode == 'final' ? 'final' : mode
   // nostore()
   try {
     connectDB()
-    const issues = await Issue.find({ published: status }).sort({
+    const issues = await Issue.find({ mode: currrentMode }).sort({
       volume: -1,
       issueNumber: -1,
     })

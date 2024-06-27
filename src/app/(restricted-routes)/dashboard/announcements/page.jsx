@@ -12,6 +12,7 @@ import { deleteAnnouncement } from '@/lib/actions'
 import Link from 'next/link'
 import ResourceFilter from '@/components/Dashboard/ResourceFilter'
 import { auth } from '../../../../../auth'
+import clsx from 'clsx'
 
 // const fetchAnnouncements = async () => {
 //   connectDB()
@@ -94,12 +95,21 @@ async function AnnouncementsPage({ searchParams }) {
     // </div>
     <DashboardContainer>
       <DashboardWrapper>
-        <div className='flex flex-row-reverse items-center justify-between pb-3 border-b-2 border-200'>
+        <div
+          className={clsx(
+            'flex items-center justify-between pb-3 border-b-2 border-200',
+            {
+              ['justify-start']: session?.user?.role !== 'business manager',
+            }
+          )}
+        >
           <ResourceFilter mode={mode} />
-          <CreateButton
-            href='/dashboard/announcements/new'
-            label='new announcement'
-          />
+          {session.user.role === 'business manager' && (
+            <CreateButton
+              href='/dashboard/announcements/new'
+              label='new announcement'
+            />
+          )}
         </div>
         <div className='p-2 bg-[#e5d4ff] rounded-lg md:pt-0 overflow-x-auto'>
           <table className='min-w-full overflow-x-scroll'>

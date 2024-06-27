@@ -765,7 +765,7 @@ export const rejectRequestToPublishAnnouncement = async (ref) => {
       // revalidatePath(`/dashboard/archive/${issueRef}`)
       // revalidatePath(`/dashboard/job-queue/pending-jobs`)
       // revalidatePath(`/dashboard/job-queue/approved-jobs`)
-      return { ok: true, slug: publishedAnnouncement?.slug }
+      return { ok: true }
     } else {
       return { ok: false, error: 'something went wrong', errorType: 'other' }
     }

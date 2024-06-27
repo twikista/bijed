@@ -179,9 +179,9 @@ export function PublishButton({
   const handler = async () => {
     setIsSubmitting(true)
     const response = await action(resourceRef, user, data)
-    if (response?.ok) {
+    if (response.ok) {
       setPublished(true)
-      router.push(`/dashboard/${resource}`)
+      // router.push(`/dashboard/${resource}`)
       toast.success(notificationMessage.success)
       // setIsSubmitting(false)
     } else {
@@ -225,7 +225,7 @@ export const RejectPublishButton = ({
     setIsSubmitting(true)
     const response = await action(resourceRef)
     if (response.ok) {
-      router.push(`/dashboard/${resource}`)
+      // router.push(`/dashboard/${resource}`)
       toast.success(notificationMessage.success)
       // setIsSubmitting(false)
     } else {

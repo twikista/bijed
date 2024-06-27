@@ -9,34 +9,67 @@ import DashboardContainer from '@/components/Dashboard/DashboardContainer'
 import Breadcrumb from '@/components/Dashboard/Breadcrumb'
 import { EditButton } from '@/components/Dashboard/Buttons'
 import DashboardWrapper from '@/components/Dashboard/DashboardWrapper'
+import ResourceFilter from '@/components/Dashboard/ResourceFilter'
+import { auth } from '../../../../../auth'
 
-async function Issues() {
-  const issues = await getIssues([true, false])
+async function Issues({ searchParams }) {
+  const { user } = await auth()
+  const mode = searchParams.mode
+  const issues = await getIssues(mode)
   // console.log('issues bla', issues)
+
+  if (!issues.length) {
+    return (
+      <DashboardContainer>
+        <DashboardWrapper>
+          <div className='flex items-center justify-between pb-3 border-b-2 border-200'>
+            <ResourceFilter mode={mode} />
+          </div>
+          <section className='flex flex-col'>
+            {/* <h3 className='text-2xl font-medium '>Pending Jobs</h3> */}
+            <div className='flex items-center justify-center flex-1 my-24'>
+              <p className='text-2xl font-medium text-gray-400'>
+                {user?.role === 'managing editor'
+                  ? 'Oops! No pending pending/unathorized issue'
+                  : 'Oops! No pending Issue for authorization '}
+              </p>
+            </div>
+          </section>
+        </DashboardWrapper>
+      </DashboardContainer>
+    )
+  }
+
   return (
     <DashboardContainer>
       <DashboardWrapper>
-        <div className='flex justify-end '>
-          <CreateButton href='/dashboard/issues/new-issue' label='New Issue' />
+        <div className='flex items-center justify-between pb-3 border-b-2 border-200'>
+          {user.role === 'business manager' && (
+            <CreateButton
+              href='/dashboard/issues/new-issue'
+              label='Add New Issue'
+            />
+          )}
+          <ResourceFilter mode={mode} />
         </div>
         <div className='p-2 bg-[#e5d4ff] rounded-lg md:pt-0 overflow-x-auto'>
           <table className='min-w-full overflow-x-scroll'>
             <thead className='rounded-lg'>
               <tr className=''>
-                <th className='px-4 py-6 pb-1 font-medium w-[20px]'>S/N</th>
+                {/* <th className='px-4 py-6 pb-1 font-medium w-[20px]'>Volume</th> */}
                 <th className='px-4 pt-4 pb-1 table-fixed'>Issue</th>
-                <th className='px-4 pt-4 pb-1 font-medium w-14'>Status</th>
+                <th className='px-4 pt-4 pb-1 font-medium'>Status</th>
                 <th className='px-4 pt-4 pb-1 font-medium'>Publish Date</th>
-                <th className='sr-only'></th>
-                <th className='sr-only'></th>
+                {/* <th className='sr-only'></th>
+                <th className='sr-only'></th> */}
               </tr>
             </thead>
             <tbody className='text-center bg-white divide-y-2 rounded-sm'>
               {issues.map((issue, index) => (
                 <tr className='py-5 text-sm' key={issue._id}>
-                  <td className='px-4 py-4 border border-solid'>{`${
+                  {/* <td className='px-4 py-4 border border-solid'>{`${
                     index + 1
-                  }.`}</td>
+                  }.`}</td> */}
                   <td className='px-4 py-4 text-center border border-solid'>
                     <Link
                       className='text-center text-[#800080] hover:text-blue-600 font-medium'
@@ -44,8 +77,8 @@ async function Issues() {
                     >{`BIJED ${issue.issueTitle}`}</Link>
                   </td>
                   <td className='px-4 py-4 text-center border border-solid'>
-                    {issue.published ? (
-                      <span className='flex items-center px-3 py-1 space-x-1 font-medium text-white bg-green-500 rounded-lg w-fit'>
+                    {issue.status === 'published' ? (
+                      <span className='px-3 py-[5px] space-x-1 font-medium text-center text-white bg-green-500 rounded-[20px] '>
                         published
                       </span>
                     ) : (
@@ -63,7 +96,7 @@ async function Issues() {
                         : 'Not available'}
                     </span>
                   </td>
-                  <td className='px-4 py-4 text-center'>
+                  {/* <td className='px-4 py-4 text-center'>
                     <EditButton
                       href={`/dashboard/issues/update/${issue.ref}`}
                       variant='secondary'
@@ -75,7 +108,7 @@ async function Issues() {
                       id={JSON.stringify(issue._id)}
                       variant='secondary'
                     />
-                  </td>
+                  </td> */}
                 </tr>
               ))}
             </tbody>

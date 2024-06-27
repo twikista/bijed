@@ -36,11 +36,11 @@ const sideNavItems = [
     url: '/dashboard/issues',
     outlineIcon: Square3Stack3DIconOutline,
     fillIcon: Square3Stack3DIconFill,
-    subMenu: [
-      { name: 'New Issue', url: '/dashboard/issues/new-issue' },
-      { name: 'Published', url: '/dashboard/issues/published' },
-      { name: 'Unpublished', url: '/dashboard/issues/unpublished' },
-    ],
+    // subMenu: [
+    //   { name: 'New Issue', url: '/dashboard/issues/new-issue' },
+    //   { name: 'Published', url: '/dashboard/issues/published' },
+    //   { name: 'Unpublished', url: '/dashboard/issues/unpublished' },
+    // ],
   },
   {
     text: 'Announcements',
@@ -54,16 +54,16 @@ const sideNavItems = [
     outlineIcon: DocumentTextIconOutline,
     fillIcon: DocumentTextIconFill,
   },
-  {
-    text: 'Auth Queue',
-    url: '/dashboard/authorization-queue',
-    outlineIcon: ArrowPathIconOutline,
-    fillIcon: ArrowPathIconFill,
-    subMenu: [
-      { name: 'pending', url: '/dashboard/authorization-queue/pending-jobs' },
-      { name: 'approved', url: '/dashboard/authorization-queue/approved-jobs' },
-    ],
-  },
+  // {
+  //   text: 'Auth Queue',
+  //   url: '/dashboard/authorization-queue',
+  //   outlineIcon: ArrowPathIconOutline,
+  //   fillIcon: ArrowPathIconFill,
+  //   subMenu: [
+  //     { name: 'pending', url: '/dashboard/authorization-queue/pending-jobs' },
+  //     { name: 'approved', url: '/dashboard/authorization-queue/approved-jobs' },
+  //   ],
+  // },
 ]
 function SideNavItems({ session }) {
   return (
