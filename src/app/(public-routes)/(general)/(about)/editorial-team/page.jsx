@@ -1,26 +1,32 @@
 import DOMPurify from 'isomorphic-dompurify'
 import parse from 'html-react-parser'
 import MainContainer from '@/components/MainContainer'
-import { getEditorialBoard } from '@/lib/data'
+import { fetchAllEditorialBoardData, getEditorialBoard } from '@/lib/data'
+import { PageHeading } from '@/components/Headings'
+
+export const metadata = {
+  title: 'Editorial Board',
+  description:
+    'This page contain information about the editorial board of BIJED. The board consist of academicians who are have made significant contributions to their fields',
+}
 
 async function EditorialBoard() {
-  const editorialTeam = await getEditorialBoard()
+  const editorialTeam = await fetchAllEditorialBoardData()
   const styledEditorialTeam = editorialTeam[0]?.content.replace(
     /<h3>/g,
-    "<h3 className='font-saira text-[20px]'>"
+    "<h3 className='font-saira text-[20px] mb-1'>"
   )
   return (
     <MainContainer>
-      <h2 className='text-2xl font-bold underline uppercase font-saira'>
-        Editorial Team
-      </h2>
-      <div className='text-justify'>
-        {parse(
-          DOMPurify.sanitize(styledEditorialTeam, {
-            ADD_ATTR: ['className'],
-          })
-        )}
-        {/* <li className=''>
+      <PageHeading>Editorial Team</PageHeading>
+      <div className='justify-center w-full'>
+        <div className='mx-auto text-justify xl:w-fit'>
+          {parse(
+            DOMPurify.sanitize(styledEditorialTeam, {
+              ADD_ATTR: ['className'],
+            })
+          )}
+          {/* <li className=''>
           <h3 className='text-lg font-semibold md:text-xl font-saira'>
             Editor-in-Chief
           </h3>
@@ -121,6 +127,7 @@ async function EditorialBoard() {
           </h3>
           <p>Mr. M.F. Kahian</p>
         </li> */}
+        </div>
       </div>
     </MainContainer>
   )

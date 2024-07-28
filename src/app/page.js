@@ -44,8 +44,8 @@ export default function Home() {
           </p>
         </section>
         <section className='space-y-3'>
-          <h2 className='text-base font-bold text-gray-600 md:text-xl font-saira'>
-            Aim of the Journal
+          <h2 className='text-base font-bold text-center text-gray-600 font-saira md:text-xl'>
+            Aims of the Journal
           </h2>
           <p>
             The Benin International Journal of Entrepreneurship Development aim
@@ -67,7 +67,7 @@ export default function Home() {
           </ul>
         </section>
         <section className='space-y-3'>
-          <h2 className='text-base font-bold text-gray-600 md:text-xl font-saira'>
+          <h2 className='text-base font-bold text-center text-gray-600 md:text-xl font-saira'>
             Scope of the Journal
           </h2>
           <p>

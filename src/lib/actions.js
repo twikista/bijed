@@ -25,6 +25,7 @@ import { signIn, signOut } from '../../auth'
 import { isRedirectError } from 'next/dist/client/components/redirect'
 import {
   compileActivationTemplate,
+  compileReactEmail,
   compileResetPasswordEmailTemplate,
   sendEmail,
 } from './emailServices'
@@ -507,6 +508,11 @@ export async function forgetPassword(formData) {
       url: resetPasswordUrl,
       link: `${process.env.NEXT_URL}/auth/login`,
     })
+    // const body = await compileReactEmail({
+    //   name: user.firstName,
+    //   url: resetPasswordUrl,
+    //   link: `${process.env.NEXT_URL}/auth/login`,
+    // })
 
     const sendEmailResult = await sendEmail({
       to: user.email,

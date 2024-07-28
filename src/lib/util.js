@@ -78,6 +78,7 @@ export const handleValidationErrorFromServer = (
 }
 
 export const replaceSpaceInTitleWithHyphen = (string) => {
-  const titleWithHyphen = string.replace(/ /g, '-')
-  return titleWithHyphen
+  const titleWithoutColon = string.replace(/[:,]/g, '')
+  const titleWithHyphen = titleWithoutColon.replace(/ /g, '-')
+  return titleWithHyphen.toLowerCase()
 }

@@ -41,7 +41,7 @@ function Breadcrumb({
 
   return (
     <nav className='pt-2'>
-      <ul className='flex items-center capitalize'>
+      <ul className='flex flex-wrap items-center capitalize'>
         {renderHome()}
 
         {pathNames.map((link, index) => {
@@ -53,6 +53,21 @@ function Breadcrumb({
           console.log(`href ${index}`, href)
           const lastItem = index === pathNames.length - 1
           if (!lastItem) {
+            //disable second to last link on breadcrumb if on current issue path
+            if (
+              pathNames.includes('current') &&
+              index + 1 === pathNames.length - 1
+            )
+              return (
+                <React.Fragment key={index}>
+                  <li className='text-gray-400'>
+                    <span>{link}</span>
+                  </li>
+                  <ChevronRightIcon className='w-4' />
+                  {/* {pathNames.length !== index + 1 && separator} */}
+                </React.Fragment>
+              )
+
             return (
               <React.Fragment key={index}>
                 <li className='flex'>

@@ -13,10 +13,10 @@ export const uploadPdfToStorage = async (formData) => {
   const articlesRef = ref(storage, `articles/${fileName}`)
   console.log(fileName)
 
-  // const data = await uploadBytes(articlesRef, formData.pdfFile[0], {
-  //   contentDisposition: `attachment; filename=${fileName}`,
-  // })
-  const data = await uploadBytes(articlesRef, formData.pdfFile[0])
+  const data = await uploadBytes(articlesRef, formData.pdfFile[0], {
+    contentDisposition: `attachment; filename=${fileName}`,
+  })
+  // const data = await uploadBytes(articlesRef, formData.pdfFile[0])
   console.log('firebase-', data)
   const url = await getDownloadURL(data.ref)
   console.log(url)

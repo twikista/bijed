@@ -1,10 +1,9 @@
 import MainContainer from '@/components/MainContainer'
 
 export const metadata = {
-  title:
-    'Copyright - Benin International Journal for Entrepreneurship Development',
+  title: 'Copyright',
   description:
-    'BIJED consier copyright infringements as serious academic offense. This page outlines the copyright policy that authors who wish to submit their manuscript for publication must adhere to.',
+    'This page outlines the copyright policy that authors who wish to submit their manuscript for publication must adhere to.',
 }
 
 function Copyright() {

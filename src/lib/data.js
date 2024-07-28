@@ -23,7 +23,9 @@ export const fetchAnnouncement = async (fetchBy, item) => {
 
 export const getAnnouncements = async () => {
   connectDB()
-  const announcements = await Announcement.find().sort({ createdAt: 1 })
+  const announcements = await Announcement.find()
+    .sort({ createdAt: 1 })
+    .limit(3)
   return announcements
 }
 
@@ -65,6 +67,18 @@ export const getArticle = async (slug) => {
   })
   console.log(article)
   return article
+}
+
+export const getArticlesInIssue = async (issue) => {
+  connectDB()
+  const articlesInIssue = await Article.find({
+    ref: `${issue}`,
+    published: true,
+  }).sort({
+    startPage: 1,
+  })
+  console.log(articlesInIssue)
+  return articlesInIssue
 }
 
 export const fetchUnpublishedIssue = async ({ issueRef }) => {

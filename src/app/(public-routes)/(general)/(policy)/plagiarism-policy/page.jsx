@@ -1,10 +1,9 @@
 import MainContainer from '@/components/MainContainer'
 
 export const metadata = {
-  title:
-    'Plagiarism Policy - Benin International Journal for Entrepreneurship Development',
+  title: 'Plagiarism Policy',
   description:
-    'BIJED consider plagiarism and other forms of copyright infringements as serious academic offenses. Hence, this journal is committed to ensuring that articles approved for publication are free from copyright issues.',
+    'BIJED consider plagiarism and other forms of copyright infringements as serious academic offenses. Hence, This journal is committed to ensuring that articles approved for publication are free from copyright issues.',
 }
 
 function PlagiarismPolicy() {

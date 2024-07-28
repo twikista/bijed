@@ -2,8 +2,7 @@ import MainContainer from '@/components/MainContainer'
 import { CheckedCircle } from '@/components/Icons'
 
 export const metadata = {
-  title:
-    'Editorial Process - Benin International Journal for Entrepreneurship Development',
+  title: 'Editorial Process',
   description:
     'This page contains the editorial process for the Benin International Journal for Entrepreneurship Development.',
 }

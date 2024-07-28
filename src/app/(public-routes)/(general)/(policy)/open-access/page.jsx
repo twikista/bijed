@@ -1,8 +1,7 @@
 import MainContainer from '@/components/MainContainer'
 
 export const metadata = {
-  title:
-    'Open Acess Policy - Benin International Journal for Entrepreneurship Development',
+  title: 'Open Acess Policy',
   description:
     'All articles published in Benin International journal of Entrepreneurship Development are published under the Open Access Model, making them immediately available to read, download, and share for free after publication.',
 }

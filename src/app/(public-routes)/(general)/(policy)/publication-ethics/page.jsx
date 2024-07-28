@@ -4,8 +4,7 @@ import MainContainer from '@/components/MainContainer'
 import { CheckedCircle } from '@/components/Icons'
 
 export const metadata = {
-  title:
-    'Publication Ethics - Benin International Journal for Entrepreneurship Development',
+  title: 'Publication Ethics',
   description:
     'Benin International Journal for Entrepreneurship Development is committed to upholding and promoting best ethical practices in the publication of scholarly articles. To this end, BIJED follows the ethical practices and guidlines outlined by the Committee on Publication Ethics (COPE).',
 }

@@ -2,8 +2,7 @@ import MainContainer from '@/components/MainContainer'
 import { CheckedCircle } from '@/components/Icons'
 
 export const metadata = {
-  title:
-    'Reviewers Guideline - Benin International Journal for Entrepreneurship Development',
+  title: 'Reviewers Guideline',
   description:
     'This page outlines the steps and expectations required for reviewers of the Benin International Journal for Entrepreneurship Development to carry out their work effectively and efficiently as possible.',
 }

@@ -71,7 +71,6 @@ function SideNavItems({ session }) {
       {sideNavItems.map((navItem) => (
         <SideNavItem
           key={navItem.url}
-          // type='link'
           subMenu={navItem.subMenu}
           linkText={navItem.text}
           link={navItem.url}

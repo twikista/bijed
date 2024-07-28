@@ -1,4 +1,5 @@
 /** @type {import('next').NextConfig} */
+
 const nextConfig = {
   images: {
     remotePatterns: [
@@ -9,6 +10,10 @@ const nextConfig = {
         //   pathname: '/account123/**',
       },
     ],
+  },
+  webpack: (config) => {
+    config.resolve.alias.canvas = false
+    return config
   },
 }
 

@@ -14,7 +14,7 @@ module.exports = {
       fontFamily: {
         saira: ['var(--font-saira)', fontFamily.sans],
         cairo: ['var(--font-cairo)', fontFamily.sans],
-
+        ibmPlex: ['var(--font-ibmPlex)', fontFamily.sans],
         barlow: ['var(--font-barlow)', fontFamily.sans],
       },
       colors: {

@@ -11,7 +11,7 @@ function Footer() {
         <div className='grid justify-between grid-cols-2 gap-5 mx-auto md:grid-cols-4 font-barlow'>
           {footerItemsData.map((menuItem) =>
             menuItem.submenu ? (
-              <ul key={menuItem.name}>
+              <ul key={menuItem.name} className='space-y-1'>
                 {menuItem.submenu.map(({ name, url }) => (
                   <li key={name} className=' hover:text-secondary w-fit'>
                     <Link href={`/${url}`}>{name}</Link>
@@ -53,7 +53,7 @@ function Footer() {
               </span>
             </div>
             <div className='mt-2'>
-              <span className=''>Powered by e-Novative Technologies</span>
+              <span className=''>Powered by InnovativeTech</span>
               {/* <span className=''>
                 Designed & maintained by{' '}
                 <a

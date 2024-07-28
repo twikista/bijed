@@ -15,12 +15,12 @@ export const menuItemsData = [
     url: '/policies',
     submenu: [
       { name: 'Authors Guide', url: 'authors-guide' },
+      { name: 'Reviewers Guide', url: 'reviewers-guide' },
       { name: 'Open Access', url: 'open-access' },
       { name: 'Copyright', url: 'copyright' },
       { name: 'Publication Ethics', url: 'publication-ethics' },
       { name: 'Plagiarism Policy', url: 'plagiarism-policy' },
-      { name: 'Reviewers Guide', url: 'reviewers-guide' },
-      { name: 'Terms', url: 'terms' },
+      // { name: 'Terms', url: 'terms' },
     ],
   },
   {

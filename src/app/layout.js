@@ -1,14 +1,16 @@
-// import { saira, cairo, barlow, ibmPlex } from './font/font'
+// import { inter, saira, cairo, barlow, ibmPlex } from './font/font'
 import {
-  Saira_Condensed,
+  Inter,
+  // Saira,
   Cairo,
   Barlow,
   IBM_Plex_Sans,
-  IBM_Plex_Sans_Condensed,
+  Saira_Condensed,
 } from 'next/font/google'
 import './globals.css'
 import 'react-toastify/dist/ReactToastify.css'
 import { ToastContainer } from 'react-toastify'
+import { template } from 'handlebars'
 // import Header from '@/components/Header'
 // import Footer from '@/components/Footer'
 
@@ -28,13 +30,19 @@ export const ibmPlex = IBM_Plex_Sans({
   // adjustFontFallback: false,
 })
 
-export const ibmPlexCon = IBM_Plex_Sans_Condensed({
+export const inter = Inter({
   subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700'],
-  variable: '--font-plexCon',
   // display: 'swap',
   // adjustFontFallback: false,
 })
+
+// export const ibmPlexCon = IBM_Plex_Sans_Condensed({
+//   subsets: ['latin'],
+//   weight: ['300', '400', '500', '600', '700'],
+//   variable: '--font-plexCon',
+//   display: 'swap',
+//   adjustFontFallback: false,
+// })
 
 export const barlow = Barlow({
   subsets: ['latin'],
@@ -51,10 +59,25 @@ export const cairo = Cairo({
   // adjustFontFallback: false,
 })
 
+// export const saira = Saira_Condensed({
+//   subsets: ['latin'],
+//   weight: ['400', '500', '600', '700', '800', '900'],
+//   variable: '--font-saira',
+//   // display: 'swap',
+//   // adjustFontFallback: false,
+// })
+
 export const metadata = {
-  title: 'BIJED - Benin International Journal of Entrepreneurship Development',
+  metadataBase: new URL('https://bijed.com.ng'),
+  title: {
+    default:
+      'BIJED - Benin International Journal of Entrepreneurship Development',
+    template:
+      '%s | Benin International Journal of Entrepreneurship Development',
+  },
   description:
     'The Benin International Journal of Entrepreneurship Development (BIJED) is a publication of the Department of Entrepreneurship, Faculty of Management Sciences, University of Benin, Benin city, Nigeria.',
+
   keyword: [
     'Academic',
     'journal',
@@ -70,14 +93,19 @@ export const metadata = {
     'msme',
     'management sciences',
     'faculty of management sciences',
+    'Nigeria',
+    'UNIBEN',
   ],
+  twitter: {
+    card: 'summary_large_image',
+  },
 }
 
 export default function RootLayout({ children }) {
   return (
     <html lang='en' className={``}>
       <body
-        className={`${ibmPlex.className} ${saira.variable} ${cairo.variable} ${barlow.variable}  antialiased flex flex-col min-h-full bg-slate-50 min-w-[320px]`}
+        className={`${inter.className} ${saira.variable} ${cairo.variable} ${barlow.variable} ${ibmPlex.variable} antialiased flex flex-col min-h-full bg-slate-50 min-w-[320px]`}
       >
         {/* <Header /> */}
         {children}

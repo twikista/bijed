@@ -70,7 +70,7 @@ function Header() {
             <div className='flex items-center text-sm font-bold text-white ms:text-lg md:text-xl sm:text-xl lg:text-3xl font-saira'>
               <h1 className='hidden sm:flex'>BIJED</h1>
               <span className='sm:h-4 md:h-5 lg:h-6 w-[1px] bg-white lg:inline-block mx-1 hidden sm:block' />
-              <span className=''>
+              <span className='font-saira'>
                 Benin International Journal of Entrepreneurship Development
               </span>
             </div>

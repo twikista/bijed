@@ -10,3 +10,11 @@
   border-radius: 0 0 6px 6px;
   overflow-x: hidden;
 }
+
+.react-pdf__Page {
+  margin-bottom: 10px;
+}
+
+.react-pdf__Thumbnail {
+  margin-bottom: 10px;
+}

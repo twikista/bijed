@@ -1,5 +1,6 @@
 'use client'
 import { useState } from 'react'
+import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 import clsx from 'clsx'
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/outline'
@@ -15,18 +16,26 @@ function SideNavItem({
   subMenu,
   user,
 }) {
+  const pathname = usePathname()
   const [isHovered, setIsHovered] = useState(false)
   const [toggle, setToggle] = useState(false)
   const [showSubMenu, setShowSubMenu] = useState(false)
+
+  // const subLink = pathname.slice(link.length)
+  const fullPath = `${link}${pathname.slice(link.length)}`
+  console.log('pathname=======>>>>', pathname, fullPath)
   const handleSubMenu = () => {
     setShowSubMenu(!showSubMenu)
     console.log('subMenu-', showSubMenu)
   }
   if (subMenu?.length) {
     return (
-      <li className=''>
+      <li className='bg-red-600'>
         <div
-          className='flex items-center justify-between text-gray-50 hover:rounded-2xl hover:bg-black/30 hover:text-[#ffebb2] w-full px-3 py-4 text-lg'
+          className={clsx(
+            'flex items-center justify-between bg-green-400 text-gray-50 hover:rounded-2xl hover:bg-black/30 hover:text-[#ffebb2] w-full px-3 py-4 text-lg'
+            // { ['bg-black/30 text-[#ffebb2]']: pathname === `${link}` }
+          )}
           onMouseOver={() => setIsHovered(true)}
           onMouseOut={() => setIsHovered(false)}
         >
@@ -55,7 +64,7 @@ function SideNavItem({
             )}
           </span>
         </div>
-        {toggle && (
+        {/* {toggle && (
           <ul className='mt-1 ml-5 space-y-[10px] border-l'>
             {subMenu.map((subMenuItem) =>
               user.role !== 'business manager' &&
@@ -74,12 +83,19 @@ function SideNavItem({
               )
             )}
           </ul>
-        )}
+        )} */}
       </li>
     )
   } else {
     return (
-      <li className='flex items-center text-gray-50 hover:rounded-2xl hover:bg-black/30 hover:text-[#ffebb2]'>
+      <li
+        className={clsx(
+          'flex items-center text-gray-50 rounded-2xl hover:bg-black/30 hover:text-[#ffebb2]',
+          {
+            ['bg-black/30 text-[#ffebb2]']: pathname === link,
+          }
+        )}
+      >
         <Link
           href={link}
           onMouseOver={() => setIsHovered(true)}
