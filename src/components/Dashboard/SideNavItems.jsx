@@ -43,7 +43,7 @@ const sideNavItems = [
     // ],
   },
   {
-    text: 'Announcements',
+    text: 'News',
     url: '/dashboard/announcements',
     outlineIcon: NewspaperIconOutline,
     fillIcon: NewspaperIconFill,

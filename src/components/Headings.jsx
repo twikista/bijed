@@ -19,10 +19,10 @@ export function SectionHeading({ children, font = 'font-saira' }) {
   )
 }
 
-export function Paragraph({ children, first }) {
+export function Paragraph({ children, first, style }) {
   if (first) {
     return <p className='inline p-0 m-0'>{children}</p>
   }
 
-  return <p>{children}</p>
+  return <p className={style}>{children}</p>
 }

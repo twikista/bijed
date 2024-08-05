@@ -15,10 +15,10 @@ async function Announcement() {
   }
   return (
     <div>
-      <h3 className='text-xl font-semibold capitalize font-saira text-primary'>
+      <h3 className='text-lg font-semibold text-center capitalize md:text-left md:text-xl font-saira text-primary'>
         Announcements
       </h3>
-      <div className='space-y-3'>
+      <div className='w-full space-y-3'>
         {announcements.map((announcement) => (
           <article key={announcement.slug}>
             <Link

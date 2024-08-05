@@ -1,5 +1,6 @@
 import { connectDB } from '@/lib/mongoose/config'
 import { Issue } from '@/lib/mongoose/models'
+import { ArrowLongRightIcon } from '@heroicons/react/24/solid'
 import Link from 'next/link'
 
 const getArchive = async () => {
@@ -18,16 +19,16 @@ async function Archive() {
   const archive = await getArchive()
   return (
     <div className='space-y-2'>
-      <h3 className='text-xl font-semibold capitalize font-saira text-primary'>
+      <h3 className='text-lg font-semibold text-center capitalize md:text-left md:text-xl font-saira text-primary'>
         Archive
       </h3>
-      <div className='space-y-[5px]'>
+      <div className='space-y-[5px] flex flex-col items-center md:items-start'>
         {archive && archive?.length ? (
           archive.map((issue) => (
             <article key={issue._id}>
               <Link
                 href={`/archive/${issue?.ref}`}
-                className='font-medium text-blue-500 underline'
+                className='text-blue-500 underline hover:text-blue-700 hover:font-medium '
               >
                 {issue?.issueTitle}
               </Link>
@@ -38,10 +39,9 @@ async function Archive() {
         )}
         <Link
           href='/archive'
-          className='block mt-4 font-semibold text-blue-500'
-          // className='block font-bold text-primary px-3 py-2 border border-primary sm:w-[160px] rounded-md hover:bg-primary hover:text-white transition-colors  text-center'
+          className='flex items-center gap-1 mt-4 font-medium text-blue-500 hover:text-blue-700'
         >
-          ...view more
+          See more <ArrowLongRightIcon className='w-5' />
         </Link>
       </div>
     </div>

@@ -1,5 +1,6 @@
 'use client'
 import { useState } from 'react'
+import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 
 import { Document, Page, pdfjs, Thumbnail } from 'react-pdf'
@@ -35,14 +36,14 @@ pdfjs.GlobalWorkerOptions.workerSrc = new URL(
 ).toString()
 
 function PDFViewer({ filePath, params }) {
-  console.log(filePath)
+  const pathname = usePathname()
   const [pageNumber, setPageNumber] = useState(1)
   const [numPages, setNumPages] = useState(null)
   const [pdf, setPdf] = useState(null)
   const [pageWidth, setPageWidth] = useState(0)
   const [scale, setScale] = useState(1)
   const [pdfloaded, setPdfLoaded] = useState(false)
-  console.log('pageWidth=====>', pdf)
+  console.log('pageWidth=====>', params)
 
   const onDocumentLoadSuccess = ({ numPages }) => {
     setNumPages(numPages)
@@ -83,7 +84,11 @@ function PDFViewer({ filePath, params }) {
       {pdfloaded && (
         <div className='fixed top-0 left-0 right-0 z-50 flex items-center justify-between shadow-lg bg-[#353839] border-b border-neutral-600 h-[58px] px-3'>
           <Link
-            href={`/archive/${params.issue}/${params.article}`}
+            href={
+              pathname.includes('archive')
+                ? `/archive/${params.issue}/${params.article}`
+                : `/dashboard/issues/${params.issue}/${params.article}`
+            }
             data-tooltip-id='back'
             data-tooltip-content='Back'
             data-tooltip-place='top'

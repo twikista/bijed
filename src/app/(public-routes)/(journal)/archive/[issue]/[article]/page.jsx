@@ -5,10 +5,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import orcidid from '@/../public/orcidid.png'
 import googleScholar from '@/../public/google-scholar-icon.png'
-import pdf from '@/../public/pdf-download.png'
 import ccLogo from '@/../public/by.png'
 import { getArticlesInIssue } from '@/lib/data'
-import PDFViewer from '@/components/pdfviewer'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 
@@ -38,9 +36,9 @@ async function ArticlePage({ params }) {
   const joinKeywords = (arr) => {
     return arr.join(', ')
   }
-  console.log(params)
+
   const article = await getArticle(params)
-  // console.log(keyword(article.keywords))
+
   return (
     <div className='flex flex-col min-h-screen'>
       <Header />
@@ -121,22 +119,21 @@ async function ArticlePage({ params }) {
                 <h4 className='font-bold'>Abstract</h4>
                 <p className='text-justify'>{article.abstract}</p>
               </div>
-              <div>
-                <a
+              <div className='flex justify-center'>
+                {/* <a
                   href={article.pdfUrl}
                   download
                   target='_blank'
                   rel='noreferrer'
                   className='block font-bold text-primary px-3 py-2 border border-primary sm:w-[160px] rounded-md hover:bg-primary hover:text-white transition-colors  text-center'
                 >
-                  {/* <Image src={pdf} alt='download pdf icon' width={25} /> */}
                   DOWNLOAD PDF
-                </a>
+                </a> */}
                 <Link
                   href={`${process.env.NEXT_URL}/archive/${params.issue}/${params.article}/view`}
-                  className='block font-bold text-primary px-3 py-2 border border-primary sm:w-[160px] rounded-md hover:bg-primary hover:text-white transition-colors  text-center'
+                  className='block font-bold text-primary px-3 py-2 border border-primary sm:w-[240px] rounded-md hover:bg-primary hover:text-white transition-colors  text-center'
                 >
-                  view pdf
+                  View PDF
                 </Link>
               </div>
               <div>

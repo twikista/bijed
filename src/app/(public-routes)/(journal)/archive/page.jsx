@@ -18,11 +18,6 @@ export const metadata = {
 }
 
 const getPublishedIssues = async () => {
-  // const res = await fetch('http://localhost:3000/api/archive')
-  // if (!res.ok) {
-  //   throw new Error('Something went wrong')
-  // }
-  // return res.json()
   try {
     connectDB()
     const publishedIssues = await Issue.find({ published: true }).sort({

@@ -25,7 +25,7 @@ export const getAnnouncements = async () => {
   connectDB()
   const announcements = await Announcement.find()
     .sort({ createdAt: 1 })
-    .limit(3)
+    .limit(2)
   return announcements
 }
 

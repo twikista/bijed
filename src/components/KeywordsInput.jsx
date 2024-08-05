@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import uniqid from 'uniqid'
 
 function KeywordInput({ formData, setFormData }) {
   const [inputValue, setInputValue] = useState('')
@@ -37,7 +38,7 @@ function KeywordInput({ formData, setFormData }) {
     <div>
       {formData.keywords?.length > 0 &&
         formData.keywords.map((keyword, index) => (
-          <div key={index}>
+          <div key={uniqid()}>
             <span>{keyword}</span>
             <span onClick={() => removeTag(index)}>x</span>
           </div>

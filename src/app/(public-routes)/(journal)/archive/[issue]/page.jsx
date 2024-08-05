@@ -20,8 +20,11 @@ const getArticlesInIssue = async (issue) => {
 }
 
 export async function generateStaticParams() {
-  const issues = await getIssues()
-  return issues.map((issue) => issue.ref)
+  // const issues = await getPublish
+  // return issues.map((issue) => issue.ref)
+  connectDB()
+  const publishedIssues = await Issue.find({ status: 'published' })
+  return publishedIssues.map((issue) => issue.ref)
 }
 
 export async function generateMetadata({ params }) {
@@ -34,8 +37,13 @@ export async function generateMetadata({ params }) {
 
 async function IssuePage({ params }) {
   const { issue } = params
-  console.log(issue)
-  const articlesInIssue = await getArticlesInIssue(issue)
+
+  // const articlesInIssue = await getArticlesInIssue(issue)
+  const [articlesInIssue, currentIssue] = await Promise.all([
+    getArticlesInIssue(issue),
+    getIssue(issue),
+  ])
+  console.log('===========++++', currentIssue)
 
   return (
     <div className='flex flex-col min-h-screen'>
@@ -46,9 +54,9 @@ async function IssuePage({ params }) {
             {/*move to a seperate client component and context to supply issue details*/}
             {/* <h2 className='text-2xl font-bold uppercase font-cairo'> */}
             <PageHeading>
-              {`BIJED - Volume ${articlesInIssue[0].volume} Issue ${
-                articlesInIssue[0].issue
-              } (${new Date(articlesInIssue[0].publishDate).getFullYear()})`}
+              {`BIJED - Volume ${currentIssue.volume} Issue ${
+                currentIssue.issueNumber
+              } (${new Date(currentIssue.issueYear).getFullYear()})`}
             </PageHeading>
             {/* </h2> */}
             <p className='text-center font-cairo'>{`Publish Date: ${new Date(

@@ -6,6 +6,7 @@ import {
   Barlow,
   IBM_Plex_Sans,
   Saira_Condensed,
+  Roboto,
 } from 'next/font/google'
 import './globals.css'
 import 'react-toastify/dist/ReactToastify.css'
@@ -18,22 +19,29 @@ export const saira = Saira_Condensed({
   subsets: ['latin'],
   weight: ['400', '500', '600', '700', '800', '900'],
   variable: '--font-saira',
-  // display: 'swap',
-  // adjustFontFallback: false,
+  display: 'swap',
+  adjustFontFallback: false,
 })
 
 export const ibmPlex = IBM_Plex_Sans({
   subsets: ['latin'],
   weight: ['300', '400', '500', '600', '700'],
   variable: '--font-plex',
-  // display: 'swap',
-  // adjustFontFallback: false,
+  display: 'swap',
+  adjustFontFallback: false,
 })
 
 export const inter = Inter({
   subsets: ['latin'],
-  // display: 'swap',
-  // adjustFontFallback: false,
+  display: 'swap',
+  adjustFontFallback: false,
+})
+
+export const roboto = Roboto({
+  subsets: ['latin'],
+  weight: ['400', '500', '700', '900'],
+  display: 'swap',
+  adjustFontFallback: false,
 })
 
 // export const ibmPlexCon = IBM_Plex_Sans_Condensed({
@@ -48,15 +56,15 @@ export const barlow = Barlow({
   subsets: ['latin'],
   weight: ['400', '500', '600', '700', '800', '900'],
   variable: '--font-barlow',
-  // display: 'swap',
-  // adjustFontFallback: false,
+  display: 'swap',
+  adjustFontFallback: false,
 })
 
 export const cairo = Cairo({
   subsets: ['latin'],
   variable: '--font-cairo',
-  // display: 'swap',
-  // adjustFontFallback: false,
+  display: 'swap',
+  adjustFontFallback: false,
 })
 
 // export const saira = Saira_Condensed({
@@ -105,7 +113,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang='en' className={``}>
       <body
-        className={`${inter.className} ${saira.variable} ${cairo.variable} ${barlow.variable} ${ibmPlex.variable} antialiased flex flex-col min-h-full bg-slate-50 min-w-[320px]`}
+        className={`${ibmPlex.className} ${saira.variable} ${cairo.variable} ${barlow.variable} ${ibmPlex.variable} antialiased flex flex-col min-h-full bg-slate-50 min-w-[320px]`}
       >
         {/* <Header /> */}
         {children}

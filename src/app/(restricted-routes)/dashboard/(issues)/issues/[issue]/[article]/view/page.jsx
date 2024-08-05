@@ -2,10 +2,10 @@
 import dynamic from 'next/dynamic'
 import { connectDB } from '@/lib/mongoose/config'
 import { Article } from '@/lib/mongoose/models'
-import { auth } from '../../../../../../../../auth'
+// import { auth } from '../../../../../../../../auth'
 
 const PDFViewer = dynamic(
-  () => import('../../../../../../../components/pdfviewer'),
+  () => import('../../../../../../../../components/pdfviewer'),
   { ssr: false }
 )
 
@@ -21,6 +21,8 @@ const getArticle = async (slug) => {
 
 async function ViewPDF({ params }) {
   const article = await getArticle(params)
+  // const { user } = await auth()
+  console.log('====================>', params)
 
   return (
     <div className='flex flex-col min-h-screen bg-neutral-600'>

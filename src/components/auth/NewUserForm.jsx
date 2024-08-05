@@ -45,7 +45,7 @@ function NewUserForm() {
 
     if (response && response?.ok) {
       reset()
-      router.push('/dashboard/manage-user')
+      router.push('/dashboard/manage-users')
     }
 
     if (response && !response?.ok) {
@@ -152,7 +152,7 @@ function NewUserForm() {
             formSubmitState={isSubmitting}
           />
           <CancelButton
-            href='/dashboard/manager-user`'
+            href='/dashboard/manage-users'
             style='bg-red-400 hover:bg-red-500'
             text='Cancel'
           />

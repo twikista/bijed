@@ -1,10 +1,6 @@
-import { getIssue, getIssues } from '@/lib/data'
+import { getIssues } from '@/lib/data'
 import { menuItemsData } from '@/static/menuitems_data'
 
-// const staticSitemapData = menuItemsData
-//   .map((item) => (item.submenu ? item.submenu : null))
-
-// console.log(menuEntries)
 export default async function sitemap() {
   const navbarMenuEntries = menuItemsData
     .map((item) => (item.submenu ? item.submenu : null))
@@ -22,9 +18,6 @@ export default async function sitemap() {
     }
   })
 
-  // const menuEntries = staticSitemapData.map((item, index) => {
-  //   url: `${process.env.NEXT_BASE_URL}/${item.url}`
-  // })
   return [
     {
       url: `${process.env.NEXT_BASE_URL}/contact`,

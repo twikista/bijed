@@ -75,7 +75,7 @@ function EditArticleForm({ initialValue, params }) {
       // params.issue === undefined
       //   ? router.push(`/dashboard/articles`)
       //   : router.push(`/dashboard/issues/${params.issue}`)
-      router.push(`/dashboard/issues/unpublished/${params.issue}`)
+      router.push(`/dashboard/issues/${params.issue}`)
       setHideFileInput(true)
     } else {
       console.log(response)
@@ -266,7 +266,7 @@ function EditArticleForm({ initialValue, params }) {
             formSubmitState={isSubmitting}
           />
           <CancelButton
-            href={`/dashboard/issues/unpublished/${params?.issue}`}
+            href={`/dashboard/issues/${params?.issue}`}
             style='bg-red-400 hover:bg-red-500'
             text='Cancel'
           />

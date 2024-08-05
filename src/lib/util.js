@@ -82,3 +82,14 @@ export const replaceSpaceInTitleWithHyphen = (string) => {
   const titleWithHyphen = titleWithoutColon.replace(/ /g, '-')
   return titleWithHyphen.toLowerCase()
 }
+
+export const dateHelperFunction = (date, variant = 'short') => {
+  if (variant === 'short') {
+    return new Date(date).toLocaleDateString()
+  }
+  return new Date(date).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  })
+}

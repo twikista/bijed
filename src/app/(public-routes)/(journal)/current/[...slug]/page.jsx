@@ -8,6 +8,8 @@ import googleScholar from '@/../public/google-scholar-icon.png'
 import pdf from '@/../public/pdf-download.png'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
+import { dateHelperFunction } from '@/lib/util'
+import Authors from '@/components/Authors'
 
 export async function generateStaticParams(params) {
   connectDB()
@@ -54,61 +56,25 @@ async function ArticlePage({ params }) {
             <section className='flex flex-col py-2 space-y-3 border-t border-b sm:space-y-0 sm:flex-row border-neutral-300'>
               <div className='flex-1'>
                 <h5 className='font-semibold'>Author(s):</h5>
-                <div className='space-y-[5px]'>
-                  {currentArticle?.authors.map(
-                    ({ name, affliation, orchidId, _id }) => (
-                      <div key={_id} className=''>
-                        <div className='flex items-center space-x-1'>
-                          <p className='font-semibold'>{name}</p>
-                          {orchidId && (
-                            <a href='https://orcid.org/' target='_blank'>
-                              <Image
-                                src={orcidid}
-                                alt='orcid id logo'
-                                width={16}
-                                height={16}
-                              />
-                            </a>
-                          )}
-                          {orchidId && (
-                            <a href='https://orcid.org/' target='_blank'>
-                              <Image
-                                src={googleScholar}
-                                alt='orcid id logo'
-                                width={16}
-                                height={16}
-                              />
-                            </a>
-                          )}
-                        </div>
-                        <p className='text-neutral-400'>{affliation}</p>
-                      </div>
-                    )
-                  )}
-                </div>
+                <Authors
+                  authors={currentArticle.authors}
+                  withAffliation={true}
+                />
               </div>
               <div className='flex flex-col w-[250px]'>
                 <h5 className='font-semibold'>Article Info:</h5>
                 <div className='space-y-[5px] text-neutral-500'>
                   <div>
-                    <h5 className='font-semibold text-neutral-400'>
-                      Published
+                    <h5 className='font-medium text-neutral-500'>
+                      Publish date
                     </h5>
-                    <p>
-                      {new Date(
-                        currentArticle?.publishDate
-                      ).toLocaleDateString()}
-                    </p>
+                    <p>{dateHelperFunction(currentArticle?.publishDate)}</p>
                   </div>
                   <div>
-                    <h5 className='font-semibold text-neutral-400'>Issue</h5>
+                    <h5 className='font-medium text-neutral-500'>Issue</h5>
                     <p>
                       <Link href={`/archive/${currentArticle?.ref}`}>
-                        {`Vol. ${currentArticle?.volume} No. ${
-                          currentArticle?.issue
-                        } (${new Date(
-                          currentArticle?.publishDate
-                        ).getFullYear()}) pp. ${currentArticle?.slug}`}
+                        {`Vol. ${currentArticle?.volume} No. ${currentArticle?.issue}, pp. ${currentArticle?.slug}`}
                       </Link>
                     </p>
                   </div>
@@ -128,7 +94,6 @@ async function ArticlePage({ params }) {
                 <h4 className='font-bold'>Abstract</h4>
                 <p className='text-justify'>{currentArticle?.abstract}</p>
               </div>
-
               <a
                 href={currentArticle?.pdfUrl}
                 download

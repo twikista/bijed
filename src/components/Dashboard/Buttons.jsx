@@ -17,6 +17,55 @@ import { useState } from 'react'
 import Spinner from '../Spinner'
 import { toast } from 'react-toastify'
 
+export function EdiButton({
+  href,
+  variant = 'primary',
+  disabled = false,
+  label = 'Edit',
+}) {
+  const pathname = usePathname()
+  console.log('readOnly-', disabled)
+  if (variant === 'primary') {
+    return (
+      <Link
+        disabled={disabled}
+        // href={href}
+        onClick={() => router.push(href)}
+        href={`${pathname}/edit`}
+        className={clsx(
+          `rounded-[8px] text-gray-50 flex bg-[#008dcb] hover:bg-blue-600 min-w-[220px] font-medium items-center justify-center gap-2 px-4 capitalize py-2 shadow-md ${
+            disabled && 'pointer-events-none'
+          }`,
+          { [' text-gray-500 bg-gray-200']: disabled === true }
+        )}
+      >
+        {variant === 'primary' && <span className=''>{label}</span>}
+        <PencilSquareIcon className='w-5 ' />
+      </Link>
+    )
+  } else {
+    return (
+      <Link
+        href={`${pathname}/edit`}
+        disabled={disabled}
+        onClick={() => router.push(href)}
+        data-tooltip-id='edit'
+        data-tooltip-content='Edit'
+        data-tooltip-place='top'
+        className={clsx(
+          `flex justify-center text-[#800080] hover:text-blue-600 ${
+            disabled && 'pointer-events-none'
+          }`,
+          { [' text-gray-400']: disabled === true }
+        )}
+      >
+        <PencilSquareIcon className='w-6 ' />
+        <Tooltip id='edit' />
+      </Link>
+    )
+  }
+}
+
 export function EditButton({
   href,
   variant = 'primary',

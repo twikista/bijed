@@ -20,7 +20,7 @@ function Header() {
             </Link>
           </div>
           <div className='lg:space-y-2'>
-            <h1 className='font-extrabold text-center uppercase text-primary text-lg sm:text-2xl md:text-[26px] lg:text-[34px] xl:text-[44px]'>
+            <h1 className='font-extrabold text-center uppercase text-primary text-lg sm:text-2xl md:text-[26px] lg:text-[34px] xl:text-[44px] font-saira'>
               benin international journal of entrepreneurship developement
               {/* &#40;BIJED&#41; */}
             </h1>
