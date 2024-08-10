@@ -45,7 +45,6 @@ async function IssuePage({ params }) {
     getArticlesInIssue(issue),
     getIssue(issue),
   ])
-  console.log('===========++++', currentIssue)
 
   return (
     <div className='flex flex-col min-h-screen'>

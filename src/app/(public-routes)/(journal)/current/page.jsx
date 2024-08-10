@@ -48,7 +48,10 @@ async function Currentissue() {
           </div>
 
           <section className='space-y-5'>
-            <ListOfArticlesInIssue articlesInIssue={articlesInCurrentIssue} />
+            <ListOfArticlesInIssue
+              articlesInIssue={articlesInCurrentIssue}
+              path='current'
+            />
           </section>
         </MainContainer>
       </div>

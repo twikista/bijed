@@ -7,8 +7,9 @@ import { Document, Page, pdfjs } from 'react-pdf'
 import { BackNavigationIcon, DownloadIcon } from './Icons'
 import { MinusIcon, PlusIcon } from '@heroicons/react/24/solid'
 import { Tooltip } from 'react-tooltip'
+import 'pdfjs-dist/build/pdf.worker.min.mjs'
 
-pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`
+// pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`
 
 function PDFViewer({ filePath, params }) {
   const pathname = usePathname()
