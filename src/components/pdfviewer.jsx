@@ -3,37 +3,12 @@ import { useState } from 'react'
 import { usePathname, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 
-import { Document, Page, pdfjs, Thumbnail } from 'react-pdf'
+import { Document, Page, pdfjs } from 'react-pdf'
 import { BackNavigationIcon, DownloadIcon } from './Icons'
 import { MinusIcon, PlusIcon } from '@heroicons/react/24/solid'
 import { Tooltip } from 'react-tooltip'
 
-// if (typeof Promise.withResolvers === 'undefined') {
-//   if (typeof window !== 'undefined') {
-//     window.Promise.withResolvers = function () {
-//       let resolve, reject
-//       const promise = new Promise((res, rej) => {
-//         resolve = res
-//         reject = rej
-//       })
-//       return { promise, resolve, reject }
-//     }
-//   } else {
-//     global.Promise.withResolvers = function () {
-//       let resolve, reject
-//       const promise = new Promise((res, rej) => {
-//         resolve = res
-//         reject = rej
-//       })
-//       return { promise, resolve, reject }
-//     }
-//   }
-// }
-
-pdfjs.GlobalWorkerOptions.workerSrc = new URL(
-  'pdfjs-dist/build/pdf.worker.min.mjs',
-  import.meta.url
-).toString()
+pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`
 
 function PDFViewer({ filePath, params }) {
   const pathname = usePathname()
