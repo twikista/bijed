@@ -10,14 +10,12 @@ import {
 } from './mongoose/models'
 
 export const fetchAnnouncement = async (fetchBy, item) => {
-  console.log('slugish----', item)
   connectDB()
   if (fetchBy === 'slug') {
     const announcement = await Announcement.findOne({ slug: item })
     return announcement
   }
   const announcement = await Announcement.findOne({ ref: item })
-  console.log('announe------', announcement)
   return announcement
 }
 
@@ -38,10 +36,9 @@ export const getIssues = async (mode) => {
       volume: -1,
       issueNumber: -1,
     })
-    console.log('issues:', issues)
     return issues
   } catch (error) {
-    console.log(error)
+    // console.log(error)
   }
 }
 
@@ -52,10 +49,9 @@ export const getIssue = async (issueRef) => {
 
     const json = JSON.stringify(issue)
     const issueObject = JSON.parse(json)
-    console.log(issueObject)
     return issueObject
   } catch (error) {
-    console.log(error)
+    // console.log(error)
   }
 }
 
@@ -65,19 +61,24 @@ export const getArticle = async (slug) => {
     ref: `${slug.issue}`,
     slug: `${slug.article}`,
   })
-  console.log(article)
   return article
 }
 
-export const getArticlesInIssue = async (issue) => {
+export const getArticlesInIssue = async (issue, sorted = true) => {
   connectDB()
+  if (sorted) {
+    const articlesInIssue = await Article.find({
+      ref: `${issue}`,
+      published: true,
+    }).sort({
+      startPage: 1,
+    })
+    return articlesInIssue
+  }
   const articlesInIssue = await Article.find({
     ref: `${issue}`,
     published: true,
-  }).sort({
-    startPage: 1,
   })
-  console.log(articlesInIssue)
   return articlesInIssue
 }
 
@@ -88,15 +89,13 @@ export const fetchUnpublishedIssue = async ({ issueRef }) => {
       published: false,
       ref: issueRef,
     }).populate('articles')
-    console.log(unpublishedIssue)
     return unpublishedIssue
   } catch (error) {
-    console.log(error)
+    // console.log(error)
   }
 }
 
 export const getUser = async (email) => {
-  console.log('i ran')
   connectDB()
 
   const user = await User.findOne({ email })
@@ -115,7 +114,7 @@ export const getUsers = async () => {
       return { ok: false, users: null }
     }
   } catch (error) {
-    console.log(error)
+    // console.log(error)
   }
 }
 
@@ -126,7 +125,7 @@ export const fetchEditorialBoard = async (mode) => {
     const editorialBoard = await EditorialBoard.find({ mode: currrentMode })
     return editorialBoard
   } catch (error) {
-    console.log(error)
+    // console.log(error)
   }
 }
 
@@ -136,6 +135,6 @@ export const fetchAllEditorialBoardData = async () => {
     const editorialBoard = await EditorialBoard.find()
     return editorialBoard
   } catch (error) {
-    console.log(error)
+    // console.log(error)
   }
 }

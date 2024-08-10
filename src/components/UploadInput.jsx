@@ -6,7 +6,6 @@ import { uploadPdfToStorage } from '@/lib/firebase/services'
 import Input from './Input'
 import KeywordInput from './KeywordsInput'
 import AuthorsInput from './articleForm/AuthorsInput'
-// import { uploadArticle } from '@/services/services'
 import { createArticle } from '@/app/api/actions/actions'
 
 function UploadInput() {
@@ -21,43 +20,20 @@ function UploadInput() {
     keywords: [],
     pdfFile: null,
   }
-  // const [fileToUpload, setFileToUpload] = useState(null)
   const [formData, setFormData] = useState(initialState)
-  // console.log(process.env.NEXT_PUBLIC_MONGO_URI)
-  // let data = new FormData()
-  // console.log(data)
-  // const handleChange = (e) => {
-  //   const { name, value } = e.target
-  //   setFormData({ ...formData, [name]: [value] })
-  // }
-  // console.log(fileToUpload)
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    // console.log(formData)
-    // if (!formData.pdfFile) return
     const fileName = `bijed-vol-${formData.volume}(${formData.issue})-pg${formData.startPage}-${formData.endPage}.pdf`
     const url = await uploadPdfToStorage(formData.pdfFile, fileName)
-    // console.log(url)
-    // for (let key in formData) {
-    //   // if (key === 'pdfFile') console.log('yes')
-    //   // data.append(`${key}`, formData[key])
-    //   data.append(`${key}`, `${formData[key]}`)
-    // }
     let { pdfFile, ...articleData } = formData
     articleData.pdfUrl = url
     articleData.slug = `${formData.startPage}-${formData.endPage}`
     articleData.ref = `volume-${formData.volume}-issue-${formData.issue}`
     articleData.published = false
     articleData.publishDate = new Date()
-    // setFormData({ ...formData, pdfFile: url })
-    // await uploadArticle(articleData)
+
     await createArticle(articleData)
-    // console.log(url)
-    // setFileToUpload(url)
-    // console.log(formData)
-    // setFormData(initialState)
-    console.log(articleData)
   }
 
   return (
@@ -71,14 +47,6 @@ function UploadInput() {
         setFormData={setFormData}
       />
       <AuthorsInput formData={formData} setFormData={setFormData} />
-      {/* <Input
-        type='text'
-        placeholder='author'
-        name='author'
-        value={formData.author}
-        formData={formData}
-        setFormData={setFormData}
-      /> */}
       <Input
         type='text'
         placeholder='volume'
@@ -95,14 +63,6 @@ function UploadInput() {
         formData={formData}
         setFormData={setFormData}
       />
-      {/* <Input
-        type='date'
-        placeholder='Publish Date'
-        name='publishDate'
-        value={formData.publishDate}
-        formData={formData}
-        setFormData={setFormData}
-      /> */}
       <Input
         type='text'
         placeholder='start page'

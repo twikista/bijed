@@ -14,7 +14,6 @@ function TextInput({
   valueAsDate,
   type,
 }) {
-  console.log('from email field:', error)
   return (
     <div className='flex flex-col'>
       <label htmlFor={name} className='inline-block mb-2 '>

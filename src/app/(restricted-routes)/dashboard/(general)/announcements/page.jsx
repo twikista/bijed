@@ -1,31 +1,18 @@
 import { connectDB } from '@/lib/mongoose/config'
 import { Announcement } from '@/lib/mongoose/models'
-import DOMPurify from 'isomorphic-dompurify'
-import parse from 'html-react-parser'
-import { formatDate, replaceSpaceInTitleWithHyphen } from '@/lib/util'
-import AnnouncementItems from '@/components/AnnouncementItems'
 import CreateButton from '@/components/Dashboard/createButton'
 import DashboardContainer from '@/components/Dashboard/DashboardContainer'
 import DashboardWrapper from '@/components/Dashboard/DashboardWrapper'
-import { DeleteButton, EditButton } from '@/components/Dashboard/Buttons'
-import { deleteAnnouncement } from '@/lib/actions'
 import Link from 'next/link'
 import ResourceFilter from '@/components/Dashboard/ResourceFilter'
 import { auth } from '../../../../../../auth'
 import clsx from 'clsx'
 
-// const fetchAnnouncements = async () => {
-//   connectDB()
-//   const announcements = await Announcement.find()
-//   // console.log(announcements)
-//   return announcements
-// }
-
 const fetchAnnouncements = async () => {
   // noStore()
   connectDB()
   const announcements = await Announcement.find({})
-  // console.log(announcements)
+
   return announcements
 }
 
@@ -34,26 +21,18 @@ const filterAnnouncements = async (mode) => {
   // noStore()
   connectDB()
   const announcements = await Announcement.find({ mode: currrentMode })
-  // console.log(announcements)
+
   return announcements
 }
 
 async function AnnouncementsPage({ searchParams }) {
   const session = await auth()
-  // const announcements = await fetchAnnouncements()
   const mode = searchParams?.mode
   const data = await Promise.all([
     filterAnnouncements(mode),
     fetchAnnouncements(),
   ])
   const [filteredAnnouncements, announcements] = data
-  // const announcements = await fetchAnnouncements()
-
-  // console.log(announcements)
-
-  // const clean = DOMPurify.sanitize(announcements[0].content, {
-  //   FORBID_ATTR: ['style', 'class'],
-  // })
 
   if (!filterAnnouncements.length) {
     return (
@@ -63,7 +42,6 @@ async function AnnouncementsPage({ searchParams }) {
             <ResourceFilter mode={mode} />
           </div>
           <section className='flex flex-col'>
-            {/* <h3 className='text-2xl font-medium '>Pending Jobs</h3> */}
             <div className='flex items-center justify-center flex-1 my-24'>
               <p className='text-2xl font-medium text-gray-400'>
                 {session?.user?.role === 'managing editor'
@@ -78,21 +56,6 @@ async function AnnouncementsPage({ searchParams }) {
   }
 
   return (
-    // <div>
-    //   {announcements.map((announcement) => (
-    //     <article key={announcement.id}>
-    //       <h1>{announcement.title}</h1>
-    //       <span>{formatDate(announcement.createdAt)}</span>
-    //       <section className='space-y-5 text-justify'>
-    //         {parse(
-    //           DOMPurify.sanitize(announcement.content, {
-    //             FORBID_ATTR: ['style', 'class'],
-    //           })
-    //         )}
-    //       </section>
-    //     </article>
-    //   ))}
-    // </div>
     <DashboardContainer>
       <DashboardWrapper>
         <div
@@ -118,8 +81,6 @@ async function AnnouncementsPage({ searchParams }) {
                 <th className='px-4 pt-4 pb-1 table-fixed'>Announcements</th>
                 <th className='px-4 pt-4 pb-1 font-medium w-14'>Date Added</th>
                 <th className='px-4 pt-4 pb-1 font-medium'>Status</th>
-                {/* <th className='sr-only'></th> */}
-                {/* <th className='sr-only'></th> */}
               </tr>
             </thead>
             <tbody className='text-center bg-white divide-y-2 rounded-sm'>
@@ -147,22 +108,6 @@ async function AnnouncementsPage({ searchParams }) {
                         : 'Draft'}
                     </span>
                   </td>
-                  {/* <td className='px-4 py-4 text-center'>
-                    <EditButton
-                      label='Edit'
-                      href={`/dashboard/announcements/${replaceSpaceInTitleWithHyphen(
-                        announcement?.title
-                      )}/edit`}
-                      variant='secondary'
-                    />
-                  </td> */}
-                  {/* <td className='px-4 py-4 text-center'>
-                    <DeleteButton
-                      id={String(announcement?._id)}
-                      action={deleteAnnouncement}
-                      variant='secondary'
-                    />
-                  </td> */}
                 </tr>
               ))}
             </tbody>

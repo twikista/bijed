@@ -19,10 +19,6 @@ async function EditArticle({ params }) {
       { keywords: '' },
     ],
   }
-  console.log('article:', article)
-  console.log('initialValue:', initialValue)
-  // console.log('expanded-', keywordsExpanded)
-  console.log(params)
   return (
     <main className='relative flex h-screen'>
       <SideNav />

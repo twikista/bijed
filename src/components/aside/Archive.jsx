@@ -10,9 +10,7 @@ const getArchive = async () => {
       .sort({ volume: -1, issueNumber: -1 })
       .limit(4)
     return archive
-  } catch (error) {
-    console.log(error)
-  }
+  } catch (error) {}
 }
 
 async function Archive() {

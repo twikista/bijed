@@ -12,7 +12,6 @@ function LoginForm() {
     e.preventDefault()
     const formData = { email, password }
     await authenticate(formData)
-    // console.log(user.data)
   }
   return (
     <>

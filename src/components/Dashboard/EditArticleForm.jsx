@@ -28,8 +28,6 @@ import { CancelButton } from './Buttons'
 import Form from './Form'
 
 function EditArticleForm({ initialValue, params }) {
-  console.log(`params:${params.published}`)
-  console.log('initialValue', initialValue)
   const {
     register,
     control,
@@ -44,7 +42,6 @@ function EditArticleForm({ initialValue, params }) {
     resolver: zodResolver(editArticleFormSchema),
   })
 
-  console.log(errors)
   const [errorFromServer, setErrorFromServer] = useState('')
   const [hideFileInput, setHideFileInput] = useState(true)
   const router = useRouter()
@@ -52,14 +49,11 @@ function EditArticleForm({ initialValue, params }) {
   //submit handler
   const handler = async (data) => {
     //Article edit
-    console.log('running')
     let url = null
     //upload article pdf to firebase if pdf is changed by user
     if (data.pdfFile !== null) {
       const response = await removePdfFromStorage(initialValue.pdfUrl)
-      console.log('firebase response-', response)
       url = await uploadPdfToStorage(data)
-      console.log('url from editform-', url)
     }
     //upload formData to server to process and persisit in DB
     const { pdfFile, ...dataWithNoPdfFile } = data
@@ -71,15 +65,9 @@ function EditArticleForm({ initialValue, params }) {
     //receive response from server and redirect to appropriate route
     if (response.ok) {
       reset()
-      console.log(`params:${params}`)
-      // params.issue === undefined
-      //   ? router.push(`/dashboard/articles`)
-      //   : router.push(`/dashboard/issues/${params.issue}`)
       router.push(`/dashboard/issues/${params.issue}`)
       setHideFileInput(true)
     } else {
-      console.log(response)
-      console.log('i failed woefully')
       if (response?.errorType === 'validationError') {
         const formfields = {
           title: ' title',

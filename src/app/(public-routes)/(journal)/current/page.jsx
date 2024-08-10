@@ -6,7 +6,6 @@ import MainContainer from '@/components/MainContainer'
 import { connectDB } from '@/lib/mongoose/config'
 import { Issue, Article } from '@/lib/mongoose/models'
 import { dateHelperFunction } from '@/lib/util'
-import { publicRuntimeConfig } from '../../../../../next.config'
 
 export const metadata = {
   title:
@@ -41,7 +40,7 @@ async function Currentissue() {
       <div className='flex items-center justify-center flex-grow w-full h-full'>
         <MainContainer>
           <div>
-            <PageHeading>{`BIJED - ${issueTitle}`}</PageHeading>
+            <PageHeading>{`BIJED ${issueTitle}`}</PageHeading>
             <Paragraph style='text-center'>{`Publish Date: ${dateHelperFunction(
               publishDate,
               'long'
@@ -49,10 +48,6 @@ async function Currentissue() {
           </div>
 
           <section className='space-y-5'>
-            <p className='text-lg border-b border-neutral-300'>
-              Articles in Issue
-              <span className='text-primary'>{` (${articlesInCurrentIssue.length})`}</span>
-            </p>
             <ListOfArticlesInIssue articlesInIssue={articlesInCurrentIssue} />
           </section>
         </MainContainer>

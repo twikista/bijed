@@ -1,11 +1,5 @@
 import { DocumentPlusIcon } from '@heroicons/react/24/outline'
-import {
-  ApprovedIcon,
-  LinkIcon,
-  PasswordIcon,
-  StackIcon,
-  UsersIcon,
-} from '../Icons'
+import { LinkIcon, PasswordIcon, StackIcon, UsersIcon } from '../Icons'
 import QuickLinkItem from './QuickLnkItem'
 import {
   AddIssuesIcon,
@@ -57,14 +51,6 @@ function QuickLinks({ userRole }) {
             linkText='Pending Jobs'
           />
         )}
-
-        {/* {userRole === 'managing editor' && (
-          <QuickLinkItem
-            Icon={ApprovedIcon}
-            linkUrl={`${process.env.DASHBOARD_JOBS}/approved-jobs`}
-            linkText='Approved Jobs'
-          />
-        )} */}
         {userRole === 'managing editor' && (
           <QuickLinkItem
             Icon={StackIcon}

@@ -10,8 +10,6 @@ import TextInput from '../TextInput'
 import PasswordInput from '../PasswordInput'
 import { signinFormSchema as schema } from '@/lib/schema'
 import DisplayServerValidationError from '../Dashboard/DisplayServerValidationErrors'
-import { toast } from 'react-toastify'
-import Spinner from '../Spinner'
 import SubmitButton from '../SubmitButton'
 import FormWrapper from '../Dashboard/FormWrapper'
 import Form from '../Dashboard/Form'
@@ -20,7 +18,7 @@ function SignInForm() {
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting, isSubmitted },
+    formState: { errors, isSubmitting },
     setError,
   } = useForm({
     defaultValues: { email: '', password: '' },
@@ -30,9 +28,7 @@ function SignInForm() {
   const [authError, setAuthError] = useState(null)
 
   const handler = async (data) => {
-    console.log(data)
     const response = await authenticate(data)
-    console.log('response', response)
 
     if (response && response?.errorType === 'validationError') {
       const fieldErrorMapping = {
@@ -42,18 +38,14 @@ function SignInForm() {
       const fieldWithError = Object.keys(fieldErrorMapping).find(
         (field) => response?.errors[field]
       )
-      console.log(response.errors[fieldWithError])
       if (fieldWithError) {
-        console.log('errors', response.errors)
         // Use the ValidFieldNames type to ensure the correct field names
         const errors = Object.keys(response.errors)
-        console.log('array:', errors)
         errors.forEach((error) =>
           setError(error, { type: 'server', message: response.errors[error] })
         )
       }
     } else if (response?.errorType === 'authError') {
-      console.log('auth error')
       setAuthError(response.error)
     }
   }
@@ -80,12 +72,6 @@ function SignInForm() {
           register={register}
           error={errors.password}
         />
-
-        {/* <input
-          type='submit'
-          value='Sign in'
-          className='bg-[#901090] w-full text-center text-white rounded-md py-2 cursor-pointer hover:bg-[#800080]'
-        /> */}
         <SubmitButton
           textColor='white'
           bgColor='901090'
@@ -94,12 +80,6 @@ function SignInForm() {
           altText='processing'
           formSubmitState={isSubmitting}
         />
-        {/* <button
-          type='submit'
-          className='bg-[#901090] w-full flex items-center text-center text-white rounded-md py-2 cursor-pointer hover:bg-[#800080] justify-center'
-        >
-          {isSubmitting ? <Spinner text='Processing...' /> : 'Sign in'}
-        </button> */}
       </Form>
       <div className='flex gap-2 mt-2'>
         <p className='text-gray-500'> Forgot password?</p>

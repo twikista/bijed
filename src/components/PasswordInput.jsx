@@ -7,10 +7,8 @@ import {
   EyeIcon,
   EyeSlashIcon,
 } from '@heroicons/react/24/outline'
-import { EyeIcon as Iicon } from './Icons'
 
 function PasswordInput({ label, name, register, error }) {
-  console.log('from password:', error)
   const [passwordIsVisible, setPasswordIsVisible] = useState(false)
   const togglePasswordVisibility = () =>
     setPasswordIsVisible(!passwordIsVisible)

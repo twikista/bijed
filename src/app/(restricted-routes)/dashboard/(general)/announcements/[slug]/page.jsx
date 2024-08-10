@@ -25,12 +25,8 @@ import { CalendarDaysIcon } from '@heroicons/react/24/solid'
 import { auth } from '../../../../../../../auth'
 
 async function AnnouncementPage({ params }) {
-  console.log(params.slug)
   const announcement = await fetchAnnouncement('slug', params?.slug)
   const session = await auth()
-  console.log('annoncement-', announcement)
-  console.log('announcement-params: ', params)
-  console.log('seesion----', session)
   const businessManagerPrivilege =
     announcement?.status === 'draft' &&
     session?.user.role === 'business manager'
@@ -40,13 +36,8 @@ async function AnnouncementPage({ params }) {
   return (
     <DashboardContainer>
       <DashboardWrapper>
-        {/* <span className='inline-block px-2 mt-2 text-base font-medium bg-gray-300 rounded-3xl'>{`Status: ${announcement?.status}`}</span> */}
         <div>
           <article key={announcement?.slug}>
-            {/* <h2 className='mb-1 text-base font-bold sm:text-2xl'>
-              {announcement?.title}
-            </h2>
-            <span>{formatDate(announcement?.createdAt)}</span> */}
             {businessManagerPrivilege && (
               <div className='flex justify-end gap-6 pt-8 pb-3 mb-5 border-b-2 border-gray-200'>
                 <EditButton
@@ -80,10 +71,6 @@ async function AnnouncementPage({ params }) {
             </section>
             {businessManagerPrivilege && (
               <div className='flex justify-center gap-6 pt-8 pb-6 border-t-2 border-gray-200'>
-                {/* <button
-                  href={`/dashboard/authorization-queue/new-request?item=${announcement?.slug}&type=announcements`}
-                  style='bg-[#008dcb] max-w-[500px] hover:bg-blue-600 shadow-md'
-                >Submit for Authorization</button> */}
                 <SendForAuthorizationButton
                   redirectUrl={`/dashboard/announcements/${params.slug}`}
                   resourceRef={announcement?.ref}
@@ -103,21 +90,6 @@ async function AnnouncementPage({ params }) {
             )}
             {managingEditorPrivilege && (
               <div className='flex justify-center gap-6 pt-8 pb-6 border-t-2 border-gray-200'>
-                {/* <EditButton
-                href={`/dashboard/announcements/${params.slug}/edit`}
-                label='edit'
-              />
-              <DeleteButton
-                variant='primary'
-                id={String(announcement?._id)}
-                action={deleteAnnouncement}
-              /> */}
-                {/* <LinkButton
-                  text='Submit for Authorization'
-                  href={`/dashboard/authorization-queue/new-request?item=${announcement?.slug}&type=announcements`}
-                  style='bg-[#008dcb] max-w-[500px] hover:bg-blue-600 shadow-md'
-                /> */}
-                {/* <PublishIssueButton /> */}
                 <PublishButton
                   resource='announcements'
                   resourceRef={announcement.ref}

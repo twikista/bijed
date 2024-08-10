@@ -1,5 +1,4 @@
 import MainContainer from '@/components/MainContainer'
-import { CheckedCircle } from '@/components/Icons'
 
 export const metadata = {
   title: 'Editorial Process',

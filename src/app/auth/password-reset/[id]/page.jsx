@@ -23,15 +23,6 @@ function page({ params }) {
             <h2 className='text-2xl font-medium text-center text-gray-600'>
               Reset link expired!
             </h2>
-            {/* {emailSent && (
-        <div>
-          <span>{emailSent}</span>
-        </div>
-      )} */}
-            {/* <p className='w-full max-w-[320px] mx-auto text-center text-gray-600'>
-              Your passsword reset link has expired. Follow the link below to
-              request a new reset link
-            </p> */}
             <p className='w-full mx-auto text-center text-gray-600'>
               {'Click '}
               <Link

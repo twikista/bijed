@@ -3,7 +3,6 @@ import { Book, CheckedCircle, Mouse, OpenAccess } from '@/components/Icons'
 import MainContainer from '@/components/MainContainer'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
-import Breadcrumb from '@/components/Dashboard/Breadcrumb'
 
 export default function Home() {
   const journalObjectives = [
@@ -77,37 +76,6 @@ export default function Home() {
             Sciences.
           </p>
         </section>
-        {/* <section className='md:w-[85%]'>
-        <h3 className='py-1 font-bold text-white rounded-t-lg bg-primary'>
-          Some Quick Facts about BIJED
-        </h3>
-        <ul className='grid overflow-hidden border border-gray-300 rounded-b-lg md:grid-cols-2'>
-          <li>
-            To strongly enhance the contribution of knowledge for the existing
-          </li>
-          <li>
-            To strongly enhance the contribution of knowledge for the existing
-          </li>
-          <li>
-            To strongly enhance the contribution of knowledge for the existing
-          </li>
-          <li>
-            To strongly enhance the contribution of knowledge for the existing
-          </li>
-          <li>
-            To strongly enhance the contribution of knowledge for the existing
-          </li>
-          <li>
-            To strongly enhance the contribution of knowledge for the existing
-          </li>
-          <li>
-            To strongly enhance the contribution of knowledge for the existing
-          </li>
-          <li>
-            To strongly enhance the contribution of knowledge for the existing
-          </li>
-        </ul>
-      </section> */}
         <section className='grid grid-cols-1 grid-rows-3 gap-3 md:grid-cols-3 md:grid-rows-1'>
           <article className='flex flex-col items-stretch'>
             <h3 className='flex items-center justify-center gap-1 py-2 text-base font-bold text-white border rounded-t-lg md:text-xl bg-primary font-saira border-primary'>

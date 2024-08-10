@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useRef } from 'react'
 import { menuItemsData } from '@/static/menuitems_data'
-import { ShowMenuToggle, HideMenuToggle } from './MobileMenuToggleIcons'
 import MobileMenuItem from './MobileMenuItem'
 
 function MobileNavBar({ showMenu, setShowMenu }) {
@@ -44,16 +43,6 @@ function MobileNavBar({ showMenu, setShowMenu }) {
         hang ? 'fixed top-0 right-0 left-0' : 'relative'
       }`}
     >
-      {/* <div className='relative w-full py-1'> */}
-      {/* <div className='flex justify-end w-full px-2'>
-          <button
-            type='button'
-            className='px-1 py-[2px] font-semibold text-white uppercase border border-white rounded-[4px] text-sm'
-            onClick={() => setShowMenu((prev) => !prev)}
-          >
-            {showMenu ? <HideMenuToggle /> : <ShowMenuToggle />}
-          </button>
-        </div> */}
       <ul
         className={`flex-col absolute top-[1px] bg-primary w-full text-white font-medium font-barlow text-sm ${
           showMenu ? 'h-fit flex' : 'h-0 hidden py-0'
@@ -69,7 +58,6 @@ function MobileNavBar({ showMenu, setShowMenu }) {
           />
         ))}
       </ul>
-      {/* </div> */}
     </nav>
   )
 }

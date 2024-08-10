@@ -1,6 +1,6 @@
 'use client'
 import { useState } from 'react'
-import { usePathname } from 'next/navigation'
+import { usePathname, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 
 import { Document, Page, pdfjs, Thumbnail } from 'react-pdf'
@@ -37,13 +37,12 @@ pdfjs.GlobalWorkerOptions.workerSrc = new URL(
 
 function PDFViewer({ filePath, params }) {
   const pathname = usePathname()
+  const searchParams = useSearchParams()
   const [pageNumber, setPageNumber] = useState(1)
   const [numPages, setNumPages] = useState(null)
-  const [pdf, setPdf] = useState(null)
   const [pageWidth, setPageWidth] = useState(0)
   const [scale, setScale] = useState(1)
   const [pdfloaded, setPdfLoaded] = useState(false)
-  console.log('pageWidth=====>', params)
 
   const onDocumentLoadSuccess = ({ numPages }) => {
     setNumPages(numPages)
@@ -56,7 +55,6 @@ function PDFViewer({ filePath, params }) {
   }
 
   const goToPrevPage = () => {
-    console.log(pageNumber)
     setPageNumber((prevPageNumber) => Math.max(prevPageNumber - 1, 1))
   }
 
@@ -72,20 +70,15 @@ function PDFViewer({ filePath, params }) {
     setScale((prevPageNumber) => Math.min(prevPageNumber + 0.1, 2))
   }
 
-  // if (pdfloaded === false) {
-  //   return (
-  //     <div className='flex items-center justify-center min-h-screen'>
-  //       <p>Getting PDF Ready...</p>
-  //     </div>
-  //   )
-  // }
   return (
     <div className='flex flex-col items-center bg-neutral-600 relative mt-[70px]'>
       {pdfloaded && (
         <div className='fixed top-0 left-0 right-0 z-50 flex items-center justify-between shadow-lg bg-[#353839] border-b border-neutral-600 h-[58px] px-3'>
           <Link
             href={
-              pathname.includes('archive')
+              searchParams.get('ref') === 'current'
+                ? `/current/${params.issue}/${params.article}`
+                : pathname.includes('archive')
                 ? `/archive/${params.issue}/${params.article}`
                 : `/dashboard/issues/${params.issue}/${params.article}`
             }
@@ -135,15 +128,9 @@ function PDFViewer({ filePath, params }) {
                 className='flex w-[60pxpx] items-center justify-center text-gray-200 px-2 py-1 border border-gray-200 sm:w-[140px] hover:bg-gray-200 hover:text-neutral-700 transition-colors  text-center gap-2'
               >
                 <DownloadIcon className='w-4' />
-                {/* <Image src={pdf} alt='download pdf icon' width={25} /> */}
+
                 <span className='hidden sm:block'>Download</span>
               </a>
-              {/* <Link
-            href={`${process.env.NEXT_URL}/archive/${params.issue}/${params.article}/view`}
-            className='block font-bold text-primary px-3 py-2 border border-primary sm:w-[160px] rounded-md hover:bg-primary hover:text-white transition-colors  text-center'
-          >
-            view pdf
-          </Link> */}
             </div>
           </div>
         </div>
@@ -153,25 +140,16 @@ function PDFViewer({ filePath, params }) {
           file={filePath}
           pageMode='useThumbs'
           onLoadSuccess={onDocumentLoadSuccess}
-          onLoadError={(error) =>
-            console.error(
-              'Error occurred while loading document:',
-              error.message
-            )
-          }
-          // loading={
-          //   <div className='flex items-center justify-center w-[800px] min-h-screen bg-white'>
-          //     <p>Getting PDF Ready...</p>
-          //   </div>
+          // onLoadError={(error) =>
+          //   console.error(
+          //     'Error occurred while loading document:',
+          //     error.message
+          //   )
           // }
           loading=''
         >
           {Array.from({ length: numPages }, (_, i) => i + 1).map((i, index) => (
             <div key={i} className='flex flex-col'>
-              {/* <div className='bg-white'>
-                <p>{`${i}/${numPages}`}</p>
-              </div> */}
-
               <Page
                 pageNumber={i}
                 renderTextLayer={false}
@@ -184,15 +162,6 @@ function PDFViewer({ filePath, params }) {
               />
             </div>
           ))}
-          {/* <div>
-            {Array.from({ length: numPages }, (_, i) => i + 1).map(
-              (i, index) => (
-                <div key={i} className='flex flex-col'>
-                  <Thumbnail pageNumber={i} width={80} scale={1} />
-                </div>
-              )
-            )}
-          </div> */}
         </Document>
       </div>
     </div>

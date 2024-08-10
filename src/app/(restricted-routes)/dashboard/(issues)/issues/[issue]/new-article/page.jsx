@@ -1,6 +1,4 @@
-// import UploadInput from '@/components/UploadInput'
 import DashboardContainer from '@/components/Dashboard/DashboardContainer'
-import ArticleForm from '@/components/Dashboard/ArticleForm'
 import NewArticleForm from '@/components/Dashboard/NewArticleForm'
 import { getIssue } from '@/lib/data'
 import DashboardWrapper from '@/components/Dashboard/DashboardWrapper'
@@ -19,7 +17,6 @@ const initialState = {
 }
 
 async function AddArticle({ params }) {
-  console.log('pararam: ', params)
   const articleIssue = await getIssue(params.issue)
   const volume = articleIssue?.volume
   const issue = articleIssue?.issueNumber

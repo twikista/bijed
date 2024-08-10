@@ -4,27 +4,19 @@ import DashboardContainer from '@/components/Dashboard/DashboardContainer'
 import JournalStats from '@/components/Dashboard/JournalStats'
 import { TimePastIcon } from '@/components/Icons'
 import QuickLinks from '@/components/Dashboard/QuickLinks'
-import { getIssues } from '@/lib/data'
 import { Issue } from '@/lib/mongoose/models'
 import { connectDB } from '@/lib/mongoose/config'
-import uniqid from 'uniqid'
 import SideNav from '@/components/Dashboard/SideNav'
-// import Link from 'next/link'
 
 const getLatestIssue = async () => {
   connectDB()
   const latestIssue = await Issue.find().sort({ publishDate: -1 }).limit(1)
-  console.log(latestIssue)
   return latestIssue[0]
 }
 async function Dashboard() {
   const { user } = await auth()
   const lastIssue = await getLatestIssue()
-  console.log('UNIQ ID', uniqid.time())
-
   const formatedDate = (date) => new Intl.DateTimeFormat('en-GB').format(date)
-
-  // console.log('auth in dashboard home: ', user)
   return (
     <main className='relative flex h-screen'>
       <SideNav />
@@ -57,7 +49,6 @@ async function Dashboard() {
                   <span>{formatedDate(lastIssue?.publishDate)}</span>
                 </p>
               </div>
-              {/* </div> */}
             </div>
             <QuickLinks userRole={user?.role} />
           </section>

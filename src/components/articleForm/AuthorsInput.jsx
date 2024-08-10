@@ -1,7 +1,5 @@
 'use client'
 function AuthorsInput({ formData, setFormData }) {
-  //   const [authors, setAuthors] = useState([{ name: '', affliation: '' }])
-
   const handleChange = (e, i) => {
     const { name, value } = e.target
     const newAuthors = [...formData.authors]

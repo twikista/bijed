@@ -1,6 +1,6 @@
 export const menuItemsData = [
   { name: 'Home', url: '/' },
-  // { name: 'Editorial Board', url: '/editorial-board' },
+
   {
     name: 'about',
     url: '/about',

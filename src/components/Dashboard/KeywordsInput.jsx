@@ -2,26 +2,19 @@
 
 import { useState, useEffect } from 'react'
 import { useFieldArray } from 'react-hook-form'
-// import ReactQuill from 'react-quill'
-// import TestEditor from '@/components/Dashboard/TestEditor'
 import { XCircleIcon } from '@heroicons/react/24/outline'
 import clsx from 'clsx'
-import uniqid from 'uniqid'
 
 function KeywordsInput({ control, register, getValues, error, initialValue }) {
-  console.log('keyworderror-', error?.root)
-  console.log('keyworderror-', error?.message)
-
   const { append, fields, remove } = useFieldArray({
     control,
     name: 'keywords',
   })
-  console.log('field-', fields)
+
   const [displayedKeywords, setDisplayedKeyword] = useState([])
 
   const appendHanlder = () => {
     append({ keyword: '' })
-    console.log('keywords:', getValues('keywords'))
     setDisplayedKeyword(getValues('keywords').filter((i) => i.keyword !== ''))
   }
 
@@ -29,11 +22,8 @@ function KeywordsInput({ control, register, getValues, error, initialValue }) {
     remove(index)
     setDisplayedKeyword(getValues('keywords').filter((i) => i.keyword !== ''))
   }
-  console.log('displayedKeywords:', displayedKeywords)
-
   useEffect(() => {
     if (initialValue.length !== 0) {
-      // append({ keyword: '' })
       setDisplayedKeyword(initialValue)
     }
   }, [])
@@ -44,16 +34,6 @@ function KeywordsInput({ control, register, getValues, error, initialValue }) {
         {fields.map(
           (field, index) =>
             index === fields.length - 1 && (
-              // <div key={field.id}>
-              //   <input
-              //     type='text'
-              //     placeholder='Enter Keyword'
-              //     {...register(`keywords.${index}.keyword`)}
-              //   />
-              //   {error && <span>{error?.[index]?.keyword?.message}</span>}
-              // </div>
-              // start
-
               <>
                 {/* <div> */}
                 <div className='flex flex-col flex-1' key={field.id}>

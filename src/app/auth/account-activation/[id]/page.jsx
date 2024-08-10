@@ -14,8 +14,7 @@ async function AccountActivation({ params }) {
       </div>
     )
   }
-  // const user = await getUser()
-  console.log('params:', params)
+
   return (
     <div className='flex items-center justify-center w-full border'>
       <AccountActivationForm id={params?.id} />

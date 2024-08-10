@@ -11,19 +11,6 @@ const articleSchema = new mongoose.Schema(
       {
         name: { type: String, required: true },
         affliation: { type: String, required: true },
-        // orchidId: String,
-        //   email: {
-        //     type: String,
-        //     required: true,
-        //     validate: {
-        //       validator: (value) => {
-        //         return /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test(
-        //           value
-        //         )
-        //       },
-        //       message: (props) => `${props.value} is not a valid email`,
-        //     },
-        //   },
       },
     ],
     volume: { type: Number, required: true, trim: true },
@@ -180,13 +167,6 @@ const jobQueueSchema = new mongoose.Schema(
   },
   { timestamps: true }
 )
-
-//volume schema
-// const volumeSchema = mongoose.Schema({
-//   volumeNumber: { type: String, required: true },
-//   year: String,
-//   issues: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Issue' }],
-// })
 
 //Models
 

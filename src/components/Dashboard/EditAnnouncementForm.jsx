@@ -3,7 +3,6 @@
 import { useForm, Controller } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/navigation'
-import Button from '@/components/Button'
 import RichTextEditor from '@/components/Dashboard/RichTextEditor'
 import { updateAnnouncement } from '@/lib/actions'
 import { announcementSchema } from '@/lib/schema'
@@ -14,7 +13,6 @@ import SubmitButton from '../SubmitButton'
 import { CancelButton } from './Buttons'
 
 function EditAnnouncementForm({ initialState }) {
-  console.log('edit-state:- ', initialState)
   const router = useRouter()
   const [errorFromServer, setErrorFromServer] = useState('')
 
@@ -28,13 +26,10 @@ function EditAnnouncementForm({ initialState }) {
     defaultValues: initialState,
     resolver: zodResolver(announcementSchema),
   })
-  // console.log(formData)
   const handler = async (data) => {
     const response = await updateAnnouncement(initialState, data)
-    console.log('full response', response)
     if (response.ok) {
       reset()
-      console.log('bla---------------', response)
       router.push(`/dashboard/announcements/${response?.slug}`)
     } else {
       if (response?.errorType === 'validationError') {
@@ -74,7 +69,6 @@ function EditAnnouncementForm({ initialState }) {
           register={register}
           error={errors?.description}
         />
-        {/* <Input type='date' name='publishDate' value={formData.publishDate} /> */}
         <TextInput
           label='Announcement due date'
           name='dueDate'
@@ -107,12 +101,6 @@ function EditAnnouncementForm({ initialState }) {
             text='Cancel'
           />
         </div>
-        {/* <Button type='submit' label={isSubmitting ? 'Submitting' : 'Submit'} />
-        <Button
-          type='button'
-          label='cancel'
-          onClick={() => router.push('/dashboard/announcements')}
-        /> */}
       </form>
     </FormWrapper>
   )

@@ -8,11 +8,10 @@ const staticSitemapData = menuItemsData
   .map((item) => (item.submenu ? item.submenu : null))
   .flat()
   .filter((i) => i !== null)
-// .reduce((accumulator, currentValue) => accumulator.concat(currentValue), [])
 const menuEntries = staticSitemapData.map((item) => {
   return { url: `${process.env.NEXT_BASE_URL}/${item.url}` }
 })
-console.log(menuEntries)
+
 function Navbar() {
   const [hang, setHang] = useState(false)
 
@@ -45,6 +44,3 @@ function Navbar() {
 }
 
 export default Navbar
-
-// ? ' fixed w-full bg-[#993264] py-2 justify-center flex top-0'
-// ' w-full bg-[#993264] py-2 justify-center flex sticky top-0'

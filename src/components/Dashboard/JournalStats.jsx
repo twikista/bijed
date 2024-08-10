@@ -1,6 +1,5 @@
 import { connectDB } from '@/lib/mongoose/config'
 import { Article, Issue } from '@/lib/mongoose/models'
-import { QueueListIcon, BookmarkIcon } from '@heroicons/react/24/outline'
 import JournalStatCard from './JournalStatCard'
 import { VolumeIcon, IssuesIcon, ArticlesIcon } from '../Icons'
 
@@ -13,9 +12,7 @@ const getMaxVolume = async () => {
     const [[{ volume: numberOfVolume }], numberOfIssues, numberOfArticles] =
       await Promise.all([ArticleWithMaxVolume, issuesCount, articlesCount])
     return { numberOfVolume, numberOfIssues, numberOfArticles }
-  } catch (error) {
-    console.log(error)
-  }
+  } catch (error) {}
 }
 async function JournalStats() {
   const data = await getMaxVolume()

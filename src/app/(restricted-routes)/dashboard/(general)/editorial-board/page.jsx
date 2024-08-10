@@ -5,9 +5,7 @@ import DashboardContainer from '@/components/Dashboard/DashboardContainer'
 import DashboardWrapper from '@/components/Dashboard/DashboardWrapper'
 import { fetchAllEditorialBoardData, fetchEditorialBoard } from '@/lib/data'
 import {
-  DeleteButton,
   EditButton,
-  LinkButton,
   PublishButton,
   RejectPublishButton,
   SendForAuthorizationButton,
@@ -23,16 +21,12 @@ import {
 
 async function EditorialBoard({ searchParams }) {
   const mode = searchParams?.mode ? searchParams.mode : 'final'
-  console.log('mode-------------', mode)
   const data = await Promise.all([
     fetchEditorialBoard(mode),
     fetchAllEditorialBoardData(),
   ])
 
-  console.log('data=======', data)
   const [[editorialBoardData], editorialBoardArray] = data
-  // const fetchedEditorialBoardData = await fetchEditorialBoard(mode)
-  // const [editorialBoardData] = fetchedEditorialBoardData
 
   const editorialBoardDataWithStyles = editorialBoardData?.content.replace(
     /<h3>/g,
@@ -45,8 +39,6 @@ async function EditorialBoard({ searchParams }) {
   const managingEditorPrivilege =
     editorialBoardData?.status === 'review' &&
     session?.user.role === 'managing editor'
-  console.log('searchParams----------', businessManagerPrivilege)
-  console.log('xxxxxx-', editorialBoardData)
 
   if (!editorialBoardData?._id) {
     return (
@@ -56,7 +48,6 @@ async function EditorialBoard({ searchParams }) {
             <ResourceFilter mode={mode} />
           </div>
           <section className='flex flex-col'>
-            {/* <h3 className='text-2xl font-medium '>Pending Jobs</h3> */}
             <div className='flex items-center justify-center flex-1 my-24'>
               <p className='text-2xl font-medium text-gray-400'>
                 {session?.user?.role === 'managing editor'

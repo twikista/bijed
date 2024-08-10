@@ -5,7 +5,7 @@ function SubMenu({ subMenuItems, showSubMenu, setShowSubMenu }) {
     showSubMenu && setShowSubMenu(false)
   }
   return (
-    <ul className='absolute flex flex-col text-sm font-semibold text-white bg-primary top-[28px] shadow-[0px_10px_15px_-3px_rgba(0,0,0,0.1),0px_4px_6px_-2px_rgba(0,0,0,0.05)]'>
+    <ul className='absolute flex flex-col text-base font-semibold text-white bg-primary top-[28px] shadow-[0px_10px_15px_-3px_rgba(0,0,0,0.1),0px_4px_6px_-2px_rgba(0,0,0,0.05)]'>
       {subMenuItems.map((menuItem) => (
         <li
           key={menuItem.name}

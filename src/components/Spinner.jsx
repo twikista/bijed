@@ -1,14 +1,7 @@
 import React from 'react'
 import clsx from 'clsx'
 
-function Spinner({
-  text,
-  basic,
-  width,
-  height,
-  borderSize,
-  textColor = 'white',
-}) {
+function Spinner({ text, basic, textColor = 'white' }) {
   return (
     <div className='flex items-center gap-2 bg-transparent'>
       <i

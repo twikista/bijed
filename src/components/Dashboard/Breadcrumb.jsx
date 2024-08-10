@@ -5,19 +5,9 @@ import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 import { ChevronRightIcon } from '@heroicons/react/24/outline'
 
-function Breadcrumb({
-  homeElement,
-  homeUrl,
-  containerClasses,
-  listClasses,
-  activeClasses,
-  capitalizeLinks,
-  isProtectedRoute,
-}) {
+function Breadcrumb({ homeElement, homeUrl, isProtectedRoute }) {
   const paths = usePathname()
   const pathNames = paths.split('/').filter((path) => path)
-  console.log('paths:', paths)
-  console.log('pathnames:', pathNames)
 
   //render 'Home' link condtionally if not currently on website home or dashboard route
   const renderHome = () => {
@@ -50,7 +40,6 @@ function Breadcrumb({
             isProtectedRoute && pathNames.length === 1
               ? ''
               : `/${pathNames.slice(0, index + 1).join('/')}`
-          console.log(`href ${index}`, href)
           const lastItem = index === pathNames.length - 1
           if (!lastItem) {
             //disable second to last link on breadcrumb if on current issue path
@@ -64,7 +53,6 @@ function Breadcrumb({
                     <span>{link}</span>
                   </li>
                   <ChevronRightIcon className='w-4' />
-                  {/* {pathNames.length !== index + 1 && separator} */}
                 </React.Fragment>
               )
 
@@ -89,7 +77,6 @@ function Breadcrumb({
                     <span>{link}</span>
                   </li>
                 )}
-                {/* {pathNames.length !== index + 1 && separator} */}
               </React.Fragment>
             )
           }

@@ -24,7 +24,6 @@ export function EdiButton({
   label = 'Edit',
 }) {
   const pathname = usePathname()
-  console.log('readOnly-', disabled)
   if (variant === 'primary') {
     return (
       <Link
@@ -73,7 +72,7 @@ export function EditButton({
   label = 'Edit',
 }) {
   const router = useRouter()
-  console.log('readOnly-', disabled)
+
   if (variant === 'primary') {
     return (
       <button
@@ -224,7 +223,6 @@ export function PublishButton({
   const pathname = usePathname()
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [published, setPublished] = useState(false)
-  console.log('pathname--xxxxx----xxxx--', pathname)
   const handler = async () => {
     setIsSubmitting(true)
     const response = await action(resourceRef, user, data)
@@ -312,9 +310,6 @@ export function SendForAuthorizationButton({
     setIsSubmitting(true)
     const response = await action(resourceRef)
     if (response.ok) {
-      // setPublished(true)
-      // console.log('I ran from here')
-      // router.push(redirectUrl)
       toast.success(notificationMessage.success)
 
       // setIsSubmitting(false)

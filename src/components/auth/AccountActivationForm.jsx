@@ -77,10 +77,6 @@ function AccountActivationForm({ id }) {
           altText='Activating Account...'
           formSubmitState={isSubmitting}
         />
-        {/* <input
-          type='submit'
-          value={isSubmitting ? 'submitting...' : 'submit'}
-        /> */}
       </Form>
     </FormWrapper>
   )

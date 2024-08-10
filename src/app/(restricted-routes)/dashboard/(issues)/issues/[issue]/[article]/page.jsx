@@ -4,11 +4,9 @@ import { auth } from '../../../../../../../../auth'
 
 import DashboardContainer from '@/components/Dashboard/DashboardContainer'
 import { getArticle } from '@/lib/data'
-import { articleFileName, joinKeywords } from '@/lib/util'
+import { joinKeywords } from '@/lib/util'
 import { deleteArticle } from '@/lib/actions'
 
-import orcidid from '@/../public/orcidid.png'
-import googleScholar from '@/../public/google-scholar-icon.png'
 import ccLogo from '@/../public/by.png'
 
 import { EdiButton, DeleteButton } from '@/components/Dashboard/Buttons'
@@ -18,10 +16,6 @@ import SideNav from '@/components/Dashboard/SideNav'
 async function Article({ params }) {
   const { user } = await auth()
   const article = await getArticle(params)
-  console.log(
-    '+++++++++++++++++',
-    `${process.env.NEXT_URL}/dashboard/${params.issue}/${params.article}/view`
-  )
 
   return (
     <main className='relative flex h-screen'>
@@ -50,36 +44,14 @@ async function Article({ params }) {
             <section className='flex flex-col py-2 space-y-3 border-t border-b sm:space-y-0 sm:flex-row border-neutral-300'>
               <div className='flex-1'>
                 <div className='space-y-[5px]'>
-                  {article.authors.map(
-                    ({ name, affliation, orchidId, _id }) => (
-                      <div key={_id} className=''>
-                        <div className='flex items-center space-x-1'>
-                          <p className='font-semibold'>{name}</p>
-                          {/* {orchidId && (
-                        <a href='https://orcid.org/' target='_blank'>
-                          <Image
-                            src={orcidid}
-                            alt='orcid id logo'
-                            width={16}
-                            height={16}
-                          />
-                        </a>
-                      )} */}
-                          {/* {orchidId && (
-                        <a href='https://orcid.org/' target='_blank'>
-                          <Image
-                            src={googleScholar}
-                            alt='orcid id logo'
-                            width={16}
-                            height={16}
-                          />
-                        </a>
-                      )} */}
-                        </div>
-                        <p className='text-sm text-neutral-500'>{affliation}</p>
+                  {article.authors.map(({ name, affliation, _id }) => (
+                    <div key={_id} className=''>
+                      <div className='flex items-center space-x-1'>
+                        <p className='font-semibold'>{name}</p>
                       </div>
-                    )
-                  )}
+                      <p className='text-sm text-neutral-500'>{affliation}</p>
+                    </div>
+                  ))}
                 </div>
               </div>
               <div className='flex flex-col w-[250px]'>
@@ -124,15 +96,6 @@ async function Article({ params }) {
                 <p className='text-justify'>{article.abstract}</p>
               </div>
               <div className='flex justify-center'>
-                {/* <a
-                  href={article.pdfUrl}
-                  download
-                  target='_blank'
-                  rel='noreferrer'
-                  className='block font-bold text-primary px-3 py-2 border border-primary sm:w-[160px] rounded-md hover:bg-primary hover:text-white transition-colors  text-center'
-                >
-                  DOWNLOAD PDF
-                </a> */}
                 <Link
                   href={`${process.env.NEXT_URL}/dashboard/issues/${params.issue}/${params.article}/view`}
                   className='block font-bold text-primary px-3 py-2 border border-primary sm:w-[240px] rounded-md hover:bg-primary hover:text-white transition-colors  text-center'

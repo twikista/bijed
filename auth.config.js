@@ -7,7 +7,6 @@ export const authConfig = {
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        // console.log('jwt user: ', user)
         token.firstName = user.firstName
         token.lastName = user.lastName
         token.isAdmin = user.isAdmin
@@ -22,31 +21,17 @@ export const authConfig = {
         session.user.isAdmin = token.isAdmin
         session.user.role = token.role
       }
-      console.log(session)
       return session
     },
     authorized({ auth, request: { nextUrl } }) {
       const isLoggedIn = !!auth?.user
       const loggedInUser = auth?.user
       const isOnDashboard = nextUrl.pathname.startsWith('/dashboard')
-      const isOnAdminPage = nextUrl.pathname.startsWith('/dashboard/admin')
+      const isOnAdminPage = nextUrl.pathname.startsWith(
+        '/dashboard/manage-users'
+      )
       const isOnCreateUserPage = nextUrl.pathname === '/auth/signup'
 
-      console.log(
-        'loggedIn: ',
-        isLoggedIn,
-        'isOnDashboard: ',
-        isOnDashboard,
-        'onAdminPage: ',
-        isOnAdminPage,
-        'oncreateuser:',
-        isOnCreateUserPage
-      )
-      // console.log('login boolean: ', !!auth?.user)
-      // console.log('admin: ', loggedInUser?.isAdmin)
-      // console.log('non-admin: ', !loggedInUser.isAdmin)
-
-      // console.log('admin route: ', nextUrl.pathname === '/dashboard/admin')
       if (isOnCreateUserPage) {
         if (isLoggedIn && loggedInUser.isAdmin) return true
         if (isLoggedIn && !loggedInUser.isAdmin)

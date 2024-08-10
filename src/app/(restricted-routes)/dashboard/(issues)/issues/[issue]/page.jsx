@@ -2,7 +2,6 @@ import {
   DeleteButton,
   EditButton,
   PublishButton,
-  PublishIssueButton,
   RejectPublishButton,
   SendForAuthorizationButton,
 } from '@/components/Dashboard/Buttons'
@@ -13,16 +12,6 @@ import { deleteArticle } from '@/lib/actions'
 import { connectDB } from '@/lib/mongoose/config'
 import { Article, Issue } from '@/lib/mongoose/models'
 import { auth } from '../../../../../../../auth'
-import {
-  ClockIcon,
-  CheckIcon,
-  PencilIcon,
-  TrashIcon,
-  RectangleStackIcon,
-  DocumentArrowUpIcon,
-  DocumentCheckIcon,
-  BookOpenIcon,
-} from '@heroicons/react/24/outline'
 import Link from 'next/link'
 import {
   publishIssue,
@@ -44,7 +33,6 @@ const getArticlesInIssue = async (issueRef) => {
       startPage: 1,
     }),
   ])
-  // console.log(articlesInIssue)
   return articlesInIssue
 }
 
@@ -52,7 +40,6 @@ async function IssuePage({ params }) {
   const { user } = await auth()
 
   const { issue: issueRef } = params
-  console.log(issueRef)
 
   const [[issue], articlesInIssue] = await getArticlesInIssue(issueRef)
 
@@ -61,10 +48,8 @@ async function IssuePage({ params }) {
 
   const managingEditorPrivilege =
     issue?.status === 'review' && user?.role === 'managing editor'
-  console.log('issue===>>>>>>>>>>', issue)
 
   if (!articlesInIssue.length) {
-    console.log(params)
     return (
       <main className='relative flex h-screen'>
         <SideNav />
@@ -99,7 +84,6 @@ async function IssuePage({ params }) {
                     href={`/dashboard/issues/${issue.ref}/new-article`}
                   />
                 )}
-                {/* <PublishIssueButton issueRef={issueRef}/> */}
               </div>
             </section>
           </DashboardWrapper>
@@ -115,7 +99,6 @@ async function IssuePage({ params }) {
         <DashboardWrapper>
           <section>
             <div>
-              {/*move to a seperate client component and context to supply issue details*/}
               <h2 className='text-2xl font-bold capitalize font-cairo'>
                 {`Volume ${issue.volume} Issue ${issue.issueNumber} (${new Date(
                   issue.publishDate
@@ -219,17 +202,11 @@ async function IssuePage({ params }) {
                 </tbody>
               </table>
             </div>
-            {/* {!issue.published && session?.user?.role === 'business manager' && (
-            <PublishIssueButton issueRef={issue.ref} />
-          )} */}
           </section>
           {businessManagerPrivilege && (
             <div className='flex justify-center gap-6 pt-8'>
               <SendForAuthorizationButton
-                // redirectUrl={`/dashboard/editorial-board?mode=${mode}`}
-                // resource='editorial-board'
                 resourceRef={issueRef}
-                // slug={mode}
                 action={submitIssueForPublishing}
                 label={{
                   main: 'Submit for Authorization',
@@ -245,7 +222,6 @@ async function IssuePage({ params }) {
           {managingEditorPrivilege && (
             <div className='flex justify-center gap-6 pt-8 pb-4'>
               <RejectPublishButton
-                // resource='editorial-board'
                 resourceRef={issue?.ref}
                 label={{ main: 'Reject Publish Request', alt: 'Processing...' }}
                 action={rejectRequestToPublishIssue}
@@ -255,10 +231,7 @@ async function IssuePage({ params }) {
                 }}
               />
               <PublishButton
-                // data={JSON.stringify(editorialBoardData)}
-                // resource='editorial-board'
                 resourceRef={issue?.ref}
-                // slug={issue?.slug}
                 user={user}
                 action={publishIssue}
                 notificationMessage={{

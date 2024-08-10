@@ -59,7 +59,6 @@ function MobileNavBar() {
             onClick={toggleHandler}
           >
             {showMenu ? <HideMenuToggle /> : <ShowMenuToggle />}
-            {/* {showMenu ? <span>hide menu</span> : <span>show menu</span>} */}
           </button>
         </div>
         <ul

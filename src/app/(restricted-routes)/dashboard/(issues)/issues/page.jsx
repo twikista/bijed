@@ -29,7 +29,6 @@ async function Issues({ searchParams }) {
               <ResourceFilter mode={mode} />
             </div>
             <section className='flex flex-col'>
-              {/* <h3 className='text-2xl font-medium '>Pending Jobs</h3> */}
               <div className='flex items-center justify-center flex-1 my-24'>
                 <p className='text-2xl font-medium text-gray-400'>
                   Oops! No pending pending/unpublished issue
@@ -60,20 +59,14 @@ async function Issues({ searchParams }) {
             <table className='min-w-full overflow-x-scroll'>
               <thead className='rounded-lg'>
                 <tr className=''>
-                  {/* <th className='px-4 py-6 pb-1 font-medium w-[20px]'>Volume</th> */}
                   <th className='px-4 pt-4 pb-1 table-fixed'>Issue</th>
                   <th className='px-4 pt-4 pb-1 font-medium'>Status</th>
                   <th className='px-4 pt-4 pb-1 font-medium'>Publish Date</th>
-                  {/* <th className='sr-only'></th>
-                <th className='sr-only'></th> */}
                 </tr>
               </thead>
               <tbody className='text-center bg-white divide-y-2 rounded-sm'>
                 {issues.map((issue, index) => (
                   <tr className='py-5 text-sm' key={issue._id}>
-                    {/* <td className='px-4 py-4 border border-solid'>{`${
-                    index + 1
-                  }.`}</td> */}
                     <td className='px-4 py-4 text-center border border-solid'>
                       <Link
                         className='text-center text-[#800080] hover:text-blue-600 font-medium'

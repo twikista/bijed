@@ -1,7 +1,5 @@
-// import { inter, saira, cairo, barlow, ibmPlex } from './font/font'
 import {
   Inter,
-  // Saira,
   Cairo,
   Barlow,
   IBM_Plex_Sans,
@@ -11,9 +9,6 @@ import {
 import './globals.css'
 import 'react-toastify/dist/ReactToastify.css'
 import { ToastContainer } from 'react-toastify'
-import { template } from 'handlebars'
-// import Header from '@/components/Header'
-// import Footer from '@/components/Footer'
 
 export const saira = Saira_Condensed({
   subsets: ['latin'],
@@ -44,14 +39,6 @@ export const roboto = Roboto({
   adjustFontFallback: false,
 })
 
-// export const ibmPlexCon = IBM_Plex_Sans_Condensed({
-//   subsets: ['latin'],
-//   weight: ['300', '400', '500', '600', '700'],
-//   variable: '--font-plexCon',
-//   display: 'swap',
-//   adjustFontFallback: false,
-// })
-
 export const barlow = Barlow({
   subsets: ['latin'],
   weight: ['400', '500', '600', '700', '800', '900'],
@@ -66,14 +53,6 @@ export const cairo = Cairo({
   display: 'swap',
   adjustFontFallback: false,
 })
-
-// export const saira = Saira_Condensed({
-//   subsets: ['latin'],
-//   weight: ['400', '500', '600', '700', '800', '900'],
-//   variable: '--font-saira',
-//   // display: 'swap',
-//   // adjustFontFallback: false,
-// })
 
 export const metadata = {
   metadataBase: new URL('https://bijed.com.ng'),
@@ -115,10 +94,8 @@ export default function RootLayout({ children }) {
       <body
         className={`${ibmPlex.className} ${saira.variable} ${cairo.variable} ${barlow.variable} ${ibmPlex.variable} antialiased flex flex-col min-h-full bg-slate-50 min-w-[320px]`}
       >
-        {/* <Header /> */}
         {children}
         <ToastContainer />
-        {/* <Footer /> */}
       </body>
     </html>
   )

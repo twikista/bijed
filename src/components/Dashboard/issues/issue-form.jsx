@@ -2,23 +2,20 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { useForm, Controller } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { addIssue, updateIssue } from '@/lib/actions'
 
 import TextInput from '@/components/TextInput'
 import { CancelButton } from '../Buttons'
-import YearSelectInput from '../YearSelectInput'
 import { issueFormSchema } from '@/lib/schema'
 import SubmitButton from '@/components/SubmitButton'
 import FormWrapper from '../FormWrapper'
 import Form from '../Form'
 
 function IssueForm({ initialFormState, initialValue }) {
-  console.log('initialFState-', initialFormState)
   const [errorFromServer, setErrorFromServer] = useState('')
   const router = useRouter()
-  // const [formData, setformData] = useState(initialValue)
   const {
     control,
     register,
@@ -29,11 +26,7 @@ function IssueForm({ initialFormState, initialValue }) {
     defaultValues: initialFormState,
     resolver: zodResolver(issueFormSchema),
   })
-  console.log(errors)
   const handler = async (data) => {
-    console.log('got called')
-    console.log(data)
-    console.log(data.issueYear)
     const response =
       initialFormState?.issueNumber === ''
         ? await addIssue(data)
@@ -80,23 +73,6 @@ function IssueForm({ initialFormState, initialValue }) {
           error={errors?.issueNumber}
           valueAsNumber={true}
         />
-        {/* <Controller
-        control={control}
-        name='IssueYear'
-        render={({ field: { value, onChange } }) => (
-          <YearSelectInput
-            error={errors?.issueYear}
-            value={value}
-            onChange={onChange}
-          />
-        )}
-      /> */}
-        {/* <YearSelectInput
-        control={control}
-        error={errors?.issueYear}
-        name='issueYear'
-        defaultIssueYear={initialFormState.issueYear}
-      /> */}
         <TextInput
           type='number'
           label='Volume Number'

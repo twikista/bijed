@@ -4,6 +4,40 @@ import { revalidatePath } from 'next/cache'
 import { connectDB } from '../mongoose/config'
 import { Article, Issue } from '../mongoose/models'
 
+//create new issue
+export const addIssue = async (formData) => {
+  const parsedData = issueFormSchema.safeParse(formData)
+  if (!parsedData.success) {
+    const validationError = handleServerSideValidationError(parsedData)
+    return { ok: false, error: validationError, errorType: 'validationError' }
+  }
+  const { issueNumber, issueYear, volume } = parsedData.data
+  const issueData = {
+    issueNumber,
+    volume,
+    issueYear,
+    ref: `volume-${volume}-issue-${issueNumber}`,
+    issueTitle: `Vol. ${volume} No. ${issueNumber} (${new Date(
+      issueYear
+    ).getFullYear()})`,
+    published: false,
+    publishDate: new Date(),
+  }
+
+  try {
+    connectDB()
+    const newIssue = new Issue(issueData)
+    const savedIssue = await newIssue.save()
+    if (savedIssue?._id !== null) {
+      revalidatePath('/archive')
+      revalidatePath('/dashboard/issues')
+      return { ok: true }
+    }
+  } catch (error) {
+    return { ok: false, error: 'Something went wrong', errorType: 'other' }
+  }
+}
+
 //send draft editorial board for authorization
 export const submitIssueForPublishing = async (ref) => {
   try {
@@ -19,21 +53,17 @@ export const submitIssueForPublishing = async (ref) => {
     )
 
     if (issueSubmittedForPublishing?._id) {
-      console.log('>>>>>>>>>I was called>>>>>>>>>>>>')
       revalidatePath(`/dashboard/issues/${issueSubmittedForPublishing?.ref}`)
       return { ok: true }
     } else {
       return { ok: false, error: 'something went wrong', errorType: 'other' }
     }
   } catch (error) {
-    console.log(error)
+    // console.log(error)
   }
 }
 
 export const rejectRequestToPublishIssue = async (ref) => {
-  // console.log('user--------------', user)
-  // console.log(issueRef)
-  console.log('i ran here')
   // const date = new Date()
   try {
     connectDB()
@@ -42,8 +72,6 @@ export const rejectRequestToPublishIssue = async (ref) => {
       {
         $set: {
           status: 'draft',
-          // approvedBy: `${user.firstName} ${user.lastName}`,
-          // dateApproved: date,
         },
       },
       { new: true }
@@ -51,24 +79,17 @@ export const rejectRequestToPublishIssue = async (ref) => {
 
     if (publishedIssue._id) {
       revalidatePath(`/dashboard/issues/${publishedIssue.ref}`)
-      // revalidatePath(`/dashboard/issues/published${issueRef}`)
-      // revalidatePath(`/dashboard/archive/${issueRef}`)
-      // revalidatePath(`/dashboard/job-queue/pending-jobs`)
-      // revalidatePath(`/dashboard/job-queue/approved-jobs`)
       return { ok: true }
     } else {
       return { ok: false, error: 'something went wrong', errorType: 'other' }
     }
   } catch (error) {
-    console.log(error)
+    // console.log(error)
   }
 }
 
 //publish issue
 export const publishIssue = async (issueRef, user) => {
-  console.log('user--------------', user)
-  console.log(issueRef)
-  console.log('i ran here')
   const date = new Date()
   try {
     connectDB()
@@ -91,7 +112,6 @@ export const publishIssue = async (issueRef, user) => {
         { ref: issueRef },
         { $set: { published: true, publishDate: date } }
       )
-      console.log(publishedArticles)
       if (publishedArticles.acknowledged) {
         revalidatePath(`/dashboard/issues/${publishedIssue.ref}`)
         revalidatePath(`/dashboard/issues`)
@@ -102,6 +122,6 @@ export const publishIssue = async (issueRef, user) => {
       }
     }
   } catch (error) {
-    console.log(error)
+    // console.log(error)
   }
 }

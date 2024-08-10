@@ -2,35 +2,24 @@
 
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { usePathname } from 'next/navigation'
-import { createArticle, updateArticle } from '@/lib/actions'
-import {
-  uploadPdfToStorage,
-  removePdfFromStorage,
-} from '@/lib/firebase/services'
 
-import Input from '../Input'
+import { createArticle } from '@/lib/actions'
+import { uploadPdfToStorage } from '@/lib/firebase/services'
+
 import KeywordInput from './KeywordsInput'
-import Link from 'next/link'
 import clsx from 'clsx'
-import { articleFileName, handleValidationErrorFromServer } from '@/lib/util'
-import FileInputToggler from './issues/FileInputToggler'
+import { handleValidationErrorFromServer } from '@/lib/util'
 import TextInput from '../TextInput'
 import ArticleAuthorsInput from './ArticleAuthorsInput'
-import { articleFormSchema, newArticleFormSchema } from '@/lib/schema'
-import ToggleFileInputField from './ToggleFileInputField'
+import { newArticleFormSchema } from '@/lib/schema'
 import FormWrapper from './FormWrapper'
-import { ExclamationCircleIcon } from '@heroicons/react/24/outline'
 import { CancelButton } from './Buttons'
 import SubmitButton from '../SubmitButton'
 import Form from './Form'
 
 function NewArticleForm({ initialValue, params }) {
-  console.log(`params:${params}`)
-  console.log('initialValue', initialValue)
   const {
     register,
     control,
@@ -45,21 +34,16 @@ function NewArticleForm({ initialValue, params }) {
     resolver: zodResolver(newArticleFormSchema),
   })
 
-  console.log(errors)
   const [errorFromServer, setErrorFromServer] = useState('')
-  const [hideFileInput, setHideFileInput] = useState(true)
+  // const [hideFileInput, setHideFileInput] = useState(true)
   const router = useRouter()
 
   //submit handler
   const handler = async (data) => {
-    console.log('ddata', data)
-    console.log('i ran from new article form')
     // upload article pdf to firebase
     const url = await uploadPdfToStorage(data)
-    console.log(url)
     //upload formData to server to process and persisit in DB
     const { pdfFile, ...dataWithNoPdfFile } = data
-    console.log('dataWithNoPdfFile', dataWithNoPdfFile)
     const response = await createArticle(
       JSON.parse(JSON.stringify(dataWithNoPdfFile)),
       url,
@@ -69,9 +53,6 @@ function NewArticleForm({ initialValue, params }) {
     //receive response from server and redirect to appropriate route
     if (response.ok) {
       reset()
-      // params.issue === undefined
-      //   ? router.push(`/dashboard/articles`)
-      //   : router.push(`/dashboard/issues/${params.issue}`)
       router.push(`/dashboard/issues/unpublished/${params.issue}`)
     } else {
       if (response?.errorType === 'validationError') {
@@ -149,21 +130,6 @@ function NewArticleForm({ initialValue, params }) {
           error={errors?.endPage}
           valueAsNumber={true}
         />
-        {/* <div>
-          <label htmlFor='abstract' className='inline-block mb-1 '>
-            Abstract
-          </label>
-          <textarea className={clsx(
-                        `w-full text-gray-600 pl-3 inline-block py-2  outline-none appearance-none`
-                      )}
-            name='abstract'
-            placeholder='abstract'
-            id='abstract'
-            {...register('abstract')}
-          />
-          {errors && <span>{errors?.abstract?.message}</span>}
-        </div> */}
-        {/* beginning of abstract text input */}
         <div className='flex flex-col'>
           <label htmlFor='name' className='inline-block mb-1'>
             Abstract
@@ -183,13 +149,6 @@ function NewArticleForm({ initialValue, params }) {
               id='abstract'
               {...register('abstract')}
             />
-            {/* {errors?.abstract && (
-              <ExclamationCircleIcon
-                className={clsx('w-5 mr-3', {
-                  ['text-red-400']: errors?.abstract,
-                })}
-              />
-            )} */}
           </div>
           {errors && (
             <span className='text-red-500 '>{errors?.abstract?.message}</span>
@@ -217,10 +176,6 @@ function NewArticleForm({ initialValue, params }) {
             <span className='text-red-500 '>{errors?.pdfFile?.message}</span>
           )}
         </div>
-
-        {/* <br />
-        <button type='submit'>{isSubmitting ? 'loading...' : 'submit'}</button>
-        <Link href={`/dashboard/issues/${params.issue}`}>cancel</Link> */}
         <div className='flex items-center gap-2 pt-1'>
           <SubmitButton
             textColor='white'

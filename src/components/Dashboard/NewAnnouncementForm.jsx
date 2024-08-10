@@ -3,7 +3,7 @@
 import { useForm, Controller } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/navigation'
-import Button from '@/components/Button'
+
 import RichTextEditor from '@/components/Dashboard/RichTextEditor'
 import { createAnnouncement } from '@/lib/actions'
 import { announcementSchema } from '@/lib/schema'
@@ -27,10 +27,10 @@ function NewAnnouncementForm({ initialState }) {
     defaultValues: initialState,
     resolver: zodResolver(announcementSchema),
   })
-  // console.log(formData)
+
   const handler = async (data) => {
     const response = await createAnnouncement(data)
-    console.log('response-', response)
+
     if (response.ok) {
       reset()
       router.push(`/dashboard/announcements/${response?.announcementSlug}`)
@@ -91,12 +91,6 @@ function NewAnnouncementForm({ initialState }) {
             <RichTextEditor onChange={onChange} onBlur={onBlur} value={value} />
           )}
         />
-        {/* <Button type='submit' label={isSubmitting ? 'Submitting' : 'Submit'} />
-        <Button
-          type='button'
-          label='cancel'
-          onClick={() => router.push('/dashboard/announcements')}
-        /> */}
         <div className='flex items-center gap-2 pt-5'>
           <SubmitButton
             textColor='white'

@@ -16,7 +16,6 @@ export const articleFileName = (articleObject) =>
   `bijed-vol-${articleObject.volume}(${articleObject.issue})-pg${articleObject.startPage}-${articleObject.endPage}.pdf`
 
 export const hashPassword = async (password) => {
-  console.log(password)
   const saltRounds = 10
   const salt = await bcrypt.genSalt(saltRounds)
   return await bcrypt.hash(password, salt)
@@ -24,7 +23,6 @@ export const hashPassword = async (password) => {
 
 export const validatePassword = async (password, hashedPassword) => {
   const isValid = await bcrypt.compare(password, hashedPassword)
-  console.log('isvalid: ', isValid)
   return isValid
 }
 
@@ -38,10 +36,8 @@ export const verifyJWT = (token) => {
   try {
     const secretKey = process.env.JWT_SECRET_KEY
     const verifiedToken = jwt.verify(token, secretKey)
-    // console.log('verified token:', verifiedToken)
     return { ...verifiedToken, expired: false }
   } catch (error) {
-    console.log(error)
     if (error.name === 'TokenExpiredError') {
       return { expired: true }
     }
@@ -65,12 +61,9 @@ export const handleValidationErrorFromServer = (
   const fieldWithError = Object.keys(formFields).find(
     (field) => response?.error[field]
   )
-  console.log(response.error[fieldWithError])
   if (fieldWithError) {
-    console.log('errors', response.error)
     // Use the ValidFieldNames type to ensure the correct field names
     const errors = Object.keys(response.error)
-    console.log('array:', errors)
     errors.forEach((error) =>
       setError(error, { type: 'server', message: response.error[error] })
     )
@@ -92,4 +85,12 @@ export const dateHelperFunction = (date, variant = 'short') => {
     month: 'long',
     day: 'numeric',
   })
+}
+
+export const authorsNameWithAbrreviations = (name) => {
+  const splitName = name.split(' ')
+  const arrayWithNameInitials = splitName.map((name, index) =>
+    index === 0 ? `${name} ` : `${name[0].toUpperCase()}.`
+  )
+  return arrayWithNameInitials.join('')
 }

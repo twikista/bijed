@@ -1,4 +1,3 @@
-// import { menuItemsData } from '@/static/menuitems_data'
 import { footerItemsData } from '@/static/footeritems_data'
 import Link from 'next/link'
 import { CreativeCommonBy, CreativeCommonGeneral } from './Icons'
@@ -54,16 +53,6 @@ function Footer() {
             </div>
             <div className='mt-2'>
               <span className=''>Powered by InnovativeTech</span>
-              {/* <span className=''>
-                Designed & maintained by{' '}
-                <a
-                  href='https://aaronanama.netlify.app/'
-                  target='_blank'
-                  className='font-semibold underline hover:text-blue-300'
-                >
-                  Aaron Anama
-                </a>
-              </span> */}
             </div>
           </div>
         </div>

@@ -3,12 +3,9 @@
 import { useForm, Controller } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/navigation'
-import Button from '@/components/Button'
 import RichTextEditor from '@/components/Dashboard/RichTextEditor'
-import { updateAnnouncement } from '@/lib/actions'
 import { updateEditorialBoard } from '@/lib/actions/editorialBoard'
-import { announcementSchema, editorialBoardSchema } from '@/lib/schema'
-import TextInput from '../TextInput'
+import { editorialBoardSchema } from '@/lib/schema'
 import { useState } from 'react'
 import FormWrapper from './FormWrapper'
 import SubmitButton from '../SubmitButton'
@@ -18,13 +15,9 @@ import { toast } from 'react-toastify'
 import { useSearchParams } from 'next/navigation'
 
 function EditEditorialBoardForm({ initialState }) {
-  console.log('edit-state:- ', initialState)
   const router = useRouter()
   const [errorFromServer, setErrorFromServer] = useState('')
   const searchParams = useSearchParams().get('mode')
-  // const params = new URLSearchParams
-  console.log('searchParams=====', searchParams)
-
   const {
     register,
     handleSubmit,
@@ -35,9 +28,8 @@ function EditEditorialBoardForm({ initialState }) {
     defaultValues: { content: initialState.content },
     resolver: zodResolver(editorialBoardSchema),
   })
-  // console.log(formData)
+
   const handler = async (data) => {
-    console.log(data)
     const response = await updateEditorialBoard(initialState, data)
     if (response.ok) {
       reset()
@@ -65,30 +57,6 @@ function EditEditorialBoardForm({ initialState }) {
         </div>
       )}
       <Form handleSubmit={handleSubmit} handler={handler}>
-        {/* <TextInput
-          label='Title'
-          name='title'
-          placeholder='Enter announcement title'
-          register={register}
-          error={errors?.title}
-        />
-        <TextInput
-          label='description'
-          name='description'
-          placeholder='Enter announcement description'
-          register={register}
-          error={errors?.description}
-        /> */}
-        {/* <Input type='date' name='publishDate' value={formData.publishDate} /> */}
-        {/* <TextInput
-          label='Announcement due date'
-          name='dueDate'
-          type='date'
-          placeholder='Enter announcement due date'
-          register={register}
-          error={errors?.dueDate}
-          valueAsDate={true}
-        /> */}
         <Controller
           control={control}
           name='content'
@@ -112,12 +80,6 @@ function EditEditorialBoardForm({ initialState }) {
             text='Cancel'
           />
         </div>
-        {/* <Button type='submit' label={isSubmitting ? 'Submitting' : 'Submit'} />
-        <Button
-          type='button'
-          label='cancel'
-          onClick={() => router.push('/dashboard/announcements')}
-        /> */}
       </Form>
     </FormWrapper>
   )

@@ -55,12 +55,6 @@ export const passwordSchema = z.object({
 const articleAuthorSchema = z.object({
   name: z.string().min(1, { message: 'name is required' }),
   affliation: z.string().min(1, { message: "author's affliation is required" }),
-  // orchidId: z
-  //   .string()
-  //   .min(1, { message: 'Orchid Id is required' })
-  //   .refine((val) => /^([0-9a-zA-Z]{4}-){3}\d{4}$/.test(val), {
-  //     message: 'Enter a valid Orchid Id',
-  //   }),
 })
 
 const fileSizeInMb = (sizeInBytes) => sizeInBytes / 1024 ** 2
@@ -81,8 +75,6 @@ const fileInputSchema = z
   .refine(
     (files) =>
       Array.from(files ?? []).every((file) => {
-        console.log('file type-', file.type === 'application/pdf')
-        console.log('file size-', +fileSizeInMb(file.size).toFixed(2))
         return 'application/pdf' === file?.type
       }),
     { message: 'File type must be PDF' }
@@ -117,29 +109,6 @@ export const articleFormSchema = z.object({
     .refine((keywords) => keywords[0].keyword !== '', {
       message: 'Keyword must be provided',
     }),
-  // .nonempty({ message: 'keyword must be provided' }),
-  // pdfFile: z
-  //   .custom()
-  //   .refine((files) => Array.from(files ?? []).length !== 0, {
-  //     message: 'Article PDF is required',
-  //   })
-  //   .refine((files) =>
-  //     Array.from(files ?? []).every((file) => file.size / 1024 ** 2 <= 2, {
-  //       message: 'maximum file size is 2MB',
-  //     })
-  //   )
-  //   .refine(
-  //     (files) =>
-  //       Array.from(files ?? []).every((file) => {
-  //         console.log('file type-', file.type === 'application/pdf')
-  //         console.log(
-  //           'file size-',
-  //           Number((file.size / 1024 ** 2).toFixed(2)) <= 2
-  //         )
-  //         return 'application/pdf' === file?.type
-  //       }),
-  //     { message: 'File type must be PDF' }
-  //   ),
 })
 
 export const newArticleFormSchema = articleFormSchema.extend({
@@ -165,17 +134,6 @@ export const editArticleFormSchema = articleFormSchema.extend({
   pdfFile: z.union([fileInputSchema, z.null()]).optional(),
 })
 
-// export const issueFormSchema = z.object({
-//   issue: z.number({
-//     required_error: 'issue field is required',
-//     invalid_type_error: 'Issue must be a number',
-//   }),
-//   volume: z.number({
-//     required_error: 'Volume field is required',
-//     invalid_type_error: 'Volume must be a number',
-//   }),
-// })
-
 export const announcementSchema = z.object({
   title: z.string().trim().min(1, { message: 'title is required' }),
   description: z
@@ -198,24 +156,6 @@ export const issueFormSchema = z.object({
     required_error: 'issue field is required',
     invalid_type_error: 'Issue must be a number',
   }),
-})
-
-export const newJobFormSchema = z.object({
-  // jobRef: z.string().trim().min(1, { message: 'Job reference is required' }),
-  // jobTitle: z.string().trim().min(1, { message: 'Job title is required' }),
-  // pages: z.number({
-  //   required_error: 'pages field is required',
-  //   invalid_type_error: 'pages must be a number',
-  // }),
-  // numberOfArticles: z.number({
-  //   required_error: 'Number of Articles in is required',
-  //   invalid_type_error: 'field must be a number',
-  // }),
-  jobDescription: z
-    .string()
-    .trim()
-    .min(1, { message: 'Job description is required' })
-    .max(100, { message: 'Exceeded maximum character length for description' }),
 })
 
 export const editorialBoardSchema = z.object({

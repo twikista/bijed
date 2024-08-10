@@ -33,13 +33,7 @@ function MobileMenuItem({ menuItem, showMenu, setShowMenu }) {
             aria-expanded={showSubMenu ? 'true' : 'false'}
             onClick={toggleSubMenu}
           >
-            {/* <Link
-              href={menuItem.url}
-              className='capitalize'
-              onClick={closeMenu}
-            > */}
             <span>{menuItem.name}</span>
-            {/* </Link> */}
             <span className='inline-block ml-1'>
               {showSubMenu ? (
                 <UpArrow width='10px' height='10px' />

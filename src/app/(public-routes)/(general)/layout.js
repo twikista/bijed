@@ -5,7 +5,6 @@ export default function PublicRoutesLayout({ children }) {
   return (
     <div className='flex flex-col min-h-screen'>
       <Header />
-      {/* <MainContainer>{children}</MainContainer> */}
       <div className='flex items-center justify-center flex-grow w-full h-full'>
         {children}
       </div>

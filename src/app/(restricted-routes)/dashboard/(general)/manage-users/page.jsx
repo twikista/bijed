@@ -1,7 +1,6 @@
 import DashboardContainer from '@/components/Dashboard/DashboardContainer'
 import DashboardWrapper from '@/components/Dashboard/DashboardWrapper'
-import { getUser, getUsers } from '@/lib/data'
-import Link from 'next/link'
+import { getUsers } from '@/lib/data'
 import CreateButton from '@/components/Dashboard/createButton'
 import { DeleteButton } from '@/components/Dashboard/Buttons'
 
@@ -18,19 +17,6 @@ async function AdminPage() {
               label='create user'
             />
           </div>
-          {/* <Link href='/auth/new-user'>create user</Link> */}
-
-          {/* {response.ok && (
-            <>
-              {response.users.map((user) => (
-                <div className='flex gap-4' key={user.email}>
-                  <p>{user.email}</p>
-                  <p>{user.isAdmin ? 'Website Admin' : 'Business Manager'}</p>
-                  {!user.isAdmin && <button>remove</button>}
-                </div>
-              ))}
-            </>
-          )} */}
         </div>
         <div className='p-2 bg-[#e5d4ff] rounded-lg md:pt-0 overflow-x-auto'>
           <table className='min-w-full overflow-x-scroll'>
@@ -61,9 +47,6 @@ async function AdminPage() {
                   <td className='px-4 py-4 text-center capitalize border border-solid'>
                     {user.role}
                   </td>
-                  {/* <td className='px-4 py-4 text-center'>
-                    {user.role !== 'admin' && <button>Disable</button>}
-                  </td> */}
                   <td className='px-4 py-4 text-center'>
                     {user.role !== 'admin' && (
                       <DeleteButton

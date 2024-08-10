@@ -1,21 +1,11 @@
 import Footer from '@/components/Footer'
 import Header from '@/components/Header'
-import MainContainer from '@/components/MainContainer'
-import tokenExpiredIcon from '@/../public/system_expired.svg'
 import Link from 'next/link'
-import Image from 'next/image'
 function NotFound() {
   return (
     <div className='flex flex-col min-h-screen'>
       <Header />
       <div className='flex flex-col items-center justify-center flex-grow w-full h-full px-3 md:my-10'>
-        {/* <Image
-          src={tokenExpiredIcon}
-          alt='forgot password image'
-          width={80}
-          className='mx-auto'
-          priority
-        /> */}
         <div className='flex flex-col items-center mt-3 mb-8 space-y-5 text-gray-500'>
           <h2 className='text-base text-center md:text-2xl lg:text-4xl'>
             Oops!

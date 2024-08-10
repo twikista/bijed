@@ -19,8 +19,6 @@ import FileInputToggler from './issues/FileInputToggler'
 import FormWrapper from './FormWrapper'
 
 function ArticleForm({ initialValue, params }) {
-  console.log(`params:${params.published}`)
-
   const [formData, setFormData] = useState(initialValue)
   const [hideFileInput, setHideFileInput] = useState(true)
   const router = useRouter()
@@ -45,7 +43,6 @@ function ArticleForm({ initialValue, params }) {
         setHideFileInput(true)
       }
     } else {
-      console.log('running')
       let url = null
       //upload article pdf to firebase if pdf is changed by user
       if (formData.pdfFile !== null) {
@@ -60,7 +57,6 @@ function ArticleForm({ initialValue, params }) {
       )
       //receive response from server and redirect to appropriate route
       if (response.ok) {
-        console.log(`params:${params}`)
         params.issue === undefined
           ? router.push(`/dashboard/articles`)
           : router.push(`/dashboard/issues/${params.issue}`)

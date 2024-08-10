@@ -10,14 +10,12 @@ import { Tooltip } from 'react-tooltip'
 
 function ArticleAuthorsInput({ control, register, error }) {
   const { fields, append, remove } = useFieldArray({ control, name: 'authors' })
-  console.log(error)
   return (
     <fieldset
       className={clsx(``, {
         // ['border border-gray-300']: fields.length > 1,
       })}
     >
-      {/* {fields.length > 1 && <legend className='ml-3'>Authors</legend>} */}
       <div>
         <div className='space-y-6'>
           {fields.map((field, index) => (
@@ -25,7 +23,6 @@ function ArticleAuthorsInput({ control, register, error }) {
               {fields.length > 1 && (
                 <div className='flex items-center gap-1 mb-1'>
                   <span className='font-medium'>{`Author-${index + 1}`}</span>
-                  {/* <span className='w-[2px] bg-gray-400 h-5' /> */}
                   <button
                     type='button'
                     data-tooltip-id='delete-author'
@@ -40,7 +37,6 @@ function ArticleAuthorsInput({ control, register, error }) {
                 </div>
               )}
               <div className='flex flex-col'>
-                {/* <div> */}
                 <div className='flex flex-col'>
                   <label htmlFor='name' className='inline-block mb-1'>
                     {fields.length > 1 ? 'Name' : 'Author Name'}
@@ -75,7 +71,6 @@ function ArticleAuthorsInput({ control, register, error }) {
                     </span>
                   )}
                 </div>
-                {/* Author's affliation input */}
                 <div className='flex flex-col'>
                   <label htmlFor='affliation' className='inline-block mb-1 '>
                     {fields.length > 1 ? 'Affliation' : 'Author Affliation'}
@@ -111,13 +106,6 @@ function ArticleAuthorsInput({ control, register, error }) {
                   )}
                 </div>
               </div>
-              {/* <div>
-                {fields.length > 1 && (
-                  <button type='button' onClick={() => remove(index)}>
-                    remove
-                  </button>
-                )}
-              </div> */}
             </div>
           ))}
         </div>

@@ -13,10 +13,8 @@ function AuthorsGuide() {
     <MainContainer>
       <PageHeading>Authors Guide</PageHeading>
       <section className='space-y-3'>
-        {/* <SectionHeading className='text-base font-bold capitalize font-saira md:text-xl'> */}
         <SectionHeading>Manuscript Submission</SectionHeading>
 
-        {/* </SectionHeading> */}
         <Paragraph first={true}>
           All manuscript should be submitted electronically through email
           attachment to:{' '}

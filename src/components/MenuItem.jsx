@@ -32,10 +32,6 @@ function MenuItem({ menuItem }) {
             aria-expanded={showSubMenu ? 'true' : 'false'}
             onClick={handler}
           >
-            {/* <Link
-              href={`${menuItem.url}`}
-              className='flex items-center text-base capitalize'
-            > */}
             {menuItem.name}
             {/* </Link> */}
             <DownArrow fill='currentColor' width='10px' height='10px' />
