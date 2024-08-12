@@ -15,7 +15,7 @@ export function PageHeading({
 
 export function SectionHeading({ children, font = 'font-saira' }) {
   return (
-    <h3 className={`text-base font-bold md:text-xl ${font}`}>{children}</h3>
+    <h3 className={`text-base font-medium md:text-xl ${font}`}>{children}</h3>
   )
 }
 
