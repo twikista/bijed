@@ -49,6 +49,9 @@ async function IssuePage({ params }) {
   const managingEditorPrivilege =
     issue?.status === 'review' && user?.role === 'managing editor'
 
+  const adminPrevilege = user?.role === 'admin'
+  console.log('user=====>>>', businessManagerPrivilege || adminPrevilege)
+
   if (!articlesInIssue.length) {
     return (
       <main className='relative flex h-screen'>
@@ -144,7 +147,7 @@ async function IssuePage({ params }) {
                     <th className='px-4 pt-4 pb-1 table-fixed'>Article</th>
                     <th className='px-4 pt-4 pb-1 table-fixed'>Page</th>
                     <th className='px-4 pt-4 pb-1 font-medium w-14'>Status</th>
-                    {businessManagerPrivilege && (
+                    {(businessManagerPrivilege || adminPrevilege) && (
                       <>
                         <th className='sr-only'></th>
                         <th className='sr-only'></th>
@@ -180,7 +183,7 @@ async function IssuePage({ params }) {
                           </span>
                         )}
                       </td>
-                      {businessManagerPrivilege && (
+                      {(businessManagerPrivilege || adminPrevilege) && (
                         <>
                           <td className='px-4 py-4 text-center'>
                             <EditButton

@@ -7,11 +7,14 @@ import DashboardWrapper from '@/components/Dashboard/DashboardWrapper'
 import ResourceFilter from '@/components/Dashboard/ResourceFilter'
 import { auth } from '../../../../../../auth'
 import SideNav from '@/components/Dashboard/SideNav'
+import { DeleteButton, EditButton } from '@/components/Dashboard/Buttons'
+import { deleteIssue } from '@/lib/actions'
 
 async function Issues({ searchParams }) {
   const { user } = await auth()
   const mode = searchParams.mode
   const issues = await getIssues(mode)
+  console.log('ref======xxxxx', issues[0].ref)
 
   if (!issues.length) {
     return (
@@ -62,6 +65,12 @@ async function Issues({ searchParams }) {
                   <th className='px-4 pt-4 pb-1 table-fixed'>Issue</th>
                   <th className='px-4 pt-4 pb-1 font-medium'>Status</th>
                   <th className='px-4 pt-4 pb-1 font-medium'>Publish Date</th>
+                  {user.role === 'admin' && (
+                    <>
+                      <th className='sr-only'></th>
+                      <th className='sr-only'></th>
+                    </>
+                  )}
                 </tr>
               </thead>
               <tbody className='text-center bg-white divide-y-2 rounded-sm'>
@@ -93,6 +102,23 @@ async function Issues({ searchParams }) {
                           : 'Not available'}
                       </span>
                     </td>
+                    {user.role === 'admin' && (
+                      <>
+                        <td className='px-4 py-4 text-center'>
+                          <EditButton
+                            href={`/dashboard/issues/${issue.ref}/edit`}
+                            variant='secondary'
+                          />
+                        </td>
+                        <td className='px-4 py-4 text-center'>
+                          <DeleteButton
+                            action={deleteIssue}
+                            id={issue.ref}
+                            variant='secondary'
+                          />
+                        </td>
+                      </>
+                    )}
                   </tr>
                 ))}
               </tbody>

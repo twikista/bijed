@@ -117,14 +117,17 @@ export const publishIssue = async (issueRef, jobTicketId, user) => {
   }
 }
 
-export async function deleteIssue(id) {
+export async function deleteIssue(issueRef) {
   try {
     connectDB()
-    const deletedIssue = await Issue.findByIdAndDelete(JSON.parse(id))
+    const deletedIssue = await Issue.findOneAndDelete(issueRef)
     if (deletedIssue._id !== undefined) {
-      revalidatePath('/archive')
-      revalidatePath('/dashboard/issues')
-      return true
+      const deleteOutcome = await Article.deleteMany({ ref: issueRef })
+      if (!!deleteOutcome.deletedCount) {
+        revalidatePath('/archive')
+        revalidatePath('/dashboard/issues')
+        return { ok: true }
+      }
     } else {
       return false
     }

@@ -121,12 +121,19 @@ export function DeleteButton({
   icon = true,
   disabled = false,
 }) {
+  const handler = async (id) => {
+    const response = await action(id)
+    if (response.ok) {
+      toast.success('deleted successfully!!!')
+    }
+  }
+
   if (variant === 'primary') {
     return (
       <button
         type='button'
         disabled={disabled}
-        onClick={() => action(id)}
+        onClick={() => handler(id)}
         className={clsx(
           `shadow-md inline-flex bg-[#ff6347] hover:bg-red-500 text-white w-28 items-center rounded-lg justify-center font-medium px-4 py-2 min-w-[220px] ${
             disabled && 'pointer-events-none'
@@ -143,7 +150,7 @@ export function DeleteButton({
       <button
         type='button'
         disabled={disabled}
-        onClick={() => action(id)}
+        onClick={() => handler(id)}
         className={clsx(
           `text-[#800080] hover:text-red-600 ${
             disabled && 'pointer-events-none'
