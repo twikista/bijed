@@ -273,7 +273,7 @@ export async function createArticle(formData, url, params) {
     const savedArticle = await newArticle.save()
     console.log(savedArticle)
     //return if article wasn't created due to error
-    if (savedArticle._id === undefined) {
+    if (savedArticle?._id === undefined) {
       return { ok: false, error: 'Something went wrong', errorType: 'other' }
     }
 
@@ -281,9 +281,9 @@ export async function createArticle(formData, url, params) {
     await Issue.updateOne(
       {
         volume: `${savedArticle.volume}`,
-        issueNumber: `${savedArticle.issue}`,
+        issueNumber: `${savedArticle?.issue}`,
       },
-      { $push: { articles: savedArticle._id } }
+      { $push: { articles: savedArticle?._id } }
     )
 
     //revalidate routes affected by artice creation to reflect changes

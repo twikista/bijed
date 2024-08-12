@@ -22,7 +22,7 @@ const getArticlesInCurrentIssue = async () => {
   if (currentIssue) {
     const [issue] = currentIssue
     const articlesInCurrentIssue = await Article.find({
-      ref: issue.ref,
+      ref: issue?.ref,
     })
     return { issue, articlesInCurrentIssue }
   }

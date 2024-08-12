@@ -6,7 +6,7 @@ import ArticleOverview from '@/components/ArticleOverview'
 
 export async function generateStaticParams(params) {
   const articlesInCurrentissue = await getArticlesInIssue(params.issue, false)
-  return articlesInCurrentissue.map((article) => article.ref)
+  return articlesInCurrentissue.map((article) => article?.ref)
 }
 
 async function ArticlePage({ params }) {
