@@ -47,7 +47,7 @@ function PDFViewer({ filePath, params }) {
   }
 
   return (
-    <div className='flex flex-col items-center bg-neutral-600 relative mt-[70px]'>
+    <div className='flex flex-col items-center bg-neutral-600 relative mt-[100px] mb-30'>
       {pdfloaded && (
         <div className='fixed top-0 left-0 right-0 z-50 flex items-center justify-between shadow-lg bg-[#353839] border-b border-neutral-600 h-[58px] px-3'>
           <Link

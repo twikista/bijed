@@ -1,9 +1,9 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import ccLogo from '@/../public/by.png'
-import { dateHelperFunction } from '@/lib/util'
 import Authors from '@/components/Authors'
 import { PDFIcon } from '@/components/Icons'
+import ArticleInfo from './ArticleInfo'
 
 function ArticleOverview({ currentArticle, currentIssue = false }) {
   const joinKeywords = (arr) => {
@@ -19,23 +19,7 @@ function ArticleOverview({ currentArticle, currentIssue = false }) {
           <h5 className='font-semibold'>Author(s):</h5>
           <Authors authors={currentArticle.authors} withAffliation={true} />
         </div>
-        <div className='flex flex-col w-[250px]'>
-          <h5 className='font-semibold'>Article Info:</h5>
-          <div className='space-y-[5px] text-neutral-500'>
-            <div>
-              <h5 className='font-medium text-neutral-500'>Publish date</h5>
-              <p>{dateHelperFunction(currentArticle?.publishDate)}</p>
-            </div>
-            <div>
-              <h5 className='font-medium text-neutral-500'>Issue</h5>
-              <p>
-                <Link href={`/archive/${currentArticle?.ref}`}>
-                  {`Vol. ${currentArticle?.volume} No. ${currentArticle?.issue}, pp. ${currentArticle?.slug}`}
-                </Link>
-              </p>
-            </div>
-          </div>
-        </div>
+        <ArticleInfo article={currentArticle} />
       </section>
       <div className='py-2'>
         <p>
@@ -52,9 +36,11 @@ function ArticleOverview({ currentArticle, currentIssue = false }) {
         </div>
         <div className='flex justify-center'>
           <Link
-            href={`${process.env.NEXT_URL}/archive/${currentArticle.ref}/${
-              currentArticle.slug
-            }/${currentIssue ? 'view?ref=current' : 'view'}`}
+            href={
+              currentIssue
+                ? `/archive/${currentArticle.ref}/${currentArticle.slug}/view?ref=current`
+                : `/archive/${currentArticle.ref}/${currentArticle.slug}/view`
+            }
             className='flex justify-center gap-2 font-bold hover:text-primary px-3 py-2 border hover:border-primary sm:w-[240px] rounded-md bg-primary hover:bg-white text-white transition-colors  text-center'
           >
             <span>View PDF</span>

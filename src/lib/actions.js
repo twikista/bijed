@@ -320,13 +320,13 @@ export async function signup(formData) {
     const { password, ...savedUserWithoutPassword } = parsedSavedUser
 
     const encryptedUserId = signJWT({ id: savedUser._id })
-    const activationUrl = `${process.env.NEXT_URL}/auth/account-activation/${encryptedUserId}`
+    const activationUrl = `/auth/account-activation/${encryptedUserId}`
     const body = compileActivationTemplate({
       name: modifiedFormData.firstName,
       email: modifiedFormData.email,
       password: modifiedFormData.password,
       url: activationUrl,
-      link: `${process.env.NEXT_URL}/auth/login`,
+      link: '$/auth/login',
     })
 
     const sendEmailResult = await sendEmail({
@@ -437,11 +437,11 @@ export async function forgetPassword(formData) {
     }
 
     const encryptedUserId = signJWT({ id: user._id }, { expiresIn: '900000ms' })
-    const resetPasswordUrl = `${process.env.NEXT_URL}/auth/password-reset/${encryptedUserId}`
+    const resetPasswordUrl = `/auth/password-reset/${encryptedUserId}`
     const body = compileResetPasswordEmailTemplate({
       name: user.firstName,
       url: resetPasswordUrl,
-      link: `${process.env.NEXT_URL}/auth/login`,
+      link: `/auth/login`,
     })
 
     const sendEmailResult = await sendEmail({

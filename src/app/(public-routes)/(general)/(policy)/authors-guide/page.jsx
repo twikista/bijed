@@ -14,13 +14,11 @@ function AuthorsGuide() {
       <PageHeading>Authors Guide</PageHeading>
       <section className='space-y-3'>
         <SectionHeading>Manuscript Submission</SectionHeading>
-
         <Paragraph first={true}>
           All manuscript should be submitted electronically through email
-          attachment to:{' '}
-          <span className='font-medium underline'>bijed@uniben.edu</span>,
-          copying the managing editor at{' '}
-          <span className='font-medium underline'>edwin.enofe@uniben.edu</span>.
+          attachment to: <span className='font-semibold'>bijed@uniben.edu</span>
+          , copying the managing editor at{' '}
+          <span className='font-semibold'>obeki.obeki@uniben.edu</span>.
           Manuscript submissions should be accomapnied with submission fee of
           &#8358;5,000.
         </Paragraph>

@@ -19,14 +19,14 @@ function QuickLinks({ userRole }) {
         {userRole === 'business manager' && (
           <QuickLinkItem
             Icon={AddIssuesIcon}
-            linkUrl={`${process.env.DASHBOARD_ISSUES}/new-issue`}
+            linkUrl='/dashboard/issues/new-issue'
             linkText='Add new issue'
           />
         )}
         {userRole === 'business manager' && (
           <QuickLinkItem
             Icon={DocumentPlusIcon}
-            linkUrl={`${process.env.DASHBOARD_NEWS}/new`}
+            linkUrl={`/dashboard/announcements/new`}
             linkText='Add Announcement'
           />
         )}
@@ -34,12 +34,12 @@ function QuickLinks({ userRole }) {
           <>
             <QuickLinkItem
               Icon={AddUserIcon}
-              linkUrl={`${process.env.AUTH}/new-user`}
+              linkUrl='/dashboard/manage-users/new-user'
               linkText='Add new user'
             />
             <QuickLinkItem
               Icon={UsersIcon}
-              linkUrl={`${process.env.AUTH}/manage-users`}
+              linkUrl='/dashboard/manage-users'
               linkText='Manage Users'
             />
           </>
@@ -47,26 +47,26 @@ function QuickLinks({ userRole }) {
         {userRole === 'managing editor' && (
           <QuickLinkItem
             Icon={HourGlassIcon}
-            linkUrl={`${process.env.DASHBOARD_JOBS}/pending-jobs`}
-            linkText='Pending Jobs'
+            linkUrl='/dashboard/issues?mode=final'
+            linkText='Published Issues'
           />
         )}
         {userRole === 'managing editor' && (
           <QuickLinkItem
             Icon={StackIcon}
-            linkUrl={`${process.env.DASHBOARD_ISSUES}/unpublished`}
+            linkUrl='/dashboard/issues?mode=draft'
             linkText='Unpublished Issues'
           />
         )}
         <QuickLinkItem
           Icon={PasswordIcon}
-          linkUrl={`${process.env.NEXT_URL}`}
+          linkUrl='/dashboard'
           linkText='Change password'
         />
 
         <QuickLinkItem
           Icon={HomePageIcon}
-          linkUrl={`${process.env.NEXT_URL}`}
+          linkUrl='/'
           linkText='Journal homepage'
         />
       </div>

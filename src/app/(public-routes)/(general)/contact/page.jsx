@@ -1,3 +1,4 @@
+import { PageHeading } from '@/components/Headings'
 import MainContainer from '@/components/MainContainer'
 import ContactForm from '@/components/contactform/ContactForm'
 
@@ -11,13 +12,11 @@ export const metadata = {
 function Contact() {
   return (
     <MainContainer>
-      <h2 className='text-2xl font-bold underline uppercase font-saira'>
-        Contact
-      </h2>
+      <PageHeading>Contact</PageHeading>
       <div className='space-y-10'>
-        <section className='space-y-1'>
+        <section className='flex flex-col items-center space-y-1'>
           <h3 className='text-xl font-semibold font-saira'>Address</h3>
-          <div>
+          <div className='text-center'>
             <p>Depatrment of Entreprenuership,</p>
             <p>Faculty of Management Sciences,</p>
             <p>University of Benin, </p>
@@ -31,9 +30,11 @@ function Contact() {
             </p>
           </div>
         </section>
-        <section className='space-y-2'>
-          <h3 className='text-xl font-semibold font-saira'>Contact us</h3>
-          <div>
+        <section className='flex flex-col items-center space-y-2'>
+          <h3 className='text-xl font-semibold font-saira'>
+            Send us a message
+          </h3>
+          <div className='w-full'>
             <ContactForm />
           </div>
         </section>

@@ -1,5 +1,6 @@
 import MainContainer from '@/components/MainContainer'
 import { CheckedCircle } from '@/components/Icons'
+import { PageHeading, Paragraph, SectionHeading } from '@/components/Headings'
 
 export const metadata = {
   title: 'Reviewers Guideline',
@@ -10,9 +11,7 @@ export const metadata = {
 function ReviewersGuide() {
   return (
     <MainContainer>
-      <h2 className='text-2xl font-bold underline uppercase font-saira'>
-        Reviewers Guideline
-      </h2>
+      <PageHeading>Reviewers Guideline</PageHeading>
       <section className='space-y-3'>
         <p>
           This guide outlines the steps and expectations required for BIJED
@@ -22,66 +21,61 @@ function ReviewersGuide() {
       </section>
 
       <section className='space-y-3'>
-        <h3 className='text-base font-bold capitalize font-saira md:text-xl'>
-          Accepting Review Invitations
-        </h3>
-        <div className='space-y-3'>
-          <p className='flex-1'>
-            Before accepting the editor&#39;s invitation for a review, consider
-            the following:
-          </p>
-          <ul className='ml-2 space-y-3 md:ml-4'>
-            <li className='flex items-start gap-1 md:gap-2'>
-              <CheckedCircle
-                className='w-[6px] md:w-[10px] text-neutral-700 mt-[6px] md:mt-2'
-                fill='currentColor'
-              />
-              <p className='flex-1'>
-                Does the manuscript you are being asked to review truly match
-                your expertise?
-              </p>
-            </li>
-            <li className='flex items-start gap-1 md:gap-2'>
-              <CheckedCircle
-                className='w-[6px] md:w-[10px] text-neutral-700 mt-[6px] md:mt-2'
-                fill='currentColor'
-              />
-              <p className='flex-1'>
-                Do you have time to complete the review of the manuscript in the
-                allotted time?
-              </p>
-            </li>
-            <li className='flex items-start gap-1 md:gap-2'>
-              <CheckedCircle
-                className='w-[6px] md:w-[10px] text-neutral-700 mt-[6px] md:mt-2'
-                fill='currentColor'
-              />
-              <p className='flex-1'>
-                Are there any potential conflicts of interest?
-              </p>
-            </li>
-          </ul>
-        </div>
+        <SectionHeading> Accepting Review Invitations</SectionHeading>
+
+        <Paragraph first={true}>
+          Before accepting the editor&#39;s invitation for a review, consider
+          the following:
+        </Paragraph>
+        <ul className='ml-2 space-y-1 md:ml-4'>
+          <li className='flex items-start gap-1 md:gap-2'>
+            <CheckedCircle
+              className='w-[6px] md:w-[8px] text-neutral-700 mt-[6px] md:mt-2'
+              fill='currentColor'
+            />
+            <p className='flex-1'>
+              Does the manuscript you are being asked to review truly match your
+              expertise?
+            </p>
+          </li>
+          <li className='flex items-start gap-1 md:gap-2'>
+            <CheckedCircle
+              className='w-[6px] md:w-[8px] text-neutral-700 mt-[6px] md:mt-2'
+              fill='currentColor'
+            />
+            <p className='flex-1'>
+              Do you have time to complete the review of the manuscript in the
+              allotted time?
+            </p>
+          </li>
+          <li className='flex items-start gap-1 md:gap-2'>
+            <CheckedCircle
+              className='w-[6px] md:w-[8px] text-neutral-700 mt-[6px] md:mt-2'
+              fill='currentColor'
+            />
+            <p className='flex-1'>
+              Are there any potential conflicts of interest?
+            </p>
+          </li>
+        </ul>
       </section>
       <section className='space-y-3'>
-        <h3 className='text-base font-bold font-saira md:text-xl'>
-          Conducting the Review
-        </h3>
-        <p>
+        <SectionHeading>Conducting the Review</SectionHeading>
+        <Paragraph first={true}>
           The following are steps to be taken once a reviewer accepts the
           editor&#39;s invitation to review a manuscript:
-        </p>
+        </Paragraph>
         {/* list of review steps */}
-        <ol className='ml-4 space-y-2 list-decimal list-outside md:ml-4'>
+        <ol className='ml-4 space-y-1 list-decimal list-outside md:ml-4'>
           {/* step one - Research the Journal */}
           <li>
             <h4 className='text-base font-bold md:text-lg font-saira'>
               Research the Journal
             </h4>
-            <ul className='ml-2 space-y-3 md:ml-4'>
+            <ul className='ml-2 space-y-1 md:ml-4'>
               <li className='flex items-start gap-1'>
                 <CheckedCircle
-                  className='w-[6px] md:w-[10px] text-neutral-700 mt-[6px] md:mt-2'
+                  className='w-[6px] md:w-[8px] text-neutral-700 mt-[6px] md:mt-2'
                   fill='currentColor'
                 />
                 <p className='flex-1'>
@@ -93,7 +87,7 @@ function ReviewersGuide() {
               </li>
               <li className='flex items-start gap-1'>
                 <CheckedCircle
-                  className='w-[6px] md:w-[10px] text-neutral-700 mt-[6px] md:mt-2'
+                  className='w-[6px] md:w-[8px] text-neutral-700 mt-[6px] md:mt-2'
                   fill='currentColor'
                 />
                 <p className='flex-1'>
@@ -110,10 +104,10 @@ function ReviewersGuide() {
               Evaluate the Manuscript
             </h4>
             <p>Evaluate the manuscript base on the following:</p>
-            <ul className='ml-2 space-y-3 md:ml-4'>
+            <ul className='ml-2 space-y-1 md:ml-4'>
               <li className='flex items-start gap-1'>
                 <CheckedCircle
-                  className='w-[6px] md:w-[10px] text-neutral-700 mt-[6px] md:mt-2'
+                  className='w-[6px] md:w-[8px] text-neutral-700 mt-[6px] md:mt-2'
                   fill='currentColor'
                 />
                 <div className='flex-1'>
@@ -131,7 +125,7 @@ function ReviewersGuide() {
               {/* Evaluate item - originality */}
               <li className='flex items-start gap-1'>
                 <CheckedCircle
-                  className='w-[6px] md:w-[10px] text-neutral-700 mt-[6px] md:mt-2'
+                  className='w-[6px] md:w-[8px] text-neutral-700 mt-[6px] md:mt-2'
                   fill='currentColor'
                 />
                 <div className='flex-1'>
@@ -149,7 +143,7 @@ function ReviewersGuide() {
               {/* Evaluate item -structure */}
               <li className='flex items-start gap-1'>
                 <CheckedCircle
-                  className='w-[6px] md:w-[10px] text-neutral-700 mt-[6px] md:mt-2'
+                  className='w-[6px] md:w-[8px] text-neutral-700 mt-[6px] md:mt-2'
                   fill='currentColor'
                 />
                 <div className='flex-1'>
@@ -262,7 +256,7 @@ function ReviewersGuide() {
               {/* Evaluate item - originality */}
               <li className='flex items-start gap-1'>
                 <CheckedCircle
-                  className='w-[6px] md:w-[10px] text-neutral-700 mt-[6px] md:mt-2'
+                  className='w-[6px] md:w-[8px] text-neutral-700 mt-[6px] md:mt-2'
                   fill='currentColor'
                 />
                 <div className='flex-1'>
@@ -296,10 +290,10 @@ function ReviewersGuide() {
                 The following are few points to keep in mind while writing your
                 comments:
               </p>
-              <ul className='ml-2 space-y-3 md:ml-4'>
+              <ul className='ml-2 space-y-1 md:ml-4'>
                 <li className='flex items-start gap-1'>
                   <CheckedCircle
-                    className='w-[6px] md:w-[10px] text-neutral-700 mt-[6px] md:mt-2'
+                    className='w-[6px] md:w-[8px] text-neutral-700 mt-[6px] md:mt-2'
                     fill='currentColor'
                   />
                   <p className='flex-1'>
@@ -309,7 +303,7 @@ function ReviewersGuide() {
                 </li>
                 <li className='flex items-start gap-1'>
                   <CheckedCircle
-                    className='w-[6px] md:w-[10px] text-neutral-700 mt-[6px] md:mt-2'
+                    className='w-[6px] md:w-[8px] text-neutral-700 mt-[6px] md:mt-2'
                     fill='currentColor'
                   />
                   <p className='flex-1'>
@@ -319,7 +313,7 @@ function ReviewersGuide() {
                 </li>
                 <li className='flex items-start gap-1'>
                   <CheckedCircle
-                    className='w-[6px] md:w-[10px] text-neutral-700 mt-[6px] md:mt-2'
+                    className='w-[6px] md:w-[8px] text-neutral-700 mt-[6px] md:mt-2'
                     fill='currentColor'
                   />
                   <p className='flex-1'>
@@ -330,7 +324,7 @@ function ReviewersGuide() {
                 </li>
                 <li className='flex items-start gap-1'>
                   <CheckedCircle
-                    className='w-[6px] md:w-[10px] text-neutral-700 mt-[6px] md:mt-2'
+                    className='w-[6px] md:w-[8px] text-neutral-700 mt-[6px] md:mt-2'
                     fill='currentColor'
                   />
                   <p className='flex-1'>
@@ -341,7 +335,7 @@ function ReviewersGuide() {
                 </li>
                 <li className='flex items-start gap-1'>
                   <CheckedCircle
-                    className='w-[6px] md:w-[10px] text-neutral-700 mt-[6px] md:mt-2'
+                    className='w-[6px] md:w-[8px] text-neutral-700 mt-[6px] md:mt-2'
                     fill='currentColor'
                   />
                   <p className='flex-1'>
@@ -365,10 +359,10 @@ function ReviewersGuide() {
                 need to make a recommendation to the editor regarding
                 publication by choosing from one of the following options:
               </p>
-              <ul className='ml-2 space-y-3 md:ml-4'>
+              <ul className='ml-2 space-y-1 md:ml-4'>
                 <li className='flex items-start gap-1'>
                   <CheckedCircle
-                    className='w-[6px] md:w-[10px] text-neutral-700 mt-[6px] md:mt-2'
+                    className='w-[6px] md:w-[8px] text-neutral-700 mt-[6px] md:mt-2'
                     fill='currentColor'
                   />
                   <p className='flex-1'>
@@ -380,7 +374,7 @@ function ReviewersGuide() {
                 </li>
                 <li className='flex items-start gap-1'>
                   <CheckedCircle
-                    className='w-[6px] md:w-[10px] text-neutral-700 mt-[6px] md:mt-2'
+                    className='w-[6px] md:w-[8px] text-neutral-700 mt-[6px] md:mt-2'
                     fill='currentColor'
                   />
                   <p className='flex-1'>
@@ -394,7 +388,7 @@ function ReviewersGuide() {
                 </li>
                 <li className='flex items-start gap-1'>
                   <CheckedCircle
-                    className='w-[6px] md:w-[10px] text-neutral-700 mt-[6px] md:mt-2'
+                    className='w-[6px] md:w-[8px] text-neutral-700 mt-[6px] md:mt-2'
                     fill='currentColor'
                   />
                   <p className='flex-1'>
@@ -409,7 +403,7 @@ function ReviewersGuide() {
                 </li>
                 <li className='flex items-start gap-1'>
                   <CheckedCircle
-                    className='w-[6px] md:w-[10px] text-neutral-700 mt-[6px] md:mt-2'
+                    className='w-[6px] md:w-[8px] text-neutral-700 mt-[6px] md:mt-2'
                     fill='currentColor'
                   />
                   <p className='flex-1'>
@@ -426,14 +420,12 @@ function ReviewersGuide() {
         </ol>
       </section>
       <section className='space-y-3'>
-        <h3 className='text-base font-bold capitalize font-saira md:text-xl'>
-          Other Important Considerations
-        </h3>
+        <SectionHeading>Other Important Considerations</SectionHeading>
         <div className='space-y-3'>
-          <ul className='ml-2 space-y-3 md:ml-4'>
+          <ul className='ml-2 space-y-1 md:ml-4'>
             <li className='flex items-start gap-1 md:gap-2'>
               <CheckedCircle
-                className='w-[6px] md:w-[10px] text-neutral-700 mt-[6px] md:mt-2'
+                className='w-[6px] md:w-[8px] text-neutral-700 mt-[6px] md:mt-2'
                 fill='currentColor'
               />
               <p className='flex-1'>
@@ -444,7 +436,7 @@ function ReviewersGuide() {
             </li>
             <li className='flex items-start gap-1 md:gap-2'>
               <CheckedCircle
-                className='w-[6px] md:w-[10px] text-neutral-700 mt-[6px] md:mt-2'
+                className='w-[6px] md:w-[8px] text-neutral-700 mt-[6px] md:mt-2'
                 fill='currentColor'
               />
               <p className='flex-1'>
@@ -454,7 +446,7 @@ function ReviewersGuide() {
             </li>
             <li className='flex items-start gap-1 md:gap-2'>
               <CheckedCircle
-                className='w-[6px] md:w-[10px] text-neutral-700 mt-[6px] md:mt-2'
+                className='w-[6px] md:w-[8px] text-neutral-700 mt-[6px] md:mt-2'
                 fill='currentColor'
               />
               <p className='flex-1'>
@@ -463,7 +455,7 @@ function ReviewersGuide() {
             </li>
             <li className='flex items-start gap-1 md:gap-2'>
               <CheckedCircle
-                className='w-[6px] md:w-[10px] text-neutral-700 mt-[6px] md:mt-2'
+                className='w-[6px] md:w-[8px] text-neutral-700 mt-[6px] md:mt-2'
                 fill='currentColor'
               />
               <p className='flex-1'>
@@ -474,7 +466,7 @@ function ReviewersGuide() {
             </li>
             <li className='flex items-start gap-1 md:gap-2'>
               <CheckedCircle
-                className='w-[6px] md:w-[10px] text-neutral-700 mt-[6px] md:mt-2'
+                className='w-[6px] md:w-[8px] text-neutral-700 mt-[6px] md:mt-2'
                 fill='currentColor'
               />
               <p className='flex-1'>
@@ -485,7 +477,7 @@ function ReviewersGuide() {
             </li>
             <li className='flex items-start gap-1 md:gap-2'>
               <CheckedCircle
-                className='w-[6px] md:w-[10px] text-neutral-700 mt-[6px] md:mt-2'
+                className='w-[6px] md:w-[8px] text-neutral-700 mt-[6px] md:mt-2'
                 fill='currentColor'
               />
               <p className='flex-1'>

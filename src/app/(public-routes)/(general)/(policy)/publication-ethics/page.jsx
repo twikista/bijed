@@ -1,7 +1,7 @@
-import Link from 'next/link'
 import { OpenInNewWindow } from '@/components/Icons'
 import MainContainer from '@/components/MainContainer'
 import { CheckedCircle } from '@/components/Icons'
+import { PageHeading, Paragraph, SectionHeading } from '@/components/Headings'
 
 export const metadata = {
   title: 'Publication Ethics',
@@ -12,9 +12,7 @@ export const metadata = {
 function PublicationEthics() {
   return (
     <MainContainer>
-      <h2 className='text-2xl font-bold underline uppercase font-saira'>
-        Publication Ethics
-      </h2>
+      <PageHeading>Publication Ethics</PageHeading>
       <section className='space-y-3'>
         <p className=''>
           Benin International Journal for Entrepreneurship Development is
@@ -61,51 +59,45 @@ function PublicationEthics() {
         </p>
       </section>
       <section className='space-y-3'>
-        <h3 className='text-base font-bold capitalize font-saira md:text-xl'>
-          Publication Decisions
-        </h3>
-        <ul className='ml-2 space-y-5 md:ml-4'>
-          <li className='flex items-start gap-2'>
-            <CheckedCircle
+        <SectionHeading>Publication Decisions</SectionHeading>
+        <ol
+          ol
+          type='a'
+          className='ml-4 space-y-2 list-outside list-lower-alpha md:ml-5'
+        >
+          <li>
+            {/* <CheckedCircle
               className='w-2 md:w-[10px] text-neutral-700 mt-[4px]'
               fill='none'
-            />
-            <p className='flex-1'>
-              The editor(s) (Editor-in-Chief and/or Managing Editor) are
-              responsible for determining submitted articles that will be
-              published. The decisions of the editors shall always be driven by
-              the quality/intellectual content of the paper in question, and the
-              editorial policies of the journal.
-            </p>
+            /> */}
+            The editor(s) (Editor-in-Chief and/or Managing Editor) are
+            responsible for determining submitted articles that will be
+            published. The decisions of the editors shall always be driven by
+            the quality/intellectual content of the paper in question, and the
+            editorial policies of the journal. /p
           </li>
-          <li className='flex items-start gap-2'>
-            <CheckedCircle
+          <li>
+            {/* <CheckedCircle
               className='w-2 md:w-[10px] text-neutral-700 mt-[4px]'
               fill='none'
-            />
-            <p className='flex-1'>
-              Editors shall at all times ensure that the editorial policies
-              promote and encourage a transaparent and honest editorial process.
-            </p>
+            /> */}
+            Editors shall at all times ensure that the editorial policies
+            promote and encourage a transaparent and honest editorial process.
           </li>
-          <li className='flex items-start gap-2'>
-            <CheckedCircle
+          <li className=''>
+            {/* <CheckedCircle
               className='w-2 md:w-[10px] text-neutral-700 mt-[4px]'
               fill='none'
-            />
-            <p className='flex-1'>
-              Editors shall at no time base their evaluation of manuscripts on
-              the race, gender, sexual orientation, religious belief, ethnic
-              origin, citizenship, or political philosophy of the authors.
-            </p>
+            /> */}
+            Editors shall at no time base their evaluation of manuscripts on the
+            race, gender, sexual orientation, religious belief, ethnic origin,
+            citizenship, or political philosophy of the authors.
           </li>
-        </ul>
+        </ol>
       </section>
       <section className='space-y-3'>
-        <h3 className='text-base font-bold capitalize font-saira md:text-xl'>
-          Confidentiality
-        </h3>
-        <p>
+        <SectionHeading>Confidentiality</SectionHeading>
+        <Paragraph first={true}>
           Manuscript submitted to BIJED will be treated as confidential
           material, and will be disclosed only to individuals (including
           editorial staff, corresponding authors, potential reviewers, actual
@@ -114,118 +106,75 @@ function PublicationEthics() {
           cases of misconduct, a manuscript may be revealed to members of the
           BIJED ethics committee and institutions/organizations that may require
           it for the resolution of the misconduct.
-        </p>
+        </Paragraph>
       </section>
       <section className='space-y-3'>
-        <h3 className='text-base font-bold capitalize font-saira md:text-xl'>
-          Disclosure and Conflict of Interest
-        </h3>
-        <ul className='ml-2 space-y-5 md:ml-4'>
-          <li className='flex items-start gap-2'>
-            <CheckedCircle
-              className='w-2 md:w-[10px] text-neutral-700 mt-[4px]'
-              fill='none'
-            />
-            <p className='flex-1'>
-              Information and ideas contained in unpublished manuscripts
-              submitted to the Journal is confidential. Actors in the editorial
-              process (including editors and reviewers) who have previleged
-              access to such information are prohibited from using them for
-              personal or other purposes.
-            </p>
+        <SectionHeading>Disclosure and Conflict of Interest</SectionHeading>
+        <ol
+          type='a'
+          className='ml-4 space-y-2 list-outside list-lower-alpha md:ml-5'
+        >
+          <li>
+            Information and ideas contained in unpublished manuscripts submitted
+            to the Journal is confidential. Actors in the editorial process
+            (including editors and reviewers) who have previleged access to such
+            information are prohibited from using them for personal or other
+            purposes.
           </li>
-          <li className='flex items-start gap-2'>
-            <CheckedCircle
-              className='w-2 md:w-[10px] text-neutral-700 mt-[4px]'
-              fill='none'
-            />
-            <p className='flex-1'>
-              Editors and Reviewers must disclose any form of relationship or
-              connection they share with any of the authors, companies, or
-              institutions connected to a submitted paper that may result in a
-              conflict of interest. Where there is conflict of interest, editors
-              and reviewers should rescue themselves by asking another member of
-              the editorial board or another reviewer to instead review and
-              consider the manuscript in question.
-            </p>
+          <li>
+            Editors and Reviewers must disclose any form of relationship or
+            connection they share with any of the authors, companies, or
+            institutions connected to a submitted paper that may result in a
+            conflict of interest. Where there is conflict of interest, editors
+            and reviewers should rescue themselves by asking another member of
+            the editorial board or another reviewer to instead review and
+            consider the manuscript in question.
           </li>
-          <li className='flex items-start gap-2'>
-            <CheckedCircle
-              className='w-2 md:w-[10px] text-neutral-700 mt-[4px]'
-              fill='none'
-            />
-            <p className='flex-1'>
-              Editors must at all times ensure that all manuscripts submitted to
-              the journal are subjected to all of the journal’s usual
-              procedures, and peer review is handled independently of the
-              interest of any paries in the edtorial process.
-            </p>
+          <li>
+            Editors must at all times ensure that all manuscripts submitted to
+            the journal are subjected to all of the journal’s usual procedures,
+            and peer review is handled independently of the interest of any
+            paries in the edtorial process.
           </li>
-          <li className='flex items-start gap-2'>
-            <CheckedCircle
-              className='w-2 md:w-[10px] text-neutral-700 mt-[4px]'
-              fill='none'
-            />
-            <p className='flex-1'>
-              All authors should disclose in their manuscript any financial or
-              other substantive conflict of interest that might be construed to
-              influence the results or interpretation of their manuscript. All
-              sources of financial support for the project should be disclosed.
-            </p>
+          <li>
+            All authors should disclose in their manuscript any financial or
+            other substantive conflict of interest that might be construed to
+            influence the results or interpretation of their manuscript. All
+            sources of financial support for the project should be disclosed.
           </li>
-        </ul>
+        </ol>
       </section>
       <section className='space-y-3'>
-        <h3 className='text-base font-bold capitalize font-saira md:text-xl'>
-          Investigation of Misconducts
-        </h3>
-        <ul className='ml-2 space-y-5 md:ml-4'>
-          <li className='flex items-start gap-2'>
-            <CheckedCircle
-              className='w-2 md:w-[10px] text-neutral-700 mt-[4px]'
-              fill='none'
-            />
-            <p className='flex-1'>
-              Any action, behaviour or conduct (including the violation of any
-              part of BIJED editorial policy, journal policies, publication
-              ethics, and any applicable guidelines/policies specified by BIJED)
-              will constitue misconduct.
-            </p>
+        <SectionHeading>Investigation of Misconducts</SectionHeading>
+        <ol
+          type='a'
+          className='ml-4 space-y-2 list-outside list-lower-alpha md:ml-5'
+        >
+          <li>
+            Any action, behaviour or conduct (including the violation of any
+            part of BIJED editorial policy, journal policies, publication
+            ethics, and any applicable guidelines/policies specified by BIJED)
+            will constitue misconduct.
           </li>
-          <li className='flex items-start gap-2'>
-            <CheckedCircle
-              className='w-2 md:w-[10px] text-neutral-700 mt-[4px]'
-              fill='none'
-            />
-            <p className='flex-1'>
-              The editor (in collaboration with the publisher) should take
-              apropriate measures to safeguard the integrity of the journal in
-              cases of ethical compalaint about a submitted manuscript or
-              published article.
-            </p>
+          <li>
+            The editor (in collaboration with the publisher) should take
+            apropriate measures to safeguard the integrity of the journal in
+            cases of ethical compalaint about a submitted manuscript or
+            published article.
           </li>
-          <li className='flex items-start gap-2'>
-            <CheckedCircle
-              className='w-2 md:w-[10px] text-neutral-700 mt-[4px]'
-              fill='none'
-            />
-            <p className='flex-1'>
-              All cases of ethical complaints will be investigated and where
-              there are convincing evidence of misconduct, appropriate actions
-              (including the prompt publication of a correction, retraction,
-              expression of concern, or other correction as may be relevant)
-              will be taken. Every reported act of unethical publishing behavior
-              must be looked into, even if it is discovered years after
-              publication.
-            </p>
+          <li>
+            All cases of ethical complaints will be investigated and where there
+            are convincing evidence of misconduct, appropriate actions
+            (including the prompt publication of a correction, retraction,
+            expression of concern, or other correction as may be relevant) will
+            be taken. Every reported act of unethical publishing behavior must
+            be looked into, even if it is discovered years after publication.
           </li>
-        </ul>
+        </ol>
       </section>
       <section className='space-y-3'>
-        <h3 className='text-base font-bold capitalize font-saira md:text-xl'>
-          Duties of Reviewers
-        </h3>
-        <p>
+        <SectionHeading>Duties of Reviewers</SectionHeading>
+        <Paragraph first={true}>
           These guidelines are adopted from &nbsp;
           <a
             href='https://www.elsevier.com/about/policies-and-standards/publishing-ethics'
@@ -245,7 +194,7 @@ function PublicationEthics() {
             <OpenInNewWindow className='inline-block w-4' />
           </a>
           &nbsp; for Journal Editors
-        </p>
+        </Paragraph>
         <ul className='space-y-5'>
           <li>
             <h4 className='text-base font-semibold md:text-lg font-saira'>

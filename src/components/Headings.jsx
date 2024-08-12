@@ -15,13 +15,13 @@ export function PageHeading({
 
 export function SectionHeading({ children, font = 'font-saira' }) {
   return (
-    <h3 className={`text-base font-semibold md:text-xl ${font}`}>{children}</h3>
+    <h3 className={`text-base font-bold md:text-xl ${font}`}>{children}</h3>
   )
 }
 
 export function Paragraph({ children, first, style }) {
   if (first) {
-    return <p className='inline p-0 m-0'>{children}</p>
+    return <p className={`inline p-0 m-0 ${style}`}>{children}</p>
   }
 
   return <p className={style}>{children}</p>

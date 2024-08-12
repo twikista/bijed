@@ -1,3 +1,4 @@
+import { PageHeading } from '@/components/Headings'
 import MainContainer from '@/components/MainContainer'
 
 export const metadata = {
@@ -9,9 +10,7 @@ export const metadata = {
 function Copyright() {
   return (
     <MainContainer>
-      <h2 className='text-2xl font-bold underline uppercase font-saira'>
-        Copyright policy
-      </h2>
+      <PageHeading>Copyright policy</PageHeading>
       <div className='space-y-3'>
         <p>
           By submitting their articles to BIJED, authors grant copyright

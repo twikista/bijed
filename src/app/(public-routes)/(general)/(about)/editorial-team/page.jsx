@@ -1,7 +1,11 @@
 import DOMPurify from 'isomorphic-dompurify'
 import parse from 'html-react-parser'
 import MainContainer from '@/components/MainContainer'
-import { fetchAllEditorialBoardData, getEditorialBoard } from '@/lib/data'
+import {
+  fetchAllEditorialBoardData,
+  fetchEditorialBoard,
+  getEditorialBoard,
+} from '@/lib/data'
 import { PageHeading } from '@/components/Headings'
 
 export const metadata = {
@@ -11,11 +15,17 @@ export const metadata = {
 }
 
 async function EditorialBoard() {
-  const editorialTeam = await fetchAllEditorialBoardData()
-  const styledEditorialTeam = editorialTeam[0]?.content.replace(
-    /<h3>/g,
-    "<h3 className='font-saira text-[20px] mb-1'>"
+  const editorialTeam = await fetchEditorialBoard('final')
+  const styledEditorialTeam = editorialTeam?.map((i) =>
+    i.content
+      .replace(
+        /<h3>/g,
+        "<h3 className='font-saira text-[20px] mb-1 text-center'>"
+      )
+      .replace(/<p>/g, "<p className='text-center '>")
   )
+
+  console.log(styledEditorialTeam)
   return (
     <MainContainer>
       <PageHeading>Editorial Team</PageHeading>

@@ -17,8 +17,8 @@ function PublicationFee() {
       <div className='flex items-center justify-center flex-grow w-full h-full'>
         <MainContainer>
           <PageHeading>Publication fees</PageHeading>
-          <section className='space-y-3 w-full  md:w-[70%] mx-auto'>
-            <div>
+          <section className='w-full mx-auto space-y-3 md:w-fit'>
+            <div className='text-center'>
               <SectionHeading>Nigerian Authors:</SectionHeading>
               <div className='space-y-1'>
                 <p>Article submission fee: &#8358;5,000&#42;</p>
@@ -26,7 +26,7 @@ function PublicationFee() {
                 {/* <p className='font-medium'>Total publication fee: &#8358;30,000</p> */}
               </div>
             </div>
-            <div>
+            <div className='text-center'>
               <SectionHeading>International Authors:</SectionHeading>
               <div className='space-y-1'>
                 <p>Article submission fee:&#32; &#36;10&#42;</p>
@@ -35,7 +35,9 @@ function PublicationFee() {
               </div>
             </div>
             <br />
-            <p>&#42; Article submission fee is mandatory and non-refundable</p>
+            <p className='text-center'>
+              &#42; Article submission fee is mandatory and non-refundable
+            </p>
           </section>
         </MainContainer>
       </div>

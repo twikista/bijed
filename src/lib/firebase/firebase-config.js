@@ -4,16 +4,6 @@ import { getStorage } from 'firebase/storage'
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
-// Your web app's Firebase configuration
-// const firebaseConfig = {
-//   apiKey: "AIzaSyADf_UOFCWH-8QgeieQp_9NVhaffvB2HdA",
-//   authDomain: "bijed-f265e.firebaseapp.com",
-//   projectId: "bijed-f265e",
-//   storageBucket: "bijed-f265e.appspot.com",
-//   messagingSenderId: "344775849649",
-//   appId: "1:344775849649:web:31ef11a9a261aecdb5d490"
-// };
-
 const firebaseConfig = {
   apiKey: process.env.API_KEY,
   authDomain: process.env.AUTH_DOMAIN,
@@ -26,3 +16,5 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig)
 export const storage = getStorage(app)
+
+console.log('storage bucket', process.env.STORAGE)

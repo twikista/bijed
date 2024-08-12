@@ -7,20 +7,20 @@ export default async function sitemap() {
     .flat()
     .filter((i) => i !== null)
     .map((item) => {
-      return { url: `${process.env.NEXT_BASE_URL}/${item.url}` }
+      return { url: `/${item.url}` }
     })
 
   const publishedIssues = await getIssues('final')
   const archiveMenu = publishedIssues.map((issue) => {
     return {
-      url: `${process.env.NEXT_BASE_URL}/archive/${issue?.ref}`,
+      url: `/archive/${issue?.ref}`,
       lastModified: `${new Date(issue.createdAt)}`,
     }
   })
 
   return [
     {
-      url: `${process.env.NEXT_BASE_URL}/contact`,
+      url: `/contact`,
     },
     ...navbarMenuEntries,
     ...archiveMenu,

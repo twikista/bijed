@@ -1,3 +1,4 @@
+import { PageHeading } from '@/components/Headings'
 import MainContainer from '@/components/MainContainer'
 
 export const metadata = {
@@ -9,9 +10,7 @@ export const metadata = {
 function PlagiarismPolicy() {
   return (
     <MainContainer>
-      <h2 className='text-2xl font-bold underline uppercase font-saira'>
-        Plagiarism policy
-      </h2>
+      <PageHeading>Plagiarism policy</PageHeading>
       <div className='space-y-3'>
         <p>
           BIJED consider plagiarism and other forms of copyright infringements

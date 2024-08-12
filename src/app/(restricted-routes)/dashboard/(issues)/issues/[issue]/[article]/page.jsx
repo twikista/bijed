@@ -8,10 +8,12 @@ import { joinKeywords } from '@/lib/util'
 import { deleteArticle } from '@/lib/actions'
 
 import ccLogo from '@/../public/by.png'
-
 import { EdiButton, DeleteButton } from '@/components/Dashboard/Buttons'
 import DashboardWrapper from '@/components/Dashboard/DashboardWrapper'
 import SideNav from '@/components/Dashboard/SideNav'
+import Authors from '@/components/Authors'
+import ArticleInfo from '@/components/ArticleInfo'
+import { PDFIcon } from '@/components/Icons'
 
 async function Article({ params }) {
   const { user } = await auth()
@@ -43,44 +45,10 @@ async function Article({ params }) {
             </div>
             <section className='flex flex-col py-2 space-y-3 border-t border-b sm:space-y-0 sm:flex-row border-neutral-300'>
               <div className='flex-1'>
-                <div className='space-y-[5px]'>
-                  {article.authors.map(({ name, affliation, _id }) => (
-                    <div key={_id} className=''>
-                      <div className='flex items-center space-x-1'>
-                        <p className='font-semibold'>{name}</p>
-                      </div>
-                      <p className='text-sm text-neutral-500'>{affliation}</p>
-                    </div>
-                  ))}
-                </div>
+                <h5 className='font-semibold'>Author(s):</h5>
+                <Authors authors={article.authors} withAffliation={true} />
               </div>
-              <div className='flex flex-col w-[250px]'>
-                <div className='space-y-[5px] text-neutral-500'>
-                  <div>
-                    <h5 className='font-medium text-neutral-500'>Published</h5>
-                    <p className='text-sm text-gray-500'>
-                      {new Intl.DateTimeFormat('en-GB').format(
-                        article.publishDate
-                      )}
-                    </p>
-                  </div>
-                  <div>
-                    <h5 className='font-medium text-neutral-500'>Issue</h5>
-                    <p>
-                      <Link
-                        href={`/archive/${article.ref}`}
-                        className='text-sm text-gray-500'
-                      >
-                        {`Vol. ${article.volume} No. ${
-                          article.issue
-                        } (${new Date(
-                          article.publishDate
-                        ).getFullYear()}) pp. ${article.slug}`}
-                      </Link>
-                    </p>
-                  </div>
-                </div>
-              </div>
+              <ArticleInfo article={article} />
             </section>
             <div className='py-2'>
               <p>
@@ -97,10 +65,11 @@ async function Article({ params }) {
               </div>
               <div className='flex justify-center'>
                 <Link
-                  href={`${process.env.NEXT_URL}/dashboard/issues/${params.issue}/${params.article}/view`}
-                  className='block font-bold text-primary px-3 py-2 border border-primary sm:w-[240px] rounded-md hover:bg-primary hover:text-white transition-colors  text-center'
+                  href={`/dashboard/issues/${params.issue}/${params.article}/view`}
+                  className='flex justify-center gap-2 font-bold hover:text-primary px-3 py-2 border hover:border-primary sm:w-[240px] rounded-md bg-primary hover:bg-white text-white transition-colors  text-center'
                 >
-                  View PDF
+                  <span>View PDF</span>
+                  <PDFIcon className='w-5 text-' />
                 </Link>
               </div>
               <div>

@@ -1,3 +1,4 @@
+import { PageHeading } from '@/components/Headings'
 import MainContainer from '@/components/MainContainer'
 
 export const metadata = {
@@ -9,9 +10,7 @@ export const metadata = {
 function OpenAccess() {
   return (
     <MainContainer>
-      <h2 className='text-2xl font-bold underline uppercase font-saira'>
-        Open Access
-      </h2>
+      <PageHeading>Open Access</PageHeading>
       <div className='space-y-3'>
         <p>
           All articles published in Benin International journal of

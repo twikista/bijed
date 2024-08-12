@@ -1,5 +1,3 @@
-import { ChevronLeft, CogIcon, UnderConstruction } from '@/components/Icons'
-
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -10,6 +8,7 @@ import coverImage from '@/../public/bijed_cover_image.jpg'
 import { PageHeading } from '@/components/Headings'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
+import { getPublishedIssues } from '@/lib/actions/issues'
 
 export const metadata = {
   title: 'Archive',
@@ -17,22 +16,8 @@ export const metadata = {
     'List of the issues published by the Benin International Journal for Entrepreneurship Development.',
 }
 
-const getPublishedIssues = async () => {
-  try {
-    connectDB()
-    const publishedIssues = await Issue.find({ published: true }).sort({
-      volume: -1,
-      issueNumber: -1,
-    })
-    return publishedIssues
-  } catch (error) {
-    console.log(error)
-  }
-}
-
 async function Archive() {
   const issues = await getPublishedIssues()
-  console.log(issues)
   if (!issues.length) {
     return (
       <div className='flex flex-col min-h-screen'>
@@ -54,20 +39,6 @@ async function Archive() {
       <div className='flex items-center justify-center flex-grow w-full h-full'>
         <MainContainer>
           <PageHeading>Archive</PageHeading>
-
-          {/* <section className='flex flex-col items-center space-y-8'>
-        <CogIcon className='w-16 h-16 md:w-20 md:h-20 text-neutral-400 animate-spin-slow' />
-        <h3 className='text-base md:text-2xl xl:text-3xl text-neutral-400'>
-          This page is under construction
-        </h3>
-        <Link
-          href={'/'}
-          className='flex items-center text-xs font-medium transition-all text-primary hover:underline hover:font-semibold md:text-base '
-        >
-          <ChevronLeft className='inline-block w-3 h-3 md:w-4 md:h-4' />
-          <span>Back to Homepage</span>
-        </Link>
-      </section> */}
           <div className='space-y-5'>
             {issues.map((issue) => (
               <div
@@ -91,10 +62,6 @@ async function Archive() {
                     {issue.issueTitle}
                   </p>
                 </div>
-
-                {/* <p>{`Vol. ${issue.volume} No. ${issue.issueNumber} ${new Date(
-              issue.createdAt
-            ).getFullYear()}`}</p> */}
               </div>
             ))}
           </div>

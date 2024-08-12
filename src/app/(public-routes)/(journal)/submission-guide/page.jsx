@@ -1,5 +1,6 @@
 import Footer from '@/components/Footer'
 import Header from '@/components/Header'
+import { PageHeading, Paragraph, SectionHeading } from '@/components/Headings'
 import MainContainer from '@/components/MainContainer'
 
 export const metadata = {
@@ -15,9 +16,7 @@ function SubmissionGuide() {
       <Header />
       <div className='flex items-center justify-center flex-grow w-full h-full'>
         <MainContainer>
-          <h2 className='text-2xl font-bold underline uppercase font-saira'>
-            Submission Guide
-          </h2>
+          <PageHeading>Submission Guide</PageHeading>
           <section className='space-y-3'>
             <p>
               The Benin International Journal of Entrepreneurship Development
@@ -43,9 +42,9 @@ function SubmissionGuide() {
                     Researchable topic with a title of a maximum of 16 words.
                   </li>
                   <li>
-                    Author’s bio-data information: Name, Contact
-                    Address/Institution and Correspondence e-mail address on the
-                    cover page.
+                    Author’s bio-data information: Name, Institutional
+                    affliation, and Correspondence e-mail address on the cover
+                    page.
                   </li>
                   <li>
                     Abstract of about 250 words on a separate page which should
@@ -101,13 +100,11 @@ function SubmissionGuide() {
             </ol>
           </section>
           <section className='space-y-3'>
-            <h3 className='text-base font-bold font-saira md:text-xl'>
-              Mode of Submission
-            </h3>
-            <p>
+            <SectionHeading>Mode of Submission</SectionHeading>
+            <Paragraph first={true}>
               Authors shall send soft copies of their articles accompanied by an
               abstract of about 250 words to entrepreneurshipdept@uniben.edu
-            </p>
+            </Paragraph>
           </section>
           <section className='space-y-3'>
             <h3 className='text-base font-bold font-saira md:text-xl'>
@@ -136,9 +133,9 @@ function SubmissionGuide() {
                 <div className='ml-2 space-y-1 md:ml-4'>
                   <p>Article submission fee:&#32; &#36;10&#42;</p>
                   <p>
-                    Article publication fee: &#36;90 &#40;upon acceptance&#41;
+                    Article publication fee: &#36;70 &#40;upon acceptance&#41;
                   </p>
-                  <p className='font-medium'>Total publication fee: &#36;100</p>
+                  <p className='font-medium'>Total publication fee: &#36;80</p>
                 </div>
               </div>
               <br />

@@ -3,7 +3,7 @@ export const footerItemsData = [
     name: 'about',
     url: '/about',
     submenu: [
-      { name: 'Editorial Board', url: 'editorial-board' },
+      { name: 'Editorial Board', url: 'editorial-team' },
       { name: 'Peer Review', url: 'peer-review' },
       { name: 'Reviewers Guide', url: 'reviewers-guide' },
       { name: 'Terms', url: 'terms' },

@@ -9,7 +9,7 @@ const staticSitemapData = menuItemsData
   .flat()
   .filter((i) => i !== null)
 const menuEntries = staticSitemapData.map((item) => {
-  return { url: `${process.env.NEXT_BASE_URL}/${item.url}` }
+  return { url: `/${item.url}` }
 })
 
 function Navbar() {

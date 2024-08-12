@@ -91,9 +91,7 @@ function KeywordsInput({ control, register, getValues, error, initialValue }) {
                     key={index}
                     className='flex gap-2 px-2 py-1 bg-gray-200 border border-gray-300 border-solid rounded-lg w-fit'
                   >
-                    <p key={index} className=' w-fit'>
-                      {item.keyword}
-                    </p>
+                    <p className=' w-fit'>{item.keyword}</p>
                     {!!displayedKeywords.length && (
                       <button
                         type='button'
