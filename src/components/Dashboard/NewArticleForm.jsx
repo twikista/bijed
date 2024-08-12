@@ -53,7 +53,7 @@ function NewArticleForm({ initialValue, params }) {
     //receive response from server and redirect to appropriate route
     if (response.ok) {
       reset()
-      router.push(`/dashboard/issues/unpublished/${params.issue}`)
+      router.push(`/dashboard/issues/${params?.issue}`)
     } else {
       if (response?.errorType === 'validationError') {
         const formfields = {
@@ -186,7 +186,7 @@ function NewArticleForm({ initialValue, params }) {
             formSubmitState={isSubmitting}
           />
           <CancelButton
-            href={`/dashboard/issues/unpublished/${params?.issue}`}
+            href={`/dashboard/issues/${params?.issue}`}
             style='bg-red-400 hover:bg-red-500'
             text='Cancel'
           />

@@ -6,7 +6,9 @@ import { VolumeIcon, IssuesIcon, ArticlesIcon } from '../Icons'
 const getMaxVolume = async () => {
   connectDB()
   try {
-    const ArticleWithMaxVolume = Issue.find().sort({ volume: -1 }).limit(1)
+    const ArticleWithMaxVolume = Issue.find({ published: true })
+      .sort({ volume: -1 })
+      .limit(1)
     const issuesCount = Issue.find({ published: true }).count()
     const articlesCount = Article.find({ published: true }).count()
     const [[{ volume: numberOfVolume }], numberOfIssues, numberOfArticles] =

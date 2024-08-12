@@ -22,7 +22,7 @@ const articleSchema = new mongoose.Schema(
     pdfUrl: { type: String, required: true, unique: true },
     keywords: [{ type: String, required: true }],
     slug: { type: String, required: true },
-    ref: { type: String, required: true, unique: true },
+    ref: { type: String, required: true },
     published: { type: Boolean, required: true, default: false },
     // addedBy:{ type: String, required: true},
     // approvedBy:{ type: String, required: true},

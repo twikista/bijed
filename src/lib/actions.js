@@ -264,6 +264,7 @@ export async function createArticle(formData, url, params) {
   articleData.ref = `volume-${articleData.volume}-issue-${articleData.issue}`
   articleData.published = params.published ? true : false
   articleData.publishDate = new Date()
+  console.log(articleData)
 
   try {
     connectDB()
@@ -291,6 +292,7 @@ export async function createArticle(formData, url, params) {
     // send success response back to client
     return { ok: true }
   } catch (error) {
+    console.log(error)
     return { ok: false, error: 'Something went wrong', errorType: 'other' }
   }
 }

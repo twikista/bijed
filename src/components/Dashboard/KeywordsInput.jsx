@@ -88,7 +88,7 @@ function KeywordsInput({ control, register, getValues, error, initialValue }) {
               (item, index) =>
                 !!item.keyword && (
                   <div
-                    key={index}
+                    key={item.keyword}
                     className='flex gap-2 px-2 py-1 bg-gray-200 border border-gray-300 border-solid rounded-lg w-fit'
                   >
                     <p className=' w-fit'>{item.keyword}</p>

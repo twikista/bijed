@@ -75,15 +75,15 @@ async function Issues({ searchParams }) {
               </thead>
               <tbody className='text-center bg-white divide-y-2 rounded-sm'>
                 {issues.map((issue, index) => (
-                  <tr className='py-5 text-sm' key={issue._id}>
+                  <tr className='py-5 text-sm' key={issue?._id}>
                     <td className='px-4 py-4 text-center border border-solid'>
                       <Link
                         className='text-center text-[#800080] hover:text-blue-600 font-medium'
-                        href={`/dashboard/issues/${issue.ref}`}
+                        href={`/dashboard/issues/${issue?.ref}`}
                       >{`BIJED ${issue.issueTitle}`}</Link>
                     </td>
                     <td className='px-4 py-4 text-center border border-solid'>
-                      {issue.status === 'published' ? (
+                      {issue?.status === 'published' ? (
                         <span className='px-3 py-[5px] space-x-1 font-medium text-center text-white bg-green-500 rounded-[20px] '>
                           published
                         </span>
@@ -95,9 +95,9 @@ async function Issues({ searchParams }) {
                     </td>
                     <td className='px-4 py-4 text-center border border-solid'>
                       <span>
-                        {issue.published
+                        {issue?.published
                           ? new Intl.DateTimeFormat('en-GB').format(
-                              issue.publishDate
+                              issue?.publishDate
                             )
                           : 'Not available'}
                       </span>
@@ -108,14 +108,14 @@ async function Issues({ searchParams }) {
                       <>
                         <td className='px-4 py-4 text-center'>
                           <EditButton
-                            href={`/dashboard/issues/${issue.ref}/edit`}
+                            href={`/dashboard/issues/${issue?.ref}/edit`}
                             variant='secondary'
                           />
                         </td>
                         <td className='px-4 py-4 text-center'>
                           <DeleteButton
                             action={deleteIssue}
-                            id={issue.ref}
+                            id={issue?.ref}
                             variant='secondary'
                           />
                         </td>
