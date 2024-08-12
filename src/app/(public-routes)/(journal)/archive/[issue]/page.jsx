@@ -53,10 +53,10 @@ async function IssuePage({ params }) {
         <MainContainer>
           <div>
             <PageHeading>{`BIJED - ${currentIssue.issueTitle}`}</PageHeading>
-            <Paragraph style='text-center'>{`Publish Date: ${dateHelperFunction(
+            <p className='text-center '>{`Publish Date: ${dateHelperFunction(
               currentIssue.publishDate,
               'long'
-            )}`}</Paragraph>
+            )}`}</p>
           </div>
           <section className='space-y-5'>
             <ListOfArticlesInIssue articlesInIssue={articlesInIssue} />

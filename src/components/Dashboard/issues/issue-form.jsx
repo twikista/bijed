@@ -33,7 +33,7 @@ function IssueForm({ initialFormState, initialValue }) {
         : await updateIssue(initialValue?._id, initialValue, data)
 
     if (response.ok) {
-      router.push('/dashboard/issues/unpublished')
+      router.push('/dashboard/issues?mode=draft')
       reset()
     } else {
       if (response?.errorType === 'validationError') {

@@ -14,7 +14,7 @@ async function Issues({ searchParams }) {
   const { user } = await auth()
   const mode = searchParams.mode
   const issues = await getIssues(mode)
-  console.log('ref======xxxxx', issues[0].ref)
+  console.log('ref======xxxxx', issues[0]?.ref)
 
   if (!issues.length) {
     return (
@@ -102,7 +102,9 @@ async function Issues({ searchParams }) {
                           : 'Not available'}
                       </span>
                     </td>
-                    {user.role === 'admin' && (
+                    {(user.role === 'admin' ||
+                      (user.role === 'business manager' &&
+                        !issue.published)) && (
                       <>
                         <td className='px-4 py-4 text-center'>
                           <EditButton

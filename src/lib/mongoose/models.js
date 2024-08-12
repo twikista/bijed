@@ -42,7 +42,7 @@ const issueSchema = new mongoose.Schema(
     volume: { type: Number, required: true },
     articles: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Article' }], //likely remove
     ref: { type: String, required: true },
-    slug: { type: String, required: true },
+    // slug: { type: String, required: true },
     published: { type: Boolean, required: true, default: false },
     publishDate: { type: Date },
     status: {

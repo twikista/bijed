@@ -21,7 +21,7 @@ import {
 } from './mongoose/models'
 import { removePdfFromStorage } from './firebase/services'
 import { redirect } from 'next/navigation'
-import { signIn, signOut } from '../../auth'
+import { signIn, signOut, auth } from '../../auth'
 
 import {
   compileActivationTemplate,
@@ -40,10 +40,13 @@ import {
   editorialBoardSchema,
 } from './schema'
 
-import { auth } from '../../auth'
-
 //create new issue
 export const addIssue = async (formData) => {
+  const user = await auth()
+  const {
+    user: { firstName, lastName },
+  } = user
+  console.log('form data ------------', firstName)
   const parsedData = issueFormSchema.safeParse(formData)
   if (!parsedData.success) {
     const validationError = handleServerSideValidationError(parsedData)
@@ -60,18 +63,21 @@ export const addIssue = async (formData) => {
     ).getFullYear()})`,
     published: false,
     publishDate: new Date(),
+    initiatedBy: `${firstName} ${lastName}`,
   }
-
+  console.log('it got here')
   try {
     connectDB()
     const newIssue = new Issue(issueData)
     const savedIssue = await newIssue.save()
+    console.log('saved issue', savedIssue)
     if (savedIssue?._id !== null) {
       revalidatePath('/archive')
       revalidatePath('/dashboard/issues')
       return { ok: true }
     }
   } catch (error) {
+    console.log(error)
     return { ok: false, error: 'Something went wrong', errorType: 'other' }
   }
 }
@@ -122,8 +128,9 @@ export async function deleteIssue(issueRef) {
     connectDB()
     const deletedIssue = await Issue.findOneAndDelete(issueRef)
     if (deletedIssue._id !== undefined) {
+      console.log('deletedIssue', issueRef)
       const deleteOutcome = await Article.deleteMany({ ref: issueRef })
-      if (!!deleteOutcome.deletedCount) {
+      if (!deletedIssue.articles.length || !!deleteOutcome.deletedCount) {
         revalidatePath('/archive')
         revalidatePath('/dashboard/issues')
         return { ok: true }

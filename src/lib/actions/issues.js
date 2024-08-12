@@ -115,7 +115,7 @@ export const publishIssue = async (issueRef, user) => {
       if (publishedArticles.acknowledged) {
         revalidatePath(`/dashboard/issues/${publishedIssue.ref}`)
         revalidatePath(`/dashboard/issues`)
-        revalidatePath(`/dashboard/archive/${issueRef}`)
+        revalidatePath(`/archive`)
         return { ok: true }
       } else {
         return { ok: false, error: 'something went wrong', errorType: 'other' }

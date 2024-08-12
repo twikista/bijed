@@ -122,6 +122,7 @@ export function DeleteButton({
   disabled = false,
 }) {
   const handler = async (id) => {
+    console.log('ref', id)
     const response = await action(id)
     if (response.ok) {
       toast.success('deleted successfully!!!')
@@ -176,7 +177,7 @@ export function PublishIssueButton({ issueRef, jobTicketId, user }) {
     const response = await publishIssue(issueRef, jobTicketId, user)
     if (response.ok) {
       toast.success('Issue published successfully!!!')
-      router.push(`/dashboard/job-queue/pending-jobs`)
+      router.push(`/dashboard/issues`)
       // setIsSubmitting(false)
     }
   }
