@@ -6,6 +6,7 @@ import MainContainer from '@/components/MainContainer'
 import { connectDB } from '@/lib/mongoose/config'
 import { Issue, Article } from '@/lib/mongoose/models'
 import { dateHelperFunction } from '@/lib/util'
+import { unstable_noStore as noStore } from 'next/cache'
 
 export const metadata = {
   title:
@@ -24,15 +25,32 @@ const getArticlesInCurrentIssue = async () => {
     const articlesInCurrentIssue = await Article.find({
       ref: issue?.ref,
     })
-    return { issue, articlesInCurrentIssue }
+    return { currentIssue, articlesInCurrentIssue }
   }
 }
 
 async function Currentissue() {
-  const {
-    issue: { issueTitle, publishDate },
-    articlesInCurrentIssue,
-  } = await getArticlesInCurrentIssue()
+  noStore()
+  const { currentIssue, articlesInCurrentIssue } =
+    await getArticlesInCurrentIssue()
+
+  if (!currentIssue || currentIssue.length === 0) {
+    return (
+      <div className='flex flex-col min-h-screen'>
+        <Header />
+        <div className='flex items-center justify-center flex-grow w-full h-full'>
+          <MainContainer>
+            <div className='flex items-center justify-center h-full'>
+              <h2>No current issue </h2>
+            </div>
+          </MainContainer>
+        </div>
+        <Footer />
+      </div>
+    )
+  }
+
+  const [{ issueTitle, publishDate }] = currentIssue
 
   return (
     <div className='flex flex-col min-h-screen'>

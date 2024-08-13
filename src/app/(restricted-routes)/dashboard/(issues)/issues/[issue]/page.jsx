@@ -145,7 +145,7 @@ async function IssuePage({ params }) {
                   <tr className=''>
                     <th className='px-4 py-6 pb-1 font-medium w-20px]'>S/N</th>
                     <th className='px-4 pt-4 pb-1 table-fixed'>Article</th>
-                    <th className='px-4 pt-4 pb-1 table-fixed'>Page</th>
+                    <th className='px-3 pt-4 pb-1 w-28'>Page</th>
                     <th className='px-4 pt-4 pb-1 font-medium w-14'>Status</th>
                     {(businessManagerPrivilege || adminPrevilege) && (
                       <>

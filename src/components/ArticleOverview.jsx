@@ -17,7 +17,7 @@ function ArticleOverview({ currentArticle, currentIssue = false }) {
       <section className='flex flex-col py-2 space-y-3 border-t border-b sm:space-y-0 sm:flex-row border-neutral-300'>
         <div className='flex-1'>
           <h5 className='font-semibold'>Author(s):</h5>
-          <Authors authors={currentArticle.authors} withAffliation={true} />
+          <Authors authors={currentArticle?.authors} withAffliation={true} />
         </div>
         <ArticleInfo article={currentArticle} />
       </section>

@@ -17,4 +17,4 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig)
 export const storage = getStorage(app)
 
-console.log('storage bucket', process.env.STORAGE)
+// console.log(new Date('2019-06-30'))

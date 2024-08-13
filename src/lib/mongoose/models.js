@@ -9,8 +9,9 @@ const articleSchema = new mongoose.Schema(
     },
     authors: [
       {
-        name: { type: String, required: true },
-        affliation: { type: String, required: true },
+        name: { type: String, required: true, trim: true },
+        department: { type: String, required: true, trim: true },
+        institution: { type: String, required: true, trim: true },
       },
     ],
     volume: { type: Number, required: true, trim: true },
@@ -41,7 +42,7 @@ const issueSchema = new mongoose.Schema(
     },
     volume: { type: Number, required: true },
     articles: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Article' }], //likely remove
-    ref: { type: String, required: true },
+    ref: { type: String, required: true, unique: true },
     // slug: { type: String, required: true },
     published: { type: Boolean, required: true, default: false },
     publishDate: { type: Date },

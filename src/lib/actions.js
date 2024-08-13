@@ -263,7 +263,7 @@ export async function createArticle(formData, url, params) {
   articleData.slug = `${articleData.startPage}-${articleData.endPage}`
   articleData.ref = `volume-${articleData.volume}-issue-${articleData.issue}`
   articleData.published = params.published ? true : false
-  articleData.publishDate = new Date()
+  articleData.publishDate = new Date('2019-06-30')
   console.log(articleData)
 
   try {

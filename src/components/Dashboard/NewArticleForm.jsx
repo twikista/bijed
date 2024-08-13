@@ -18,6 +18,7 @@ import FormWrapper from './FormWrapper'
 import { CancelButton } from './Buttons'
 import SubmitButton from '../SubmitButton'
 import Form from './Form'
+import { toast } from 'react-toastify'
 
 function NewArticleForm({ initialValue, params }) {
   const {
@@ -53,6 +54,7 @@ function NewArticleForm({ initialValue, params }) {
     //receive response from server and redirect to appropriate route
     if (response.ok) {
       reset()
+      toast.success('Article added sucessfully!!!')
       router.push(`/dashboard/issues/${params?.issue}`)
     } else {
       if (response?.errorType === 'validationError') {

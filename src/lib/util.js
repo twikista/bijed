@@ -90,7 +90,7 @@ export const dateHelperFunction = (date, variant = 'short') => {
 export const authorsNameWithAbrreviations = (name) => {
   const splitName = name.split(' ')
   const arrayWithNameInitials = splitName.map((name, index) =>
-    index === 0 ? `${name} ` : `${name[0].toUpperCase()}.`
+    index === 0 ? `${name} ` : `${name[0]?.toUpperCase()}.`
   )
   return arrayWithNameInitials.join('')
 }

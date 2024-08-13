@@ -54,11 +54,14 @@ export const passwordSchema = z.object({
 
 const articleAuthorSchema = z.object({
   name: z.string().min(1, { message: 'name is required' }),
-  affliation: z.string().min(1, { message: "author's affliation is required" }),
+  department: z.string().min(1, { message: "author's department is required" }),
+  institution: z
+    .string()
+    .min(1, { message: "author's intitution is required" }),
 })
 
 const fileSizeInMb = (sizeInBytes) => sizeInBytes / 1024 ** 2
-const MAX_FILESIZE = 2
+const MAX_FILESIZE = 10
 const fileInputSchema = z
   .custom()
   .refine((files) => Array.from(files ?? []).length !== 0, {
@@ -68,7 +71,7 @@ const fileInputSchema = z
     Array.from(files ?? []).every(
       (file) => +fileSizeInMb(file.size).toFixed(2) <= MAX_FILESIZE,
       {
-        message: 'maximum file size is 2MB',
+        message: 'maximum file size is 10MB',
       }
     )
   )

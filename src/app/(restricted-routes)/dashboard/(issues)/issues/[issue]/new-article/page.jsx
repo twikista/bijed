@@ -6,7 +6,7 @@ import SideNav from '@/components/Dashboard/SideNav'
 
 const initialState = {
   title: '',
-  authors: [{ name: '', affliation: '', orchidId: '' }],
+  authors: [{ name: '', department: '', institution: '' }],
   volume: '',
   issue: '',
   startPage: null,

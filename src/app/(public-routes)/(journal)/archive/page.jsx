@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import { unstable_noStore as noStore } from 'next/cache'
 
 import { connectDB } from '@/lib/mongoose/config'
 import { Issue } from '@/lib/mongoose/models'
@@ -17,15 +18,16 @@ export const metadata = {
 }
 
 async function Archive() {
+  noStore()
   const issues = await getPublishedIssues()
-  if (!issues.length) {
+  if (!issues || issues.length === 0) {
     return (
       <div className='flex flex-col min-h-screen'>
         <Header />
         <div className='flex items-center justify-center flex-grow w-full h-full'>
           <MainContainer>
             <div className='flex items-center justify-center h-full'>
-              <h2>This Journal has not published any article</h2>
+              <h2>This Journal has not published any Issue</h2>
             </div>
           </MainContainer>
         </div>

@@ -3,15 +3,16 @@ import { authorsNameWithAbrreviations } from '@/lib/util'
 function Authors({ authors, withAffliation }) {
   if (withAffliation)
     return (
-      <div className='space-y-[5px]'>
-        {authors.map(({ name, affliation, _id }) => (
+      <div className='space-y-2'>
+        {authors.map(({ name, department, institution, _id }) => (
           <div key={_id} className=''>
-            <div className='flex items-center space-x-1'>
-              <p className='font-semibold'>
-                {authorsNameWithAbrreviations(name)}
-              </p>
-            </div>
-            <p className='text-neutral-500'>{affliation}</p>
+            {/* <div className='flex items-center space-x-1'> */}
+            <p className='font-semibold leading-none'>
+              {authorsNameWithAbrreviations(name)}
+            </p>
+            {/* </div> */}
+            <span className='flex flex-wrap text-neutral-500'>{`Department of ${department}, ${institution}`}</span>
+            {/* <p className='text-neutral-500'>{institution}</p> */}
           </div>
         ))}
       </div>
