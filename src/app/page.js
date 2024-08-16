@@ -33,13 +33,14 @@ export default function Home() {
           <p className='text-justify'>
             Welcome to the official website of the Benin International Journal
             of Entrepreneurship Development &#40;BIJED&#41;, a publication of
-            the Department of Entrepreneurship, Faculty of management Sciences,
+            the Department of Entrepreneurship, Faculty of Management Sciences,
             University of Benin, Benin city, Nigeria. BIJED seeks to advance the
             frontiers of knowledge in the field of Entreneurship by publsihing
             high quality and well researched articles, that have significant
             applications in the academics sphere and in the wider social, and
-            economic environments. The Journal operates the Open Access model.
-            It is published bi-annualy in June, and December every year.
+            economic environments. The Journal, which is peer-reviewed, operates
+            the Open Access model. It is published bi-annualy in June, and
+            December every year.
           </p>
         </section>
         <section className='space-y-3'>

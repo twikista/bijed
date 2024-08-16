@@ -20,9 +20,9 @@ async function EditorialBoard() {
     i.content
       .replace(
         /<h3>/g,
-        "<h3 className='font-saira text-[20px] mb-1 text-center'>"
+        "<h3 className='mb-1 text-base md:text-xl font-saira md:text-center'>"
       )
-      .replace(/<p>/g, "<p className='text-center '>")
+      .replace(/<p>/g, "<p className='text-left'>")
   )
 
   console.log(styledEditorialTeam)

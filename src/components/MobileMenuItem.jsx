@@ -28,7 +28,7 @@ function MobileMenuItem({ menuItem, showMenu, setShowMenu }) {
         <>
           <button
             type='button'
-            className='flex items-center justify-between w-full gap-1 px-6 py-1 capitalize'
+            className='flex items-center justify-between w-full gap-1 px-6 py-2 capitalize'
             aria-haspopup='menu'
             aria-expanded={showSubMenu ? 'true' : 'false'}
             onClick={toggleSubMenu}
@@ -53,7 +53,7 @@ function MobileMenuItem({ menuItem, showMenu, setShowMenu }) {
       ) : (
         <Link
           href={menuItem.url}
-          className='inline-block w-full px-6 py-1 capitalize'
+          className='inline-block w-full px-6 py-2 text-sm capitalize'
           onClick={closeMenu}
         >
           {menuItem.name}

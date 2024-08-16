@@ -30,6 +30,7 @@ export const authConfig = {
       const isOnAdminPage = nextUrl.pathname.startsWith(
         '/dashboard/manage-users'
       )
+      // const isOnLoginpage = nextUrl.pathname === '/auth/login'
       const isOnCreateUserPage = nextUrl.pathname === '/auth/signup'
 
       if (isOnCreateUserPage) {
@@ -45,6 +46,11 @@ export const authConfig = {
           return Response.redirect(new URL('/dashboard', nextUrl))
         return false
       }
+
+      // if (isOnLoginpage) {
+      //   if (loggedInUser)
+      //     return Response.redirect(new URL('/dashboard', nextUrl))
+      // }
 
       if (isOnDashboard) {
         if (isLoggedIn) return true

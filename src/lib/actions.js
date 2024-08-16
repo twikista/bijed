@@ -423,7 +423,10 @@ export async function authenticate(formData) {
 
   try {
     if (parsedData.success) {
-      const bla = await signIn('credentials', parsedData.data)
+      await signIn('credentials', {
+        redirectTo: '/dashboard',
+        ...parsedData.data,
+      })
     }
   } catch (error) {
     if (error && error?.type?.includes('CredentialsSignin')) {
@@ -432,6 +435,7 @@ export async function authenticate(formData) {
 
     throw error
   }
+  // redirect('/dashboard')
 }
 
 export async function forgetPassword(formData) {
@@ -520,7 +524,7 @@ export async function resetPassword(authToken, formData) {
 }
 
 export async function logOut() {
-  await signOut()
+  await signOut({ redirectTo: '/auth/login' })
 }
 
 export const createAnnouncement = async (formData) => {

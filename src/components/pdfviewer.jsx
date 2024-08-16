@@ -116,6 +116,7 @@ function PDFViewer({ filePath, params }) {
           file={filePath}
           pageMode='useThumbs'
           onLoadSuccess={onDocumentLoadSuccess}
+          renderMode='canvas'
           // onLoadError={(error) =>
           //   console.error(
           //     'Error occurred while loading document:',

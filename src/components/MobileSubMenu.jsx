@@ -23,7 +23,7 @@ function MobileSubMenu({
         >
           <Link
             href={`/${menuItem.url}`}
-            className='inline-block w-full capitalize px-7'
+            className='inline-block w-full py-1 text-sm capitalize px-7'
             onClick={closeMenu}
           >
             {menuItem.name}
