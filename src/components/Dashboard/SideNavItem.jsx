@@ -13,7 +13,8 @@ function SideNavItem({ link, linkText, OutlineIcon, FillIcon }) {
       className={clsx(
         'flex items-center text-gray-50 rounded-2xl hover:bg-black/30 hover:text-[#ffebb2]',
         {
-          ['bg-black/30 text-[#ffebb2]']: pathname === link,
+          ['bg-black/30 text-[#ffebb2]']:
+            pathname.includes(link.split('/')[2]) || pathname === link,
         }
       )}
     >
@@ -21,13 +22,21 @@ function SideNavItem({ link, linkText, OutlineIcon, FillIcon }) {
         href={link}
         onMouseOver={() => setIsHovered(true)}
         onMouseOut={() => setIsHovered(false)}
-        className='flex w-full gap-3 px-3 py-4 text-lg'
+        className={clsx('flex w-full gap-3 px-3 py-4 text-lg', {
+          ['text-[#ffebb2]']:
+            pathname.includes(link.split('/')[2]) || pathname === link,
+        })}
       >
-        <OutlineIcon className={clsx('w-5', { hidden: isHovered === true })} />
+        <OutlineIcon
+          className={clsx('w-5', {
+            hidden: isHovered === true,
+            block: isHovered === false,
+          })}
+        />
         <FillIcon
           className={clsx('w-5', {
-            hidden: isHovered === false,
             block: isHovered === true,
+            hidden: isHovered === false,
           })}
         />
 
