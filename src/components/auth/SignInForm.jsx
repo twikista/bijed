@@ -50,7 +50,11 @@ function SignInForm() {
     }
   }
   return (
-    <FormWrapper maxWidth='max-w-[480px] ' bgColor='bg-gray-200'>
+    <FormWrapper
+      maxWidth='max-w-[480px] '
+      bgColor='bg-gray-200'
+      overrideStyles='px-7'
+    >
       <Form handleSubmit={handleSubmit} handler={handler}>
         <h2 className='text-[#800080] font-medium text-3xl'>SIGN IN</h2>
         {authError && (

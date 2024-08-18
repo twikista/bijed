@@ -54,6 +54,7 @@ function IssueForm({ initialFormState, initialValue }) {
       formHeading={
         !initialFormState?.issueNumber ? 'Add New Issue' : 'Update Issue'
       }
+      overrideStyles='px-2 pb-3'
       border='border border-gray-300'
     >
       {errorFromServer && (
@@ -93,7 +94,7 @@ function IssueForm({ initialFormState, initialValue }) {
           valueAsDate={true}
         />
         {/* <input type='submit' value={isSubmitting ? 'Submitting' : 'submit'} /> */}
-        <div className='flex items-center gap-2 pt-1'>
+        <div className='flex flex-col items-center gap-2 pt-1 md:flex-row'>
           <SubmitButton
             textColor='white'
             bgColor='901090'

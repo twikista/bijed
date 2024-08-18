@@ -19,7 +19,7 @@ const getMaxVolume = async () => {
 async function JournalStats() {
   const data = await getMaxVolume()
   return (
-    <section className='flex justify-around gap-10 font-lato'>
+    <section className='flex justify-around gap-5 lg:gap-10'>
       <JournalStatCard
         title='Published volumes'
         value={data?.numberOfVolume}

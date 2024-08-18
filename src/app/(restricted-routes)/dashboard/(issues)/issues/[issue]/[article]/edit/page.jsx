@@ -4,6 +4,7 @@ import EditArticleForm from '@/components/Dashboard/EditArticleForm'
 import DashboardContainer from '@/components/Dashboard/DashboardContainer'
 import DashboardWrapper from '@/components/Dashboard/DashboardWrapper'
 import SideNav from '@/components/Dashboard/SideNav'
+import MobileNav from '@/components/Dashboard/MobileNav'
 
 async function EditArticle({ params }) {
   const article = await getArticle(params)
@@ -22,6 +23,7 @@ async function EditArticle({ params }) {
   return (
     <main className='relative flex h-screen'>
       <SideNav />
+      <MobileNav />
       <DashboardContainer>
         <DashboardWrapper>
           <EditArticleForm initialValue={initialValue} params={params} />

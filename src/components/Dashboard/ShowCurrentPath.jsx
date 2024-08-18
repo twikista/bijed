@@ -8,7 +8,7 @@ function ShowActivePath() {
 
   return (
     <div>
-      <h1 className='text-3xl font-bold capitalize'>
+      <h1 className='text-xl font-bold capitalize sm:text-2xl lg:text-3xl'>
         {pathArray.length > 2 ? pathArray[2] : pathArray[1]}
       </h1>
     </div>

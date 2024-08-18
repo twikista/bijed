@@ -1,17 +1,11 @@
-import {
-  Saira_Condensed,
-  Cairo,
-  Barlow,
-  IBM_Plex_Sans,
-  Inter,
-} from 'next/font/google'
+import { Saira_Condensed, Cairo, Barlow, IBM_Plex_Sans } from 'next/font/google'
 
 export const saira = Saira_Condensed({
   subsets: ['latin'],
   weight: ['400', '500', '600', '700', '800', '900'],
   variable: '--font-saira',
   display: 'swap',
-  // adjustFontFallback: false,
+  adjustFontFallback: false,
 })
 
 // export const saira = Saira({
@@ -27,14 +21,7 @@ export const barlow = Barlow({
   weight: ['300', '400', '500', '600', '700', '800', '900'],
   variable: '--font-barlow',
   display: 'swap',
-  // adjustFontFallback: false,
-})
-
-export const inter = Inter({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-inter',
-  // adjustFontFallback: false,
+  adjustFontFallback: false,
 })
 
 // export const lato = Lato({
@@ -48,7 +35,7 @@ export const cairo = Cairo({
   subsets: ['latin'],
   variable: '--font-cairo',
   display: 'swap',
-  // adjustFontFallback: false,
+  adjustFontFallback: false,
 })
 
 export const ibmPlex = IBM_Plex_Sans({
@@ -56,5 +43,5 @@ export const ibmPlex = IBM_Plex_Sans({
   weight: ['300', '400', '500', '600', '700'],
   variable: '--font-plex',
   display: 'swap',
-  // adjustFontFallback: false,
+  adjustFontFallback: false,
 })

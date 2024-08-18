@@ -1,20 +1,22 @@
 'use client'
 
+import MobileNavItem from './MobileNavItem'
+
 import {
   HomeIconFill,
   HomeIconOutline,
   UsersIconFill,
   UsersIconOutline,
 } from '../Icons'
-import SideNavItem from './SideNavItem'
 import { NewspaperIcon as NewspaperIconOutline } from '@heroicons/react/24/outline'
 import { NewspaperIcon as NewspaperIconFill } from '@heroicons/react/24/solid'
 import { Square3Stack3DIcon as Square3Stack3DIconOutline } from '@heroicons/react/24/outline'
 import { Square3Stack3DIcon as Square3Stack3DIconFill } from '@heroicons/react/24/solid'
 import { DocumentTextIcon as DocumentTextIconOutline } from '@heroicons/react/24/outline'
 import { DocumentTextIcon as DocumentTextIconFill } from '@heroicons/react/24/solid'
+import LogoutButton from './LogoutButton'
 
-const sideNavItems = [
+const sideNavMenuItems = [
   {
     text: 'Home',
     url: '/dashboard',
@@ -40,35 +42,32 @@ const sideNavItems = [
     fillIcon: DocumentTextIconFill,
   },
 ]
-function SideNavItems({ session }) {
+
+function MobileNavItems({ session }) {
   return (
-    <ul className='space-y-4'>
-      {sideNavItems.map((navItem) => (
-        <SideNavItem
-          key={navItem.url}
-          subMenu={navItem.subMenu}
-          linkText={navItem.text}
-          link={navItem.url}
-          navItem={navItem}
-          OutlineIcon={navItem.outlineIcon}
-          FillIcon={navItem.fillIcon}
-          hasSubMenu={!!navItem.subMenu}
-          user={session?.user}
+    <ul className='flex items-center justify-between w-full md:w-4/5 md:mx-auto'>
+      {sideNavMenuItems.map(({ url, text, fillIcon, outlineIcon }) => (
+        <MobileNavItem
+          key={text}
+          url={url}
+          linkText={text}
+          OutlineIcon={outlineIcon}
+          FillIcon={fillIcon}
         />
       ))}
       {session?.user?.role === 'admin' && (
         <>
-          <SideNavItem
-            type='link'
-            linkText='Manage users'
-            link='/dashboard/manage-users'
+          <MobileNavItem
+            url='/dashboard/manage-users'
+            linkText='users'
             OutlineIcon={UsersIconOutline}
             FillIcon={UsersIconFill}
           />
         </>
       )}
+      <LogoutButton variant='mobile' />
     </ul>
   )
 }
 
-export default SideNavItems
+export default MobileNavItems

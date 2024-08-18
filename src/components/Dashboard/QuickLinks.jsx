@@ -12,8 +12,8 @@ function QuickLinks({ userRole }) {
   return (
     <div className='flex-1 p-2 bg-gray-200 rounded-lg'>
       <div className='flex items-center gap-1 px-4 py-3'>
-        <LinkIcon className='w-6 h-6 fill-gray-500' />
-        <h4 className='text-xl font-medium'>Quick Links</h4>
+        <LinkIcon className='w-4 h-4 md:w-5 md:h5 fill-gray-500' />
+        <h4 className='text-base font-medium md:text-xl'>Quick Links</h4>
       </div>
       <div className='px-4 py-5 space-y-2 rounded-md bg-gray-50'>
         {userRole === 'business manager' && (

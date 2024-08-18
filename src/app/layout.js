@@ -1,5 +1,4 @@
 import {
-  Inter,
   Cairo,
   Barlow,
   IBM_Plex_Sans,
@@ -22,12 +21,6 @@ export const ibmPlex = IBM_Plex_Sans({
   subsets: ['latin'],
   weight: ['300', '400', '500', '600', '700'],
   variable: '--font-plex',
-  display: 'swap',
-  adjustFontFallback: false,
-})
-
-export const inter = Inter({
-  subsets: ['latin'],
   display: 'swap',
   adjustFontFallback: false,
 })
@@ -92,7 +85,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang='en' className={``}>
       <body
-        className={`${ibmPlex.className} ${saira.variable} ${cairo.variable} ${barlow.variable} ${ibmPlex.variable} antialiased flex flex-col min-h-full bg-slate-50 min-w-[320px]`}
+        className={`${ibmPlex.className} ${saira.variable} ${cairo.variable} ${barlow.variable} antialiased flex flex-col min-h-full bg-slate-50 min-w-[320px]`}
       >
         {children}
         <ToastContainer />

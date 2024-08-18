@@ -8,12 +8,17 @@ import { joinKeywords } from '@/lib/util'
 import { deleteArticle } from '@/lib/actions'
 
 import ccLogo from '@/../public/by.png'
-import { EdiButton, DeleteButton } from '@/components/Dashboard/Buttons'
+import {
+  EdiButton,
+  DeleteButton,
+  EditButton,
+} from '@/components/Dashboard/Buttons'
 import DashboardWrapper from '@/components/Dashboard/DashboardWrapper'
 import SideNav from '@/components/Dashboard/SideNav'
 import Authors from '@/components/Authors'
 import ArticleInfo from '@/components/ArticleInfo'
 import { PDFIcon } from '@/components/Icons'
+import MobileNav from '@/components/Dashboard/MobileNav'
 
 async function Article({ params }) {
   const { user } = await auth()
@@ -22,26 +27,14 @@ async function Article({ params }) {
   return (
     <main className='relative flex h-screen'>
       <SideNav />
+      <MobileNav />
       <DashboardContainer>
         <DashboardWrapper>
           <div>
-            <div className='flex items-center justify-between'>
+            <div className='flex flex-col items-center justify-between'>
               <h2 className='mb-1 text-base font-bold sm:text-2xl'>
                 {article.title}
               </h2>
-              {user.role === 'business manager' && !article.published && (
-                <div className='flex gap-6 mb-3'>
-                  <EdiButton
-                    href={`/dashboard/issues/${params.issue}/${params.article}/edit`}
-                    label='edit'
-                  />
-                  <DeleteButton
-                    variant='primary'
-                    id={String(article._id)}
-                    action={deleteArticle}
-                  />
-                </div>
-              )}
             </div>
             <section className='flex flex-col py-2 space-y-3 border-t border-b sm:space-y-0 sm:flex-row border-neutral-300'>
               <div className='flex-1'>
@@ -63,15 +56,30 @@ async function Article({ params }) {
                 <h4 className='font-bold'>Abstract</h4>
                 <p className='text-justify'>{article.abstract}</p>
               </div>
-              <div className='flex justify-center'>
+              <div className='flex flex-col justify-center gap-2 pt-2 border-t border-neutral-300'>
                 <Link
                   href={`/dashboard/issues/${params.issue}/${params.article}/view`}
-                  className='flex justify-center gap-2 font-bold hover:text-primary px-3 py-2 border hover:border-primary sm:w-[240px] rounded-md bg-primary hover:bg-white text-white transition-colors  text-center'
+                  className='flex justify-center w-full gap-2 px-3 py-2 font-medium text-center text-white transition-colors border md:max-w-[400px] md:mx-auto rounded-md hover:bg-[#ac3dba] hover:border-[#ac3dba] bg-primary'
                 >
                   <span>View PDF</span>
                   <PDFIcon className='w-5 text-' />
                 </Link>
+                {user.role === 'business manager' && !article.published && (
+                  <div className='flex flex-col gap-2 mb-3'>
+                    <EditButton
+                      href={`/dashboard/issues/${params.issue}/${params.article}/edit`}
+                      label='edit Article'
+                    />
+                    <DeleteButton
+                      variant='primary'
+                      id={String(article._id)}
+                      action={deleteArticle}
+                      label='Delete Article'
+                    />
+                  </div>
+                )}
               </div>
+
               <div>
                 <a
                   href='https://creativecommons.org/licenses/by/4.0/'

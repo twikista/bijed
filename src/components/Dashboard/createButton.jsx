@@ -5,10 +5,10 @@ function CreateButton({ label, href }) {
   return (
     <Link
       href={href}
-      className=' rounded-lg text-gray-50 flex bg-[#008dcb] hover:bg-blue-500 w-60 font-medium items-center justify-center gap-2 px-2 py-3 shadow-md capitalize'
+      className=' rounded-xl px-2 py-1 text-gray-50 flex bg-[#008dcb] hover:bg-blue-500 md:w-60 font-medium items-center justify-center gap-1 md:gap-2 md:px-2 md:py-3 shadow-md capitalize'
     >
       <span>{label}</span>
-      <PlusIcon className='w-5 stroke-[4px] ' />
+      <PlusIcon className=' w-4 md:w-5 md:stroke-[] ' />
     </Link>
   )
 }

@@ -1,6 +1,6 @@
 import { authorsNameWithAbrreviations } from '@/lib/util'
 
-function Authors({ authors, withAffliation }) {
+function Authors({ authors, withAffliation, additionalStyles }) {
   if (withAffliation)
     return (
       <div className='space-y-2'>
@@ -18,11 +18,11 @@ function Authors({ authors, withAffliation }) {
       </div>
     )
   return (
-    <div>
+    <div className=''>
       {authors.map((author, index) => (
         <span
           key={author._id}
-          className='text-sm font-medium sm:text-base text-neutral-600'
+          className={`text-sm font-medium sm:text-base text-neutral-600 ${additionalStyles}`}
         >{`${authorsNameWithAbrreviations(author.name)}${
           index !== authors.length - 1 ? ', ' : ''
         }`}</span>

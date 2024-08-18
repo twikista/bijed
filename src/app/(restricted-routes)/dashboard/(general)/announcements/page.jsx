@@ -7,6 +7,8 @@ import Link from 'next/link'
 import ResourceFilter from '@/components/Dashboard/ResourceFilter'
 import { auth } from '../../../../../../auth'
 import clsx from 'clsx'
+import { DeleteButton, EditButton } from '@/components/Dashboard/Buttons'
+import { deleteAnnouncement } from '@/lib/actions'
 
 const fetchAnnouncements = async () => {
   // noStore()
@@ -33,6 +35,8 @@ async function AnnouncementsPage({ searchParams }) {
     fetchAnnouncements(),
   ])
   const [filteredAnnouncements, announcements] = data
+  // const businessManagerPrivilege =
+  //   issue?.status === 'draft' && user?.role === 'business manager'
 
   if (!filterAnnouncements.length) {
     return (
@@ -70,7 +74,7 @@ async function AnnouncementsPage({ searchParams }) {
           {session.user.role === 'business manager' && (
             <CreateButton
               href='/dashboard/announcements/new'
-              label='new announcement'
+              label='Add News'
             />
           )}
         </div>
@@ -81,6 +85,8 @@ async function AnnouncementsPage({ searchParams }) {
                 <th className='px-4 pt-4 pb-1 table-fixed'>Announcements</th>
                 <th className='px-4 pt-4 pb-1 font-medium w-14'>Date Added</th>
                 <th className='px-4 pt-4 pb-1 font-medium'>Status</th>
+                <th className='sr-only'></th>
+                <th className='sr-only'></th>
               </tr>
             </thead>
             <tbody className='text-center bg-white divide-y-2 rounded-sm'>
@@ -89,7 +95,7 @@ async function AnnouncementsPage({ searchParams }) {
                   <td className='px-4 py-4 text-left border border-solid'>
                     <Link
                       href={`/dashboard/announcements/${announcement.slug}`}
-                      className='text-center text-[#800080] hover:text-blue-600 font-medium hover:underline ml-2'
+                      className='text-left text-[#800080] hover:text-blue-600 font-medium hover:underline'
                     >
                       {announcement.title}
                     </Link>
@@ -102,12 +108,28 @@ async function AnnouncementsPage({ searchParams }) {
                     </span>
                   </td>
                   <td className='px-4 py-4 text-center border border-solid'>
-                    <span className='flex items-center justify-center px-3 py-1 space-x-1 font-medium capitalize rounded-lg'>
-                      {announcement.status === 'published'
-                        ? 'Published'
-                        : 'Draft'}
+                    <span className='flex items-center justify-center px-3 py-1 space-x-1 capitalize rounded-lg'>
+                      {announcement.status}
                     </span>
                   </td>
+                  {announcement.status === 'draft' &&
+                    session?.user?.role === 'business manager' && (
+                      <>
+                        <td className='px-4 py-4 text-center'>
+                          <EditButton
+                            href={`/dashboard/announcements/${announcement.slug}/edit`}
+                            variant='secondary'
+                          />
+                        </td>
+                        <td className='px-4 py-4 text-center'>
+                          <DeleteButton
+                            id={String(announcement?._id)}
+                            action={deleteAnnouncement}
+                            variant='secondary'
+                          />
+                        </td>
+                      </>
+                    )}
                 </tr>
               ))}
             </tbody>

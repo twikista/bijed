@@ -20,6 +20,8 @@ import {
 } from '@/lib/actions/issues'
 import SideNav from '@/components/Dashboard/SideNav'
 import clsx from 'clsx'
+import MobileNav from '@/components/Dashboard/MobileNav'
+import Authors from '@/components/Authors'
 
 const getArticlesInIssue = async (issueRef) => {
   connectDB()
@@ -56,16 +58,17 @@ async function IssuePage({ params }) {
     return (
       <main className='relative flex h-screen'>
         <SideNav />
+        <MobileNav />
         <DashboardContainer>
           <DashboardWrapper>
             <section className='flex flex-col'>
               <div className='h-14'>
-                <h2 className='text-2xl font-bold capitalize font-cairo'>
+                <h2 className='text-2xl font-bold text-center capitalize md:text-left font-cairo'>
                   {`Volume ${issue.volume} Issue ${
                     issue.issueNumber
                   } (${new Date(issue.publishDate).getFullYear()})`}
                 </h2>
-                <p className='text-sm text-gray-400 font-cairo'>
+                <p className='text-sm text-center text-gray-400 font-cairo md:text-left'>
                   {issue.published
                     ? `Publish Date: ${new Date(
                         issue.publishDate
@@ -78,7 +81,7 @@ async function IssuePage({ params }) {
                 </p>
               </div>
               <div className='flex flex-col items-center justify-center flex-1 my-24 space-y-8'>
-                <p className='text-2xl text-gray-400 '>
+                <p className='text-2xl text-center text-gray-400'>
                   There are currently no articles in this issue
                 </p>
                 {user?.role === 'business manager' && (
@@ -98,16 +101,17 @@ async function IssuePage({ params }) {
   return (
     <main className='relative flex h-screen'>
       <SideNav />
+      <MobileNav />
       <DashboardContainer>
         <DashboardWrapper>
           <section>
             <div>
-              <h2 className='text-2xl font-bold capitalize font-cairo'>
+              <h2 className='text-2xl font-bold text-center capitalize md:text-left font-cairo'>
                 {`Volume ${issue.volume} Issue ${issue.issueNumber} (${new Date(
                   issue.publishDate
                 ).getFullYear()})`}
               </h2>
-              <div className='my-1'>
+              <div className='flex justify-center my-1 md:justify-start'>
                 <span
                   className={clsx(
                     'inline-block px-2 py-[2px] text-sm font-medium bg-gray-300 rounded-3xl',
@@ -117,7 +121,7 @@ async function IssuePage({ params }) {
                   )}
                 >{`status: ${issue?.status}`}</span>
               </div>
-              <p className='text-sm text-gray-400 font-cairo'>
+              <p className='text-sm text-center text-gray-400 md:text-left font-cairo'>
                 {issue.published
                   ? `Publish Date: ${new Date(
                       issue.publishDate
@@ -129,10 +133,10 @@ async function IssuePage({ params }) {
                   : 'Publish Date: N/A'}
               </p>
             </div>
-            <div className='flex justify-end '>
+            <div className='flex justify-end mt-5'>
               {businessManagerPrivilege && (
                 <CreateButton
-                  label='Add New Article'
+                  label='Add Article'
                   href={`/dashboard/issues/${issue.ref}/new-article`}
                 />
               )}
@@ -145,7 +149,10 @@ async function IssuePage({ params }) {
                   <tr className=''>
                     <th className='px-4 py-6 pb-1 font-medium w-20px]'>S/N</th>
                     <th className='px-4 pt-4 pb-1 table-fixed'>Article</th>
-                    <th className='px-3 pt-4 pb-1 w-28'>Page</th>
+                    <th className='px-4 pt-4 pb-1 table-fixed'>
+                      Author&#40;s&#41;
+                    </th>
+                    <th className='px-2 pt-4 pb-1 min-w-[100px]'>Page</th>
                     <th className='px-4 pt-4 pb-1 font-medium w-14'>Status</th>
                     {(businessManagerPrivilege || adminPrevilege) && (
                       <>
@@ -169,16 +176,23 @@ async function IssuePage({ params }) {
                           {article.title}
                         </Link>
                       </td>
+                      <td className='px-4 py-4 text-left border border-solid'>
+                        {/* <span>{article.slug}</span> */}
+                        <Authors
+                          authors={article?.authors}
+                          additionalStyles='font-normal text-sm'
+                        />
+                      </td>
                       <td className='px-4 py-4 text-center border border-solid'>
                         <span>{article.slug}</span>
                       </td>
                       <td className='px-4 py-4 text-center border border-solid'>
                         {article.published ? (
-                          <span className='px-3 py-[5px] space-x-1 font-medium text-center text-white bg-green-500 rounded-[20px] '>
+                          <span className='px-1 py-[5px] space-x-1 text-center'>
                             published
                           </span>
                         ) : (
-                          <span className='flex items-center px-3 py-1 space-x-1 font-medium text-gray-500 bg-gray-200 rounded-[20px] w-fit'>
+                          <span className='flex items-center px-1 py-[5px] space-x-1 w-fit'>
                             unpublished
                           </span>
                         )}
@@ -207,7 +221,7 @@ async function IssuePage({ params }) {
             </div>
           </section>
           {businessManagerPrivilege && (
-            <div className='flex justify-center gap-6 pt-8'>
+            <div className='flex justify-center gap-6 pt-2 md:pt-6'>
               <SendForAuthorizationButton
                 resourceRef={issueRef}
                 action={submitIssueForPublishing}
@@ -223,7 +237,7 @@ async function IssuePage({ params }) {
             </div>
           )}
           {managingEditorPrivilege && (
-            <div className='flex justify-center gap-6 pt-8 pb-4'>
+            <div className='flex justify-center gap-6 pt-2 pb-4 md:pt-6'>
               <RejectPublishButton
                 resourceRef={issue?.ref}
                 label={{ main: 'Reject Publish Request', alt: 'Processing...' }}

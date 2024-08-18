@@ -3,6 +3,7 @@ import NewArticleForm from '@/components/Dashboard/NewArticleForm'
 import { getIssue } from '@/lib/data'
 import DashboardWrapper from '@/components/Dashboard/DashboardWrapper'
 import SideNav from '@/components/Dashboard/SideNav'
+import MobileNav from '@/components/Dashboard/MobileNav'
 
 const initialState = {
   title: '',
@@ -23,6 +24,7 @@ async function AddArticle({ params }) {
   return (
     <main className='relative flex h-screen'>
       <SideNav />
+      <MobileNav />
       <DashboardContainer>
         <DashboardWrapper>
           <NewArticleForm

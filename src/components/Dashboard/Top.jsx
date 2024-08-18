@@ -11,11 +11,9 @@ async function Top() {
     day: 'numeric',
   }).format(currentDate)
   return (
-    <header className='fixed left-[240px] right-0 flex items-center justify-between px-6 border-b border-gray-300 border-solid bg-gray-50'>
+    <header className='fixed left-0 lg:left-[240px] right-0  top-0 flex items-center justify-between px-2 lg:px-6 border-b border-gray-300 border-solid bg-gray-50'>
       <ShowActivePath />
-      <span className='py-5'>{`Hi, ${user.firstName} ${
-        user.lastName ? user.lastName : ''
-      }!`}</span>
+      <span className='py-5'>{`Hi, ${user.firstName} ${user.lastName}!`}</span>
     </header>
   )
 }

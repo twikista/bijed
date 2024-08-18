@@ -9,31 +9,33 @@ import { auth } from '../../../../../../auth'
 import SideNav from '@/components/Dashboard/SideNav'
 import { DeleteButton, EditButton } from '@/components/Dashboard/Buttons'
 import { deleteIssue } from '@/lib/actions'
+import MobileNav from '@/components/Dashboard/MobileNav'
 
 async function Issues({ searchParams }) {
   const { user } = await auth()
   const mode = searchParams.mode
   const issues = await getIssues(mode)
-  console.log('ref======xxxxx', issues[0]?.ref)
+  // console.log('ref======xxxxx', issues[0]?.ref)
 
-  if (!issues.length) {
+  if (!issues?.length) {
     return (
       <main className='relative flex h-screen'>
         <SideNav />
+        <MobileNav />
         <DashboardContainer>
           <DashboardWrapper>
             <div className='flex flex-row-reverse items-center justify-between pb-3 border-b-2 border-200'>
               {user.role === 'business manager' && (
                 <CreateButton
                   href='/dashboard/issues/new-issue'
-                  label='Add New Issue'
+                  label='Add Issue'
                 />
               )}
               <ResourceFilter mode={mode} />
             </div>
             <section className='flex flex-col'>
               <div className='flex items-center justify-center flex-1 my-24'>
-                <p className='text-2xl font-medium text-gray-400'>
+                <p className='text-2xl font-medium text-center text-gray-400'>
                   Oops! No pending pending/unpublished issue
                 </p>
               </div>
@@ -47,22 +49,25 @@ async function Issues({ searchParams }) {
   return (
     <main className='relative flex h-screen'>
       <SideNav />
+      <MobileNav />
       <DashboardContainer>
         <DashboardWrapper>
           <div className='flex flex-row-reverse items-center justify-between pb-3 border-b-2 border-200'>
             {user.role === 'business manager' && (
               <CreateButton
                 href='/dashboard/issues/new-issue'
-                label='Add New Issue'
+                label='Add Issue'
               />
             )}
             <ResourceFilter mode={mode} />
           </div>
           <div className='p-2 bg-[#e5d4ff] rounded-lg md:pt-0 overflow-x-auto'>
-            <table className='min-w-full overflow-x-scroll'>
+            <table className='min-w-full border-collapse'>
               <thead className='rounded-lg'>
                 <tr className=''>
-                  <th className='px-4 pt-4 pb-1 table-fixed'>Issue</th>
+                  <th className='px-4 pt-4 pb-1 table-fixed min-w-[200px]'>
+                    Issue
+                  </th>
                   <th className='px-4 pt-4 pb-1 font-medium'>Status</th>
                   <th className='px-4 pt-4 pb-1 font-medium'>Publish Date</th>
                   {user.role === 'admin' && (
@@ -75,7 +80,7 @@ async function Issues({ searchParams }) {
               </thead>
               <tbody className='text-center bg-white divide-y-2 rounded-sm'>
                 {issues.map((issue, index) => (
-                  <tr className='py-5 text-sm' key={issue?._id}>
+                  <tr className='py-5 text-sm md:text-base' key={issue?._id}>
                     <td className='px-4 py-4 text-center border border-solid'>
                       <Link
                         className='text-center text-[#800080] hover:text-blue-600 font-medium'
@@ -84,11 +89,11 @@ async function Issues({ searchParams }) {
                     </td>
                     <td className='px-4 py-4 text-center border border-solid'>
                       {issue?.status === 'published' ? (
-                        <span className='px-3 py-[5px] space-x-1 font-medium text-center text-white bg-green-500 rounded-[20px] '>
+                        <span className='px-1 py-[5px] space-x-1 text-center w-fit'>
                           published
                         </span>
                       ) : (
-                        <span className='flex items-center px-3 py-1 space-x-1 font-medium text-gray-500 bg-gray-200 rounded-lg w-fit'>
+                        <span className='flex items-center px-1 py-1 space-x-1 w-fit'>
                           unpublished
                         </span>
                       )}
@@ -99,7 +104,7 @@ async function Issues({ searchParams }) {
                           ? new Intl.DateTimeFormat('en-GB').format(
                               issue?.publishDate
                             )
-                          : 'Not available'}
+                          : 'N/A'}
                       </span>
                     </td>
                     {(user.role === 'admin' ||

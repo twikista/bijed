@@ -15,18 +15,17 @@ function ResourceFilter({ mode }) {
   }
 
   return (
-    <div className='flex items-center self-end gap-1'>
-      <div>Filter Resource:</div>
-      <div className='flex items-center justify-around gap-2'>
+    <div className='flex items-center self-end'>
+      {/* <div>Filter:</div> */}
+      <div className='flex w-[160px] text-xs  items-center overflow-hidden border-2 justify-evenly border-primary rounded-xl md:w-[160px]'>
         <button
           onClick={() => {
             handler('final')
           }}
           className={clsx(
-            'flex-1 inline-block rounded-md border border-gray-400 px-2 min-w-[109px] ',
+            'flex-1 flex justify-center w-6/12 py-1 px-1 text-primary',
             {
-              [`text-white bg-gray-400`]:
-                mode === undefined || mode === 'final',
+              [`text-white bg-primary`]: mode === undefined || mode === 'final',
             }
           )}
         >
@@ -38,9 +37,9 @@ function ResourceFilter({ mode }) {
             handler('draft')
           }}
           className={clsx(
-            'flex-1 inline-block rounded-md border border-gray-400 px-2',
+            'flex-1 flex py-1 px-1 w-6/12 justify-center text-primary',
             {
-              [`text-white bg-gray-400`]: mode === 'draft',
+              [`text-white bg-primary`]: mode === 'draft',
             }
           )}
         >

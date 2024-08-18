@@ -38,20 +38,6 @@ async function AnnouncementPage({ params }) {
       <DashboardWrapper>
         <div>
           <article key={announcement?.slug}>
-            {businessManagerPrivilege && (
-              <div className='flex justify-end gap-6 pt-8 pb-3 mb-5 border-b-2 border-gray-200'>
-                <EditButton
-                  href={`/dashboard/announcements/${params.slug}/edit`}
-                  label='edit announcement'
-                />
-                <DeleteButton
-                  variant='primary'
-                  id={String(announcement?._id)}
-                  action={deleteAnnouncement}
-                  label='delete Announcement'
-                />
-              </div>
-            )}
             <div className='mb-5'>
               <h2 className='mb-1 text-base font-bold sm:text-2xl'>
                 {announcement?.title}
@@ -70,7 +56,7 @@ async function AnnouncementPage({ params }) {
               )}
             </section>
             {businessManagerPrivilege && (
-              <div className='flex justify-center gap-6 pt-8 pb-6 border-t-2 border-gray-200'>
+              <div className='flex flex-col justify-center gap-2 pt-2 border-t border-neutral-300'>
                 <SendForAuthorizationButton
                   redirectUrl={`/dashboard/announcements/${params.slug}`}
                   resourceRef={announcement?.ref}
@@ -86,10 +72,24 @@ async function AnnouncementPage({ params }) {
                     error: 'Something went wrong',
                   }}
                 />
+                {businessManagerPrivilege && (
+                  <div className='flex flex-col gap-2 mb-3'>
+                    <EditButton
+                      href={`/dashboard/announcements/${params.slug}/edit`}
+                      label='Edit News'
+                    />
+                    <DeleteButton
+                      variant='primary'
+                      id={String(announcement?._id)}
+                      action={deleteAnnouncement}
+                      label='delete News'
+                    />
+                  </div>
+                )}
               </div>
             )}
             {managingEditorPrivilege && (
-              <div className='flex justify-center gap-6 pt-8 pb-6 border-t-2 border-gray-200'>
+              <div className='flex flex-col justify-center gap-2 pt-3 pb-6 border-t-2 border-gray-200 md:pt-8 md:flex-row md:gap-6'>
                 <PublishButton
                   resource='announcements'
                   resourceRef={announcement.ref}

@@ -8,7 +8,12 @@ function ArticleInfo({ article }) {
       <div className='space-y-[5px] text-neutral-500'>
         <div>
           <h5 className='font-medium text-neutral-500'>Publish date</h5>
-          <p>{dateHelperFunction(article?.publishDate)}</p>
+          <p>
+            {article?.publishDate
+              ? new Intl.DateTimeFormat('en-GB').format(article?.publishDate)
+              : 'N/A'}
+          </p>
+          {/* <p>{dateHelperFunction(article?.publishDate)}</p> */}
         </div>
         <div>
           <h5 className='font-medium text-neutral-500'>Issue</h5>

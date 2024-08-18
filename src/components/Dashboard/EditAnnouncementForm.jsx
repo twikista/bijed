@@ -11,6 +11,7 @@ import { useState } from 'react'
 import FormWrapper from './FormWrapper'
 import SubmitButton from '../SubmitButton'
 import { CancelButton } from './Buttons'
+import Form from './Form'
 
 function EditAnnouncementForm({ initialState }) {
   const router = useRouter()
@@ -51,10 +52,7 @@ function EditAnnouncementForm({ initialState }) {
           <span className=''>{errorFromServer}</span>
         </div>
       )}
-      <form
-        onSubmit={handleSubmit(handler)}
-        className='px-5 pt-8 pb-5 space-y-5 rounded-b-md'
-      >
+      <Form handleSubmit={handleSubmit} handler={handler}>
         <TextInput
           label='Title'
           name='title'
@@ -78,15 +76,20 @@ function EditAnnouncementForm({ initialState }) {
           error={errors?.dueDate}
           valueAsDate={true}
         />
-        <Controller
-          control={control}
-          name='content'
-          render={({ field: { onChange, onBlur, value, ref } }) => (
-            <RichTextEditor onChange={onChange} onBlur={onBlur} value={value} />
-          )}
-        />
-
-        <div className='flex items-center gap-2 pt-5'>
+        <div className='mb-4'>
+          <Controller
+            control={control}
+            name='content'
+            render={({ field: { onChange, onBlur, value, ref } }) => (
+              <RichTextEditor
+                onChange={onChange}
+                onBlur={onBlur}
+                value={value}
+              />
+            )}
+          />
+        </div>
+        <div className='flex flex-col items-center gap-2 mt-1 md:flex-row'>
           <SubmitButton
             textColor='white'
             bgColor='901090'
@@ -101,7 +104,7 @@ function EditAnnouncementForm({ initialState }) {
             text='Cancel'
           />
         </div>
-      </form>
+      </Form>
     </FormWrapper>
   )
 }

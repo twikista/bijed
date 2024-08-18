@@ -49,7 +49,7 @@ async function EditorialBoard({ searchParams }) {
           </div>
           <section className='flex flex-col'>
             <div className='flex items-center justify-center flex-1 my-24'>
-              <p className='text-2xl font-medium text-gray-400'>
+              <p className='text-2xl font-medium text-center text-gray-400'>
                 {session?.user?.role === 'managing editor'
                   ? 'Oops! No pending draft editorial board for authorization'
                   : 'Oops! No pending draft editorial board '}
@@ -65,15 +65,6 @@ async function EditorialBoard({ searchParams }) {
       <DashboardWrapper>
         <div className='flex items-center justify-between pb-3 border-b-2 border-200'>
           <ResourceFilter mode={mode} />
-          {(businessManagerPrivilege ||
-            (session?.user?.role === 'business manager' &&
-              editorialBoardData?.status === 'published' &&
-              editorialBoardArray.length === 1)) && (
-            <EditButton
-              href={`/dashboard/editorial-board/update?mode=${mode}`}
-              label='Edit Editorial Board'
-            />
-          )}
         </div>
 
         <section className='pb-6 text-justify'>
@@ -90,17 +81,7 @@ async function EditorialBoard({ searchParams }) {
           )}
         </section>
         {businessManagerPrivilege && (
-          <div className='flex justify-center gap-6 pt-8 pb-6 border-t-2 border-gray-200'>
-            <RejectPublishButton
-              resource='editorial-board'
-              resourceRef={editorialBoardData?.ref}
-              label={{ main: 'Discard Draft', alt: 'Removing Draft...' }}
-              action={discardEditorialBoardDraft}
-              notificationMessage={{
-                success: 'Discard successfully',
-                error: 'Something went wrong',
-              }}
-            />
+          <div className='flex flex-col justify-center gap-2 pt-3 pb-6 border-t-2 border-gray-200 md:pt-8'>
             <SendForAuthorizationButton
               redirectUrl={`/dashboard/editorial-board?mode=${mode}`}
               resource='editorial-board'
@@ -116,20 +97,19 @@ async function EditorialBoard({ searchParams }) {
                 error: 'Something went wrong',
               }}
             />
+            {(businessManagerPrivilege ||
+              (session?.user?.role === 'business manager' &&
+                editorialBoardData?.status === 'published' &&
+                editorialBoardArray.length === 1)) && (
+              <EditButton
+                href={`/dashboard/editorial-board/update?mode=${mode}`}
+                label='Edit Board'
+              />
+            )}
           </div>
         )}
         {managingEditorPrivilege && (
-          <div className='flex justify-center gap-6 pt-8 pb-6 border-t-2 border-gray-200'>
-            <RejectPublishButton
-              resource='editorial-board'
-              resourceRef={editorialBoardData?.ref}
-              label={{ main: 'Reject Publish Request', alt: 'Processing' }}
-              action={rejectRequestToPublishEditorialBoard}
-              notificationMessage={{
-                success: 'Publish request rejected successfully',
-                error: 'Something went wrong',
-              }}
-            />
+          <div className='flex flex-col justify-center gap-2 pt-3 pb-6 border-t-2 border-gray-200 md:pt-8'>
             <PublishButton
               data={JSON.stringify(editorialBoardData)}
               resource='editorial-board'
@@ -144,6 +124,16 @@ async function EditorialBoard({ searchParams }) {
               label={{
                 main: 'Publish Editorial board',
                 alt: 'Publishing editorial board',
+              }}
+            />
+            <RejectPublishButton
+              resource='editorial-board'
+              resourceRef={editorialBoardData?.ref}
+              label={{ main: 'Reject Publish Request', alt: 'Processing' }}
+              action={rejectRequestToPublishEditorialBoard}
+              notificationMessage={{
+                success: 'Publish request rejected successfully',
+                error: 'Something went wrong',
               }}
             />
           </div>

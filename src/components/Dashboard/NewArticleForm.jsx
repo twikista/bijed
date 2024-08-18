@@ -178,7 +178,7 @@ function NewArticleForm({ initialValue, params }) {
             <span className='text-red-500 '>{errors?.pdfFile?.message}</span>
           )}
         </div>
-        <div className='flex items-center gap-2 pt-1'>
+        <div className='flex flex-col items-center gap-2 pt-1 md:flex-row'>
           <SubmitButton
             textColor='white'
             bgColor='901090'

@@ -148,19 +148,6 @@ function EditArticleForm({ initialValue, params }) {
           error={errors?.endPage}
           valueAsNumber={true}
         />
-        {/* <div>
-          <label htmlFor='abstract' className=''>
-            Abstract
-          </label>
-          <textarea
-            name='abstract'
-            placeholder='abstract'
-            id='abstract'
-            {...register('abstract')}
-          />
-          {errors && <span>{errors?.abstract?.message}</span>}
-        </div> */}
-        {/* beginning of abstract text input */}
         <div className='flex flex-col'>
           <label htmlFor='name' className='inline-block mb-1'>
             Abstract
@@ -244,7 +231,7 @@ function EditArticleForm({ initialValue, params }) {
           )}
           {errors && <div>{errors?.pdfFile?.message}</div>}
         </div>
-        <div className='flex items-center gap-2 pt-1'>
+        <div className='flex flex-col items-center gap-2 pt-1 md:flex-row'>
           <SubmitButton
             textColor='white'
             bgColor='901090'
@@ -259,12 +246,6 @@ function EditArticleForm({ initialValue, params }) {
             text='Cancel'
           />
         </div>
-
-        {/* <br />
-        <button type='submit'>
-          {isSubmitting ? 'updating Artice...' : 'Submit'}
-        </button>
-        <Link href={`/dashboard/issues/${params.issue}`}>cancel</Link> */}
       </Form>
     </FormWrapper>
   )

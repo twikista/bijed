@@ -80,7 +80,7 @@ export function EditButton({
         // href={href}
         onClick={() => router.push(href)}
         className={clsx(
-          `rounded-[8px] text-gray-50 flex bg-[#008dcb] hover:bg-blue-600 min-w-[220px] font-medium items-center justify-center gap-2 px-4 capitalize py-2 shadow-md ${
+          `rounded-md px-2 py-2 gap-1 text-gray-50 flex bg-[#008dcb] hover:bg-blue-600 min-w-[120px] md:min-w-[136px] font-medium items-center justify-center md:gap-2 capitalize md:py-2 w-full shadow-md md:max-w-[400px] md:mx-auto ${
             disabled && 'pointer-events-none'
           }`,
           { [' text-gray-500 bg-gray-200']: disabled === true }
@@ -136,7 +136,7 @@ export function DeleteButton({
         disabled={disabled}
         onClick={() => handler(id)}
         className={clsx(
-          `shadow-md inline-flex bg-[#ff6347] hover:bg-red-500 text-white w-28 items-center rounded-lg justify-center font-medium px-4 py-2 min-w-[220px] ${
+          `w-full shadow-md flex gap-1 md:gap-2 px-2 py-2 bg-[#ff6347] hover:bg-red-500 text-white items-center md:mx-auto rounded-md justify-center font-medium md:px-3 md:py-2 min-w-[120px] md:max-w-[400px] ${
             disabled && 'pointer-events-none'
           } `,
           { [' text-gray-500 bg-gray-200']: disabled === true }
@@ -202,7 +202,7 @@ export function PublishIssueButton({ issueRef, jobTicketId, user }) {
 export const CancelButton = ({ text, href, style }) => (
   <Link
     href={href}
-    className={`${style} py-3 flex-1 flex items-center justify-center text-white rounded-md`}
+    className={`${style} py-3 flex-1 flex items-center justify-center text-white rounded-md w-full`}
   >
     {text}
   </Link>
@@ -330,7 +330,7 @@ export function SendForAuthorizationButton({
     <button
       type='button'
       className={clsx(
-        `max-w-[380px] flex w-full justify-center items-center py-3 text-center bg-[#008dcb]  hover:bg-blue-500  text-white  rounded-lg font-medium`
+        `md:max-w-[400px] md:mx-auto flex w-full justify-center items-center py-2 text-center bg-primary  hover:bg-[#ac3dba]  text-white  rounded-lg font-medium`
       )}
       onClick={handler}
     >

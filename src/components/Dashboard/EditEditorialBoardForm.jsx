@@ -57,15 +57,21 @@ function EditEditorialBoardForm({ initialState }) {
         </div>
       )}
       <Form handleSubmit={handleSubmit} handler={handler}>
-        <Controller
-          control={control}
-          name='content'
-          render={({ field: { onChange, onBlur, value, ref } }) => (
-            <RichTextEditor onChange={onChange} onBlur={onBlur} value={value} />
-          )}
-        />
+        <div className='mb-4'>
+          <Controller
+            control={control}
+            name='content'
+            render={({ field: { onChange, onBlur, value, ref } }) => (
+              <RichTextEditor
+                onChange={onChange}
+                onBlur={onBlur}
+                value={value}
+              />
+            )}
+          />
+        </div>
 
-        <div className='flex items-center gap-2 pt-5'>
+        <div className='flex flex-col items-center gap-2 mt-1 md:flex-row'>
           <SubmitButton
             textColor='white'
             bgColor='901090'
