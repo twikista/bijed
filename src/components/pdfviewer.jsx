@@ -7,6 +7,7 @@ import { Document, Page, pdfjs } from 'react-pdf'
 import { BackNavigationIcon, DownloadIcon } from './Icons'
 import { MinusIcon, PlusIcon } from '@heroicons/react/24/solid'
 import { Tooltip } from 'react-tooltip'
+import Spinner from './Spinner'
 // import 'pdfjs-dist/build/pdf.worker.min.mjs'
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`
@@ -45,6 +46,13 @@ function PDFViewer({ filePath, params }) {
   const increseScale = () => {
     setScale((prevPageNumber) => Math.min(prevPageNumber + 0.1, 2))
   }
+
+  const renderLoadingindicator = () => (
+    <div className='flex flex-row-reverse gap-2 mt-52'>
+      <p className='text-gray-50'>Getting PDF Ready...</p>
+      <Spinner basic={true} />
+    </div>
+  )
 
   return (
     <div className='flex flex-col items-center bg-neutral-600 relative mt-[100px] mb-30'>
@@ -123,7 +131,7 @@ function PDFViewer({ filePath, params }) {
           //     error.message
           //   )
           // }
-          loading=''
+          loading={renderLoadingindicator()}
         >
           {Array.from({ length: numPages }, (_, i) => i + 1).map((i, index) => (
             <div key={i} className='flex flex-col'>

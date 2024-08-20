@@ -27,19 +27,11 @@ function SideNavItem({ link, linkText, OutlineIcon, FillIcon }) {
             pathname.includes(link.split('/')[2]) || pathname === link,
         })}
       >
-        <OutlineIcon
-          className={clsx('w-5', {
-            hidden: isHovered === true,
-            block: isHovered === false,
-          })}
-        />
-        <FillIcon
-          className={clsx('w-5', {
-            block: isHovered === true,
-            hidden: isHovered === false,
-          })}
-        />
-
+        {pathname === link || pathname.includes(link.split('/')[2]) ? (
+          <FillIcon className={clsx('w-5', {})} />
+        ) : (
+          <OutlineIcon className={clsx('w-5', {})} />
+        )}
         <span>{linkText}</span>
       </Link>
     </li>

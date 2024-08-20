@@ -639,30 +639,6 @@ export const publishAnnouncement = async (ref, user) => {
   }
 }
 
-export const rejectRequestToPublishAnnouncement = async (ref) => {
-  try {
-    connectDB()
-    const publishedAnnouncement = await Announcement.findOneAndUpdate(
-      { ref: ref, status: 'review' },
-      {
-        $set: {
-          status: 'draft',
-        },
-      },
-      { new: true }
-    )
-
-    if (publishedAnnouncement._id) {
-      revalidatePath(`/dashboard/announcements/${publishedAnnouncement.slug}`)
-      return { ok: true }
-    } else {
-      return { ok: false, error: 'something went wrong', errorType: 'other' }
-    }
-  } catch (error) {
-    // console.log(error)
-  }
-}
-
 export const updateEditorialBoard = async (initialState, formData) => {
   const parsedData = editorialBoardSchema.safeParse(formData)
   if (!parsedData.success) {
