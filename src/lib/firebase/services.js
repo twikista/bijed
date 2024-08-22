@@ -10,7 +10,6 @@ import {
 export const uploadPdfToStorage = async (formData) => {
   const fileName = articleFileName(formData)
   const articlesRef = ref(storage, `articles/${fileName}`)
-
   const data = await uploadBytes(articlesRef, formData.pdfFile[0], {
     contentDisposition: `attachment; filename=${fileName}`,
   })

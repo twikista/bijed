@@ -17,7 +17,8 @@ const getLatestIssue = async () => {
 async function Dashboard() {
   const { user } = await auth()
   const lastIssue = await getLatestIssue()
-  const formatedDate = (date) => new Intl.DateTimeFormat('en-GB').format(date)
+  const formatedDate = (date) =>
+    date ? new Intl.DateTimeFormat('en-GB').format(date) : 'N/A'
   return (
     <main className='relative flex h-screen'>
       <SideNav />
@@ -38,15 +39,21 @@ async function Dashboard() {
               <div className='px-4 py-5 space-y-2 rounded-md bg-gray-50'>
                 <p className='flex items-center gap-1 py-2'>
                   <span>Volume:</span>
-                  <span>{lastIssue?.volume}</span>
+                  <span>{lastIssue?.volume ? lastIssue.volume : 'N/A'}</span>
                 </p>
                 <p className='flex items-center gap-1 py-2'>
                   <span>Issue Number:</span>
-                  <span>{lastIssue?.issueNumber}</span>
+                  <span>
+                    {lastIssue?.issueNumber ? lastIssue?.issueNumber : 'N/A'}
+                  </span>
                 </p>
                 <p className='flex items-center gap-1 py-2'>
                   <span>Number of Articles:</span>
-                  <span>{lastIssue?.articles.length}</span>
+                  <span>
+                    {lastIssue?.articles.length
+                      ? lastIssue?.articles.length
+                      : 'N/A'}
+                  </span>
                 </p>
                 <p className='flex items-center gap-1 py-2'>
                   <span>Publish Date:</span>

@@ -47,9 +47,9 @@ export const getIssue = async (issueRef) => {
     connectDB()
     const issue = await Issue.findOne({ ref: issueRef }).lean()
 
-    const json = JSON.stringify(issue)
-    const issueObject = JSON.parse(json)
-    return issueObject
+    // const json = JSON.stringify(issue)
+    // const issueObject = JSON.parse(json)
+    return issue
   } catch (error) {
     // console.log(error)
   }

@@ -3,6 +3,7 @@ import DashboardWrapper from '@/components/Dashboard/DashboardWrapper'
 import { getUsers } from '@/lib/data'
 import CreateButton from '@/components/Dashboard/createButton'
 import { DeleteButton } from '@/components/Dashboard/Buttons'
+import { removeUser } from '@/lib/actions'
 
 async function AdminPage() {
   const response = await getUsers()
@@ -50,8 +51,8 @@ async function AdminPage() {
                   <td className='px-4 py-4 text-center'>
                     {user.role !== 'admin' && (
                       <DeleteButton
-                        action=''
-                        id={JSON.stringify('')}
+                        action={removeUser}
+                        id={user._id}
                         label='Remove'
                         variant='primary'
                         icon={false}

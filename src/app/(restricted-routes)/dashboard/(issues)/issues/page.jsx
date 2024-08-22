@@ -1,6 +1,5 @@
 import Link from 'next/link'
 import { getIssues } from '@/lib/data'
-
 import CreateButton from '@/components/Dashboard/createButton'
 import DashboardContainer from '@/components/Dashboard/DashboardContainer'
 import DashboardWrapper from '@/components/Dashboard/DashboardWrapper'
@@ -8,14 +7,13 @@ import ResourceFilter from '@/components/Dashboard/ResourceFilter'
 import { auth } from '../../../../../../auth'
 import SideNav from '@/components/Dashboard/SideNav'
 import { DeleteButton, EditButton } from '@/components/Dashboard/Buttons'
-import { deleteIssue } from '@/lib/actions'
+import { deleteIssue } from '@/lib/actions/issues'
 import MobileNav from '@/components/Dashboard/MobileNav'
 
 async function Issues({ searchParams }) {
   const { user } = await auth()
   const mode = searchParams.mode
   const issues = await getIssues(mode)
-  // console.log('ref======xxxxx', issues[0]?.ref)
 
   if (!issues?.length) {
     return (
@@ -36,7 +34,9 @@ async function Issues({ searchParams }) {
             <section className='flex flex-col'>
               <div className='flex items-center justify-center flex-1 my-24'>
                 <p className='text-2xl font-medium text-center text-gray-400'>
-                  Oops! No pending pending/unpublished issue
+                  {!mode
+                    ? 'No Published Issues'
+                    : 'Oops! No pending pending/unpublished issue'}
                 </p>
               </div>
             </section>
@@ -120,7 +120,7 @@ async function Issues({ searchParams }) {
                         <td className='px-4 py-4 text-center'>
                           <DeleteButton
                             action={deleteIssue}
-                            id={issue?.ref}
+                            id={issue?._id}
                             variant='secondary'
                           />
                         </td>

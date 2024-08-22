@@ -3,14 +3,14 @@ import { getAnnouncements } from '@/lib/data'
 
 async function Announcement() {
   const announcements = await getAnnouncements()
-  if (announcements.length === 0) {
+  if (!announcements || announcements?.length === 0) {
     return (
-      <>
+      <div>
         <h3 className='text-xl font-semibold capitalize font-saira text-primary'>
           Announcements
         </h3>
         <p className='text-gray-400'>No announcements</p>
-      </>
+      </div>
     )
   }
   return (
@@ -19,13 +19,13 @@ async function Announcement() {
         Announcements
       </h3>
       <div className='w-full space-y-3'>
-        {announcements.map((announcement) => (
+        {announcements?.map((announcement) => (
           <article key={announcement.slug}>
             <Link
-              href={`/announcements/${announcement.slug}`}
+              href={`/announcements/${announcement?.slug}`}
               className=' hover:text-blue-600 hover:underline'
             >
-              {announcement.title}
+              {announcement?.title}
             </Link>
           </article>
         ))}

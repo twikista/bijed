@@ -3,9 +3,16 @@
 import { revalidatePath } from 'next/cache'
 import { connectDB } from '../mongoose/config'
 import { Article, Issue } from '../mongoose/models'
+import { auth } from '../../../auth'
+import { issueFormSchema } from '../schema'
 
 //create new issue
 export const addIssue = async (formData) => {
+  const user = await auth()
+  const {
+    user: { firstName, lastName },
+  } = user
+
   const parsedData = issueFormSchema.safeParse(formData)
   if (!parsedData.success) {
     const validationError = handleServerSideValidationError(parsedData)
@@ -21,7 +28,8 @@ export const addIssue = async (formData) => {
       issueYear
     ).getFullYear()})`,
     published: false,
-    publishDate: new Date(),
+    publishDate: new Date(issueYear),
+    initiatedBy: `${firstName} ${lastName}`,
   }
 
   try {
@@ -84,7 +92,7 @@ export const rejectRequestToPublishIssue = async (ref) => {
       return { ok: false, error: 'something went wrong', errorType: 'other' }
     }
   } catch (error) {
-    // console.log(error)
+    console.log(error)
   }
 }
 
@@ -93,13 +101,12 @@ export const publishIssue = async (issueRef, user) => {
   const date = new Date()
   try {
     connectDB()
-
     const publishedIssue = await Issue.findOneAndUpdate(
       { ref: issueRef, status: 'review' },
       {
         $set: {
           published: true,
-          publishDate: date,
+          // publishDate: issue?.publishDate,
           status: 'published',
           mode: 'final',
           approvedBy: `${user.firstName} ${user.lastName}`,
@@ -122,7 +129,7 @@ export const publishIssue = async (issueRef, user) => {
       }
     }
   } catch (error) {
-    // console.log(error)
+    console.log(error)
   }
 }
 
@@ -134,6 +141,26 @@ export const getPublishedIssues = async () => {
       issueNumber: -1,
     })
     return publishedIssues
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export async function deleteIssue(id) {
+  console.log(id)
+  try {
+    connectDB()
+    const deletedIssue = await Issue.findByIdAndDelete(id)
+    if (!!deletedIssue) {
+      const deleteOutcome = await Article.deleteMany({ ref: deletedIssue.ref })
+      if (!deletedIssue.articles.length || !!deleteOutcome.deletedCount) {
+        revalidatePath('/archive')
+        revalidatePath('/dashboard/issues')
+        return { ok: true }
+      }
+    } else {
+      return false
+    }
   } catch (error) {
     console.log(error)
   }

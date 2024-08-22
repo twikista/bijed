@@ -123,26 +123,6 @@ export const publishIssue = async (issueRef, jobTicketId, user) => {
   }
 }
 
-export async function deleteIssue(issueRef) {
-  try {
-    connectDB()
-    const deletedIssue = await Issue.findOneAndDelete(issueRef)
-    if (deletedIssue._id !== undefined) {
-      console.log('deletedIssue', issueRef)
-      const deleteOutcome = await Article.deleteMany({ ref: issueRef })
-      if (!deletedIssue.articles.length || !!deleteOutcome.deletedCount) {
-        revalidatePath('/archive')
-        revalidatePath('/dashboard/issues')
-        return { ok: true }
-      }
-    } else {
-      return false
-    }
-  } catch (error) {
-    // console.log(error)
-  }
-}
-
 export async function updateIssue(id, initialValue, formData) {
   const parsedData = issueFormSchema.safeParse(formData)
   if (!parsedData.success) {
@@ -297,6 +277,11 @@ export async function createArticle(formData, url, params) {
   }
 }
 
+export const getAllPublishedArticles = async () => {
+  const publishedArticles = await Article.find({ published: true })
+  return publishedArticles
+}
+
 export async function signup(formData) {
   const parsedData = newUserSchema.safeParse(formData)
   if (!parsedData.success) {
@@ -332,13 +317,13 @@ export async function signup(formData) {
     const { password, ...savedUserWithoutPassword } = parsedSavedUser
 
     const encryptedUserId = signJWT({ id: savedUser._id })
-    const activationUrl = `/auth/account-activation/${encryptedUserId}`
+    const activationUrl = `${process.env.AUTH}/account-activation/${encryptedUserId}`
     const body = compileActivationTemplate({
       name: modifiedFormData.firstName,
       email: modifiedFormData.email,
       password: modifiedFormData.password,
       url: activationUrl,
-      link: '$/auth/login',
+      link: `${process.env.AUTH}/login`,
     })
 
     const sendEmailResult = await sendEmail({
@@ -525,6 +510,21 @@ export async function resetPassword(authToken, formData) {
 
 export async function logOut() {
   await signOut({ redirectTo: '/auth/login' })
+}
+
+export async function removeUser(id) {
+  try {
+    connectDB()
+    const deletedUser = await User.findByIdAndDelete(id)
+    if (deletedUser) {
+      revalidatePath('/dashboard/manage-users')
+      return { ok: true }
+    } else {
+      return { ok: false, error: 'something went wrong' }
+    }
+  } catch (error) {
+    return { ok: false, error: 'something went wrong' }
+  }
 }
 
 export const createAnnouncement = async (formData) => {
