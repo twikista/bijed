@@ -10,9 +10,13 @@ import { toast } from 'react-toastify'
 import FormWrapper from '../Dashboard/FormWrapper'
 import SubmitButton from '../SubmitButton'
 import { sendContactFormMessage } from '@/lib/actions'
+import ReCAPTCHA from 'react-google-recaptcha'
+import { useState, useRef } from 'react'
 // import { sendEmail } from '@/lib/emailServices'
 
 function ContactForm() {
+  const [isCaptchaSolved, setIsCaptchaSolved] = useState(false)
+  const captchaRef = useRef()
   const {
     register,
     handleSubmit,
@@ -24,15 +28,20 @@ function ContactForm() {
   })
 
   const handler = async (data) => {
-    console.log(data)
     const response = await sendContactFormMessage(data)
     if (response?.ok) {
+      captchaRef.current.reset()
       reset()
+      setIsCaptchaSolved(false)
+
       toast.success('Message sent.')
     } else {
       toast.error('Something went wrong. Please try again')
     }
   }
+
+  const onChange = (value) =>
+    value ? setIsCaptchaSolved(true) : setIsCaptchaSolved(false)
 
   return (
     <FormWrapper formHeading='Send us a message'>
@@ -86,8 +95,15 @@ function ContactForm() {
           mainText='Send Message'
           altText='Sending Message...'
           formSubmitState={isSubmitting}
+          disabled={!isCaptchaSolved}
         />
-        {/* </div> */}
+        <div className='flex justify-center'>
+          <ReCAPTCHA
+            sitekey={process.env.NEXT_PUBLIC_DEV_SITE_KEY}
+            onChange={onChange}
+            ref={captchaRef}
+          />
+        </div>
       </Form>
     </FormWrapper>
   )

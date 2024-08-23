@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { forgetPassword } from '@/lib/actions'
@@ -10,8 +10,12 @@ import { forgetPasswordSchema } from '@/lib/schema'
 import Spinner from '../Spinner'
 import Image from 'next/image'
 import emailSentIcon from '../../../public/email_sent.svg'
+import ReCAPTCHA from 'react-google-recaptcha'
+import clsx from 'clsx'
 
 function ForgetPasswordForm() {
+  const [isCaptchaSolved, setIsCaptchaSolved] = useState(false)
+  const captchaRef = useRef()
   const [errorFromServer, setErrorFromServer] = useState(null)
   const [emailSent, setEmailSent] = useState(false)
   const {
@@ -27,7 +31,9 @@ function ForgetPasswordForm() {
   const handler = async (data) => {
     const response = await forgetPassword(data)
     if (response && response.ok) {
+      captchaRef.current.reset()
       reset()
+      setIsCaptchaSolved(false)
       setEmailSent(true)
     }
 
@@ -40,6 +46,10 @@ function ForgetPasswordForm() {
         setErrorFromServer(response.error)
       }
     }
+  }
+
+  const onChange = (value) => {
+    value ? setIsCaptchaSolved(true) : setIsCaptchaSolved(false)
   }
 
   if (emailSent) {
@@ -83,7 +93,14 @@ function ForgetPasswordForm() {
         <div>
           <button
             type='submit'
-            className='bg-[#901090] w-full flex items-center text-center text-white rounded-md py-2 cursor-pointer hover:bg-[#800080] justify-center'
+            disabled={!isCaptchaSolved}
+            className={clsx(
+              'bg-[#901090] w-full flex items-center text-center text-white rounded-md py-2 cursor-pointer hover:bg-lightPrimary justify-center',
+              {
+                ['bg-[#dedede] hover:bg-[#d9d9d9] cursor-default']:
+                  !isCaptchaSolved,
+              }
+            )}
           >
             {isSubmitting ? <Spinner text='Processing...' /> : 'Reset password'}
           </button>
@@ -92,6 +109,13 @@ function ForgetPasswordForm() {
               Back to sign in
             </Link>
           </p>
+        </div>
+        <div className='flex justify-center'>
+          <ReCAPTCHA
+            sitekey={process.env.NEXT_PUBLIC_DEV_SITE_KEY}
+            onChange={onChange}
+            ref={captchaRef}
+          />
         </div>
       </form>
     </div>
