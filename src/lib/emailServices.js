@@ -5,26 +5,21 @@ import { resetPasswordEmailTemplate } from './emailTemplates/resetPasswordEmail'
 import { render, renderAsync } from '@react-email/components'
 import { Email } from '@/components/Emails/Test'
 
-export async function sendEmail({ to, subject, body }) {
+export async function sendEmail({ to, subject, body, from, sender, replyTo }) {
   const { SMTP_EMAIL, SMTP_GMAIL_PASSWORD } = process.env
 
   const transport = nodemailer.createTransport({
     service: 'gmail',
     auth: { user: SMTP_EMAIL, pass: SMTP_GMAIL_PASSWORD },
   })
-  // try {
-  //   const testEmailService = await transport.verify()
-  //   console.log(testEmailService)
-  // } catch (error) {
-  //   console.log(error)
-  // }
-
   try {
     const sendMailresult = await transport.sendMail({
-      from: SMTP_EMAIL,
+      sender,
+      from,
       to,
       subject,
       html: body,
+      replyTo,
     })
     console.log('sendMailresult:', sendMailresult)
     if (sendMailresult?.accepted?.length > 0) return { successful: true }

@@ -125,7 +125,7 @@ export function DeleteButton({
     console.log('ref', id)
     const response = await action(id)
     if (response?.ok) {
-      toast.success('deleted successfully!!!')
+      toast.success('deleted successfully!')
     }
   }
 

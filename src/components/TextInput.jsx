@@ -16,7 +16,7 @@ function TextInput({
 }) {
   return (
     <div className='flex flex-col'>
-      <label htmlFor={name} className='inline-block mb-2 '>
+      <label htmlFor={name} className='inline-block mb-[2px] '>
         {label}
       </label>
       <div

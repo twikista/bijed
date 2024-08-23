@@ -13,9 +13,9 @@ function Contact() {
   return (
     <MainContainer>
       <PageHeading>Contact</PageHeading>
-      <div className='space-y-10'>
+      <div className='pt-5'>
         <section className='flex flex-col items-center space-y-1'>
-          <h3 className='text-xl font-semibold font-saira'>Address</h3>
+          {/* <h3 className='text-xl font-semibold font-saira'>Address</h3> */}
           <div className='text-center'>
             <p>Depatrment of Entreprenuership,</p>
             <p>Faculty of Management Sciences,</p>
@@ -31,9 +31,7 @@ function Contact() {
           </div>
         </section>
         <section className='flex flex-col items-center space-y-2'>
-          <h3 className='text-xl font-semibold font-saira'>
-            Send us a message
-          </h3>
+          {/* <h3 className='text-xl font- font-saira'>Send us a message</h3> */}
           <div className='w-full'>
             <ContactForm />
           </div>

@@ -2,8 +2,7 @@ import clsx from 'clsx'
 import Spinner from './Spinner'
 
 function SubmitButton({
-  bgColor,
-  hoverBgColor,
+  overideStyles,
   textColor,
   mainText,
   altText,
@@ -13,7 +12,7 @@ function SubmitButton({
     <button
       type='submit'
       className={clsx(
-        `bg-[#${bgColor}] w-full flex flex-1 items-center text-cente rounded-md py-3 cursor-pointer hover:bg-[#${hoverBgColor}] justify-center`
+        `w-full flex flex-1 bg-primary hover:bg-lightPrimary items-center text-cente rounded-md py-3 cursor-pointer justify-center ${overideStyles} transition-colors`
       )}
     >
       {formSubmitState ? (

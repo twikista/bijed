@@ -20,6 +20,8 @@ module.exports = {
       colors: {
         primary: '#800080',
         secondary: '#e4c97a',
+        lightPrimary: '#993399',
+        black: '#303030',
       },
       keyframes: {
         slidedown: {

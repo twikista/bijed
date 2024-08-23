@@ -85,7 +85,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang='en' className={``}>
       <body
-        className={`${ibmPlex.className} ${saira.variable} ${cairo.variable} ${barlow.variable} antialiased flex flex-col min-h-full bg-slate-50 min-w-[320px]`}
+        className={`${ibmPlex.className} ${saira.variable} ${cairo.variable} ${barlow.variable} antialiased flex flex-col min-h-full bg-slate-50 min-w-[320px] text-black`}
       >
         {children}
         <ToastContainer />

@@ -19,6 +19,7 @@ import { CancelButton } from './Buttons'
 import SubmitButton from '../SubmitButton'
 import Form from './Form'
 import { toast } from 'react-toastify'
+import Textarea from '../Textarea'
 
 function NewArticleForm({ initialValue, params }) {
   const {
@@ -132,32 +133,13 @@ function NewArticleForm({ initialValue, params }) {
           error={errors?.endPage}
           valueAsNumber={true}
         />
-        <div className='flex flex-col'>
-          <label htmlFor='name' className='inline-block mb-1'>
-            Abstract
-          </label>
-          <div
-            className={clsx(
-              `flex border border-gray-300 rounded-md focus-within:border-2 overflow-hidden bg-white h-[300px]`,
-              { ['border-red-400']: errors?.abstract }
-            )}
-          >
-            <textarea
-              className={clsx(
-                `w-full text-gray-600 pl-3 inline-block py-2  outline-none appearance-none resize-none max-h-full`
-              )}
-              name='abstract'
-              placeholder='Enter article abstract'
-              id='abstract'
-              {...register('abstract')}
-            />
-          </div>
-          {errors && (
-            <span className='text-red-500 '>{errors?.abstract?.message}</span>
-          )}
-        </div>
-        {/* end of abstrct text input */}
-
+        <Textarea
+          name='abstract'
+          label='Abstract'
+          placeholder='Enter article abstract'
+          register={register}
+          error={errors?.abstract}
+        />
         <KeywordInput
           control={control}
           register={register}
@@ -181,7 +163,7 @@ function NewArticleForm({ initialValue, params }) {
         <div className='flex flex-col items-center gap-2 pt-1 md:flex-row'>
           <SubmitButton
             textColor='white'
-            bgColor='901090'
+            bgColor='[#901090]'
             hoverBgColor='800080'
             mainText='Add Article'
             altText='Adding Article...'

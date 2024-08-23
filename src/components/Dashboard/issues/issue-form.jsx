@@ -18,11 +18,10 @@ function IssueForm({ initialFormState, initialValue }) {
   const [errorFromServer, setErrorFromServer] = useState('')
   const router = useRouter()
   const {
-    control,
     register,
     handleSubmit,
     reset,
-    formState: { errors, isSubmitting, isSubmitted },
+    formState: { errors, isSubmitting },
   } = useForm({
     defaultValues: initialFormState,
     resolver: zodResolver(issueFormSchema),

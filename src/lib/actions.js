@@ -677,3 +677,24 @@ export const updateEditorialBoard = async (initialState, formData) => {
     return { ok: false, error: 'something went wrong', errorType: 'other' }
   }
 }
+
+export const sendContactFormMessage = async (formData) => {
+  const { name, email, subject, body } = formData
+  console.log(formData)
+  try {
+    const sendEmailResult = await sendEmail({
+      to: process.env.SMTP_EMAIL,
+      from: `${email}<${name}>`,
+      subject,
+      body,
+      replyTo: email,
+    })
+    if (sendEmailResult.successful) {
+      return { ok: true }
+    } else {
+      return { ok: false }
+    }
+  } catch (error) {
+    console.log(error)
+  }
+}

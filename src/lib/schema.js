@@ -167,4 +167,15 @@ export const editorialBoardSchema = z.object({
     .min(200, { message: 'Content must have minimum of 30 characters' }),
 })
 
+export const contactFormSchema = z.object({
+  name: z.string().min(1, { message: 'name is required' }).trim(),
+  email: z
+    .string()
+    .trim()
+    .min(1, { message: 'Email is  requird' })
+    .email({ message: 'Please enter a valid email' }),
+  subject: z.string().min(1, { message: 'Subject is required' }).trim(),
+  body: z.string().min(20, { message: 'message is required' }).trim(),
+})
+
 ///(^[a-z]+)(@uniben\.edu|@bijed\.com\.ng)|(^[a-z]+\.[a-z]+)@uniben\.edu$/gm

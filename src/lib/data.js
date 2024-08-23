@@ -1,5 +1,4 @@
-import { unstable_noStore as nostore } from 'next/cache'
-
+'use server'
 import { connectDB } from './mongoose/config'
 import {
   Article,
@@ -20,11 +19,15 @@ export const fetchAnnouncement = async (fetchBy, item) => {
 }
 
 export const getAnnouncements = async () => {
-  connectDB()
-  const announcements = await Announcement.find()
-    .sort({ createdAt: 1 })
-    .limit(2)
-  return announcements
+  try {
+    connectDB()
+    const announcements = await Announcement.find({})
+      .sort({ createdAt: 1 })
+      .limit(2)
+    return announcements
+  } catch (error) {
+    console.log(error)
+  }
 }
 
 export const getIssues = async (mode) => {
