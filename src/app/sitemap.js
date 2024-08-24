@@ -5,6 +5,7 @@ import { getAllPublishedArticles } from '@/lib/actions'
 
 export default async function sitemap() {
   const baseUrl = config.baseUrl
+  console.log(baseUrl)
   const navbarMenuEntries = menuItemsData
     .map((item) => (item.submenu ? item.submenu : null))
     .flat()
@@ -17,7 +18,6 @@ export default async function sitemap() {
   const archiveMenu = publishedIssues.map((issue) => {
     return {
       url: `${baseUrl}/archive/${issue?.ref}`,
-      lastModified: `${new Date(issue.createdAt)}`,
     }
   })
 
@@ -25,7 +25,6 @@ export default async function sitemap() {
   const publishedArticleEntries = publishedArticles.map((article) => {
     return {
       url: `${baseUrl}/archive/${article?.ref}/${article?.slug}`,
-      lastModified: `${new Date(article?.createdAt)}`,
     }
   })
 
