@@ -25,18 +25,14 @@ function MobileNavBar() {
 
   useEffect(() => {
     const handler = (event) => {
-      console.log('target-', event.target)
-      console.log('ref-', ref.current)
       if (showMenu && ref.current && !ref.current.contains(event.target)) {
         setShowMenu(false)
       }
     }
     document.addEventListener('mousedown', handler)
-    // document.addEventListener('touchstart', handler)
     return () => {
       // Cleanup the event listener
       document.removeEventListener('mousedown', handler)
-      // document.removeEventListener('touchstart', handler)
     }
   }, [showMenu])
 

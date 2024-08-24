@@ -1,6 +1,6 @@
 import { PageHeading } from '@/components/Headings'
 import MainContainer from '@/components/MainContainer'
-import ContactForm from '@/components/contactform/ContactForm'
+import ContactForm from '@/components/ContactForm'
 
 export const metadata = {
   title:
@@ -25,7 +25,6 @@ function Contact() {
               <span className='font-medium'>Tel:&nbsp;</span>+2348037236527
             </p>
             <p>
-              {' '}
               <span className='font-medium'>Email:&nbsp;</span>bijed@uniben.edu
             </p>
           </div>

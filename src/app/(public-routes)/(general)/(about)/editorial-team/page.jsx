@@ -18,19 +18,15 @@ async function EditorialBoard() {
   const editorialTeam = await fetchEditorialBoard('final')
   const styledEditorialTeam = editorialTeam?.map((i) =>
     i.content
-      .replace(
-        /<h3>/g,
-        "<h3 className='mb-1 text-base md:text-xl font-saira md:text-center'>"
-      )
-      .replace(/<p>/g, "<p className='text-left'>")
+      .replace(/<h3>/g, "<h3 className='mb-1 text-base md:text-xl font-saira>")
+      .replace(/<p>/g, "<p className='text-left mb-[5px]'>")
   )
 
-  console.log(styledEditorialTeam)
   return (
     <MainContainer>
       <PageHeading>Editorial Team</PageHeading>
       <div className='justify-center w-full'>
-        <div className='mx-auto text-justify xl:w-fit'>
+        <div className='mx-auto text-justify lg:w-fit'>
           {parse(
             DOMPurify.sanitize(styledEditorialTeam, {
               ADD_ATTR: ['className'],

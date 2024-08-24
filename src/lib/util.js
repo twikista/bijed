@@ -80,7 +80,7 @@ export const dateHelperFunction = (date, variant = 'short') => {
   if (variant === 'short') {
     return new Date(date).toLocaleDateString()
   }
-  return new Date(date).toLocaleDateString('en-US', {
+  return new Date(date).toLocaleDateString('en-GB', {
     year: 'numeric',
     month: 'long',
     day: 'numeric',

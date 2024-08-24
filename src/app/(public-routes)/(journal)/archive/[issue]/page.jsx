@@ -17,21 +17,16 @@ const getArticlesInIssue = async (issue) => {
   }).sort({
     startPage: 1,
   })
-  console.log(articlesInIssue)
   return articlesInIssue
 }
 
 export async function generateStaticParams() {
-  // const issues = await getPublish
-  // return issues.map((issue) => issue.ref)
-  connectDB()
-  const publishedIssues = await Issue.find({ status: 'published' })
-  return publishedIssues.map((issue) => issue.ref)
+  const publishedIssues = await getIssues('final')
+  return publishedIssues?.map((issue) => issue.ref)
 }
 
 export async function generateMetadata({ params }) {
-  connectDB()
-  const issue = await Issue.findOne({ ref: params.issue })
+  const issue = await getIssue(params.issue)
   return {
     title: `BIJED ${issue.issueTitle}`,
   }

@@ -12,6 +12,7 @@ import Image from 'next/image'
 import emailSentIcon from '../../../public/email_sent.svg'
 import ReCAPTCHA from 'react-google-recaptcha'
 import clsx from 'clsx'
+import { config } from '@/lib/config'
 
 function ForgetPasswordForm() {
   const [isCaptchaSolved, setIsCaptchaSolved] = useState(false)
@@ -112,7 +113,7 @@ function ForgetPasswordForm() {
         </div>
         <div className='flex justify-center'>
           <ReCAPTCHA
-            sitekey={process.env.NEXT_PUBLIC_DEV_SITE_KEY}
+            sitekey={config.sitekey}
             onChange={onChange}
             ref={captchaRef}
           />

@@ -9,7 +9,6 @@ import { createArticle } from '@/lib/actions'
 import { uploadPdfToStorage } from '@/lib/firebase/services'
 
 import KeywordInput from './KeywordsInput'
-import clsx from 'clsx'
 import { handleValidationErrorFromServer } from '@/lib/util'
 import TextInput from '../TextInput'
 import ArticleAuthorsInput from './ArticleAuthorsInput'
@@ -29,7 +28,6 @@ function NewArticleForm({ initialValue, params }) {
     getValues,
     reset,
     setError,
-    setValue,
     formState: { errors, isSubmitting },
   } = useForm({
     defaultValues: initialValue,

@@ -3,8 +3,7 @@ import Header from '@/components/Header'
 import { PageHeading, Paragraph } from '@/components/Headings'
 import ListOfArticlesInIssue from '@/components/ListOfArticlesInIssue'
 import MainContainer from '@/components/MainContainer'
-import { connectDB } from '@/lib/mongoose/config'
-import { Issue, Article } from '@/lib/mongoose/models'
+import { getArticlesInCurrentIssue } from '@/lib/data'
 import { dateHelperFunction } from '@/lib/util'
 import { unstable_noStore as noStore } from 'next/cache'
 
@@ -13,20 +12,6 @@ export const metadata = {
     'Current Issue - Benin International Journal for Entrepreneurship Development',
   description:
     'This page contains the articles in the current issue the Benin International Journal for Entrepreneurship Development.',
-}
-
-const getArticlesInCurrentIssue = async () => {
-  connectDB()
-  const currentIssue = await Issue.find({ published: true })
-    .sort({ volume: -1 })
-    .limit(1)
-  if (currentIssue) {
-    const [issue] = currentIssue
-    const articlesInCurrentIssue = await Article.find({
-      ref: issue?.ref,
-    })
-    return { currentIssue, articlesInCurrentIssue }
-  }
 }
 
 async function Currentissue() {

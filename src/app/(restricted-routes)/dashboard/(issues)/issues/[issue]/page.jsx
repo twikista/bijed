@@ -52,7 +52,6 @@ async function IssuePage({ params }) {
     issue?.status === 'review' && user?.role === 'managing editor'
 
   const adminPrevilege = user?.role === 'admin'
-  console.log('user=====>>>', businessManagerPrivilege || adminPrevilege)
 
   if (!articlesInIssue.length) {
     return (

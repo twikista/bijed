@@ -81,7 +81,7 @@ function SignInForm() {
           bgColor='901090'
           hoverBgColor='800080'
           mainText='Sign in'
-          altText='processing'
+          altText='Signing In...'
           formSubmitState={isSubmitting}
         />
       </Form>

@@ -1,5 +1,4 @@
 function JournalStatCard({ title, value, Icon, bg }) {
-  console.log('value-----', value)
   return (
     <div
       className={`flex items-center justify-center flex-1 gap-2 px-2 py-3  lg:px-5 sm:py-5 ${bg} rounded-xl shadow-md `}

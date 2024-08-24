@@ -9,7 +9,7 @@ const firebaseConfig = {
   apiKey: process.env.API_KEY,
   authDomain: process.env.AUTH_DOMAIN,
   projectId: process.env.PROJECT_ID,
-  storageBucket: 'bijed-57c3a.appspot.com',
+  storageBucket: config.storageBucket,
   messagingSenderId: process.env.MESSAGING_SENDER_ID,
   appId: process.env.APP_ID,
 }
@@ -17,5 +17,3 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig)
 export const storage = getStorage(app)
-
-// console.log(new Date('2019-06-30'))

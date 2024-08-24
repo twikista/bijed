@@ -59,12 +59,9 @@ function NewUserForm() {
         const fieldWithError = Object.keys(fieldErrorMapping).find(
           (field) => response?.error[field]
         )
-        console.log(response.error[fieldWithError])
         if (fieldWithError) {
-          console.log('errors', response.error)
           // Use the ValidFieldNames type to ensure the correct field names
           const errors = Object.keys(response.error)
-          console.log('array:', errors)
           errors.forEach((error) =>
             setError(error, { type: 'server', message: response.error[error] })
           )
@@ -148,7 +145,7 @@ function NewUserForm() {
             bgColor='901090'
             hoverBgColor='800080'
             mainText='Add User'
-            altText='Adding user...'
+            altText='Creating user...'
             formSubmitState={isSubmitting}
           />
           <CancelButton

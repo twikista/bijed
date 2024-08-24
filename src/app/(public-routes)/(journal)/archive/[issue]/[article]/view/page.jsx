@@ -15,7 +15,6 @@ const getArticle = async (slug) => {
     ref: `${slug.issue}`,
     slug: `${slug.article}`,
   })
-  console.log(`slug:${slug}`)
   return article
 }
 

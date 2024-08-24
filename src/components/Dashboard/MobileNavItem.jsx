@@ -6,8 +6,6 @@ import clsx from 'clsx'
 
 function MobileNavItem({ url, linkText, OutlineIcon, FillIcon }) {
   const pathname = usePathname()
-  console.log('match====>', url)
-  console.log(pathname.includes(url.split('/')[2]) || pathname === url)
   return (
     <li
       className={clsx('flex items-center text-gray-50 hover:text-[#ffebb2]', {

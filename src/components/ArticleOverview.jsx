@@ -11,15 +11,12 @@ function ArticleOverview({ currentArticle, currentIssue = false }) {
   }
   return (
     <div>
-      <h2 className='mb-3 text-base font-bold sm:text-2xl'>
+      <h2 className='mb-2 text-base font-bold md:text-2xl'>
         {currentArticle?.title}
       </h2>
+      <ArticleInfo article={currentArticle} />
       <section className='flex flex-col py-2 space-y-3 border-t border-b sm:space-y-0 sm:flex-row border-neutral-300'>
-        <div className='flex-1'>
-          <h5 className='font-semibold'>Author(s):</h5>
-          <Authors authors={currentArticle?.authors} withAffliation={true} />
-        </div>
-        <ArticleInfo article={currentArticle} />
+        <Authors authors={currentArticle?.authors} withAffliation={true} />
       </section>
       <div className='py-2'>
         <p>
@@ -41,7 +38,7 @@ function ArticleOverview({ currentArticle, currentIssue = false }) {
                 ? `/archive/${currentArticle.ref}/${currentArticle.slug}/view?ref=current`
                 : `/archive/${currentArticle.ref}/${currentArticle.slug}/view`
             }
-            className='flex justify-center gap-2 font-bold hover:text-primary px-3 py-2 border hover:border-primary sm:w-[240px] rounded-md bg-primary hover:bg-white text-white transition-colors  text-center'
+            className='flex w-full justify-center gap-2 font-bold px-3 py-2 border hover:border-lightPrimary sm:w-[240px] rounded-md bg-primary hover:bg-lightPrimary text-white transition-colors  text-center'
           >
             <span>View PDF</span>
             <PDFIcon className='w-5 text-' />

@@ -7,9 +7,7 @@ function Authors({ authors, withAffliation, additionalStyles }) {
         {authors.map(({ name, department, institution, _id }) => (
           <div key={_id} className=''>
             {/* <div className='flex items-center space-x-1'> */}
-            <p className='font-semibold leading-none'>
-              {authorsNameWithAbrreviations(name)}
-            </p>
+            <p className='font-semibold leading-none'>{name}</p>
             {/* </div> */}
             <span className='flex flex-wrap text-neutral-500'>{`Department of ${department}, ${institution}`}</span>
             {/* <p className='text-neutral-500'>{institution}</p> */}

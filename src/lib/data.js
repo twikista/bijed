@@ -85,6 +85,24 @@ export const getArticlesInIssue = async (issue, sorted = true) => {
   return articlesInIssue
 }
 
+export const getArticlesInCurrentIssue = async () => {
+  try {
+    connectDB()
+    const currentIssue = await Issue.find({ published: true })
+      .sort({ volume: -1 })
+      .limit(1)
+    if (!!currentIssue.lenght) {
+      const [issue] = currentIssue
+      const articlesInCurrentIssue = await Article.find({
+        ref: issue?.ref,
+      })
+      return { currentIssue, articlesInCurrentIssue }
+    }
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 export const fetchUnpublishedIssue = async ({ issueRef }) => {
   try {
     connectDB()

@@ -18,10 +18,8 @@ function SignupForm() {
       isAdmin: false,
       password: uniqid.time(),
     }
-    console.log(formData)
 
     const user = await signup(formData)
-    console.log(user.data)
   }
   return (
     <form onSubmit={handler}>

@@ -80,7 +80,7 @@ export function EditButton({
         // href={href}
         onClick={() => router.push(href)}
         className={clsx(
-          `rounded-md px-2 py-2 gap-1 text-gray-50 flex bg-[#008dcb] hover:bg-blue-600 min-w-[120px] md:min-w-[136px] font-medium items-center justify-center md:gap-2 capitalize md:py-2 w-full shadow-md md:max-w-[400px] md:mx-auto ${
+          `rounded-md px-2 py-2 gap-1 text-gray-50 flex bg-[#008dcb] hover:bg-blue-600 min-w-[120px] md:min-w-[136px] font-medium items-center justify-center md:gap-2 capitalize md:py-2 w-full shadow-md md:max-w-[240px] md:mx-auto ${
             disabled && 'pointer-events-none'
           }`,
           { [' text-gray-500 bg-gray-200']: disabled === true }
@@ -122,7 +122,6 @@ export function DeleteButton({
   disabled = false,
 }) {
   const handler = async (id) => {
-    console.log('ref', id)
     const response = await action(id)
     if (response?.ok) {
       toast.success('deleted successfully!')
@@ -136,7 +135,7 @@ export function DeleteButton({
         disabled={disabled}
         onClick={() => handler(id)}
         className={clsx(
-          `w-full shadow-md flex gap-1 md:gap-2 px-2 py-2 bg-[#ff6347] hover:bg-red-500 text-white items-center md:mx-auto rounded-md justify-center font-medium md:px-3 md:py-2 min-w-[120px] md:max-w-[400px] ${
+          `w-full shadow-md flex gap-1 md:gap-2 px-2 py-2 bg-[#ff6347] hover:bg-red-500 text-white items-center md:mx-auto rounded-md justify-center font-medium md:px-3 md:py-2 min-w-[120px] md:max-w-[240px] ${
             disabled && 'pointer-events-none'
           } `,
           { [' text-gray-500 bg-gray-200']: disabled === true }

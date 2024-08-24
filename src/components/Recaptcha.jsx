@@ -5,7 +5,6 @@ import ReCAPTCHA from 'react-google-recaptcha'
 
 function Recaptcha() {
   const captchaRef = useRef
-  const handler = (value) => console.log(value)
   return (
     <div>
       <ReCAPTCHA

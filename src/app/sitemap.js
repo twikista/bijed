@@ -38,6 +38,3 @@ export default async function sitemap() {
     ...publishedArticleEntries,
   ]
 }
-
-console.log(process.env.NODE_ENV === 'development')
-console.log(config.storageBucket)
