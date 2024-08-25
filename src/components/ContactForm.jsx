@@ -11,20 +11,26 @@ import FormWrapper from './Dashboard/FormWrapper'
 import SubmitButton from './SubmitButton'
 import { sendContactFormMessage } from '@/lib/actions'
 import ReCAPTCHA from 'react-google-recaptcha'
-import { useState, useRef } from 'react'
+import { useRef } from 'react'
 import { config } from '@/lib/config'
-// import { sendEmail } from '@/lib/emailServices'
+import ValidateRecaptchaCheckbox from './ValidateRecaptchaCheckbox'
 
 function ContactForm() {
-  const [isCaptchaSolved, setIsCaptchaSolved] = useState(false)
   const captchaRef = useRef()
   const {
     register,
     handleSubmit,
     reset,
+    setValue,
     formState: { isSubmitting, errors },
   } = useForm({
-    defaultValues: { name: '', email: '', subject: '', body: '' },
+    defaultValues: {
+      name: '',
+      email: '',
+      subject: '',
+      body: '',
+      isHuman: false,
+    },
     resolver: zodResolver(contactFormSchema),
   })
 
@@ -33,16 +39,15 @@ function ContactForm() {
     if (response?.ok) {
       captchaRef.current.reset()
       reset()
-      setIsCaptchaSolved(false)
-
       toast.success('Message sent.')
     } else {
       toast.error('Something went wrong. Please try again')
     }
   }
 
-  const onChange = (value) =>
-    value ? setIsCaptchaSolved(true) : setIsCaptchaSolved(false)
+  const onChange = (value) => {
+    if (value) setValue('isHuman', true)
+  }
 
   return (
     <FormWrapper formHeading='Send us a message'>
@@ -65,9 +70,6 @@ function ContactForm() {
           register={register}
           error={errors?.email}
         />
-        {/* <InputField type='text' label='name' required={true} />
-        <InputField type='email' label='email' required={true} /> */}
-        {/* <TextArea label='message' required={true} /> */}
         <TextInput
           type='text'
           label='Subject'
@@ -83,20 +85,17 @@ function ContactForm() {
           register={register}
           error={errors?.body}
         />
-        {/* <div className=''>
-          <button
-            type='submit'
-            className='w-full px-4 py-[10px] rounded font-medium  outline-none  bg-primary hover:bg-transparent text-white transition-colors hover:text-primary border hover:border-primary '
-          >
-            Submit
-          </button>
-        </div> */}
+        <ValidateRecaptchaCheckbox
+          name='isHuman'
+          register={register}
+          error={errors?.isHuman}
+        />
         <SubmitButton
           textColor='white'
           mainText='Send Message'
           altText='Sending Message...'
           formSubmitState={isSubmitting}
-          disabled={!isCaptchaSolved}
+          // disabled={!isCaptchaSolved}
         />
         <div className='flex justify-center'>
           <ReCAPTCHA

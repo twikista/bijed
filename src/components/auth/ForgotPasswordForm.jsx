@@ -13,6 +13,7 @@ import emailSentIcon from '../../../public/email_sent.svg'
 import ReCAPTCHA from 'react-google-recaptcha'
 import clsx from 'clsx'
 import { config } from '@/lib/config'
+import ValidateRecaptchaCheckbox from '../ValidateRecaptchaCheckbox'
 
 function ForgetPasswordForm() {
   const [isCaptchaSolved, setIsCaptchaSolved] = useState(false)
@@ -24,9 +25,10 @@ function ForgetPasswordForm() {
     handleSubmit,
     setError,
     reset,
+    setValue,
     formState: { errors, isSubmitting },
   } = useForm({
-    defaultValues: { email: '' },
+    defaultValues: { email: '', isHuman: false },
     resolver: zodResolver(forgetPasswordSchema),
   })
   const handler = async (data) => {
@@ -34,7 +36,6 @@ function ForgetPasswordForm() {
     if (response && response.ok) {
       captchaRef.current.reset()
       reset()
-      setIsCaptchaSolved(false)
       setEmailSent(true)
     }
 
@@ -50,7 +51,7 @@ function ForgetPasswordForm() {
   }
 
   const onChange = (value) => {
-    value ? setIsCaptchaSolved(true) : setIsCaptchaSolved(false)
+    if (value) setValue('isHuman', true)
   }
 
   if (emailSent) {
@@ -91,16 +92,16 @@ function ForgetPasswordForm() {
           register={register}
           error={errors?.email}
         />
+        <ValidateRecaptchaCheckbox
+          name='isHuma'
+          register={register}
+          error={errors?.isHuman}
+        />
         <div>
           <button
             type='submit'
-            disabled={!isCaptchaSolved}
             className={clsx(
-              'bg-[#901090] w-full flex items-center text-center text-white rounded-md py-2 cursor-pointer hover:bg-lightPrimary justify-center',
-              {
-                ['bg-[#dedede] hover:bg-[#d9d9d9] cursor-default']:
-                  !isCaptchaSolved,
-              }
+              'bg-[#901090] w-full flex items-center text-center text-white rounded-md py-2 cursor-pointer hover:bg-lightPrimary justify-center'
             )}
           >
             {isSubmitting ? <Spinner text='Processing...' /> : 'Reset password'}

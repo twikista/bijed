@@ -42,6 +42,9 @@ export const forgetPasswordSchema = z.object({
     .min(1, { message: 'E-mail is  requird' })
     .email({ message: 'Enter a valid e-mail' }),
   // .includes('uniben.edu', { message: 'Email must be valid UNIBEN email' }),
+  isHuman: z.boolean().refine((val) => val === true, {
+    message: 'captcha must be completed',
+  }),
 })
 
 export const passwordSchema = z.object({
@@ -176,6 +179,9 @@ export const contactFormSchema = z.object({
     .email({ message: 'Please enter a valid email' }),
   subject: z.string().min(1, { message: 'Subject is required' }).trim(),
   body: z.string().min(20, { message: 'message is required' }).trim(),
+  isHuman: z.boolean().refine((val) => val === true, {
+    message: 'captcha must be completed',
+  }),
 })
 
 ///(^[a-z]+)(@uniben\.edu|@bijed\.com\.ng)|(^[a-z]+\.[a-z]+)@uniben\.edu$/gm
