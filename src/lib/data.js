@@ -86,16 +86,20 @@ export const getArticlesInIssue = async (issue, sorted = true) => {
 }
 
 export const getArticlesInCurrentIssue = async () => {
+  console.log('i ran')
   try {
     connectDB()
-    const currentIssue = await Issue.find({ published: true })
+    const currentIssue = await Issue.find({ published: true, mode: 'final' })
       .sort({ volume: -1 })
       .limit(1)
-    if (!!currentIssue.lenght) {
+    console.log(currentIssue)
+    if (!!currentIssue.length) {
       const [issue] = currentIssue
       const articlesInCurrentIssue = await Article.find({
         ref: issue?.ref,
       })
+      console.log(currentIssue)
+      console.log(articlesInCurrentIssue)
       return { currentIssue, articlesInCurrentIssue }
     }
   } catch (error) {

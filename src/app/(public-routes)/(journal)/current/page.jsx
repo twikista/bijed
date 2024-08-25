@@ -16,8 +16,6 @@ export const metadata = {
 
 async function Currentissue() {
   noStore()
-  // const { currentIssue, articlesInCurrentIssue } =
-  //   await getArticlesInCurrentIssue()
   const response = await getArticlesInCurrentIssue()
   const { currentIssue, articlesInCurrentIssue } = response
 
