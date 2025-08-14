@@ -9,4 +9,10 @@ export const config = {
     process.env.NODE_ENV === 'development'
       ? process.env.NEXT_PUBLIC_DEV_SECRET_KEY
       : process.env.SECRET_KEY,
-}
+  r2: {
+    bucketName:
+      process.env.NODE_ENV === 'development'
+        ? process.env.NEXT_PUBLIC_R2_BUCKET_NAME
+        : process.env.R2_BUCKET_NAME,
+  },
+};
