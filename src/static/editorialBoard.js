@@ -1,0 +1,125 @@
+export const editorialBoard = {
+  'Editor-in-Chief': {
+    name: 'Prof. I.O. Osawmonyi,',
+    department: 'Finance',
+    faculty: 'Faculty of Management Sciences',
+    institution: 'University of Benin, Benin city, Nigeria',
+  },
+  'Managaing Editor': {
+    name: 'O.S.Obeki, Ph.D.',
+    department: 'Entrepreneurship',
+    faculty: 'Faculty of Management Sciences',
+    institution: 'University of Benin, Benin city, Nigeria',
+  },
+
+  Members: [
+    {
+      name: 'Prof. Mike I. Obadan',
+      department: null,
+      faculty: null,
+      institution: 'University of Benin, Benin city, Nigeria',
+    },
+    {
+      name: 'Prof. F.O.I. Izedonmi',
+      department: 'Accounting',
+      faculty: 'Faculty of Management Sciences',
+      institution: 'University of Benin, Benin city, Nigeria',
+    },
+    {
+      name: 'Prof. A. Okoye',
+      department: 'Account',
+      faculty: 'Faculty of Management Sciences',
+      institution: 'University of Benin, Benin city, Nigeria',
+    },
+    {
+      name: 'Prof. Mrs. P. Isenmila',
+      department: 'Accounting',
+      faculty: 'Faculty of Management Sciences',
+      institution: 'University of Benin, Benin city, Nigeria',
+    },
+    {
+      name: 'Prof. O.J. Ilaboya',
+      department: 'Accounting',
+      faculty: 'Faculty of Management Sciences',
+      institution: 'University of Benin, Benin city, Nigeria',
+    },
+    {
+      name: 'Prof. A.S. Omoye',
+      department: 'Accounting',
+      faculty: 'Faculty of Management Sciences',
+      institution: 'University of Benin, Benin city, Nigeria',
+    },
+    {
+      name: 'Prof. E.I. Dabor',
+      department: 'Accounting',
+      faculty: 'Faculty of Management Sciences',
+      institution: 'University of Benin, Benin city, Nigeria',
+    },
+    {
+      name: 'Prof.F.E.U.Osagiede',
+      department: null,
+      faculty: null,
+      institution: 'University of Benin, Benin city, Nigeria',
+    },
+    {
+      name: 'Prof. Michael Morris',
+      department: null,
+      faculty: null,
+      institution: 'University of Florida, Gainesville, USA',
+    },
+    {
+      name: 'Prof. M. Sagagi',
+      department: null,
+      faculty: null,
+      institution: 'Bayero University Kano(BUK), Nigeria',
+    },
+    {
+      name: 'Prof. A.E. Tafamel',
+      department: 'Business Administration',
+      faculty: 'Faculty of Management Sciences',
+      institution: 'University of Benin, Benin city, Nigeria.',
+    },
+    {
+      name: 'Prof. P.E. Oseyomon',
+      department: 'Marketing',
+      faculty: 'Faculty of Management Sciences',
+      institution: 'University of Benin, Benin city, Nigeria.',
+    },
+    {
+      name: 'Prof. O.V. Iguisi',
+      department: 'Business Administration',
+      faculty: 'Faculty of Management Sciences',
+      institution: 'University of Benin, Benin city, Nigeria.',
+    },
+    {
+      name: 'Prof. A.O. Oriazowanlan',
+      department: 'Entrepreneurship',
+      faculty: 'Faculty of Management Sciences',
+      institution: 'University of Benin, Benin city, Nigeria.',
+    },
+    {
+      name: 'Dr. V.A. Idehen',
+      department: 'Entrepreneurship',
+      faculty: 'Faculty of Management Sciences',
+      institution: 'University of Benin, Benin city, Nigeria.',
+    },
+    {
+      name: 'Dr.Mrs. A.C. Orakwue',
+      department: 'Entrepreneurship',
+      faculty: 'Faculty of Management Sciences',
+      institution: 'University of Benin, Benin city, Nigeria.',
+    },
+  ],
+  'Business Manager': {
+    name: 'Mr. O. Okunbo (FCA)',
+    department: 'Entrepreneurship',
+    faculty: 'Faculty of Management Sciences',
+    institution: 'University of Benin, Benin city, Nigeria.',
+  },
+  Secretary: {
+    name: 'Mr. M.F. Kahian',
+    department: 'Entrepreneurship',
+    faculty: 'Faculty of Management Sciences',
+    institution: 'University of Benin, Benin city, Nigeria.',
+  },
+};
