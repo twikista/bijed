@@ -1,19 +1,19 @@
-'use client'
+'use client';
 
-import { useState } from 'react'
-import Navbar from './Navbar'
-import unibenLogo from '../../public/uniben_logo.png'
-import Image from 'next/image'
-import Link from 'next/link'
-import MobileNavBar from './MobileNavBar1'
-import { IdeasIcon } from './Icons'
-import { HideMenuToggle, ShowMenuToggle } from './MobileMenuToggleIcons'
+import { useState } from 'react';
+import Navbar from './Navbar';
+import unibenLogo from '../../public/uniben_logo.png';
+import Image from 'next/image';
+import Link from 'next/link';
+import MobileNavBar from './MobileNavBar1';
+import { IdeasIcon } from './Icons';
+import { HideMenuToggle, ShowMenuToggle } from './MobileMenuToggleIcons';
 
 function Header() {
-  const [showMenu, setShowMenu] = useState(false)
+  const [showMenu, setShowMenu] = useState(false);
   const toggleHandler = () => {
-    setShowMenu((prev) => !prev)
-  }
+    setShowMenu((prev) => !prev);
+  };
   return (
     <header className='bg-[#800080] h-fit'>
       <div className='flex flex-col lg:flex-row items-center px-1 lg:px-10 h-[100px] sm:h-[120px] md:h-[90px] lg:h-[90px] text-white justify-center gap-0 relative'>
@@ -51,7 +51,7 @@ function Header() {
               </span>
             </div>
             <div className='flex justify-center md:justify-start '>
-              <span className='mb-1 text-xs text-white lg:mb-0 lg:text-sm lg:font-medium '>{`ISSN:1890-2345`}</span>
+              <span className='mb-1 text-xs text-white lg:mb-0 lg:text-sm lg:font-medium '>{`ISSN:0794-5841`}</span>
             </div>
           </div>
           <div className='absolute flex justify-end w-full px-2 right-5 top-4 md:hidden'>
@@ -75,7 +75,7 @@ function Header() {
         />
       </div>
     </header>
-  )
+  );
 }
 
-export default Header
+export default Header;
