@@ -1,9 +1,14 @@
-import { footerItemsData } from '@/static/footeritems_data'
-import Link from 'next/link'
-import { CreativeCommonBy, CreativeCommonGeneral } from './Icons'
+import { footerItemsData } from '@/static/footeritems_data';
+import Link from 'next/link';
+import { CreativeCommonBy, CreativeCommonGeneral } from './Icons';
+import { RxOpenInNewWindow } from 'react-icons/rx';
 
 function Footer() {
-  const currentYear = new Date().getFullYear()
+  const currentYear = new Date().getFullYear();
+  const preFillMessage = encodeURIComponent(
+    'Hello, I would like to make some enquiries about your services.'
+  );
+  const whatsappUrl = `https://wa.me/2348138007003?text=${preFillMessage}`;
   return (
     <footer className='px-5 text-sm text-white bg-primary sm:text-base md:px-10'>
       <div className='w-full py-8 mx-auto space-y-5 max-w-7xl'>
@@ -52,13 +57,21 @@ function Footer() {
               </span>
             </div>
             <div className='mt-2'>
-              <span className=''>Powered by InnovativeTech</span>
+              <a
+                className='flex items-center justify-center gap-[2px] hover:underline underline-offset-2'
+                href={whatsappUrl}
+                target='_blank'
+                rel='noopener noreferrer'
+              >
+                Powered by Inventure Solutions
+                {/* <RxOpenInNewWindow /> */}
+              </a>
             </div>
           </div>
         </div>
       </div>
     </footer>
-  )
+  );
 }
 
-export default Footer
+export default Footer;
