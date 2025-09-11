@@ -53,8 +53,8 @@ export async function generateMetadata({ params }) {
       'DC.Rights': `Copyright (c) ${new Date().getFullYear()} Benin International of Entrepreneurship Development`,
       'DC.Rights': 'http://creativecommons.org/licenses/by-nc/4.0/deed.en',
       'DC.Source':
-        'Benin International Journal of Entrepreneurship Development (ISSN: 1890-2345)',
-      'DC.Source.ISSN': '1890-2345',
+        'Benin International Journal of Entrepreneurship Development (ISSN: 0794-5841)',
+      'DC.Source.ISSN': '0794-5841',
       'DC.Source.Issue': article.issue,
       'DC.Source.Volume': article.volume,
       'DC.Source.URI': `https://www.bijed.com.ng/`,
@@ -65,7 +65,7 @@ export async function generateMetadata({ params }) {
       citation_journal_title:
         'Benin International Journal of Entrepreneurship Development',
       citation_journal_abbrev: 'BIJED',
-      citation_issn: '1890-2345',
+      citation_issn: '0794-5841',
       citation_author: article.authors?.map((author) => author.name),
       citation_title: article.title,
       citation_language: 'en',
