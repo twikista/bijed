@@ -1,6 +1,6 @@
-'use client'
-import { Tooltip } from 'react-tooltip'
-import { publishIssue } from '@/lib/actions'
+'use client';
+import { Tooltip } from 'react-tooltip';
+import { publishIssue } from '@/lib/actions';
 
 import {
   DocumentArrowUpIcon,
@@ -8,14 +8,14 @@ import {
   PencilSquareIcon,
   RectangleStackIcon,
   TrashIcon,
-} from '@heroicons/react/24/outline'
-import Link from 'next/link'
-import { PublishIcon } from '../Icons'
-import clsx from 'clsx'
-import { usePathname, useRouter } from 'next/navigation'
-import { useState } from 'react'
-import Spinner from '../Spinner'
-import { toast } from 'react-toastify'
+} from '@heroicons/react/24/outline';
+import Link from 'next/link';
+import { PublishIcon } from '../Icons';
+import clsx from 'clsx';
+import { usePathname, useRouter } from 'next/navigation';
+import { useState } from 'react';
+import Spinner from '../Spinner';
+import { toast } from 'sonner';
 
 export function EdiButton({
   href,
@@ -23,7 +23,7 @@ export function EdiButton({
   disabled = false,
   label = 'Edit',
 }) {
-  const pathname = usePathname()
+  const pathname = usePathname();
   if (variant === 'primary') {
     return (
       <Link
@@ -41,7 +41,7 @@ export function EdiButton({
         {variant === 'primary' && <span className=''>{label}</span>}
         <PencilSquareIcon className='w-5 ' />
       </Link>
-    )
+    );
   } else {
     return (
       <Link
@@ -61,7 +61,7 @@ export function EdiButton({
         <PencilSquareIcon className='w-6 ' />
         <Tooltip id='edit' />
       </Link>
-    )
+    );
   }
 }
 
@@ -71,7 +71,7 @@ export function EditButton({
   disabled = false,
   label = 'Edit',
 }) {
-  const router = useRouter()
+  const router = useRouter();
 
   if (variant === 'primary') {
     return (
@@ -89,7 +89,7 @@ export function EditButton({
         {variant === 'primary' && <span className=''>{label}</span>}
         <PencilSquareIcon className='w-5 ' />
       </button>
-    )
+    );
   } else {
     return (
       <button
@@ -109,7 +109,7 @@ export function EditButton({
         <PencilSquareIcon className='w-6 ' />
         <Tooltip id='edit' />
       </button>
-    )
+    );
   }
 }
 
@@ -122,11 +122,11 @@ export function DeleteButton({
   disabled = false,
 }) {
   const handler = async (id) => {
-    const response = await action(id)
+    const response = await action(id);
     if (response?.ok) {
-      toast.success('deleted successfully!')
+      toast.success('deleted successfully!');
     }
-  }
+  };
 
   if (variant === 'primary') {
     return (
@@ -144,7 +144,7 @@ export function DeleteButton({
         {variant === 'primary' && <span className='capitalize'>{label}</span>}
         {icon && <TrashIcon className='w-5' />}
       </button>
-    )
+    );
   } else {
     return (
       <button
@@ -164,22 +164,22 @@ export function DeleteButton({
         <TrashIcon className='w-6' />
         <Tooltip id='delete' />
       </button>
-    )
+    );
   }
 }
 
 export function PublishIssueButton({ issueRef, jobTicketId, user }) {
-  const router = useRouter()
-  const [isSubmitting, setIsSubmitting] = useState(false)
+  const router = useRouter();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const handler = async () => {
-    setIsSubmitting(true)
-    const response = await publishIssue(issueRef, jobTicketId, user)
+    setIsSubmitting(true);
+    const response = await publishIssue(issueRef, jobTicketId, user);
     if (response.ok) {
-      toast.success('Issue published successfully!!!')
-      router.push(`/dashboard/issues`)
+      toast.success('Issue published successfully!!!');
+      router.push(`/dashboard/issues`);
       // setIsSubmitting(false)
     }
-  }
+  };
   return (
     // <div className='mt-10 w-full max-w-[560px] flex justify-center mx-auto'>
     <button
@@ -195,7 +195,7 @@ export function PublishIssueButton({ issueRef, jobTicketId, user }) {
       {/* <PublishIcon className='w-6 h-6' /> */}
     </button>
     // </div>
-  )
+  );
 }
 
 export const CancelButton = ({ text, href, style }) => (
@@ -205,7 +205,7 @@ export const CancelButton = ({ text, href, style }) => (
   >
     {text}
   </Link>
-)
+);
 
 export const LinkButton = ({ text, href, style }) => (
   <Link
@@ -214,7 +214,7 @@ export const LinkButton = ({ text, href, style }) => (
   >
     {text}
   </Link>
-)
+);
 
 export function PublishButton({
   data,
@@ -226,24 +226,24 @@ export function PublishButton({
   notificationMessage,
   label,
 }) {
-  const router = useRouter()
-  const pathname = usePathname()
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [published, setPublished] = useState(false)
+  const router = useRouter();
+  const pathname = usePathname();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [published, setPublished] = useState(false);
   const handler = async () => {
-    setIsSubmitting(true)
-    const response = await action(resourceRef, user, data)
+    setIsSubmitting(true);
+    const response = await action(resourceRef, user, data);
     if (response.ok) {
-      setPublished(true)
+      setPublished(true);
       // router.push(`/dashboard/${resource}`)
-      toast.success(notificationMessage.success)
+      toast.success(notificationMessage.success);
       // setIsSubmitting(false)
     } else {
-      setPublished(false)
-      setIsSubmitting(false)
-      toast.error(notificationMessage.error)
+      setPublished(false);
+      setIsSubmitting(false);
+      toast.error(notificationMessage.error);
     }
-  }
+  };
   return (
     <button
       type='button'
@@ -263,7 +263,7 @@ export function PublishButton({
       )}
       {/* <PublishIcon className='w-6 h-6' /> */}
     </button>
-  )
+  );
 }
 
 export const RejectPublishButton = ({
@@ -273,19 +273,19 @@ export const RejectPublishButton = ({
   action,
   notificationMessage,
 }) => {
-  const router = useRouter()
-  const [isSubmitting, setIsSubmitting] = useState(false)
+  const router = useRouter();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const handler = async () => {
-    setIsSubmitting(true)
-    const response = await action(resourceRef)
+    setIsSubmitting(true);
+    const response = await action(resourceRef);
     if (response.ok) {
       // router.push(`/dashboard/${resource}`)
-      toast.success(notificationMessage.success)
+      toast.success(notificationMessage.success);
       // setIsSubmitting(false)
     } else {
-      toast.error(notificationMessage.error)
+      toast.error(notificationMessage.error);
     }
-  }
+  };
   return (
     <button
       type='button'
@@ -298,8 +298,8 @@ export const RejectPublishButton = ({
         <span className='w-fit'>{label.main}</span>
       )}
     </button>
-  )
-}
+  );
+};
 
 export function SendForAuthorizationButton({
   redirectUrl,
@@ -310,21 +310,21 @@ export function SendForAuthorizationButton({
   notificationMessage,
   label,
 }) {
-  const router = useRouter()
-  const [isSubmitting, setIsSubmitting] = useState(false)
+  const router = useRouter();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   // const [published, setPublished] = useState(false)
   const handler = async () => {
-    setIsSubmitting(true)
-    const response = await action(resourceRef)
+    setIsSubmitting(true);
+    const response = await action(resourceRef);
     if (response.ok) {
-      toast.success(notificationMessage.success)
+      toast.success(notificationMessage.success);
 
       // setIsSubmitting(false)
     } else {
-      setIsSubmitting(false)
-      toast.error(notificationMessage.error)
+      setIsSubmitting(false);
+      toast.error(notificationMessage.error);
     }
-  }
+  };
   return (
     <button
       type='button'
@@ -340,5 +340,5 @@ export function SendForAuthorizationButton({
       )}
       {/* <PublishIcon className='w-6 h-6' /> */}
     </button>
-  )
+  );
 }

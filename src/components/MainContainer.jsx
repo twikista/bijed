@@ -1,5 +1,5 @@
-import Breadcrumb from './Dashboard/Breadcrumb'
-import Aside from './aside/Aside'
+import Breadcrumb from './Dashboard/Breadcrumb';
+import Aside from './aside/Aside';
 
 function MainContainer({ children, showAside = true }) {
   return (
@@ -15,7 +15,7 @@ function MainContainer({ children, showAside = true }) {
       </section>
       {showAside && <Aside />}
     </main>
-  )
+  );
 }
 
-export default MainContainer
+export default MainContainer;

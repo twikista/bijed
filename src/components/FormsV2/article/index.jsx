@@ -14,7 +14,7 @@ import {
   editArticleFormSchema,
   newArticleFormSchema,
 } from '@/lib/schemas/issues';
-import { handleValidationErrorFromServer } from '@/lib/util';
+import { articleFileName, handleValidationErrorFromServer } from '@/lib/util';
 import {
   removePdfFromStorage,
   uploadPdfToStorage,
@@ -22,7 +22,7 @@ import {
 // import { createArticle, updateArticle } from '@/lib/actions/articles';
 import { createArticle, updateArticle } from '@/lib/actionsV2/articles';
 import { useRouter } from 'next/navigation';
-// import { toast } from 'sonner';
+import { toast } from 'sonner';
 import { Modal } from '@/components/new/Modal';
 import {
   FullfilledStateLoader,
@@ -111,36 +111,44 @@ export default function ArticleForm({ initialFormState, params }) {
    * @param {Object} data - Form data
    * @returns {Promise<Object>} - URL and sanitized data
    */
-  const prepareArticleData = async (data) => {
-    let url = null;
-    //upload article pdf to firebase if pdf is changed by user
-    // if (data.pdfFile !== null) {
-    //   initialFormState.pdfUrl &&
-    //     (await removePdfFromStorage(initialFormState.pdfUrl));
-    //   url = await uploadPdfToStorage(data);
-    // }
+
+  const uplaoldPdfToStorage = async (data, initialFormState) => {
     if (data.pdfFile !== null) {
       if (initialFormState.pdfUr) {
         const key = initialFormState.pdfUrl.split('/').at(-1);
         await deleteFile(key);
       }
-      const response = await uploadFile(data);
+
+      const pdf = data.pdfFile[0];
+      const arrayBuffer = await pdf.arrayBuffer();
+      const uint8Array = new Uint8Array(arrayBuffer);
+
+      const fileData = {
+        originalFileName: pdf.name,
+        fileType: pdf.type,
+        fileSize: pdf.size,
+        fileName: articleFileName(data),
+        arrayBufferData: Array.from(uint8Array),
+        // Convert to regular array for serialization
+      };
+
+      const response = await uploadFile(fileData);
       if (response.success) {
-        url = response.url;
+        const url = response?.url;
+        return url;
       } else {
         // toast.error('Failed to create article. Please try again.');
         console.log('Failed to create article. Please try again.');
         return;
       }
     }
-
-    // Upload PDF to storage
-    // const pdfFileUrl = await uploadPdfToStorage(data);
+  };
+  const prepareArticleData = async (data) => {
+    const url = await uplaoldPdfToStorage(data, initialFormState);
 
     // Remove PDF file from data and sanitize
     const { pdfFile, ...formDataWithoutFile } = data;
     const sanitizedData = JSON.parse(JSON.stringify(formDataWithoutFile));
-
     return {
       pdfFileUrl: { new: url, existing: initialFormState.pdfUrl },
       sanitizedData,
@@ -186,6 +194,7 @@ export default function ArticleForm({ initialFormState, params }) {
     setIsLoading(true);
     try {
       // Upload PDF and prepare data
+
       const pdfUploadResponse = await prepareArticleData(data);
 
       // Submit to server

@@ -64,6 +64,7 @@ export const createIssue = async (formData) => {
 
   try {
     await connectDB();
+    console.log('issueData:', issueData);
     const newIssue = new Issue(issueData);
     const savedIssue = await newIssue.save();
     if (savedIssue?._id !== null) {
@@ -224,6 +225,8 @@ export const publishIssue = async (issueRef, publishDate) => {
     await session.commitTransaction();
 
     // Revalidate paths after successful transaction
+    revalidatePath('/archive');
+    revalidatePath('/current');
     revalidatePath(`/dashboard/issues/${publishedIssue.ref}`);
     revalidatePath(`/dashboard/issues`);
     revalidatePath(`/archive`);

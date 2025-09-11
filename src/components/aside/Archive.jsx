@@ -1,49 +1,68 @@
-import { connectDB } from '@/lib/mongoose/config'
-import { Issue } from '@/lib/mongoose/models'
-import { ArrowLongRightIcon } from '@heroicons/react/24/solid'
-import Link from 'next/link'
+import { getArchive } from '@/lib/actionsV2/issues';
+import { connectDB } from '@/lib/mongoose/config';
+import { Issue } from '@/lib/mongoose/models/issue';
+import { ArrowLongRightIcon } from '@heroicons/react/24/solid';
+import Link from 'next/link';
+import { Suspense } from 'react';
 
-const getArchive = async () => {
-  try {
-    connectDB()
-    const archive = await Issue.find({ published: true })
-      .sort({ volume: -1, issueNumber: -1 })
-      .limit(4)
-    return archive
-  } catch (error) {}
+// Skeleton loading component
+function ArchiveSkeleton() {
+  return (
+    <div className='space-y-3'>
+      {[1, 2, 3, 4].map((item) => (
+        <div key={item} className='relative'>
+          <div className='w-40 h-5 overflow-hidden bg-gray-200 rounded md:w-48'>
+            <div className='absolute inset-0 -translate-x-full animate-[shimmer_1.5s_infinite] bg-gradient-to-r from-transparent via-white to-transparent'></div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
 }
 
-async function Archive() {
-  const archive = await getArchive()
+// Archive content component
+async function ArchiveContent() {
+  const archive = await getArchive();
+
+  return (
+    <>
+      {archive && archive.length ? (
+        archive.map((issue) => (
+          <article key={issue._id}>
+            <Link
+              href={`/archive/${issue?.ref}`}
+              className='text-[#006798] hover:text-[#008acb] underline text-sm transition-all duration-300'
+            >
+              {issue?.issueTitle}
+            </Link>
+          </article>
+        ))
+      ) : (
+        <span className='text-gray-400'>No items</span>
+      )}
+    </>
+  );
+}
+
+function Archive() {
   return (
     <div className='space-y-2'>
       <h3 className='text-lg font-semibold text-center capitalize md:text-left md:text-xl font-saira text-primary'>
         Archive
       </h3>
       <div className='space-y-[5px] flex flex-col items-center md:items-start'>
-        {archive && archive?.length ? (
-          archive.map((issue) => (
-            <article key={issue._id}>
-              <Link
-                href={`/archive/${issue?.ref}`}
-                className='text-blue-500 underline hover:text-blue-700 hover:font-medium '
-              >
-                {issue?.issueTitle}
-              </Link>
-            </article>
-          ))
-        ) : (
-          <p className='text-gray-400'>No items</p>
-        )}
-        <Link
-          href='/archive'
-          className='flex items-center gap-1 mt-4 font-medium text-blue-500 hover:text-blue-700'
-        >
-          See more <ArrowLongRightIcon className='w-5' />
-        </Link>
+        <Suspense fallback={<ArchiveSkeleton />}>
+          <ArchiveContent />
+          <Link
+            href='/archive'
+            className='flex items-center gap-1 mt-4 text-[#006798] hover:text-[#008acb] text-sm transition-all hover:underline'
+          >
+            See more
+          </Link>
+        </Suspense>
       </div>
     </div>
-  )
+  );
 }
 
-export default Archive
+export default Archive;

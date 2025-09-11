@@ -1,5 +1,6 @@
-import Link from 'next/link'
-import Authors from './Authors'
+import Link from 'next/link';
+import Authors from './Authors';
+import AuthorsV2 from './AuthorsV2';
 
 function ListOfArticlesInIssue({ articlesInIssue, path = 'archive' }) {
   return (
@@ -9,7 +10,7 @@ function ListOfArticlesInIssue({ articlesInIssue, path = 'archive' }) {
           key={`${article?._id}`}
           className='px-4 py-2 border border-l-8 border-neutral-300'
         >
-          <h4 className='text-base font-medium md:text-lg text-primary hover:text-blue-600 hover:underline'>
+          <h4 className='text-base font-medium md:text-base text-primary hover:text-blue-600 hover:underline'>
             {path === 'archive' ? (
               <Link href={`/archive/${article?.ref}/${article?.slug}`}>
                 {article?.title}
@@ -20,12 +21,12 @@ function ListOfArticlesInIssue({ articlesInIssue, path = 'archive' }) {
               </Link>
             )}
           </h4>
-          <Authors authors={article?.authors} />
-          <p className='font-medium'>{`pp. ${article?.slug}`}</p>
+          <AuthorsV2 authors={article?.authors} />
+          <p className='text-sm text-[#606060]'>{`pp. ${article?.slug}`}</p>
         </div>
       ))}
     </div>
-  )
+  );
 }
 
-export default ListOfArticlesInIssue
+export default ListOfArticlesInIssue;

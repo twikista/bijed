@@ -1,24 +1,24 @@
-'use client'
+'use client';
 
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
-import { createArticle } from '@/lib/actions'
-import { uploadPdfToStorage } from '@/lib/firebase/services'
+import { createArticle } from '@/lib/actions';
+import { uploadPdfToStorage } from '@/lib/firebase/services';
 
-import KeywordInput from './KeywordsInput'
-import { handleValidationErrorFromServer } from '@/lib/util'
-import TextInput from '../TextInput'
-import ArticleAuthorsInput from './ArticleAuthorsInput'
-import { newArticleFormSchema } from '@/lib/schema'
-import FormWrapper from './FormWrapper'
-import { CancelButton } from './Buttons'
-import SubmitButton from '../SubmitButton'
-import Form from './Form'
-import { toast } from 'react-toastify'
-import Textarea from '../Textarea'
+import KeywordInput from './KeywordsInput';
+import { handleValidationErrorFromServer } from '@/lib/util';
+import TextInput from '../TextInput';
+import ArticleAuthorsInput from './ArticleAuthorsInput';
+import { newArticleFormSchema } from '@/lib/schema';
+import FormWrapper from './FormWrapper';
+import { CancelButton } from './Buttons';
+import SubmitButton from '../SubmitButton';
+import Form from './Form';
+import { toast } from 'sonner';
+import Textarea from '../Textarea';
 
 function NewArticleForm({ initialValue, params }) {
   const {
@@ -32,29 +32,29 @@ function NewArticleForm({ initialValue, params }) {
   } = useForm({
     defaultValues: initialValue,
     resolver: zodResolver(newArticleFormSchema),
-  })
+  });
 
-  const [errorFromServer, setErrorFromServer] = useState('')
+  const [errorFromServer, setErrorFromServer] = useState('');
   // const [hideFileInput, setHideFileInput] = useState(true)
-  const router = useRouter()
+  const router = useRouter();
 
   //submit handler
   const handler = async (data) => {
     // upload article pdf to firebase
-    const url = await uploadPdfToStorage(data)
+    const url = await uploadPdfToStorage(data);
     //upload formData to server to process and persisit in DB
-    const { pdfFile, ...dataWithNoPdfFile } = data
+    const { pdfFile, ...dataWithNoPdfFile } = data;
     const response = await createArticle(
       JSON.parse(JSON.stringify(dataWithNoPdfFile)),
       url,
       params
-    )
+    );
 
     //receive response from server and redirect to appropriate route
     if (response.ok) {
-      reset()
-      toast.success('Article added sucessfully!!!')
-      router.push(`/dashboard/issues/${params?.issue}`)
+      reset();
+      toast.success('Article added sucessfully!!!');
+      router.push(`/dashboard/issues/${params?.issue}`);
     } else {
       if (response?.errorType === 'validationError') {
         const formfields = {
@@ -67,14 +67,14 @@ function NewArticleForm({ initialValue, params }) {
           abstract: 'abstract',
           keywords: 'keuwords',
           pdfFile: 'pdfFile',
-        }
-        handleValidationErrorFromServer(response, formfields, setError)
+        };
+        handleValidationErrorFromServer(response, formfields, setError);
       }
       if (response?.errorType === 'other') {
-        setErrorFromServer(response.error)
+        setErrorFromServer(response.error);
       }
     }
-  }
+  };
 
   return (
     <FormWrapper formHeading='Add New Article'>
@@ -175,7 +175,7 @@ function NewArticleForm({ initialValue, params }) {
         </div>
       </Form>
     </FormWrapper>
-  )
+  );
 }
 
-export default NewArticleForm
+export default NewArticleForm;

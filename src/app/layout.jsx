@@ -4,10 +4,9 @@ import {
   IBM_Plex_Sans,
   Saira_Condensed,
   Roboto,
-} from 'next/font/google'
-import './globals.css'
-import 'react-toastify/dist/ReactToastify.css'
-import { ToastContainer } from 'react-toastify'
+} from 'next/font/google';
+import './globals.css';
+import { Toaster } from '@/components/ui/sonner';
 
 export const saira = Saira_Condensed({
   subsets: ['latin'],
@@ -15,7 +14,7 @@ export const saira = Saira_Condensed({
   variable: '--font-saira',
   display: 'swap',
   adjustFontFallback: false,
-})
+});
 
 export const ibmPlex = IBM_Plex_Sans({
   subsets: ['latin'],
@@ -23,14 +22,14 @@ export const ibmPlex = IBM_Plex_Sans({
   variable: '--font-plex',
   display: 'swap',
   adjustFontFallback: false,
-})
+});
 
 export const roboto = Roboto({
   subsets: ['latin'],
   weight: ['400', '500', '700', '900'],
   display: 'swap',
   adjustFontFallback: false,
-})
+});
 
 export const barlow = Barlow({
   subsets: ['latin'],
@@ -38,14 +37,14 @@ export const barlow = Barlow({
   variable: '--font-barlow',
   display: 'swap',
   adjustFontFallback: false,
-})
+});
 
 export const cairo = Cairo({
   subsets: ['latin'],
   variable: '--font-cairo',
   display: 'swap',
   adjustFontFallback: false,
-})
+});
 
 export const metadata = {
   metadataBase: new URL('https://bijed.com.ng'),
@@ -79,7 +78,7 @@ export const metadata = {
   twitter: {
     card: 'summary_large_image',
   },
-}
+};
 
 export default function RootLayout({ children }) {
   return (
@@ -88,8 +87,8 @@ export default function RootLayout({ children }) {
         className={`${ibmPlex.className} ${saira.variable} ${cairo.variable} ${barlow.variable} antialiased flex flex-col min-h-full bg-slate-50 min-w-[320px] text-black`}
       >
         {children}
-        <ToastContainer />
+        <Toaster />
       </body>
     </html>
-  )
+  );
 }

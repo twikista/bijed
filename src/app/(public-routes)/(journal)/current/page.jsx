@@ -1,25 +1,24 @@
-import Footer from '@/components/Footer'
-import Header from '@/components/Header'
-import { PageHeading, Paragraph } from '@/components/Headings'
-import ListOfArticlesInIssue from '@/components/ListOfArticlesInIssue'
-import MainContainer from '@/components/MainContainer'
-import { getArticlesInCurrentIssue } from '@/lib/data'
-import { dateHelperFunction } from '@/lib/util'
-import { unstable_noStore as noStore } from 'next/cache'
+import Footer from '@/components/Footer';
+import Header from '@/components/Header';
+import { PageHeading, Paragraph } from '@/components/Headings';
+import ListOfArticlesInIssue from '@/components/ListOfArticlesInIssue';
+import MainContainer from '@/components/MainContainer';
+import { getArticlesInCurrentIssue } from '@/lib/actionsV2/articles';
+import { dateHelperFunction, formatDate } from '@/lib/util';
+import { unstable_noStore as noStore } from 'next/cache';
 
 export const metadata = {
   title:
     'Current Issue - Benin International Journal for Entrepreneurship Development',
   description:
     'This page contains the articles in the current issue the Benin International Journal for Entrepreneurship Development.',
-}
+};
 
 async function Currentissue() {
-  noStore()
-  const response = await getArticlesInCurrentIssue()
-  const { currentIssue, articlesInCurrentIssue } = response
+  const response = await getArticlesInCurrentIssue();
+  const { currentIssue, articlesInCurrentIssue } = response;
 
-  if (!currentIssue || currentIssue.length === 0) {
+  if (!articlesInCurrentIssue.length) {
     return (
       <div className='flex flex-col min-h-screen'>
         <Header />
@@ -32,10 +31,8 @@ async function Currentissue() {
         </div>
         <Footer />
       </div>
-    )
+    );
   }
-
-  const [{ issueTitle, publishDate }] = currentIssue
 
   return (
     <div className='flex flex-col min-h-screen'>
@@ -43,11 +40,10 @@ async function Currentissue() {
       <div className='flex items-center justify-center flex-grow w-full h-full'>
         <MainContainer>
           <div>
-            <PageHeading>{`BIJED ${issueTitle}`}</PageHeading>
-            <Paragraph style='text-center'>{`Publish Date: ${dateHelperFunction(
-              publishDate,
-              'long'
-            )}`}</Paragraph>
+            <PageHeading>{`BIJED ${currentIssue?.issueTitle}`}</PageHeading>
+            <span className='text-[#808080] text-sm'>{`Published: ${formatDate(
+              currentIssue.publishDate
+            )}`}</span>
           </div>
 
           <section className='space-y-5'>
@@ -60,7 +56,7 @@ async function Currentissue() {
       </div>
       <Footer />
     </div>
-  )
+  );
 }
 
-export default Currentissue
+export default Currentissue;

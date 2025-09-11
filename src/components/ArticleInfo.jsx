@@ -1,20 +1,20 @@
-import { dateHelperFunction } from '@/lib/util'
+import { dateHelperFunction } from '@/lib/util';
 
 function ArticleInfo({ article }) {
   return (
-    <div className='flex flex-col gap-[2px] text-sm font-medium md:items-center sm:flex-row md:text-lg text-neutral-500'>
+    <div className='flex flex-col gap-4 text-sm md:items-center sm:flex-row text-neutral-500'>
       <span className=''>{`Published: ${dateHelperFunction(
         article?.publishDate,
-        'long'
+        'short'
       )}`}</span>
       <span className='hidden'>&#124;</span>
       <span className=''>
         {`Vol ${article.volume} No. ${article.issue} (${new Date(
           article.publishDate
-        ).getFullYear()}) pp. ${article.slug}`}
+        ).getFullYear()})`}
       </span>
     </div>
-  )
+  );
 }
 
-export default ArticleInfo
+export default ArticleInfo;

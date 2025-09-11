@@ -1,44 +1,44 @@
-import DOMPurify from 'isomorphic-dompurify'
-import parse from 'html-react-parser'
+import DOMPurify from 'isomorphic-dompurify';
+import parse from 'html-react-parser';
 
-import DashboardContainer from '@/components/Dashboard/DashboardContainer'
-import DashboardWrapper from '@/components/Dashboard/DashboardWrapper'
-import { fetchAllEditorialBoardData, fetchEditorialBoard } from '@/lib/data'
+import DashboardContainer from '@/components/Dashboard/DashboardContainer';
+import DashboardWrapper from '@/components/Dashboard/DashboardWrapper';
+import { fetchAllEditorialBoardData, fetchEditorialBoard } from '@/lib/data';
 import {
   EditButton,
   PublishButton,
   RejectPublishButton,
   SendForAuthorizationButton,
-} from '@/components/Dashboard/Buttons'
-import ResourceFilter from '@/components/Dashboard/ResourceFilter'
-import { auth } from '../../../../../../auth'
+} from '@/components/Dashboard/Buttons';
+import ResourceFilter from '@/components/Dashboard/ResourceFilter';
+import { auth } from '../../../../../../auth';
 import {
   discardEditorialBoardDraft,
   publishEditorialBoard,
   rejectRequestToPublishEditorialBoard,
   submitEditorialBoardForPublishing,
-} from '@/lib/actions/editorialBoard'
+} from '@/lib/actions/editorialBoard';
 
 async function EditorialBoard({ searchParams }) {
-  const mode = searchParams?.mode ? searchParams.mode : 'final'
+  const mode = searchParams?.mode ? searchParams.mode : 'final';
   const data = await Promise.all([
     fetchEditorialBoard(mode),
     fetchAllEditorialBoardData(),
-  ])
+  ]);
 
-  const [[editorialBoardData], editorialBoardArray] = data
+  const [[editorialBoardData], editorialBoardArray] = data;
 
   const editorialBoardDataWithStyles = editorialBoardData?.content.replace(
     /<h3>/g,
     "<h3 className='text-base font-saira md:text-xl'>"
-  )
-  const session = await auth()
+  );
+  const session = await auth();
   const businessManagerPrivilege =
     editorialBoardData?.status === 'draft' &&
-    session?.user.role === 'business manager'
+    session?.user.role === 'business manager';
   const managingEditorPrivilege =
     editorialBoardData?.status === 'review' &&
-    session?.user.role === 'managing editor'
+    session?.user.role === 'managing editor';
 
   if (!editorialBoardData?._id) {
     return (
@@ -58,7 +58,7 @@ async function EditorialBoard({ searchParams }) {
           </section>
         </DashboardWrapper>
       </DashboardContainer>
-    )
+    );
   }
   return (
     <DashboardContainer>
@@ -80,7 +80,7 @@ async function EditorialBoard({ searchParams }) {
             })
           )}
         </section>
-        {businessManagerPrivilege && (
+        {session?.user && (
           <div className='flex flex-col justify-center gap-2 pt-3 pb-6 border-t-2 border-gray-200 md:pt-8'>
             <SendForAuthorizationButton
               redirectUrl={`/dashboard/editorial-board?mode=${mode}`}
@@ -97,10 +97,7 @@ async function EditorialBoard({ searchParams }) {
                 error: 'Something went wrong',
               }}
             />
-            {(businessManagerPrivilege ||
-              (session?.user?.role === 'business manager' &&
-                editorialBoardData?.status === 'published' &&
-                editorialBoardArray.length === 1)) && (
+            {session?.user && (
               <EditButton
                 href={`/dashboard/editorial-board/update?mode=${mode}`}
                 label='Edit Board'
@@ -140,7 +137,7 @@ async function EditorialBoard({ searchParams }) {
         )}
       </DashboardWrapper>
     </DashboardContainer>
-  )
+  );
 }
 
-export default EditorialBoard
+export default EditorialBoard;

@@ -1,23 +1,23 @@
-'use client'
+'use client';
 
-import { useForm, Controller } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useRouter } from 'next/navigation'
-import RichTextEditor from '@/components/Dashboard/RichTextEditor'
-import { updateEditorialBoard } from '@/lib/actions/editorialBoard'
-import { editorialBoardSchema } from '@/lib/schema'
-import { useState } from 'react'
-import FormWrapper from './FormWrapper'
-import SubmitButton from '../SubmitButton'
-import { CancelButton } from './Buttons'
-import Form from './Form'
-import { toast } from 'react-toastify'
-import { useSearchParams } from 'next/navigation'
+import { useForm, Controller } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useRouter } from 'next/navigation';
+import RichTextEditor from '@/components/Dashboard/RichTextEditor';
+import { updateEditorialBoard } from '@/lib/actions/editorialBoard';
+import { editorialBoardSchema } from '@/lib/schema';
+import { useState } from 'react';
+import FormWrapper from './FormWrapper';
+import SubmitButton from '../SubmitButton';
+import { CancelButton } from './Buttons';
+import Form from './Form';
+import { toast } from 'sonner';
+import { useSearchParams } from 'next/navigation';
 
 function EditEditorialBoardForm({ initialState }) {
-  const router = useRouter()
-  const [errorFromServer, setErrorFromServer] = useState('')
-  const searchParams = useSearchParams().get('mode')
+  const router = useRouter();
+  const [errorFromServer, setErrorFromServer] = useState('');
+  const searchParams = useSearchParams().get('mode');
   const {
     register,
     handleSubmit,
@@ -27,28 +27,28 @@ function EditEditorialBoardForm({ initialState }) {
   } = useForm({
     defaultValues: { content: initialState.content },
     resolver: zodResolver(editorialBoardSchema),
-  })
+  });
 
   const handler = async (data) => {
-    const response = await updateEditorialBoard(initialState, data)
+    const response = await updateEditorialBoard(initialState, data);
     if (response.ok) {
-      reset()
-      router.push(`/dashboard/editorial-board/?mode=draft`)
-      toast.success('Editorial board updated successfully')
+      reset();
+      router.push(`/dashboard/editorial-board/?mode=draft`);
+      toast.success('Editorial board updated successfully');
     } else {
-      toast.error('Editorial board updated failed!')
+      toast.error('Editorial board updated failed!');
       if (response?.errorType === 'validationError') {
         const formfields = {
           content: 'content',
           // issueNumber: 'issueNumber',
-        }
-        handleValidationErrorFromServer(response, formfields, setError)
+        };
+        handleValidationErrorFromServer(response, formfields, setError);
       }
       if (response?.errorType === 'other') {
-        setErrorFromServer(response.error)
+        setErrorFromServer(response.error);
       }
     }
-  }
+  };
   return (
     <FormWrapper formHeading='Update Editorial Board'>
       {errorFromServer && (
@@ -88,7 +88,7 @@ function EditEditorialBoardForm({ initialState }) {
         </div>
       </Form>
     </FormWrapper>
-  )
+  );
 }
 
-export default EditEditorialBoardForm
+export default EditEditorialBoardForm;

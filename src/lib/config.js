@@ -14,5 +14,13 @@ export const config = {
       process.env.NODE_ENV === 'development'
         ? process.env.NEXT_PUBLIC_R2_BUCKET_NAME
         : process.env.R2_BUCKET_NAME,
+    publicUrl:
+      process.env.NODE_ENV === 'development'
+        ? process.env.NEXT_PUBLIC_R2_PUBLIC_URL
+        : process.env.R2_PUBLIC_URL,
   },
+  mongoURI:
+    process.env.NODE_ENV === 'development'
+      ? process.env.NEXT_PUBLIC_MONGO_URI
+      : process.env.MONGO_URI,
 };

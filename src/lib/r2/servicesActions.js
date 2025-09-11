@@ -2,59 +2,57 @@
 
 import { PutObjectCommand, DeleteObjectCommand } from '@aws-sdk/client-s3';
 import { r2Client } from './r2Client';
-import { articleFileName } from '../util';
+import { config } from '../config';
 
-const MAX_SIZE_MB = 1; // 5MB limit
-const ALLOWED_TYPES = ['application/pdf'];
+const MAX_SIZE_MB = 10; // 5MB limit
+const ALLOWED_FILE_TYPE = 'application/pdf';
 
 //upload file
-export async function uploadFile(formData) {
-  console.log('bucket name:', process.env.R2_BUCKET_NAME);
+export async function uploadFile(fileData) {
+  const { originalFileName, fileType, fileSize, arrayBufferData, fileName } =
+    fileData;
+
   try {
-    const file = formData.pdfFile?.[0]; // Access the first file in the array
-    // Check if file is provided
-    if (!file) {
+    if (!arrayBufferData || !originalFileName) {
       throw new Error('No file provided');
     }
+
     //validate file size
-    if (file.size > MAX_SIZE_MB * 1024 * 1024) {
+    if (fileSize > MAX_SIZE_MB * 1024 * 1024) {
       throw new Error(`File size must not exceed ${MAX_SIZE_MB}MB`);
     }
 
     // Validate file type
-    if (!ALLOWED_TYPES.includes(file.type)) {
+    if (ALLOWED_FILE_TYPE !== fileType) {
       throw new Error('Invalid file type.');
     }
 
-    const bytes = await file.arrayBuffer();
-    const buffer = Buffer.from(bytes);
-
-    // Generate unique filename
-    const filename = articleFileName(formData);
+    // Convert arrayBufferData to Buffer
+    const buffer = Buffer.from(arrayBufferData);
 
     const command = new PutObjectCommand({
-      Bucket: process.env.R2_BUCKET_NAME,
-      Key: filename,
+      Bucket: config.r2.bucketName,
+      Key: fileName,
       Body: buffer,
-      ContentType: file.type,
+      ContentType: fileType,
       Metadata: {
-        originalName: file.name,
+        originalName: originalFileName,
         uploadedAt: new Date().toISOString(),
       },
     });
 
-    await r2Client.send(command);
+    const response = await r2Client.send(command);
 
-    const fileUrl = `${process.env.R2_PUBLIC_URL}/${filename}`;
+    const fileUrl = `${config.r2.publicUrl}/${fileName}`;
 
     // revalidatePath('/');
-
-    return {
-      success: true,
-      url: fileUrl,
-      key: filename,
-      message: 'File uploaded successfully',
-    };
+    if (response.$metadata.httpStatusCode === 200 && response.ETag) {
+      return {
+        success: true,
+        url: fileUrl,
+        message: 'File uploaded successfully',
+      };
+    }
   } catch (error) {
     console.error('Upload error:', error);
     return {
@@ -68,7 +66,7 @@ export async function uploadFile(formData) {
 export async function deleteFile(key) {
   try {
     const command = new DeleteObjectCommand({
-      Bucket: process.env.R2_BUCKET_NAME,
+      Bucket: config.r2.bucketName,
       Key: key,
     });
 

@@ -1,23 +1,24 @@
-import { connectDB } from '@/lib/mongoose/config'
-import { Article, Issue } from '@/lib/mongoose/models'
-import JournalStatCard from './JournalStatCard'
-import { VolumeIcon, IssuesIcon, ArticlesIcon } from '../Icons'
+import { connectDB } from '@/lib/mongoose/config';
+import { Issue } from '@/lib/mongoose/models/issue';
+import { Article } from '@/lib/mongoose/models/article';
+import JournalStatCard from './JournalStatCard';
+import { VolumeIcon, IssuesIcon, ArticlesIcon } from '../Icons';
 
 const getMaxVolume = async () => {
-  connectDB()
+  connectDB();
   try {
     const ArticleWithMaxVolume = Issue.find({ published: true })
       .sort({ volume: -1 })
-      .limit(1)
-    const issuesCount = Issue.find({ published: true }).count()
-    const articlesCount = Article.find({ published: true }).count()
+      .limit(1);
+    const issuesCount = Issue.find({ published: true }).count();
+    const articlesCount = Article.find({ published: true }).count();
     const [[{ volume: numberOfVolume }], numberOfIssues, numberOfArticles] =
-      await Promise.all([ArticleWithMaxVolume, issuesCount, articlesCount])
-    return { numberOfVolume, numberOfIssues, numberOfArticles }
+      await Promise.all([ArticleWithMaxVolume, issuesCount, articlesCount]);
+    return { numberOfVolume, numberOfIssues, numberOfArticles };
   } catch (error) {}
-}
+};
 async function JournalStats() {
-  const data = await getMaxVolume()
+  const data = await getMaxVolume();
   return (
     <section className='flex justify-around gap-5 lg:gap-10'>
       <JournalStatCard
@@ -39,7 +40,7 @@ async function JournalStats() {
         bg='bg-[#ffff33]/30'
       />
     </section>
-  )
+  );
 }
 
-export default JournalStats
+export default JournalStats;

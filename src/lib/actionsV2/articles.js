@@ -2,9 +2,9 @@
 
 import { revalidatePath } from 'next/cache';
 import { handleServerSideValidationError } from '../util';
-// import { Article } from '../mongoose/models/article';
-// import { Issue } from '../mongoose/models/issue';
-import { Article, Issue } from '../mongoose/models';
+import { Article } from '../mongoose/models/article';
+import { Issue } from '../mongoose/models/issue';
+// import { Article, Issue } from '../mongoose/models';
 import { articleSchemaForServer } from '../schemas/issues';
 import { connectDB } from '../mongoose/config';
 import mongoose from 'mongoose';
@@ -60,7 +60,11 @@ export const getArticlesInIssue = async (issue, sorted = true) => {
 };
 
 export const getAllPublishedArticles = async () => {
-  const publishedArticles = await Article.find({ published: true });
+  const publishedArticles = await Article.find({ published: true }).sort({
+    volume: -1,
+    issue: -1,
+    startPage: 1,
+  });
   return publishedArticles;
 };
 
@@ -82,7 +86,11 @@ export const getArticlesInCurrentIssue = async () => {
       };
     }
 
-    const articlesInCurrentIssue = await Article.find({ ref: latestIssue.ref });
+    const articlesInCurrentIssue = await Article.find({
+      ref: latestIssue.ref,
+    }).sort({
+      startPage: 1,
+    });
 
     return {
       currentIssue: latestIssue,
@@ -102,6 +110,7 @@ export async function createArticle(formData, url, params) {
   // Validate form data from frontend
   const { data, error } = articleSchemaForServer.safeParse(formData);
   if (error) {
+    console.log('i was called from createArticle');
     const validationError = handleServerSideValidationError(parsedData);
     return { ok: false, error: validationError, errorType: 'validationError' };
   }
@@ -115,6 +124,8 @@ export async function createArticle(formData, url, params) {
   articleData.published = params.published ? true : false;
   articleData.publishDate = new Date(params.publishDate);
   articleData.addedBy = user.user?.firstName + ' ' + user.user?.lastName;
+
+  console.log('articleData in createArticle:', articleData);
 
   // Ensure database connection
   await connectDB();

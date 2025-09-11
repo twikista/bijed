@@ -1,18 +1,19 @@
-'use client'
+'use client';
 
-import { useState } from 'react'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm } from 'react-hook-form'
-import { authenticate } from '@/lib/actions'
-import Link from 'next/link'
+import { useState } from 'react';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+// import { authenticate } from '@/lib/actions'
+import { login } from '@/lib/actionsV2/auth';
+import Link from 'next/link';
 
-import TextInput from '../TextInput'
-import PasswordInput from '../PasswordInput'
-import { signinFormSchema as schema } from '@/lib/schema'
-import DisplayServerValidationError from '../Dashboard/DisplayServerValidationErrors'
-import SubmitButton from '../SubmitButton'
-import FormWrapper from '../Dashboard/FormWrapper'
-import Form from '../Dashboard/Form'
+import TextInput from '../TextInput';
+import PasswordInput from '../PasswordInput';
+import { signinFormSchema as schema } from '@/lib/schema';
+import DisplayServerValidationError from '../Dashboard/DisplayServerValidationErrors';
+import SubmitButton from '../SubmitButton';
+import FormWrapper from '../Dashboard/FormWrapper';
+import Form from '../Dashboard/Form';
 
 function SignInForm() {
   const {
@@ -23,32 +24,33 @@ function SignInForm() {
   } = useForm({
     defaultValues: { email: '', password: '' },
     resolver: zodResolver(schema),
-  })
+  });
 
-  const [authError, setAuthError] = useState(null)
+  const [authError, setAuthError] = useState(null);
 
   const handler = async (data) => {
-    const response = await authenticate(data)
+    // const response = await authenticate(data)
+    const response = await login(data);
 
     if (response && response?.errorType === 'validationError') {
       const fieldErrorMapping = {
         email: 'email',
         password: 'password',
-      }
+      };
       const fieldWithError = Object.keys(fieldErrorMapping).find(
         (field) => response?.errors[field]
-      )
+      );
       if (fieldWithError) {
         // Use the ValidFieldNames type to ensure the correct field names
-        const errors = Object.keys(response.errors)
+        const errors = Object.keys(response.errors);
         errors.forEach((error) =>
           setError(error, { type: 'server', message: response.errors[error] })
-        )
+        );
       }
     } else if (response?.errorType === 'authError') {
-      setAuthError(response.error)
+      setAuthError(response.error);
     }
-  }
+  };
   return (
     <FormWrapper
       maxWidth='max-w-[480px] '
@@ -95,7 +97,7 @@ function SignInForm() {
         </Link>
       </div>
     </FormWrapper>
-  )
+  );
 }
 
-export default SignInForm
+export default SignInForm;

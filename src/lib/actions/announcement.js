@@ -1,15 +1,15 @@
-'use server'
+'use server';
 
-import { revalidatePath } from 'next/cache'
-import { connectDB } from '../mongoose/config'
-import { Announcement } from '../mongoose/models'
-import { announcementSchema } from '../schema'
-import { handleServerSideValidationError } from '../util'
+import { revalidatePath } from 'next/cache';
+import { connectDB } from '../mongoose/config';
+import { Announcement } from '../mongoose/models/announcement';
+import { announcementSchema } from '../schema';
+import { handleServerSideValidationError } from '../util';
 
 //publish announcement
 export const submitAnnouncementForPublishing = async (ref) => {
   try {
-    connectDB()
+    connectDB();
     const submittedAnnouncement = await Announcement.findOneAndUpdate(
       { ref: ref, status: 'draft' },
       {
@@ -18,24 +18,24 @@ export const submitAnnouncementForPublishing = async (ref) => {
         },
       },
       { new: true }
-    )
+    );
 
     if (submittedAnnouncement._id) {
-      revalidatePath(`/dashboard/announcements/${submittedAnnouncement.slug}`)
-      return { ok: true, slug: submittedAnnouncement?.slug }
+      revalidatePath(`/dashboard/announcements/${submittedAnnouncement.slug}`);
+      return { ok: true, slug: submittedAnnouncement?.slug };
     } else {
-      return { ok: false, error: 'something went wrong', errorType: 'other' }
+      return { ok: false, error: 'something went wrong', errorType: 'other' };
     }
   } catch (error) {
     // console.log(error)
   }
-}
+};
 
 //publish announcement
 export const publishAnnouncement = async (ref, user) => {
-  const date = new Date()
+  const date = new Date();
   try {
-    connectDB()
+    connectDB();
     const publishedAnnouncement = await Announcement.findOneAndUpdate(
       { ref: ref, status: 'review' },
       {
@@ -47,22 +47,22 @@ export const publishAnnouncement = async (ref, user) => {
         },
       },
       { new: true }
-    )
+    );
 
     if (publishedAnnouncement._id) {
-      revalidatePath(`/dashboard/announcements/${publishedAnnouncement.slug}`)
-      return { ok: true, slug: publishedAnnouncement?.slug }
+      revalidatePath(`/dashboard/announcements/${publishedAnnouncement.slug}`);
+      return { ok: true, slug: publishedAnnouncement?.slug };
     } else {
-      return { ok: false, error: 'something went wrong', errorType: 'other' }
+      return { ok: false, error: 'something went wrong', errorType: 'other' };
     }
   } catch (error) {
     // console.log(error)
   }
-}
+};
 
 export const rejectRequestToPublishAnnouncement = async (ref) => {
   try {
-    connectDB()
+    connectDB();
     const publishedAnnouncement = await Announcement.findOneAndUpdate(
       { ref: ref, status: 'review' },
       {
@@ -71,48 +71,52 @@ export const rejectRequestToPublishAnnouncement = async (ref) => {
         },
       },
       { new: true }
-    )
+    );
 
     if (publishedAnnouncement._id) {
-      revalidatePath(`/dashboard/announcements/${publishedAnnouncement.slug}`)
-      return { ok: true }
+      revalidatePath(`/dashboard/announcements/${publishedAnnouncement.slug}`);
+      return { ok: true };
     } else {
-      return { ok: false, error: 'something went wrong', errorType: 'other' }
+      return { ok: false, error: 'something went wrong', errorType: 'other' };
     }
   } catch (error) {
     // console.log(error)
   }
-}
+};
 
 export const updateAnnouncement = async (initialState, formData) => {
-  const parsedData = announcementSchema.safeParse(formData)
+  const parsedData = announcementSchema.safeParse(formData);
   if (!parsedData.success) {
-    const validationError = handleServerSideValidationError(parsedData)
-    return { ok: false, error: validationError, errorType: 'validationError' }
+    const validationError = handleServerSideValidationError(parsedData);
+    return { ok: false, error: validationError, errorType: 'validationError' };
   }
 
-  const data = { ...initialState, ...parsedData.data }
-  data.slug = data.title.replace(/ /g, '-')
+  const data = { ...initialState, ...parsedData.data };
+  data.slug = data.title.replace(/ /g, '-');
   try {
-    connectDB()
-    const announcementEixst = await Announcement.findById(initialState._id)
+    connectDB();
+    const announcementEixst = await Announcement.findById(initialState._id);
     if (!announcementEixst._id)
-      return { ok: false, error: 'Announcement not found!', errorType: 'other' }
+      return {
+        ok: false,
+        error: 'Announcement not found!',
+        errorType: 'other',
+      };
 
     // const newAnnouncement = new Announcement(data)
     const updatedAnnouncement = await Announcement.findByIdAndUpdate(
       initialState._id,
       data,
       { new: true }
-    )
+    );
 
     if (updatedAnnouncement?._id !== undefined) {
-      revalidatePath('/dashboard/announcements')
-      return { ok: true, slug: updatedAnnouncement?.slug }
+      revalidatePath('/dashboard/announcements');
+      return { ok: true, slug: updatedAnnouncement?.slug };
     } else {
-      return { ok: false, error: 'something went wrong', errorType: 'other' }
+      return { ok: false, error: 'something went wrong', errorType: 'other' };
     }
   } catch (error) {
-    return { ok: false, error: 'something went wrong', errorType: 'other' }
+    return { ok: false, error: 'something went wrong', errorType: 'other' };
   }
-}
+};

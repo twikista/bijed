@@ -36,5 +36,5 @@ export const menuItemsData = [
     ],
   },
   { name: 'contact', url: '/contact' },
-  { name: 'login', url: `/auth/login` },
-]
+  // { name: 'login', url: `/auth/login` },
+];

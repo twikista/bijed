@@ -1,6 +1,7 @@
 'use server';
 
-import { hashPassword, signJWT, validatePassword, verifyJWT } from '../helper';
+// import { hashPassword, signJWT, validatePassword, verifyJWT } from '../helper';
+import { hashPassword, validatePassword, signJWT, verifyJWT } from '../util';
 import { connectDB } from '../mongoose/config';
 import { User } from '../mongoose/models/user';
 import { signIn, signOut, auth } from '../../../auth';
@@ -12,12 +13,12 @@ import {
   newUserSchema,
   signinFormSchema,
 } from '../schemas/auth';
-import {
-  compileActivationEmailTemplate,
-  compilePasswordResetEmailTemplate,
-  compileResetUserPasswordEmail,
-  sendEmail,
-} from '../mongoose/emailServices';
+// import {
+//   compileActivationEmailTemplate,
+//   compilePasswordResetEmailTemplate,
+//   compileResetUserPasswordEmail,
+//   sendEmail,
+// } from '../mongoose/emailServices';
 import { revalidatePath } from 'next/cache';
 
 // export async function signup(formData) {
@@ -72,7 +73,7 @@ export async function signup(formData) {
 
     // 3. Create temp password & hash it
     const tempPassword = uniqid.time(); // Consider a stronger random string generator (e.g., crypto.randomBytes)
-    const hashedPassword = await hashPassword(tempPassword);
+    const hashedPassword = await hashPassword(formData.password);
 
     const userData = {
       ...parsedData.data,
@@ -88,29 +89,29 @@ export async function signup(formData) {
     const activationUrl = `${process.env.AUTH}/account-activation/${token}`;
 
     // 6. Prepare and send email
-    const emailBody = await compileActivationEmailTemplate({
-      name: firstName,
-      role,
-      email,
-      password: tempPassword,
-      url: activationUrl,
-      link: `${process.env.AUTH}/login`,
-    });
+    // const emailBody = await compileActivationEmailTemplate({
+    //   name: firstName,
+    //   role,
+    //   email,
+    //   password: tempPassword,
+    //   url: activationUrl,
+    //   link: `${process.env.AUTH}/login`,
+    // });
 
-    const emailResult = await sendEmail({
-      to: email,
-      subject: 'MSR - Activate Your Account',
-      body: emailBody,
-    });
+    // const emailResult = await sendEmail({
+    //   to: email,
+    //   subject: 'MSR - Activate Your Account',
+    //   body: emailBody,
+    // });
 
-    if (!emailResult.successful) {
-      return {
-        ok: false,
-        error:
-          'Email delivery failed. Please ensure the email address is valid.',
-        errorType: 'other',
-      };
-    }
+    // if (!emailResult.successful) {
+    //   return {
+    //     ok: false,
+    //     error:
+    //       'Email delivery failed. Please ensure the email address is valid.',
+    //     errorType: 'other',
+    //   };
+    // }
     revalidatePath('/dashboard/users');
     return { ok: true };
   } catch (error) {
@@ -227,26 +228,26 @@ export async function forgetPassword(formData) {
       { expiresIn: '900000ms' }
     );
     const resetPasswordUrl = `/auth/password-reset/${encryptedUserId}`;
-    const body = compilePasswordResetEmailTemplate({
-      name: user.firstName,
-      url: resetPasswordUrl,
-      link: `/auth/login`,
-    });
+    // const body = compilePasswordResetEmailTemplate({
+    //   name: user.firstName,
+    //   url: resetPasswordUrl,
+    //   link: `/auth/login`,
+    // });
 
-    const sendEmailResult = await sendEmail({
-      to: user.email,
-      subject: 'MSR - Reset your Password',
-      body,
-    });
-    if (sendEmailResult.successful) {
-      return { ok: true };
-    } else {
-      return {
-        ok: false,
-        error: 'Something went wrong. Please ensure email is valid',
-        errorType: 'other',
-      };
-    }
+    // const sendEmailResult = await sendEmail({
+    //   to: user.email,
+    //   subject: 'MSR - Reset your Password',
+    //   body,
+    // });
+    // if (sendEmailResult.successful) {
+    //   return { ok: true };
+    // } else {
+    //   return {
+    //     ok: false,
+    //     error: 'Something went wrong. Please ensure email is valid',
+    //     errorType: 'other',
+    //   };
+    // }
   } catch (error) {
     return { ok: false, error: 'Something went wrong', errorType: 'other' };
   }
@@ -393,24 +394,24 @@ export async function resetUserPassowrd(email) {
     );
 
     // 6. Prepare and send email
-    const emailBody = await compileResetUserPasswordEmail({
-      name: updatedUser.firstName,
-      password: tempPassword,
-    });
+    // const emailBody = await compileResetUserPasswordEmail({
+    //   name: updatedUser.firstName,
+    //   password: tempPassword,
+    // });
 
-    const emailResult = await sendEmail({
-      to: email,
-      subject: 'New MSR Account Password',
-      body: emailBody,
-    });
+    // const emailResult = await sendEmail({
+    //   to: email,
+    //   subject: 'New MSR Account Password',
+    //   body: emailBody,
+    // });
 
-    if (!emailResult.successful) {
-      return {
-        ok: false,
-        error: 'Email delivery failed.',
-        errorType: 'other',
-      };
-    }
+    // if (!emailResult.successful) {
+    //   return {
+    //     ok: false,
+    //     error: 'Email delivery failed.',
+    //     errorType: 'other',
+    //   };
+    // }
 
     return { ok: true };
   } catch (error) {

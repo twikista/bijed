@@ -1,24 +1,24 @@
-import { auth } from '../../../../auth'
+import { auth } from '../../../../auth';
 
-import DashboardContainer from '@/components/Dashboard/DashboardContainer'
-import JournalStats from '@/components/Dashboard/JournalStats'
-import { TimePastIcon } from '@/components/Icons'
-import QuickLinks from '@/components/Dashboard/QuickLinks'
-import { Issue } from '@/lib/mongoose/models'
-import { connectDB } from '@/lib/mongoose/config'
-import SideNav from '@/components/Dashboard/SideNav'
-import MobileNav from '@/components/Dashboard/MobileNav'
+import DashboardContainer from '@/components/Dashboard/DashboardContainer';
+import JournalStats from '@/components/Dashboard/JournalStats';
+import { TimePastIcon } from '@/components/Icons';
+import QuickLinks from '@/components/Dashboard/QuickLinks';
+import { Issue } from '@/lib/mongoose/models/issue';
+import { connectDB } from '@/lib/mongoose/config';
+import SideNav from '@/components/Dashboard/SideNav';
+import MobileNav from '@/components/Dashboard/MobileNav';
 
 const getLatestIssue = async () => {
-  connectDB()
-  const latestIssue = await Issue.find().sort({ publishDate: -1 }).limit(1)
-  return latestIssue[0]
-}
+  await connectDB();
+  const latestIssue = await Issue.find().sort({ publishDate: -1 }).limit(1);
+  return latestIssue[0];
+};
 async function Dashboard() {
-  const { user } = await auth()
-  const lastIssue = await getLatestIssue()
+  const { user } = await auth();
+  const lastIssue = await getLatestIssue();
   const formatedDate = (date) =>
-    date ? new Intl.DateTimeFormat('en-GB').format(date) : 'N/A'
+    date ? new Intl.DateTimeFormat('en-GB').format(date) : 'N/A';
   return (
     <main className='relative flex h-screen'>
       <SideNav />
@@ -66,7 +66,7 @@ async function Dashboard() {
         </div>
       </DashboardContainer>
     </main>
-  )
+  );
 }
 
-export default Dashboard
+export default Dashboard;

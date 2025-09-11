@@ -1,22 +1,22 @@
-'use client'
+'use client';
 
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import Form from './Dashboard/Form'
-import TextInput from './TextInput'
-import Textarea from './Textarea'
-import { contactFormSchema } from '@/lib/schema'
-import { toast } from 'react-toastify'
-import FormWrapper from './Dashboard/FormWrapper'
-import SubmitButton from './SubmitButton'
-import { sendContactFormMessage } from '@/lib/actions'
-import ReCAPTCHA from 'react-google-recaptcha'
-import { useRef } from 'react'
-import { config } from '@/lib/config'
-import ValidateRecaptchaCheckbox from './ValidateRecaptchaCheckbox'
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import Form from './Dashboard/Form';
+import TextInput from './TextInput';
+import Textarea from './Textarea';
+import { contactFormSchema } from '@/lib/schema';
+import { toast } from 'sonner';
+import FormWrapper from './Dashboard/FormWrapper';
+import SubmitButton from './SubmitButton';
+import { sendContactFormMessage } from '@/lib/actions';
+import ReCAPTCHA from 'react-google-recaptcha';
+import { useRef } from 'react';
+import { config } from '@/lib/config';
+import ValidateRecaptchaCheckbox from './ValidateRecaptchaCheckbox';
 
 function ContactForm() {
-  const captchaRef = useRef()
+  const captchaRef = useRef();
   const {
     register,
     handleSubmit,
@@ -32,22 +32,22 @@ function ContactForm() {
       isHuman: false,
     },
     resolver: zodResolver(contactFormSchema),
-  })
+  });
 
   const handler = async (data) => {
-    const response = await sendContactFormMessage(data)
+    const response = await sendContactFormMessage(data);
     if (response?.ok) {
-      captchaRef.current.reset()
-      reset()
-      toast.success('Message sent.')
+      captchaRef.current.reset();
+      reset();
+      toast.success('Message sent.');
     } else {
-      toast.error('Something went wrong. Please try again')
+      toast.error('Something went wrong. Please try again');
     }
-  }
+  };
 
   const onChange = (value) => {
-    if (value) setValue('isHuman', true)
-  }
+    if (value) setValue('isHuman', true);
+  };
 
   return (
     <FormWrapper formHeading='Send us a message'>
@@ -106,7 +106,7 @@ function ContactForm() {
         </div>
       </Form>
     </FormWrapper>
-  )
+  );
 }
 
-export default ContactForm
+export default ContactForm;

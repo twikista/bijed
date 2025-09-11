@@ -4,27 +4,26 @@ import {
   PublishButton,
   RejectPublishButton,
   SendForAuthorizationButton,
-} from '@/components/Dashboard/Buttons'
-import CreateButton from '@/components/Dashboard/createButton'
-import DashboardContainer from '@/components/Dashboard/DashboardContainer'
-import DashboardWrapper from '@/components/Dashboard/DashboardWrapper'
-import { deleteArticle } from '@/lib/actions'
-import { connectDB } from '@/lib/mongoose/config'
-import { Article, Issue } from '@/lib/mongoose/models'
-import { auth } from '../../../../../../../auth'
-import Link from 'next/link'
-import {
-  publishIssue,
-  rejectRequestToPublishIssue,
-  submitIssueForPublishing,
-} from '@/lib/actions/issues'
-import SideNav from '@/components/Dashboard/SideNav'
-import clsx from 'clsx'
-import MobileNav from '@/components/Dashboard/MobileNav'
-import Authors from '@/components/Authors'
+} from '@/components/Dashboard/Buttons';
+import CreateButton from '@/components/Dashboard/createButton';
+import DashboardContainer from '@/components/Dashboard/DashboardContainer';
+import DashboardWrapper from '@/components/Dashboard/DashboardWrapper';
+import { deleteArticle } from '@/lib/actions';
+import { connectDB } from '@/lib/mongoose/config';
+import { Issue } from '@/lib/mongoose/models/issue';
+import { Article } from '@/lib/mongoose/models/article';
+import { auth } from '../../../../../../../auth';
+import Link from 'next/link';
+import { publishIssue } from '@/lib/actionsV2/issues';
+import SideNav from '@/components/Dashboard/SideNav';
+import clsx from 'clsx';
+import MobileNav from '@/components/Dashboard/MobileNav';
+import Authors from '@/components/Authors';
+import IssueEmptyState from '@/components/new/IssueEmptyState';
+import PublishIssue from '@/components/new/PublishIssue';
 
 const getArticlesInIssue = async (issueRef) => {
-  connectDB()
+  await connectDB();
   const articlesInIssue = await Promise.all([
     Issue.find({
       ref: `${issueRef}`,
@@ -34,67 +33,27 @@ const getArticlesInIssue = async (issueRef) => {
     }).sort({
       startPage: 1,
     }),
-  ])
-  return articlesInIssue
-}
+  ]);
+  return articlesInIssue;
+};
 
 async function IssuePage({ params }) {
-  const { user } = await auth()
+  const { user } = await auth();
 
-  const { issue: issueRef } = params
+  const { issue: issueRef } = params;
 
-  const [[issue], articlesInIssue] = await getArticlesInIssue(issueRef)
+  const [[issue], articlesInIssue] = await getArticlesInIssue(issueRef);
 
-  const businessManagerPrivilege =
-    issue?.status === 'draft' && user?.role === 'business manager'
+  const editorPrivilege = issue?.status === 'draft' && user?.role === 'editor';
 
-  const managingEditorPrivilege =
-    issue?.status === 'review' && user?.role === 'managing editor'
-
-  const adminPrevilege = user?.role === 'admin'
+  const adminPrevilege = user?.role === 'admin';
+  const adminRoles = {
+    admin: editorPrivilege,
+    systemAdmin: adminPrevilege,
+  };
 
   if (!articlesInIssue.length) {
-    return (
-      <main className='relative flex h-screen'>
-        <SideNav />
-        <MobileNav />
-        <DashboardContainer>
-          <DashboardWrapper>
-            <section className='flex flex-col'>
-              <div className='h-14'>
-                <h2 className='text-2xl font-bold text-center capitalize md:text-left font-cairo'>
-                  {`Volume ${issue.volume} Issue ${
-                    issue.issueNumber
-                  } (${new Date(issue.publishDate).getFullYear()})`}
-                </h2>
-                <p className='text-sm text-center text-gray-400 font-cairo md:text-left'>
-                  {issue.published
-                    ? `Publish Date: ${new Date(
-                        issue.publishDate
-                      ).toLocaleDateString('en-US', {
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric',
-                      })}`
-                    : 'Publish Date: N/A'}
-                </p>
-              </div>
-              <div className='flex flex-col items-center justify-center flex-1 my-24 space-y-8'>
-                <p className='text-2xl text-center text-gray-400'>
-                  There are currently no articles in this issue
-                </p>
-                {user?.role === 'business manager' && (
-                  <CreateButton
-                    label='Add Article'
-                    href={`/dashboard/issues/${issue.ref}/new-article`}
-                  />
-                )}
-              </div>
-            </section>
-          </DashboardWrapper>
-        </DashboardContainer>
-      </main>
-    )
+    return <IssueEmptyState issue={issue} />;
   }
 
   return (
@@ -106,9 +65,7 @@ async function IssuePage({ params }) {
           <section>
             <div>
               <h2 className='text-2xl font-bold text-center capitalize md:text-left font-cairo'>
-                {`Volume ${issue.volume} Issue ${issue.issueNumber} (${new Date(
-                  issue.publishDate
-                ).getFullYear()})`}
+                {issue.issueTitle}
               </h2>
               <div className='flex justify-center my-1 md:justify-start'>
                 <span
@@ -133,7 +90,7 @@ async function IssuePage({ params }) {
               </p>
             </div>
             <div className='flex justify-end mt-5'>
-              {businessManagerPrivilege && (
+              {(!issue.published || user.role === 'admin') && (
                 <CreateButton
                   label='Add Article'
                   href={`/dashboard/issues/${issue.ref}/new-article`}
@@ -153,7 +110,7 @@ async function IssuePage({ params }) {
                     </th>
                     <th className='px-2 pt-4 pb-1 min-w-[100px]'>Page</th>
                     <th className='px-4 pt-4 pb-1 font-medium w-14'>Status</th>
-                    {(businessManagerPrivilege || adminPrevilege) && (
+                    {(issue.status === 'draft' || user.role === 'admin') && (
                       <>
                         <th className='sr-only'></th>
                         <th className='sr-only'></th>
@@ -196,7 +153,7 @@ async function IssuePage({ params }) {
                           </span>
                         )}
                       </td>
-                      {(businessManagerPrivilege || adminPrevilege) && (
+                      {(!issue.published || user.role === 'admin') && (
                         <>
                           <td className='px-4 py-4 text-center'>
                             <EditButton
@@ -219,52 +176,18 @@ async function IssuePage({ params }) {
               </table>
             </div>
           </section>
-          {businessManagerPrivilege && (
-            <div className='flex justify-center gap-6 pt-2 md:pt-6'>
-              <SendForAuthorizationButton
-                resourceRef={issueRef}
-                action={submitIssueForPublishing}
-                label={{
-                  main: 'Submit for Authorization',
-                  alt: 'submitting Issue...',
-                }}
-                notificationMessage={{
-                  success: 'Issue submitted for authorization',
-                  error: 'Something went wrong',
-                }}
-              />
-            </div>
-          )}
-          {managingEditorPrivilege && (
-            <div className='flex justify-center gap-6 pt-2 pb-4 md:pt-6'>
-              <RejectPublishButton
-                resourceRef={issue?.ref}
-                label={{ main: 'Reject Publish Request', alt: 'Processing...' }}
-                action={rejectRequestToPublishIssue}
-                notificationMessage={{
-                  success: 'Publish request rejected successfully',
-                  error: 'Something went wrong',
-                }}
-              />
-              <PublishButton
-                resourceRef={issue?.ref}
-                user={user}
+          <div className='flex justify-center gap-6 md:mt-4'>
+            {!issue.published && (
+              <PublishIssue
+                issue={JSON.parse(JSON.stringify(issue))}
                 action={publishIssue}
-                notificationMessage={{
-                  success: 'Issue published',
-                  error: 'Error publishing issue',
-                }}
-                label={{
-                  main: 'Publish issue',
-                  alt: 'Publishing issue',
-                }}
               />
-            </div>
-          )}
+            )}
+          </div>
         </DashboardWrapper>
       </DashboardContainer>
     </main>
-  )
+  );
 }
 
-export default IssuePage
+export default IssuePage;

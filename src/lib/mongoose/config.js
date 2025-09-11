@@ -1,16 +1,27 @@
-import mongoose from 'mongoose'
+import mongoose from 'mongoose';
+import { config } from '../config';
 
-const connection = {}
+const connection = { isConnected: false };
 export const connectDB = async () => {
   try {
     if (connection.isConnected) {
-      // console.log('using exisiting connection')
+      console.log('using exisiting connection');
+      return;
     }
 
-    const db = await mongoose.connect(process.env.NEXT_PUBLIC_MONGO_URI)
-    connection.isConnected = db.connections[0].readyState
+    // Validate MongoDB URI
+    if (!config.mongoURI) {
+      throw new Error('MongoDB URI is not defined in config');
+    }
+
+    const db = await mongoose.connect(config.mongoURI);
+    connection.isConnected = db.connections[0].readyState === 1;
+    if (connection.isConnected) {
+      console.log('✅ MongoDB connected successfully');
+    }
   } catch (error) {
-    // console.log('failed to connect')
+    console.log('failed to connect', error);
+    connection.isConnected = false;
     // console.log(error)
   }
-}
+};

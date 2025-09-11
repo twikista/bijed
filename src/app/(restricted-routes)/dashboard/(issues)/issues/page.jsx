@@ -1,49 +1,29 @@
-import Link from 'next/link'
-import { getIssues } from '@/lib/data'
-import CreateButton from '@/components/Dashboard/createButton'
-import DashboardContainer from '@/components/Dashboard/DashboardContainer'
-import DashboardWrapper from '@/components/Dashboard/DashboardWrapper'
-import ResourceFilter from '@/components/Dashboard/ResourceFilter'
-import { auth } from '../../../../../../auth'
-import SideNav from '@/components/Dashboard/SideNav'
-import { DeleteButton, EditButton } from '@/components/Dashboard/Buttons'
-import { deleteIssue } from '@/lib/actions/issues'
-import MobileNav from '@/components/Dashboard/MobileNav'
+import Link from 'next/link';
+// import { getIssues } from '@/lib/data';
+import CreateButton from '@/components/Dashboard/createButton';
+import DashboardContainer from '@/components/Dashboard/DashboardContainer';
+import DashboardWrapper from '@/components/Dashboard/DashboardWrapper';
+import ResourceFilter from '@/components/Dashboard/ResourceFilter';
+import ResourceFilterV2 from '@/components/new/ResourceFilterV2';
+import { auth } from '../../../../../../auth';
+import SideNav from '@/components/Dashboard/SideNav';
+import { DeleteButton, EditButton } from '@/components/Dashboard/Buttons';
+import { deleteIssue } from '@/lib/actions/issues';
+import MobileNav from '@/components/Dashboard/MobileNav';
+import { getIssues } from '@/lib/actionsV2/issues';
+import IssuesEmptyState from '@/components/new/IssuesEmptyState';
 
 async function Issues({ searchParams }) {
-  const { user } = await auth()
-  const mode = searchParams.mode
-  const issues = await getIssues(mode)
+  const { user } = await auth();
+  console.log('user:', user);
+  const status = searchParams.status;
+  console.log(status);
+  const issues = await getIssues(status === 'undefined' ? 'published' : status);
 
   if (!issues?.length) {
     return (
-      <main className='relative flex h-screen'>
-        <SideNav />
-        <MobileNav />
-        <DashboardContainer>
-          <DashboardWrapper>
-            <div className='flex flex-row-reverse items-center justify-between pb-3 border-b-2 border-200'>
-              {user.role === 'business manager' && (
-                <CreateButton
-                  href='/dashboard/issues/new-issue'
-                  label='Add Issue'
-                />
-              )}
-              <ResourceFilter mode={mode} />
-            </div>
-            <section className='flex flex-col'>
-              <div className='flex items-center justify-center flex-1 my-24'>
-                <p className='text-2xl font-medium text-center text-gray-400'>
-                  {!mode
-                    ? 'No Published Issues'
-                    : 'Oops! No pending pending/unpublished issue'}
-                </p>
-              </div>
-            </section>
-          </DashboardWrapper>
-        </DashboardContainer>
-      </main>
-    )
+      <IssuesEmptyState status={status} user={user} issues={issues.length} />
+    );
   }
 
   return (
@@ -53,13 +33,14 @@ async function Issues({ searchParams }) {
       <DashboardContainer>
         <DashboardWrapper>
           <div className='flex flex-row-reverse items-center justify-between pb-3 border-b-2 border-200'>
-            {user.role === 'business manager' && (
+            {user && (
               <CreateButton
                 href='/dashboard/issues/new-issue'
                 label='Add Issue'
               />
             )}
-            <ResourceFilter mode={mode} />
+            {/* <ResourceFilter mode={mode} /> */}
+            <ResourceFilterV2 />
           </div>
           <div className='p-2 bg-[#e5d4ff] rounded-lg md:pt-0 overflow-x-auto'>
             <table className='min-w-full border-collapse'>
@@ -134,7 +115,7 @@ async function Issues({ searchParams }) {
         </DashboardWrapper>
       </DashboardContainer>
     </main>
-  )
+  );
 }
 
-export default Issues
+export default Issues;

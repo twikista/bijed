@@ -1,161 +1,160 @@
-'use server'
-import { connectDB } from './mongoose/config'
-import {
-  Article,
-  Announcement,
-  Issue,
-  User,
-  EditorialBoard,
-} from './mongoose/models'
+'use server';
+import { connectDB } from './mongoose/config';
+
+import { Article } from './mongoose/models/article';
+import { Issue } from './mongoose/models/issue';
+import { Announcement } from './mongoose/models/announcement';
+import { User } from './mongoose/models/user';
+import { EditorialBoard } from './mongoose/models/editorialBoard';
 
 export const fetchAnnouncement = async (fetchBy, item) => {
-  connectDB()
+  connectDB();
   if (fetchBy === 'slug') {
-    const announcement = await Announcement.findOne({ slug: item })
-    return announcement
+    const announcement = await Announcement.findOne({ slug: item });
+    return announcement;
   }
-  const announcement = await Announcement.findOne({ ref: item })
-  return announcement
-}
+  const announcement = await Announcement.findOne({ ref: item });
+  return announcement;
+};
 
 export const getAnnouncements = async () => {
   try {
-    connectDB()
+    connectDB();
     const announcements = await Announcement.find({})
       .sort({ createdAt: 1 })
-      .limit(2)
-    return announcements
+      .limit(2);
+    return announcements;
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-}
+};
 
 export const getIssues = async (mode) => {
-  const currrentMode = mode === undefined || mode == 'final' ? 'final' : mode
+  const currrentMode = mode === undefined || mode == 'final' ? 'final' : mode;
   // nostore()
   try {
-    connectDB()
+    connectDB();
     const issues = await Issue.find({ mode: currrentMode }).sort({
       volume: -1,
       issueNumber: -1,
-    })
-    return issues
+    });
+    return issues;
   } catch (error) {
     // console.log(error)
   }
-}
+};
 
 export const getIssue = async (issueRef) => {
   try {
-    connectDB()
-    const issue = await Issue.findOne({ ref: issueRef }).lean()
+    connectDB();
+    const issue = await Issue.findOne({ ref: issueRef }).lean();
 
     // const json = JSON.stringify(issue)
     // const issueObject = JSON.parse(json)
-    return issue
+    return issue;
   } catch (error) {
     // console.log(error)
   }
-}
+};
 
 export const getArticle = async (slug) => {
-  connectDB()
+  connectDB();
   const article = await Article.findOne({
     ref: `${slug.issue}`,
     slug: `${slug.article}`,
-  })
-  return article
-}
+  });
+  return article;
+};
 
 export const getArticlesInIssue = async (issue, sorted = true) => {
-  connectDB()
+  connectDB();
   if (sorted) {
     const articlesInIssue = await Article.find({
       ref: `${issue}`,
       published: true,
     }).sort({
       startPage: 1,
-    })
-    return articlesInIssue
+    });
+    return articlesInIssue;
   }
   const articlesInIssue = await Article.find({
     ref: `${issue}`,
     published: true,
-  })
-  return articlesInIssue
-}
+  });
+  return articlesInIssue;
+};
 
 export const getArticlesInCurrentIssue = async () => {
   try {
-    connectDB()
+    connectDB();
     const currentIssue = await Issue.find({ published: true, mode: 'final' })
       .sort({ volume: -1 })
-      .limit(1)
+      .limit(1);
     if (!!currentIssue.length) {
-      const [issue] = currentIssue
+      const [issue] = currentIssue;
       const articlesInCurrentIssue = await Article.find({
         ref: issue?.ref,
-      })
-      return { currentIssue, articlesInCurrentIssue }
+      });
+      return { currentIssue, articlesInCurrentIssue };
     }
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-}
+};
 
 export const fetchUnpublishedIssue = async ({ issueRef }) => {
   try {
-    connectDB()
+    connectDB();
     const unpublishedIssue = await Issue.find({
       published: false,
       ref: issueRef,
-    }).populate('articles')
-    return unpublishedIssue
+    }).populate('articles');
+    return unpublishedIssue;
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-}
+};
 
 export const getUser = async (email) => {
-  connectDB()
+  connectDB();
 
-  const user = await User.findOne({ email })
-  return user
-}
+  const user = await User.findOne({ email });
+  return user;
+};
 
 export const getUsers = async () => {
-  connectDB()
+  connectDB();
 
   try {
-    const user = await User.find()
-    const parsedUsers = JSON.parse(JSON.stringify(user))
+    const user = await User.find();
+    const parsedUsers = JSON.parse(JSON.stringify(user));
     if (!!user) {
-      return { ok: true, users: parsedUsers }
+      return { ok: true, users: parsedUsers };
     } else {
-      return { ok: false, users: null }
+      return { ok: false, users: null };
     }
   } catch (error) {
     // console.log(error)
   }
-}
+};
 
 export const fetchEditorialBoard = async (mode) => {
-  const currrentMode = mode === undefined || mode == 'final' ? 'final' : mode
-  connectDB()
+  const currrentMode = mode === undefined || mode == 'final' ? 'final' : mode;
+  connectDB();
   try {
-    const editorialBoard = await EditorialBoard.find({ mode: currrentMode })
-    return editorialBoard
+    const editorialBoard = await EditorialBoard.find({ mode: currrentMode });
+    return editorialBoard;
   } catch (error) {
     // console.log(error)
   }
-}
+};
 
 export const fetchAllEditorialBoardData = async () => {
-  connectDB()
+  connectDB();
   try {
-    const editorialBoard = await EditorialBoard.find()
-    return editorialBoard
+    const editorialBoard = await EditorialBoard.find();
+    return editorialBoard;
   } catch (error) {
     // console.log(error)
   }
-}
+};

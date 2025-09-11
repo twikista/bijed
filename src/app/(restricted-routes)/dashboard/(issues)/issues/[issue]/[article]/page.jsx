@@ -1,28 +1,28 @@
-import Link from 'next/link'
-import Image from 'next/image'
-import { auth } from '../../../../../../../../auth'
+import Link from 'next/link';
+import Image from 'next/image';
+import { auth } from '../../../../../../../../auth';
 
-import DashboardContainer from '@/components/Dashboard/DashboardContainer'
-import { getArticle } from '@/lib/data'
-import { joinKeywords } from '@/lib/util'
-import { deleteArticle } from '@/lib/actions'
+import DashboardContainer from '@/components/Dashboard/DashboardContainer';
+import { getArticle } from '@/lib/data';
+import { joinKeywords } from '@/lib/util';
+import { deleteArticle } from '@/lib/actionsV2/articles';
 
-import ccLogo from '@/../public/by.png'
+import ccLogo from '@/../public/by.png';
 import {
   EdiButton,
   DeleteButton,
   EditButton,
-} from '@/components/Dashboard/Buttons'
-import DashboardWrapper from '@/components/Dashboard/DashboardWrapper'
-import SideNav from '@/components/Dashboard/SideNav'
-import Authors from '@/components/Authors'
-import ArticleInfo from '@/components/ArticleInfo'
-import { PDFIcon } from '@/components/Icons'
-import MobileNav from '@/components/Dashboard/MobileNav'
+} from '@/components/Dashboard/Buttons';
+import DashboardWrapper from '@/components/Dashboard/DashboardWrapper';
+import SideNav from '@/components/Dashboard/SideNav';
+import Authors from '@/components/Authors';
+import ArticleInfo from '@/components/ArticleInfo';
+import { PDFIcon } from '@/components/Icons';
+import MobileNav from '@/components/Dashboard/MobileNav';
 
 async function Article({ params }) {
-  const { user } = await auth()
-  const article = await getArticle(params)
+  const { user } = await auth();
+  const article = await getArticle(params);
 
   return (
     <main className='relative flex h-screen'>
@@ -61,20 +61,20 @@ async function Article({ params }) {
                     <span>View PDF</span>
                     <PDFIcon className='w-5 text-' />
                   </Link>
-                  {user.role === 'business manager' && !article.published && (
-                    <>
-                      <EditButton
-                        href={`/dashboard/issues/${params.issue}/${params.article}/edit`}
-                        label='edit Article'
-                      />
-                      <DeleteButton
-                        variant='primary'
-                        id={String(article._id)}
-                        action={deleteArticle}
-                        label='Delete Article'
-                      />
-                    </>
-                  )}
+                  {!article.published || user.role === 'admin' ? (
+                    <EditButton
+                      href={`/dashboard/issues/${params.issue}/${params.article}/edit`}
+                      label='edit Article'
+                    />
+                  ) : null}
+                  {user.role === 'admin' && !article.published ? (
+                    <DeleteButton
+                      variant='primary'
+                      id={String(article._id)}
+                      action={deleteArticle}
+                      label='Delete Article'
+                    />
+                  ) : null}
                 </div>
               </div>
               <div>
@@ -106,10 +106,10 @@ async function Article({ params }) {
         </DashboardWrapper>
       </DashboardContainer>
     </main>
-  )
+  );
 }
 
-export default Article
+export default Article;
 
 // import Link from 'next/link'
 // import Image from 'next/image'

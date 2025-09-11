@@ -113,7 +113,7 @@ export const IssueFormSchema = z
     issueYear: z
       .number('issue year must be a number')
       .min(
-        new Date().getFullYear() - 5,
+        new Date().getFullYear() - 10,
         'issue year must be within the last 5 years'
       )
       .max(new Date().getFullYear(), 'issue year cannot be in the future'),

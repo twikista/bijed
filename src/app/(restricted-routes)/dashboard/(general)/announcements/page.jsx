@@ -1,40 +1,40 @@
-import { connectDB } from '@/lib/mongoose/config'
-import { Announcement } from '@/lib/mongoose/models'
-import CreateButton from '@/components/Dashboard/createButton'
-import DashboardContainer from '@/components/Dashboard/DashboardContainer'
-import DashboardWrapper from '@/components/Dashboard/DashboardWrapper'
-import Link from 'next/link'
-import ResourceFilter from '@/components/Dashboard/ResourceFilter'
-import { auth } from '../../../../../../auth'
-import clsx from 'clsx'
-import { DeleteButton, EditButton } from '@/components/Dashboard/Buttons'
-import { deleteAnnouncement } from '@/lib/actions'
+import { connectDB } from '@/lib/mongoose/config';
+import { Announcement } from '@/lib/mongoose/models/announcement';
+import CreateButton from '@/components/Dashboard/createButton';
+import DashboardContainer from '@/components/Dashboard/DashboardContainer';
+import DashboardWrapper from '@/components/Dashboard/DashboardWrapper';
+import Link from 'next/link';
+import ResourceFilter from '@/components/Dashboard/ResourceFilter';
+import { auth } from '../../../../../../auth';
+import clsx from 'clsx';
+import { DeleteButton, EditButton } from '@/components/Dashboard/Buttons';
+import { deleteAnnouncement } from '@/lib/actions';
 
 const fetchAnnouncements = async () => {
   // noStore()
-  connectDB()
-  const announcements = await Announcement.find({})
+  connectDB();
+  const announcements = await Announcement.find({});
 
-  return announcements
-}
+  return announcements;
+};
 
 const filterAnnouncements = async (mode) => {
-  const currrentMode = mode === undefined || mode == 'final' ? 'final' : mode
+  const currrentMode = mode === undefined || mode == 'final' ? 'final' : mode;
   // noStore()
-  connectDB()
-  const announcements = await Announcement.find({ mode: currrentMode })
+  connectDB();
+  const announcements = await Announcement.find({ mode: currrentMode });
 
-  return announcements
-}
+  return announcements;
+};
 
 async function AnnouncementsPage({ searchParams }) {
-  const session = await auth()
-  const mode = searchParams?.mode
+  const session = await auth();
+  const mode = searchParams?.mode;
   const data = await Promise.all([
     filterAnnouncements(mode),
     fetchAnnouncements(),
-  ])
-  const [filteredAnnouncements, announcements] = data
+  ]);
+  const [filteredAnnouncements, announcements] = data;
   // const businessManagerPrivilege =
   //   issue?.status === 'draft' && user?.role === 'business manager'
 
@@ -56,7 +56,7 @@ async function AnnouncementsPage({ searchParams }) {
           </section>
         </DashboardWrapper>
       </DashboardContainer>
-    )
+    );
   }
 
   return (
@@ -137,7 +137,7 @@ async function AnnouncementsPage({ searchParams }) {
         </div>
       </DashboardWrapper>
     </DashboardContainer>
-  )
+  );
 }
 
-export default AnnouncementsPage
+export default AnnouncementsPage;

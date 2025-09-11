@@ -23,6 +23,7 @@ export const hashPassword = async (password) => {
 
 export const validatePassword = async (password, hashedPassword) => {
   const isValid = await bcrypt.compare(password, hashedPassword);
+  console.log('Password validation result:', isValid);
   return isValid;
 };
 
@@ -90,4 +91,19 @@ export const authorsNameWithAbrreviations = (name) => {
     index === 0 ? `${name} ` : `${name[0]?.toUpperCase()}.`
   );
   return arrayWithNameInitials.join('');
+};
+
+export const authorsNameWithAbrreviationsV2 = (name, reverse = true) => {
+  const splitName = name.split(' ');
+  const firstName = splitName[0];
+  const arrayWithNameInitials = splitName.map((name, index) =>
+    index === 0
+      ? null
+      : index !== splitName.length - 1
+      ? `${name[0]?.toUpperCase()}. `
+      : `${name[0]?.toUpperCase()}.`
+  );
+  return reverse
+    ? `${arrayWithNameInitials.join(' ')} ${firstName}`
+    : `${firstName} ${arrayWithNameInitials.join(' ')}`;
 };

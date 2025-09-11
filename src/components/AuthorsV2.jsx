@@ -1,15 +1,17 @@
-import { authorsNameWithAbrreviations } from '@/lib/util';
+import { authorsNameWithAbrreviationsV2 } from '@/lib/util';
+import { authorsNameWithAbrreviations } from '@/lib/utils';
+import { cn } from '@/lib/utils';
 
-function Authors({ authors, withAffliation, additionalStyles }) {
+export default function AuthorsV2({ authors, withAffliation, className }) {
   if (withAffliation)
     return (
       <div className='space-y-2'>
         {authors.map(({ name, department, institution, _id }) => (
           <div key={_id} className=''>
             {/* <div className='flex items-center space-x-1'> */}
-            <p className='font-semibold leading-none ext-sm sm:text-base'>
+            <span className='text-sm font-semibold leading-none sm:text-base'>
               {name}
-            </p>
+            </span>
             {/* </div> */}
             <span className='flex flex-wrap text-[#808080] text-sm'>{`${department}, ${institution}`}</span>
             {/* <p className='text-neutral-500'>{institution}</p> */}
@@ -22,13 +24,11 @@ function Authors({ authors, withAffliation, additionalStyles }) {
       {authors.map((author, index) => (
         <span
           key={author._id}
-          className={`text-sm font-medium sm:text-base text-neutral-600 ${additionalStyles}`}
-        >{`${authorsNameWithAbrreviations(author.name)}${
+          className={cn('text-sm text-[#606060]', className)}
+        >{`${authorsNameWithAbrreviationsV2(author.name)}${
           index !== authors.length - 1 ? ', ' : ''
         }`}</span>
       ))}
     </div>
   );
 }
-
-export default Authors;

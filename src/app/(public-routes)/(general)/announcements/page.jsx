@@ -1,18 +1,18 @@
-import { connectDB } from '@/lib/mongoose/config'
-import { Announcement } from '@/lib/mongoose/models'
-import { formatDate } from '@/lib/util'
-import Link from 'next/link'
-import { CalendarDaysIcon } from '@heroicons/react/24/outline'
-import MainContainer from '@/components/MainContainer'
+import { connectDB } from '@/lib/mongoose/config';
+import { Announcement } from '@/lib/mongoose/models/announcement';
+import { formatDate } from '@/lib/util';
+import Link from 'next/link';
+import { CalendarDaysIcon } from '@heroicons/react/24/outline';
+import MainContainer from '@/components/MainContainer';
 
 const fetchAnnouncements = async () => {
-  connectDB()
-  const announcements = await Announcement.find()
-  return announcements
-}
+  connectDB();
+  const announcements = await Announcement.find();
+  return announcements;
+};
 
 async function AnnouncementPage() {
-  const announcements = await fetchAnnouncements()
+  const announcements = await fetchAnnouncements();
   return (
     <MainContainer>
       {announcements.map((announcement) => (
@@ -35,7 +35,7 @@ async function AnnouncementPage() {
         </article>
       ))}
     </MainContainer>
-  )
+  );
 }
 
-export default AnnouncementPage
+export default AnnouncementPage;
